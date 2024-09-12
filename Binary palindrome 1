@@ -97,27 +97,27 @@ So, the total time complexity is **O(log₂(n))**.
 optimized code
 
 
-class Main{
+#include <iostream>
+using namespace std;
 
-    public static int findReverse(int n){
-        int reverse_bin = 0;
-
-        int temp = n;
-        while (temp > 0) {
-            reverse_bin = (reverse_bin << 1) | (temp & 1);
-            temp = temp >> 1;
-        }
-        return reverse_bin;
+int findReverse(int n) {
+    int reverse_bin = 0;
+    int temp = n;
+    while (temp > 0) {
+        reverse_bin = (reverse_bin << 1) | (temp & 1);
+        temp >>= 1;
     }
+    return reverse_bin;
+}
 
-    public static boolean isPalindrome(int n) {
-        return n == findReverse(n);
-    }
+bool isPalindrome(int n) {
+    return n == findReverse(n);
+}
 
-    public static void main(String[] args) {
-        int n = 10;
-        System.out.println("Is binary representation of " + n + " a palindraome? " + (isPalindrome(n)?"Yes":"No"));
-    }
+int main() {
+    int n = 10;
+    cout << "Is binary representation of " << n << " a palindrome? " << (isPalindrome(n) ? "Yes" : "No") << endl;
+    return 0;
 }
 
 Time complexity: O(log₂(n))
