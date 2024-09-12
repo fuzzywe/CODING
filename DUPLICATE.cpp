@@ -73,6 +73,17 @@ int main() {
     cout << "Duplicate element: " << findDuplicate(arr) << endl;
     return 0;
 }
+
+For the array {1, 3, 4, 2, 2}, the duplicate value is 2.
+
+Initial setup: slow = arr[0] = 1, fast = arr[0] = 1.
+Cycle detection:
+Step 1: slow = arr[1] = 3, fast = arr[arr[1]] = arr[3] = 2.
+Step 2: slow = arr[3] = 2, fast = arr[arr[2]] = arr[4] = 2 (slow and fast pointers meet).
+Finding duplicate:
+Reset slow to arr[0] = 1 and move both pointers one step at a time.
+Step 1: slow = arr[1] = 3, fast = arr[2] = 2.
+Step 2: slow = arr[3] = 2, fast = arr[4] = 2 (both meet at 2, which is the duplicate).
 Time Complexity:
 
 The time complexity is 
