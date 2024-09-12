@@ -1,3 +1,94 @@
+brute force
+#include <bits/stdc++.h>
+using namespace std;
+
+string bin(unsigned int n) {
+    string ans = "";
+    while (n > 0) {
+        ans = to_string(n & 1) + ans;
+        n >>= 1;
+    }
+    return ans;
+}
+
+bool checkPalindrome(unsigned int n) {
+    string s1 = bin(n);
+    string s2 = s1;
+    reverse(s2.begin(), s2.end());
+    return s1 == s2;
+}
+
+int main() {
+    unsigned int x;
+
+    x = (1 << 15) + (1 << 16);
+    cout << "Is binary of " << x << " a palindrome? " << (checkPalindrome(x) ? "Yes" : "No") << endl;
+
+    x = 10;
+    cout << "Is binary of " << x << " a palindrome? " << (checkPalindrome(x) ? "Yes" : "No") << endl;
+
+    return 0;
+}
+
+Time Complexity:bin() function: Each time we shift the number to the right, the number is reduced in half, so the function runs in O(log₂(n)) time where n is the input number.checkPalindrome() function:Converting the number to binary takes O(log₂(n)) time.Reversing the string and comparing it takes O(log₂(n)) time.Overall, the time complexity is O(log₂(n)).
+
+Space Complexity:bin() function: The binary string uses space proportional to the number of bits in the binary representation of n, which is O(log₂(n)).
+
+example
+
+Let's walk through the code step by step and use `10` as the input to explain the logic.
+
+### 1. **Function: `bin(unsigned n)`**
+This function converts an integer `n` into its binary string representation. The main steps are:
+- **Loop**: As long as `n > 0`, the loop will execute.
+- **n & 1**: This extracts the least significant bit (LSB) of `n` and converts it into a string using `to_string(n&1)`.
+- **ans = (to_string(n&1)) + ans**: The LSB is added to the front of the current string `ans`.
+- **n >>= 1**: This shifts `n` to the right by 1 bit (dividing `n` by 2 in binary terms).
+- The loop continues until `n` becomes `0`.
+
+For example, with `n = 10` (in decimal):
+- **Step 1**: `10 & 1` gives `0` → `ans = "0"`
+- **Step 2**: `10 >>= 1` makes `n = 5`
+- **Step 3**: `5 & 1` gives `1` → `ans = "10"`
+- **Step 4**: `5 >>= 1` makes `n = 2`
+- **Step 5**: `2 & 1` gives `0` → `ans = "010"`
+- **Step 6**: `2 >>= 1` makes `n = 1`
+- **Step 7**: `1 & 1` gives `1` → `ans = "1010"`
+- **Step 8**: `1 >>= 1` makes `n = 0` and the loop ends.
+
+So, the binary representation of `10` is `"1010"`.
+
+### 2. **Function: `checkPalindrome(unsigned int n)`**
+This function checks if the binary representation of `n` is a palindrome (reads the same backward as forward).
+
+Steps:
+- Call `bin(n)` to convert `n` into its binary string format.
+- **s1 = bin(n)**: This stores the binary string (in our case, `s1 = "1010"`).
+- **s2 = s1**: A copy of `s1` is made into `s2`.
+- **reverse(s2.begin(), s2.end())**: The binary string `s2` is reversed (`"1010"` becomes `"0101"`).
+- **return s1 == s2**: It checks if the original binary string `s1` is the same as the reversed binary string `s2`. If they are the same, it means the binary representation is a palindrome; otherwise, it is not.
+
+For `n = 10`:
+- Binary representation of `10` is `"1010"`.
+- Reversed binary string is `"0101"`.
+- Since `"1010"` is not equal to `"0101"`, the function returns `false`, meaning the binary representation of `10` is **not** a palindrome.
+
+### 3. **Driver Code:**
+In the `main()` function:
+- The first call to `checkPalindrome(x)` uses `x = (1 << 15) + (1 << 16)`. This value is not important for the example, but this is just a large number.
+- The second call to `checkPalindrome(x)` uses `x = 10`. Based on our previous explanation, this call will return `false` because `10` is not a palindrome in binary.
+
+### **Time Complexity:**
+- **`bin()` function**: It iterates over each bit of the number, which takes `O(log₂(n))` time where `n` is the input number. For `n = 10`, it requires checking 4 bits, which is proportional to `log₂(10)`.
+  
+- **`checkPalindrome()` function**: 
+  - Converting the number to a binary string takes `O(log₂(n))`.
+  - Reversing the string and comparing the two strings also takes `O(log₂(n))`.
+  
+So, the total time complexity is **O(log₂(n))**.
+
+### **Space Complexity:**
+- **Auxiliary Space**: The space required for the binary string is proportional to the number of bits in the binary representation of `n`, which is **O(log₂(n))**. Thus, the auxiliary space complexity is **O(log₂(n))** for storing the binary string.
 
 
 
