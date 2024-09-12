@@ -1,0 +1,135 @@
+
+
+
+
+
+optimized code
+
+
+class Main{
+
+    public static int findReverse(int n){
+        int reverse_bin = 0;
+
+        int temp = n;
+        while (temp > 0) {
+            reverse_bin = (reverse_bin << 1) | (temp & 1);
+            temp = temp >> 1;
+        }
+        return reverse_bin;
+    }
+
+    public static boolean isPalindrome(int n) {
+        return n == findReverse(n);
+    }
+
+    public static void main(String[] args) {
+        int n = 10;
+        System.out.println("Is binary representation of " + n + " a palindraome? " + (isPalindrome(n)?"Yes":"No"));
+    }
+}
+
+Time complexity: O(log₂(n))
+
+Space complexity: O(1)
+
+Let's break down the example using `n = 10` to see how the code works.
+
+### Step-by-Step Example:
+1. **Binary representation of `n = 10`:**
+   - The binary representation of `10` is `1010`.
+
+2. **How `findReverse(10)` works:**
+   - The goal of this function is to reverse the bits of `10` (`1010`) and return the result.
+
+   - Initial values:  
+     `reverse_bin = 0`,  
+     `temp = 10` (`1010` in binary).
+
+   - **First iteration**:
+     - `temp & 1` gives the least significant bit (LSB) of `temp` 
+The calculation of `1010 & 1` is a **bitwise AND** operation between the binary numbers `1010` and `0001`. 
+
+### Step-by-step breakdown:
+- **1010 (binary)** is the binary representation of `10` in decimal.
+- **0001 (binary)** is the binary representation of `1` in decimal.
+
+Now, perform the bitwise AND operation:
+
+```
+   1010  (binary for 10)
+&  0001  (binary for 1)
+--------
+   0000  (result in binary)
+```
+
+In a bitwise AND operation, the result is `1` only if both corresponding bits are `1`; otherwise, the result is `0`.
+
+- 1st bit: `0 & 1 = 0`
+- 2nd bit: `1 & 0 = 0`
+- 3rd bit: `0 & 0 = 0`
+- 4th bit: `1 & 0 = 0`
+
+### Result:
+- The result of `1010 & 1` is `0000`, which is **0** in decimal.
+
+(i.e., `1010 & 1` = `0`).
+     - `reverse_bin = (reverse_bin << 1) | 0` → `reverse_bin` remains `0`.
+Let's break down the calculation for the expression:
+
+```cpp
+reverse_bin = (reverse_bin << 1) | 0;
+```
+
+Assume that `reverse_bin` is currently `0` before this operation.
+
+### Step 1: `reverse_bin << 1`
+- `<<` is the **left shift** operator, which shifts the bits of `reverse_bin` to the left by 1 position.
+- When you shift `0` to the left, it remains `0`, because there are no bits to shift.
+
+So, at this point:
+```
+reverse_bin = 0 << 1 = 0
+```
+
+### Step 2: `0 | 0`
+- `|` is the **bitwise OR** operator. In a bitwise OR operation, if either of the corresponding bits is `1`, the result is `1`. Otherwise, the result is `0`.
+- `0 | 0 = 0`.
+
+### Final Result:
+The final value of `reverse_bin` after this operation remains `0`:
+```
+reverse_bin = 0 | 0 = 0
+```
+
+### Conclusion:
+If `reverse_bin` starts as `0`, and you perform the operation `(reverse_bin << 1) | 0`, it will still be `0`. This operation does not change the value of `reverse_bin` since both shifting `0` and OR'ing it with `0` still result in `0`.
+
+
+     - `temp = temp >> 1` → shifts `temp` right, making `temp = 5` (`0101` in binary).
+
+   - **Second iteration**:
+     - `temp & 1` gives `1` (`0101 & 1 = 1`).
+     - `reverse_bin = (reverse_bin << 1) | 1` → shifts `reverse_bin` left and adds `1`, so `reverse_bin = 1`.
+     - `temp = temp >> 1` → shifts `temp` right, making `temp = 2` (`0010` in binary).
+
+   - **Third iteration**:
+     - `temp & 1` gives `0` (`0010 & 1 = 0`).
+     - `reverse_bin = (reverse_bin << 1) | 0` → shifts `reverse_bin` left, so `reverse_bin = 2` (`10` in binary).
+     - `temp = temp >> 1` → shifts `temp` right, making `temp = 1` (`0001` in binary).
+
+   - **Fourth iteration**:
+     - `temp & 1` gives `1` (`0001 & 1 = 1`).
+     - `reverse_bin = (reverse_bin << 1) | 1` → shifts `reverse_bin` left and adds `1`, so `reverse_bin = 5` (`101` in binary).
+     - `temp = temp >> 1` → shifts `temp` right, making `temp = 0`.
+
+   - Now that `temp = 0`, the loop terminates, and `reverse_bin = 5` (which is `0101` in binary, the reverse of `1010`).
+
+3. **Checking palindrome:**
+   - Now, the original binary number `1010` is compared with its reverse `0101` (which is `5` in decimal).
+   - Since `10 != 5`, the number `10` is **not a binary palindrome**.
+
+### Output:
+```
+Is binary representation of 10 a palindrome? No
+```
