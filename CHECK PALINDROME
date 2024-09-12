@@ -1,3 +1,67 @@
+If you need a brute-force approach to check if a string is a palindrome, you can follow a straightforward method. This approach involves creating a reversed version of the string and then comparing it to the original string to determine if they are the same.
+
+Here’s the C++ code for this brute-force approach:
+
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Function to reverse a string
+string reverseString(const string& s) {
+    string reversed;
+    for (int i = s.length() - 1; i >= 0; --i) {
+        reversed += s[i];
+    }
+    return reversed;
+}
+
+// Function to check if a string is a palindrome using brute force
+bool isPalindrome(const string& s) {
+    string reversed = reverseString(s);
+    return s == reversed;
+}
+
+int main() {
+    string input;
+
+    cout << "Enter a string: ";
+    getline(cin, input); // Read the entire line including spaces
+
+    bool palindrome = isPalindrome(input);
+
+    cout << "Is the string \"" << input << "\" a palindrome? " << (palindrome ? "Yes" : "No") << endl;
+
+    return 0;
+}
+```
+
+### Explanation:
+
+1. **`reverseString(const string& s)`**:
+   - Reverses the given string by iterating from the end to the start of the string and appending each character to a new string `reversed`.
+
+2. **`isPalindrome(const string& s)`**:
+   - Uses the `reverseString` function to get the reversed version of the string.
+   - Compares the original string `s` with the reversed string to determine if they are equal.
+
+3. **`main()`**:
+   - Prompts the user to input a string.
+   - Calls `isPalindrome()` to check if the string is a palindrome.
+   - Prints the result.
+
+### Time and Space Complexity
+
+- **Time Complexity**: **O(n)**, where **n** is the length of the string. This is because:
+  - Reversing the string takes **O(n)** time.
+  - Comparing the original and reversed strings also takes **O(n)** time.
+  
+- **Space Complexity**: **O(n)**, where **n** is the length of the string. This is due to:
+  - The space required to store the reversed string, which is proportional to the length of the input string.
+
+In summary:
+- **Time Complexity**: **O(n)**
+- **Space Complexity**: **O(n)**
 #include <iostream>
 using namespace std;
 
