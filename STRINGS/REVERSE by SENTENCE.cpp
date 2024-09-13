@@ -194,55 +194,73 @@ Copy code
 
 
 
-optimized solution
-#include<bits/stdc++.h>
-using namespace std;
-string result(string s)
-{
-    int left = 0;
-    int right = s.length()-1;
-    
-    string temp="";
-    string ans="";
-    
-    //Iterate the string and keep on adding to form a word
-    //If empty space is encountered then add the current word to the result
-    while (left <= right) {
-        char ch= s[left];
-        if (ch != ' ') {
-            temp += ch;
-        } else if (ch == ' ') {
-            if (ans!="") ans = temp + " " + ans;
-            else ans = temp;
-            temp = "";
+class Solution {
+public:
+    string reverseWords(string s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        string temp = "";
+        string ans = "";
+
+        // Remove leading spaces
+        while (left <= right && s[left] == ' ') left++;
+
+        // Iterate the string to form words
+        while (left <= right) {
+            char ch = s[left];
+
+            // Form the word if it's not a space
+            if (ch != ' ') {
+                temp += ch;
+            } 
+            // If space is encountered, add the current word to the result
+            else if (ch == ' ') {
+                // Only add the word to the result if it's non-empty
+                if (!temp.empty()) {
+                    if (!ans.empty()) ans = temp + " " + ans;
+                    else ans = temp;
+                }
+                temp = "";
+                
+                // Skip multiple spaces
+                while (left <= right && s[left] == ' ') left++;
+                continue;
+            }
+
+            left++;
         }
-        left++;
+
+        // Add the last word (if any)
+        if (!temp.empty()) {
+            if (!ans.empty()) ans = temp + " " + ans;
+            else ans = temp;
+        }
+
+        return ans;
     }
-    
-    //If not empty string then add to the result(Last word is added)
-    if (temp!="") {
-        if (ans!="") ans = temp + " " + ans;
-        else ans = temp;
-    }
-    
-    return ans;    
-}
-int main()
-{
-    string st="TUF is great for interview preparation";
-    cout<<"Before reversing words: "<<endl;
-    cout<<st<<endl;
-    cout<<"After reversing words: "<<endl;
-    cout<<result(st);
-    return 0;
-}
+};
+
 Output:
 
 Before reversing words:
 TUF is great for interview preparation
 After reversing words:
 preparation interview for great is TUF
+Explanation of Changes:
+Skip leading spaces: The initial while loop removes leading spaces from the left of the string.
+Form words: While iterating over the string, characters are added to the temp string to form words.
+Skip multiple spaces: When a space is encountered, we check if it's a single space or multiple consecutive spaces. Multiple spaces are skipped by advancing the left pointer to the next non-space character.
+Avoid trailing spaces: After each word, if there is a valid word (temp is non-empty), it's added to the result. We ensure no trailing spaces are added by checking the condition of ans.empty().
+Add the last word: At the end, any leftover word (temp) is added to the result string.
+Time and Space Complexity:
+Time Complexity: 
 
-Time Complexity: O(N), N~length of string
+O(n), where 
+𝑛
+n is the length of the input string. We iterate over the string once.
+Space Complexity: 
 
-Space Complexity: O(1), Constant Space
+O(n), where 
+𝑛
+n is the length of the input string. The space is used for the result string and intermediate variables.
