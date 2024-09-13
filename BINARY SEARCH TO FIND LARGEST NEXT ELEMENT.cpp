@@ -58,6 +58,13 @@ of the array to see if there's a smaller number that's still larger than the tar
 If the middle element is less than or equal to the target, we move to the right half of the array.
 The variable result keeps track of the potential answer, and after the search is completed, it's returned.
 Example:
+    arr = [2, 4, 6, 8, 10, 12, 14] and target 7:
+
+The initial middle is arr[3] = 8, which is greater than 7, so res = 8, and we move to the left half (low = 0, high = 2).
+Now, the middle is arr[1] = 4, which is less than 7, so we move to the right half (low = 2, high = 2).
+Now, the middle is arr[2] = 6, which is less than 7, so we move to the right (low = 3).
+The search ends because low > high. The result is 8.
+
 For the array nums = {1, 2, 5, 9, 13, 20} and target = 5:
 
 The smallest number greater than 5 is 9.
