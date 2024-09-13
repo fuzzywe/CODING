@@ -1,0 +1,80 @@
+To transform a Unix-style file path into its simplified canonical form, we need to handle the following:
+
+Single period (.): It represents the current directory and should be ignored.
+Double period (..): It represents moving up one directory level, so we should remove the previous directory from the path.
+Multiple slashes (//): They should be treated as a single slash (/).
+Here's how you can implement the solution in C++:
+
+Approach:
+Split the path into components based on the slashes (/).
+Use a stack to store the valid directory names.
+If the component is "..", pop the top of the stack (move up one level).
+If the component is "." or empty, skip it.
+Otherwise, push the component onto the stack.
+Rebuild the path from the stack, separating each component with a single slash (/).
+Code:
+cpp
+Copy code
+#include <iostream>
+#include <stack>
+#include <sstream>
+using namespace std;
+
+string simplifyPath(string path) {
+    stack<string> dirs;  // Stack to store valid directories
+    stringstream ss(path);
+    string token;
+
+    while (getline(ss, token, '/')) {
+        if (token == "." || token == "") {
+            // Current directory or multiple slashes, skip
+            continue;
+        } else if (token == "..") {
+            // Move up one directory level, pop if stack is not empty
+            if (!dirs.empty()) {
+                dirs.pop();
+            }
+        } else {
+            // Valid directory name, push onto the stack
+            dirs.push(token);
+        }
+    }
+
+    // Rebuild the canonical path
+    string result = "";
+    while (!dirs.empty()) {
+        result = "/" + dirs.top() + result;
+        dirs.pop();
+    }
+
+    // Return "/" if the result is empty, otherwise return the result
+    return result.empty() ? "/" : result;
+}
+
+int main() {
+    string path = "/./a/./b//c./d/.";
+    cout << simplifyPath(path) << endl;  // Output: "/a/b/c./d"
+    return 0;
+}
+Explanation:
+Input: We process the string "/./a/./b//c./d/." by splitting it at each /.
+Stack Operations:
+Skip . and empty parts caused by multiple slashes (//).
+If we encounter "..", pop the stack to move up a directory.
+For valid directory names, push them onto the stack.
+Rebuilding the Path: Once we process the entire string, we rebuild the path from the stack.
+Example Walkthrough:
+For the input path "/./a/./b//c./d/.":
+
+Step 1: Split into tokens: ["", ".", "a", ".", "b", "", "c.", "d", "."]
+Step 2: Skip . and empty strings, push a, b, c., and d onto the stack.
+Step 3: Rebuild the path: /a/b/c./d.
+Time and Space Complexity:
+Time complexity: 
+
+O(n), where 
+𝑛
+n is the length of the input path, because we are processing each character once.
+Space complexity: 
+
+O(n), for the stack that holds the directory names.
