@@ -202,8 +202,8 @@ bool areIsomorphic(string str1, string str2) {
 // Main function to test the isomorphic check
 int main() {
     // Example strings for worst-case scenario
-    string str1 = "abcdefghijklmnopqrstuvwxyza";
-    string str2 = "zyxwvutsrqponmlkjihgfedcba";
+    string str1 = "aab";
+    string str2 = "yyx";
 
     if (areIsomorphic(str1, str2)) {
         cout << "The strings are isomorphic." << endl;
@@ -224,4 +224,170 @@ Time Complexity: O(n), where n is the length of the strings. We iterate over the
 in the hash maps are O(1) on average.
 Space Complexity: O(1) (excluding input size), as the number of unique characters (e.g., 256 for ASCII)
 is constant and the space required for the maps is 
-proportional to the number of unique characters, which is bounded.
+proportional to the number of unique characters, which is bounded. 
+   
+
+### **What Does Isomorphic Mean?**
+Two strings are isomorphic if you can map each character in the first string to exactly one character in the second string, and vice versa, while preserving the order of characters. In other words:
+- No two characters in the first string should map to the same character in the second string.
+- Similarly, no two characters in the second string should map to the same character in the first string.
+
+### 
+
+- `str1 = "abcabc"`
+- `str2 = "xyzxyz"`
+
+In this case, the two strings are isomorphic because:
+- 'a' in `str1` maps to 'x' in `str2`.
+- 'b' in `str1` maps to 'y' in `str2`.
+- 'c' in `str1` maps to 'z' in `str2`.
+
+Here's how the code works for these strings:
+
+1. **Initialization**:
+   - The lengths of both strings are checked. If they are not equal, the strings are immediately determined to not be isomorphic.
+   - Two maps (`map1` and `map2`) are created to store character mappings between the two strings.
+
+2. **Iteration**:
+   - We iterate through each character in the two strings, comparing the corresponding characters at each position.
+   
+3. **First Iteration** (`i = 0`):
+   - `char1 = 'a'` from `str1` and `char2 = 'x'` from `str2`.
+   - Since 'a' is not yet mapped in `map1`, the code stores the mapping `'a' -> 'x'` in `map1`.
+   - Similarly, 'x' is not yet mapped in `map2`, so it stores the mapping `'x' -> 'a'` in `map2`.
+
+4. **Second Iteration** (`i = 1`):
+   - `char1 = 'b'` from `str1` and `char2 = 'y'` from `str2`.
+   - 'b' is not yet mapped in `map1`, so the mapping `'b' -> 'y'` is stored in `map1`.
+   - 'y' is not yet mapped in `map2`, so the mapping `'y' -> 'b'` is stored in `map2`.
+
+5. **Third Iteration** (`i = 2`):
+   - `char1 = 'c'` from `str1` and `char2 = 'z'` from `str2`.
+   - 'c' is not yet mapped in `map1`, so the mapping `'c' -> 'z'` is stored in `map1`.
+   - 'z' is not yet mapped in `map2`, so the mapping `'z' -> 'c'` is stored in `map2`.
+
+6. **Fourth Iteration** (`i = 3`):
+   - `char1 = 'a'` from `str1` and `char2 = 'x'` from `str2`.
+   - 'a' is already mapped to 'x' in `map1` and 'x' is already mapped to 'a' in `map2`, so the check continues.
+
+7. **Fifth Iteration** (`i = 4`):
+   - `char1 = 'b'` from `str1` and `char2 = 'y'` from `str2`.
+   - 'b' is already mapped to 'y' in `map1` and 'y' is already mapped to 'b' in `map2`, so the check continues.
+
+8. **Sixth Iteration** (`i = 5`):
+   - `char1 = 'c'` from `str1` and `char2 = 'z'` from `str2`.
+   - 'c' is already mapped to 'z' in `map1` and 'z' is already mapped to 'c' in `map2`, so the check continues.
+
+At the end of the iteration, the strings are found to be isomorphic because all the character mappings are consistent.
+
+### **Example of a Non-Isomorphic Case**
+
+Consider `str1 = "foo"` and `str2 = "bar"`. In this case, the strings are **not** isomorphic. Here's why:
+
+1. **First Iteration**: 'f' in `str1` maps to 'b' in `str2`.
+2. **Second Iteration**: 'o' in `str1` maps to 'a' in `str2`.
+3. **Third Iteration**: 'o' in `str1` should map to 'r' in `str2`, but it was previously mapped to 'a'. This inconsistency means the strings are not isomorphic.
+
+// Check mapping from str1 to str2
+if (map1.find(char1) != map1.end()) {
+    if (map1[char1] != char2) {
+        return false;
+    }
+}
+Let's take two strings:
+
+str1 = "foo"
+str2 = "bar"
+When the loop reaches the second 'o' in str1 and the second 'a' in str2, here's what happens:
+
+First Iteration (i = 0):
+char1 = 'f' from str1 and char2 = 'b' from str2.
+map1['f'] is not set yet, so we set map1['f'] = 'b'.
+Second Iteration (i = 1):
+char1 = 'o' from str1 and char2 = 'a' from str2.
+map1['o'] is not set yet, so we set map1['o'] = 'a'.
+Third Iteration (i = 2):
+char1 = 'o' from str1 and char2 = 'r' from str2.
+Now, map1['o'] already exists, and it's mapped to 'a', but the current char2 is 'r'. Since 'o' has already been mapped to 'a' (not 'r'), this inconsistency is detected, and the function returns false.
+Summary:
+The code checks if char1 has already been mapped.
+If it has been mapped, it verifies whether the previous mapping matches the current char2.
+    If it doesn't, it returns false, indicating that the strings are not isomorphic.
+
+
+
+
+
+
+
+Strings:
+str1 = "paper"
+str2 = "title"
+We want to check if these two strings are isomorphic, meaning if there's a one-to-one mapping between the characters of str1 and str2.
+
+
+Step-by-Step:
+1st Iteration (i = 0):
+Characters:
+char1 = 'p' (from str1)
+char2 = 't' (from str2)
+Check Mapping from str1 to str2:
+map1['p'] does not exist yet.
+Map 'p' to 't': map1['p'] = 't'.
+Check Mapping from str2 to str1:
+map2['t'] does not exist yet.
+Map 't' to 'p': map2['t'] = 'p'.
+2nd Iteration (i = 1):
+Characters:
+char1 = 'a' (from str1)
+char2 = 'i' (from str2)
+Check Mapping from str1 to str2:
+map1['a'] does not exist yet.
+Map 'a' to 'i': map1['a'] = 'i'.
+Check Mapping from str2 to str1:
+map2['i'] does not exist yet.
+Map 'i' to 'a': map2['i'] = 'a'.
+3rd Iteration (i = 2):
+Characters:
+char1 = 'p' (from str1)
+char2 = 't' (from str2)
+Check Mapping from str1 to str2:
+map1['p'] already exists and is mapped to 't'.
+Since char2 = 't', this is consistent, so we proceed.
+Check Mapping from str2 to str1:
+map2['t'] already exists and is mapped to 'p'.
+This is also consistent, so we move on to the next iteration.
+4th Iteration (i = 3):
+Characters:
+char1 = 'e' (from str1)
+char2 = 'l' (from str2)
+Check Mapping from str1 to str2:
+map1['e'] does not exist yet.
+Map 'e' to 'l': map1['e'] = 'l'.
+Check Mapping from str2 to str1:
+map2['l'] does not exist yet.
+Map 'l' to 'e': map2['l'] = 'e'.
+5th Iteration (i = 4):
+Characters:
+char1 = 'r' (from str1)
+char2 = 'e' (from str2)
+Check Mapping from str1 to str2:
+map1['r'] does not exist yet.
+Map 'r' to 'e': map1['r'] = 'e'.
+Check Mapping from str2 to str1:
+map2['e'] does not exist yet.
+Map 'e' to 'r': map2['e'] = 'r'.
+
+Mappings at the End:
+map1 (from str1 to str2):
+'p' -> 't'
+'a' -> 'i'
+'e' -> 'l'
+'r' -> 'e'
+map2 (from str2 to str1):
+'t' -> 'p'
+'i' -> 'a'
+'l' -> 'e'
+'e' -> 'r'
+Final Output:
+The strings "paper" and "title" are isomorphic.
