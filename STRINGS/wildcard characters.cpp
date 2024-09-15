@@ -265,5 +265,13 @@ int main() {
 
     return 0;
 }
+Complexity Analysis
+Time Complexity: O(N*M)
+
+Reason: There are two nested loops.
+
+Space Complexity: O(M)
+
+Reason: We are using an external array of size ‘M+1’ to store two rows.
 
 
