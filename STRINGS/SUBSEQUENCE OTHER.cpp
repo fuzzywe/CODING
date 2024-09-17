@@ -1,4 +1,4 @@
-Program to Check if a string is a valid shuffle of two distinct strings
+PCheck if a String is a subsequence of other
 Example 1:
 Input: S1= “tuf”, S2 =”takeuforward” 
 Output: true
