@@ -178,3 +178,93 @@ int main() {
 
 ### Space Complexity:
 - **O(1)** (excluding the input array): This is an in-place algorithm, and no additional storage is required beyond the recursive function stack.
+
+	To find the median of an unsorted array using a binary approach, you can adapt the problem as a "selection" problem, specifically by finding the k-th smallest element (where k is the median index). This can be done using the Quickselect algorithm, which is a binary-like divide-and-conquer approach.
+
+In the case of finding the median, Quickselect helps you find the element that would be in the middle of a sorted version of the array, without actually sorting the array fully.
+
+Here is a solution using a binary approach with the Quickselect algorithm to find the median:
+
+Code for Median Using Quickselect (Binary Approach)
+cpp
+Copy code
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // Partition function for Quickselect (similar to QuickSort)
+    int partition(vector<int>& arr, int left, int right) {
+        int pivot = arr[right]; // Choose the rightmost element as the pivot
+        int i = left - 1; // Index for elements smaller than pivot
+
+        for (int j = left; j < right; j++) {
+            if (arr[j] <= pivot) {
+                i++;
+                swap(arr[i], arr[j]);
+            }
+        }
+        swap(arr[i + 1], arr[right]); // Move pivot to its correct position
+        return i + 1; // Return the pivot index
+    }
+
+    // Quickselect function to find the k-th smallest element
+    int quickSelect(vector<int>& arr, int left, int right, int k) {
+        if (left <= right) {
+            int pivotIndex = partition(arr, left, right);
+
+            // Check if the pivotIndex is the k-th element
+            if (pivotIndex == k) {
+                return arr[pivotIndex];
+            }
+            else if (pivotIndex > k) {
+                return quickSelect(arr, left, pivotIndex - 1, k); // Search the left side
+            } 
+            else {
+                return quickSelect(arr, pivotIndex + 1, right, k); // Search the right side
+            }
+        }
+        return -1; // Shouldn't reach here in correct input
+    }
+
+    // Main function to find the median
+    double findMedian(vector<int>& arr) {
+        int n = arr.size();
+        if (n % 2 == 1) {
+            // For odd number of elements, find the middle element
+            return quickSelect(arr, 0, n - 1, n / 2);
+        } else {
+            // For even number of elements, find the average of two middle elements
+            int leftMid = quickSelect(arr, 0, n - 1, n / 2 - 1);
+            int rightMid = quickSelect(arr, 0, n - 1, n / 2);
+            return (leftMid + rightMid) / 2.0;
+        }
+    }
+};
+
+// Driver code
+int main() {
+    Solution sol;
+    vector<int> arr = {90, 100, 78, 89, 67};
+
+    double median = sol.findMedian(arr);
+    cout << "Median of the array: " << median << endl;
+
+    return 0;
+}
+Explanation:
+Quickselect Algorithm:
+
+The Quickselect algorithm is similar to QuickSort but instead of fully sorting the array, it recursively partitions the array and only focuses on finding the k-th smallest element.
+The partition() function selects a pivot and rearranges elements so that all elements less than the pivot are on the left and all elements greater than the pivot are on the right.
+Finding the Median:
+
+If the array has an odd number of elements, the median is the element at index n / 2.
+If the array has an even number of elements, the median is the average of the elements at indices n / 2 - 1 and n / 2.
+Time Complexity:
+
+Average case: O(n), because the partitioning step reduces the problem size by half each time.
+Worst case: O(n²), but this can be rare if the pivot is chosen well.
+Space Complexity:
+
+O(1) because the partitioning is done in-place, and no extra space is used apart from recursion call stack.
