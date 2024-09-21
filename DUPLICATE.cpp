@@ -109,3 +109,16 @@ Time Complexity:
 O(N)
 Space Complexity: 
 O(1)
+
+
+frequency array:
+n = arr.size();
+int freq[n+1] ={0};
+for (int i=0;i<=n;i++){
+if(freq(arr[i]==0)
+{
+freq(arr[i]) +=1;}
+else {return arr[i];}}
+return 0;
+TC :O(N);
+SC O(N);
