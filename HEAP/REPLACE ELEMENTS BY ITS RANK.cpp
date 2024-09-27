@@ -322,3 +322,201 @@ Given input array: `{20, 15, 26, 2, 98, 6}`
 ```
 
 This code effectively maps each element in the array to its rank in the sorted order and prints the ranks in the original order of the array.
+
+code platform:
+the error encounter in solution 2:
+
+	Runtime Error 
+Ask Yogi Bot
+Abort signal from abort(3) (SIGABRT)
+*** Error in `./Solution': munmap_chunk(): invalid pointer: 0x00007f45804f51a8 ***
+timeout: the monitored command dumped core
+/bin/bash: line 1:    34 Aborted                 
+
+Expected Output: 
+4 3 5 1 6 2
+	The error you're encountering is due to the fact that your function replaceWithRank is not returning the result as expected. Moreover, the code tries to access invalid memory, which leads to the runtime error (SIGABRT). Let's resolve both issues.
+
+Issues in the code:
+Return Value Issue: Your replaceWithRank function doesn't return the vector of ranks but prints them directly inside the function.
+Invalid Access: There seems to be an issue with memory access or wrong return. The vector<int> should be returned instead of directly printing it.
+
+
+
+	//{ Driver Code Starts
+//Initial Template for C++
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function Template for C++
+
+class Solution{
+public:
+
+    vector<int> replaceWithRank(vector<int> &arr, int N){
+map<int,int>mp;
+int temp =1;
+int brr[N];
+for (int i=0;i<N;i++){
+    brr[i]=arr[i];
+    
+}sort(brr,brr+N);
+for(int i=0;i<N;i++){
+    if(mp[brr[i]]==0){
+        mp[brr[i]] = temp;
+        temp++;
+    }
+}
+// Replace elements in the original array with their rank
+        vector<int> result(N);
+        for (int i = 0; i < N; i++) {
+            result[i] = mp[arr[i]];
+        }return result;
+    }
+
+};
+
+
+//{ Driver Code Starts.
+int main(){
+    int t = 1;
+    cin >> t;
+
+    // freopen ("output_gfg.txt", "w", stdout);
+
+    while(t--){
+        //Input
+
+       int n; cin >> n;
+       vector<int> vec(n);
+       for(int i = 0;i<n;i++) cin >> vec[i];
+
+        Solution obj;
+        vector<int> ans = obj.replaceWithRank(vec,n);
+        for(int i = 0;i<n;i++) cout << ans[i] << " ";
+        cout << endl;
+        
+
+        
+        // cout << "~\n";
+    }
+    // fclose(stdout);
+
+    return 0;
+}
+// } Driver Code Ends
+
+
+brute force:
+
+Modified Code:
+cpp
+Copy code
+//{ Driver Code Starts
+//Initial Template for C++
+#include<bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+//User function Template for C++
+
+class Solution{
+public:
+
+    vector<int> replaceWithRank(vector<int> &arr, int N){
+        // Step 1: Create a copy of the original array
+        vector<int> brr = arr;
+
+        // Step 2: Sort the copy of the array
+        sort(brr.begin(), brr.end());
+
+        // Step 3: Use a map to assign ranks based on sorted order
+        map<int, int> rankMap;
+        int rank = 1;
+
+        for(int i = 0; i < N; i++){
+            // If the element hasn't been assigned a rank, assign it
+            if(rankMap[brr[i]] == 0){
+                rankMap[brr[i]] = rank;
+                rank++;
+            }
+        }
+
+        // Step 4: Replace the original array elements with their ranks
+        vector<int> result(N);
+        for(int i = 0; i < N; i++){
+            result[i] = rankMap[arr[i]];
+        }
+
+        // Step 5: Return the result array
+        return result;
+    }
+
+};
+
+
+//{ Driver Code Starts.
+int main(){
+    int t = 1;
+    cin >> t;
+
+    while(t--){
+        //Input
+       int n; 
+       cin >> n;
+       vector<int> vec(n);
+       for(int i = 0; i < n; i++) 
+           cin >> vec[i];
+
+        Solution obj;
+        vector<int> ans = obj.replaceWithRank(vec, n);
+        
+        for(int i = 0; i < n; i++) 
+            cout << ans[i] << " ";
+        cout << endl;
+    }
+
+    return 0;
+}
+// } Driver Code Ends
+Key Changes from Your Original Code:
+Sorting: Instead of using nested loops and set to calculate the rank based on comparisons, we sort the copied array brr. Sorting provides a more efficient way to determine the rank.
+Map for Rank: We use a map to store each unique element’s rank. The map assigns the rank based on the order in the sorted array.
+Efficient Rank Assignment: Once the sorted array is iterated, we assign ranks sequentially and store them in the map.
+Replacing Elements: In the final loop, we simply look up the rank of each element in the original array from the map and replace it with the rank.
+Time Complexity:
+Sorting: Sorting the array brr takes 
+𝑂
+(
+𝑁
+log
+⁡
+𝑁
+)
+O(NlogN).
+Rank Assignment: Iterating through the sorted array and assigning ranks takes 
+𝑂
+(
+𝑁
+)
+O(N).
+Result Replacement: Filling up the result array also takes 
+𝑂
+(
+𝑁
+)
+O(N).
+Thus, the total time complexity is 
+𝑂
+(
+𝑁
+log
+⁡
+𝑁
+)
+O(NlogN), which should avoid TLE in most cases.
+
+Let me know if you need further clarifications!
