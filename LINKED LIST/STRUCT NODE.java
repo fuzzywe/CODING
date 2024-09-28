@@ -10,6 +10,7 @@ public:
     // Constructor for a node with only data provided, next initialized to nullptr
     Node(int data1) {
         data = data1;
+        
         next = nullptr;
     }
 }; why i ne4ed to use this
