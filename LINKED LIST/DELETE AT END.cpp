@@ -77,7 +77,9 @@ Node* deleteTail(Node* head) {
     if (head == NULL || head->next == NULL)
         return NULL;
     // Initialize a temporary pointer to traverse the list
+    
     Node* temp = head;
+    
     // Traverse to the second last node in the list
     while (temp->next->next != NULL) {
         temp = temp->next;
