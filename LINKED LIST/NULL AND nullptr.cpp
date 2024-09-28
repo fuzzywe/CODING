@@ -3,7 +3,7 @@ what is the difference between temp!= NULL and temp!= nullptr
 
   NULL
 Type: Integer constant (usually defined as 0).
-Definition: #define NULL 0 (typically).
+Definition: #define NULL 0 (typically). 
 Purpose: Historically used to represent a null pointer, but can also represent an integer 0.
 Type-Safety: Not type-safe. It can introduce ambiguity because NULL is just an integer.
 Usage: Can be used as both a null pointer and an integer, which may confuse the compiler in some cases (especially with overloaded functions).
