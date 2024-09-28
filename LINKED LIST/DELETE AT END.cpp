@@ -4,6 +4,7 @@ Delete Last Node of Linked List
 
 
 
+
 Examples
 Example 1:
 
