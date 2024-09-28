@@ -77,3 +77,41 @@ Summary:
 First Constructor: Use this when you want to create a node and immediately set its next pointer. It’s convenient for creating linked nodes in a single step.
 Second Constructor: Use this when you’re only creating the node and don’t yet know or want to set its next pointer. It’s useful for creating nodes when they are not immediately linked.
 Having both constructors provides the versatility to handle different scenarios when managing linked lists, improving your code's flexibility and readability.
+
+
+WHITHOUT THE STRUCT AND CLASS NODE THE CODE WILL BE LIKE:
+
+// Function to insert a new element at the end of the linked list
+void insertAtEnd(int*& head, int x) {
+    // Create a new node dynamically
+    // Here we simulate the node structure using an array
+    int* newNode = new int[2]; // New node with two elements: data and pointer to next
+
+    newNode[0] = x;     // Store data
+    newNode[1] = NULL;  // Initialize next pointer to NULL
+
+    // If the list is empty, make newNode the head
+    if (head == NULL) {
+        head = newNode;  // Assign newNode to head
+        return;
+    }
+
+    // Traverse to the last node
+    int* last = head;  // Start from the head
+    while (last[1] != NULL) {
+        last = (int*)(last[1]);  // Move to the next node
+    }
+
+    // Link the new node at the end of the list
+    last[1] = newNode;  // Set the last node's next to newNode
+}
+
+// Function to print the linked list
+void printList(int* head) {
+    int* node = head;
+    while (node != NULL) {
+        cout << node[0] << " ";  // Print data part
+        node = (int*)(node[1]);   // Move to next node
+    }
+    cout << "\n";
+}
