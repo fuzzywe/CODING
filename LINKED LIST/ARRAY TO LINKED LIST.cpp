@@ -17,61 +17,98 @@ Simple Approach: For each element of an array arr[] we create a node in a linked
 
 
 
-#include <iostream>
+//{ Driver Code Starts
+// Initial Template for C++
+
+#include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
+class Node {
+  public:
     int data;
     Node* next;
-    Node(int d)
-    {
-        data = d;
+
+    // Default constructor
+    Node() {
+        data = 0;
         next = NULL;
+    }
+
+    // Parameterised Constructor
+    Node(int data) {
+        this->data = data;
+        this->next = NULL;
     }
 };
 
-// Function to insert node at the end
-Node* insertEnd(Node* root, int item)
-{
-    Node* temp = new Node(item);
-    if (root == NULL)
-        return temp;
-  
-    Node* last = root;
-    while (last->next != NULL) {
-        last = last->next;
-    }
-  
-    last->next = temp;
-    return root;
-}
 
-Node* arrayToList(int arr[], int n)
-{
-    Node* root = NULL;
-    for (int i = 0; i < n; i++) {
-        root = insertEnd(root, arr[i]);
-    }
-    return root;
-}
+// } Driver Code Ends
+// User function Template for C++
 
-void display(Node* root)
-{
-    while (root != NULL) {
-        cout << root->data << " ";
-        root = root->next;
+class Solution {
+  public:
+    // Function to construct the linked list from a vector of integers
+    Node* constructLL(vector<int>& arr) {
+        // Initialize root as NULL
+        Node* root = NULL;
+        
+        // Iterate over the array and add elements to the linked list
+        for (int i = 0; i < arr.size(); i++) {
+            root = insertEnd(root, arr[i]);
+        }
+        return root;
     }
-}
+    
+    // Function to insert a node at the end of the list
+    Node* insertEnd(Node* root, int item) {
+        // Create a new node with the given data
+        Node* temp = new Node(item);
+        
+        // If the list is empty, return the new node as the root
+        if (root == NULL) {
+            return temp;
+        }
+        
+        // Traverse to the last node
+        Node* last = root;
+        while (last->next != NULL) {
+            last = last->next;
+        }
+        
+        // Link the new node at the end of the list
+        last->next = temp;
+        return root;
+    }
+};
 
-// Driver code
-int main()
-{
-    int arr[] = { 1, 2, 3, 4, 5 };
-    int n = sizeof(arr) / sizeof(arr[0]);
-    Node* root = arrayToList(arr, n);
-    display(root);
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    cin.ignore();
+    while (t--) {
+        string line;
+        getline(cin, line);
+        stringstream ss(line);
+        vector<int> arr;
+        int num;
+        while (ss >> num) {
+            arr.push_back(num);
+        }
+        Solution ob;
+        Node* ans = ob.constructLL(arr);
+        while (ans) {
+            cout << ans->data << " ";
+            ans = ans->next;
+        }
+        cout << "\n";
+    }
     return 0;
 }
+
+// } Driver Code Ends
+
 
 Output
 1 2 3 4 5
