@@ -189,3 +189,82 @@ int main(void) {
 }
 
 // } Driver Code Ends
+
+
+IN LEETCODE PLATFORM:
+k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes, in the end, should remain as it is.
+
+You may not alter the values in the list's nodes, only nodes themselves may be changed.
+
+ 
+
+Example 1:
+
+
+Input: head = [1,2,3,4,5], k = 2
+Output: [2,1,4,3,5]
+Example 2:
+
+
+Input: head = [1,2,3,4,5], k = 3
+Output: [3,2,1,4,5]
+
+ADD THIS EXTRA IN ACTUAL CODE
+
+IN ORDER NOT TO GET THIS ERROR
+nput
+head =
+[1,2,3,4,5]
+k =
+3
+Output
+[3,2,1,5,4]
+Expected
+[3,2,1,4,5]
+
+
+  
+
+// Check if there are at least k nodes to reverse
+        ListNode* check = head;
+        for (int i = 0; i < k; ++i) {
+            if (!check) return head; 
+            check = check->next;
+        }
+
+
+FULL SOLUTION:
+
+
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+         if(head==NULL || k == 1){
+            return head;
+        }
+        // Check if there are at least k nodes to reverse
+        ListNode* check = head;
+        for (int i = 0; i < k; ++i) {
+            if (!check) return head; 
+            check = check->next;
+        }
+        
+        int count = 0;
+        struct ListNode* curr = head;
+        struct ListNode* prev = NULL;
+        struct ListNode* next = NULL;
+        while(curr!=NULL && count<k){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+            count++;
+        }
+        if(next!=NULL){
+            head->next = reverseKGroup(next,k);
+            
+        }
+        return prev;
+    
+    }
+};
