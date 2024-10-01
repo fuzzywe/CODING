@@ -168,7 +168,13 @@ int MyStack::pop() {
     return x;
 }
 
+Complexity
+Time Complexity: O(1), for both push(x) and pop() function as only constant time complexity operations.
+Auxiliary Space: O(1), for both push(x) and pop() function as we are not using any extra space.
 
+
+
+           
 WHOLE CODE:
 
 //{ Driver Code Starts
