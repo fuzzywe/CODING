@@ -75,3 +75,8 @@ Output: True
 Time Complexity: O(N)
 
 Space Complexity: O(N)
+
+THE MISTAKE I MADE
+if( it == '(' and ch ==')' or it =='{' and ch=='}'  or  it =='[' and ch ==']') continue;
+THE SOLUTION
+if((it == ')' and ch == '(') or  (it == ']' and ch == '[') or (it == '}' and ch == '{')) continue;
