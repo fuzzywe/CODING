@@ -38,6 +38,17 @@ top(): Return the topmost element of the stack
 
 size(): Return the number of remaining elements in the stack.
 
+
+           
+Advantages of Array Implementation:
+
+Easy to implement.
+Memory is saved as pointers are not involved.
+Disadvantages of Array Implementation:
+
+It is not dynamic i.e., it doesn’t grow and shrink depending on needs at runtime. [But in case of dynamic sized arrays like vector in C++, list in Python, ArrayList in Java, stacks can grow and shrink with array implementation as well].
+The total size of the stack must be defined beforehand.
+
 Solution
 Disclaimer: Don’t jump directly to the solution, try it out yourself first.
 
