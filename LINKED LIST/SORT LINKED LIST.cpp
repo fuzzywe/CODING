@@ -256,7 +256,7 @@ Node* mergeTwoSortedLinkedLists(Node* list1, Node* list2) {
     // Return the merged list starting 
     // from the next of the dummy node
     return dummyNode->next;
-}
+} 
 
 // Function to find the middle of a linked list
 Node* findMiddle(Node* head){
