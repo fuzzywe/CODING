@@ -72,86 +72,98 @@ Time Complexity :- O(1) for Set operation && O(logN) for Get Operation
 Space Complexity :- O(N)
 
 
+Let’s break down the input and output you provided step by step to understand what’s happening in the `TimeMap` class and how it works.
 
-TimeMap():
-This initializes the TimeMap object.
+### Input:
 
-Output: null (no return value for constructor)
-set("foo", "bar", 1):
-This stores the key "foo" with the value "bar" and timestamp 1.
+```plaintext
+["TimeMap", "set", "get", "get", "set", "get", "get"]
+[[], ["foo", "bar", 1], ["foo", 1], ["foo", 3], ["foo", "bar2", 4], ["foo", 4], ["foo", 5]]
+```
 
-State: mp["foo"] = {1: "bar"}
-Output: null (no return value for set method)
-get("foo", 1):
-This retrieves the value for "foo" at timestamp 1.
+### Explanation:
 
-State: mp["foo"] = {1: "bar"}
-Since there is an exact match at timestamp 1, it returns "bar".
-Output: "bar"
-get("foo", 3):
-This retrieves the value for "foo" at timestamp 3.
+1. **`TimeMap()`**:  
+   This initializes the `TimeMap` object.  
+   - **Output**: `null` (no return value for constructor)
 
-State: mp["foo"] = {1: "bar"}
-There is no exact match at timestamp 3, so the code looks for the closest earlier timestamp, which is 1.
-Result: "bar"
-Output: "bar"
-set("foo", "bar2", 4):
-This stores the key "foo" with the value "bar2" and timestamp 4.
+2. **`set("foo", "bar", 1)`**:  
+   This stores the key `"foo"` with the value `"bar"` and timestamp `1`.  
+   - **State**: `mp["foo"] = {1: "bar"}`
+   - **Output**: `null` (no return value for `set` method)
 
-State: mp["foo"] = {1: "bar", 4: "bar2"}
-Output: null (no return value for set method)
-get("foo", 4):
-This retrieves the value for "foo" at timestamp 4.
+3. **`get("foo", 1)`**:  
+   This retrieves the value for `"foo"` at timestamp `1`.  
+   - **State**: `mp["foo"] = {1: "bar"}`
+   - Since there is an exact match at timestamp `1`, it returns `"bar"`.
+   - **Output**: `"bar"`
 
-State: mp["foo"] = {1: "bar", 4: "bar2"}
-Since there is an exact match at timestamp 4, it returns "bar2".
-Output: "bar2"
-get("foo", 5):
-This retrieves the value for "foo" at timestamp 5.
+4. **`get("foo", 3)`**:  
+   This retrieves the value for `"foo"` at timestamp `3`.  
+   - **State**: `mp["foo"] = {1: "bar"}`
+   - There is no exact match at timestamp `3`, so the code looks for the closest earlier timestamp, which is `1`.  
+   - **Result**: `"bar"`
+   - **Output**: `"bar"`
 
-State: mp["foo"] = {1: "bar", 4: "bar2"}
-There is no exact match at timestamp 5, so the code looks for the closest earlier timestamp, which is 4.
-Result: "bar2"
-Output: "bar2"
-Final Outputs:
-plaintext
-Copy code
+5. **`set("foo", "bar2", 4)`**:  
+   This stores the key `"foo"` with the value `"bar2"` and timestamp `4`.  
+   - **State**: `mp["foo"] = {1: "bar", 4: "bar2"}`
+   - **Output**: `null` (no return value for `set` method)
+
+6. **`get("foo", 4)`**:  
+   This retrieves the value for `"foo"` at timestamp `4`.  
+   - **State**: `mp["foo"] = {1: "bar", 4: "bar2"}`
+   - Since there is an exact match at timestamp `4`, it returns `"bar2"`.
+   - **Output**: `"bar2"`
+
+7. **`get("foo", 5)`**:  
+   This retrieves the value for `"foo"` at timestamp `5`.  
+   - **State**: `mp["foo"] = {1: "bar", 4: "bar2"}`
+   - There is no exact match at timestamp `5`, so the code looks for the closest earlier timestamp, which is `4`.  
+   - **Result**: `"bar2"`
+   - **Output**: `"bar2"`
+
+### Final Outputs:
+```plaintext
 [null, null, "bar", "bar", null, "bar2", "bar2"]
-Detailed Walkthrough:
-Initialization (TimeMap()):
+```
 
-A new TimeMap object is created with an empty unordered_map.
-State: mp = {}
-First set("foo", "bar", 1):
+### Detailed Walkthrough:
 
-The set method adds "foo" with value "bar" at timestamp 1.
-State: mp = {"foo": {1: "bar"}}
-No output for set method, so output is null.
-First get("foo", 1):
+1. **Initialization (`TimeMap()`)**:
+   - A new `TimeMap` object is created with an empty `unordered_map`.
+   - **State**: `mp = {}`
 
-The get method finds an exact match for "foo" at timestamp 1, returning "bar".
-Output: "bar"
-Second get("foo", 3):
+2. **First `set("foo", "bar", 1)`**:
+   - The `set` method adds `"foo"` with value `"bar"` at timestamp `1`.
+   - **State**: `mp = {"foo": {1: "bar"}}`
+   - No output for `set` method, so output is `null`.
 
-The get method does not find an exact match for "foo" at timestamp 3, so it looks for the closest earlier timestamp. The closest earlier timestamp is 1, returning "bar".
-Output: "bar"
-Second set("foo", "bar2", 4):
+3. **First `get("foo", 1)`**:
+   - The `get` method finds an exact match for `"foo"` at timestamp `1`, returning `"bar"`.
+   - **Output**: `"bar"`
 
-The set method adds "foo" with value "bar2" at timestamp 4.
-State: mp = {"foo": {1: "bar", 4: "bar2"}}
-No output for set method, so output is null.
-Third get("foo", 4):
+4. **Second `get("foo", 3)`**:
+   - The `get` method does not find an exact match for `"foo"` at timestamp `3`, so it looks for the closest earlier timestamp. The closest earlier timestamp is `1`, returning `"bar"`.
+   - **Output**: `"bar"`
 
-The get method finds an exact match for "foo" at timestamp 4, returning "bar2".
-Output: "bar2"
-Fourth get("foo", 5):
+5. **Second `set("foo", "bar2", 4)`**:
+   - The `set` method adds `"foo"` with value `"bar2"` at timestamp `4`.
+   - **State**: `mp = {"foo": {1: "bar", 4: "bar2"}}`
+   - No output for `set` method, so output is `null`.
 
-The get method does not find an exact match for "foo" at timestamp 5, so it looks for the closest earlier timestamp. The closest earlier timestamp is 4, returning "bar2".
-Output: "bar2"
-Summary:
-The set method stores values with timestamps.
-The get method retrieves the value at a specific timestamp or the closest earlier one.
-Outputs match exactly what’s expected:
-plaintext
-Copy code
-[null, null, "bar", "bar", null, "bar2", "bar2"]
+6. **Third `get("foo", 4)`**:
+   - The `get` method finds an exact match for `"foo"` at timestamp `4`, returning `"bar2"`.
+   - **Output**: `"bar2"`
+
+7. **Fourth `get("foo", 5)`**:
+   - The `get` method does not find an exact match for `"foo"` at timestamp `5`, so it looks for the closest earlier timestamp. The closest earlier timestamp is `4`, returning `"bar2"`.
+   - **Output**: `"bar2"`
+
+### Summary:
+- The `set` method stores values with timestamps.
+- The `get` method retrieves the value at a specific timestamp or the closest earlier one.
+- Outputs match exactly what’s expected:
+  ```plaintext
+  [null, null, "bar", "bar", null, "bar2", "bar2"]
+  ```
