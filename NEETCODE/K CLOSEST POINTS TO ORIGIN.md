@@ -213,3 +213,71 @@ This ensures that the farthest points can be easily removed (using `pq.pop()` wh
 - The priority queue is a **max-heap**. It organizes pairs based on the squared distance `d`. The farthest point (with the largest `d`) will be at the top.
 - As you iterate over all points and push them into the queue, the queue keeps track of the `k` closest points by removing the farthest points (using `pq.pop()`) when its size exceeds `k`.
 
+This part of the code extracts the closest points from the **priority queue** (`pq`) and stores them in a result vector (`res`). Let’s walk through the code step by step:
+
+### 1. **Declaring the Result Vector:**
+```cpp
+vector<vector<int>> res;
+```
+- This declares an empty `2D vector` named `res` that will store the `k` closest points.
+- Each element of `res` will be a vector representing a point `(x, y)`.
+
+### 2. **Extracting Points from the Priority Queue:**
+```cpp
+while(pq.empty() == false) {
+    auto it = pq.top();
+    pq.pop();
+    res.push_back(vector<int> {it.second.first, it.second.second});
+}
+```
+Let’s break this down:
+
+- **`while(pq.empty() == false)`**: This loop continues until the priority queue `pq` is empty. The condition checks whether the priority queue contains any elements.
+
+- **`auto it = pq.top();`**: This retrieves the element at the top of the priority queue without removing it. Since the priority queue is a max-heap, the top element will have the largest squared distance.
+
+    - `it` is a `pair<int, pii>`, where:
+      - `it.first` is the squared distance.
+      - `it.second` is a pair `(x, y)` representing the coordinates of the point.
+
+- **`pq.pop();`**: This removes the top element from the priority queue (the point with the largest squared distance).
+  
+- **`res.push_back(vector<int> {it.second.first, it.second.second});`**: This line constructs a `vector<int>` using the `x` and `y` coordinates from `it.second` and pushes it into the result vector `res`.
+    - `it.second.first`: This is the `x` coordinate of the point.
+    - `it.second.second`: This is the `y` coordinate of the point.
+    - The `push_back` operation adds the point `(x, y)` to the `res` vector.
+
+### Example:
+
+Let’s assume that after processing the points, the priority queue contains:
+
+```cpp
+pq = [
+    (8, (-2, 2)),
+    (1, (0, 1))
+]
+```
+
+The while loop will:
+- First retrieve `(8, (-2, 2))`, pop it from the queue, and add `[-2, 2]` to `res`.
+- Then retrieve `(1, (0, 1))`, pop it from the queue, and add `[0, 1]` to `res`.
+
+At the end, the `res` vector will look like this:
+
+```cpp
+res = [
+    [-2, 2],
+    [0, 1]
+]
+```
+
+### 3. **Returning the Result:**
+```cpp
+return res;
+```
+- Finally, the result vector `res` is returned. It contains the `k` closest points to the origin, sorted by the distance from the farthest to the closest (because of how they were popped from the max-heap).
+
+### Summary of Steps:
+- The **priority queue** stored the `k` closest points to the origin.
+- The **while loop** extracted each point from the priority queue and added it to the result vector `res`.
+- The function then returned `res`, which contains the `k` closest points.
