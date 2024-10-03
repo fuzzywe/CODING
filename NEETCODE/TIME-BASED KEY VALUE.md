@@ -73,87 +73,85 @@ Space Complexity :- O(N)
 
 
 
-Let's dry-run the `TimeMap` class using a sample sequence of operations.
+TimeMap():
+This initializes the TimeMap object.
 
-### Class Overview:
-- `mp`: A map of key-value pairs, where the key is a string and the value is another map that stores timestamps (`int`) and their corresponding values (`string`).
-- **set**: Stores a value for a key at a given timestamp.
-- **get**: Retrieves the value of a key at or before a given timestamp.
+Output: null (no return value for constructor)
+set("foo", "bar", 1):
+This stores the key "foo" with the value "bar" and timestamp 1.
 
-### Scenario:
-We'll consider the following operations:
+State: mp["foo"] = {1: "bar"}
+Output: null (no return value for set method)
+get("foo", 1):
+This retrieves the value for "foo" at timestamp 1.
 
-1. `set("foo", "bar", 1)`
-2. `set("foo", "bar2", 4)`
-3. `get("foo", 4)`
-4. `get("foo", 5)`
-5. `get("foo", 2)`
-6. `get("foo", 0)`
+State: mp["foo"] = {1: "bar"}
+Since there is an exact match at timestamp 1, it returns "bar".
+Output: "bar"
+get("foo", 3):
+This retrieves the value for "foo" at timestamp 3.
 
-#### Initial State:
+State: mp["foo"] = {1: "bar"}
+There is no exact match at timestamp 3, so the code looks for the closest earlier timestamp, which is 1.
+Result: "bar"
+Output: "bar"
+set("foo", "bar2", 4):
+This stores the key "foo" with the value "bar2" and timestamp 4.
 
-- `mp = {}` (empty)
+State: mp["foo"] = {1: "bar", 4: "bar2"}
+Output: null (no return value for set method)
+get("foo", 4):
+This retrieves the value for "foo" at timestamp 4.
 
-### Operation 1: `set("foo", "bar", 1)`
+State: mp["foo"] = {1: "bar", 4: "bar2"}
+Since there is an exact match at timestamp 4, it returns "bar2".
+Output: "bar2"
+get("foo", 5):
+This retrieves the value for "foo" at timestamp 5.
 
-- The `set` method inserts the value "bar" for the key "foo" with a timestamp of `1`.
-- `mp` becomes:
-  ```cpp
-  mp["foo"] = {1: "bar"}
-  ```
+State: mp["foo"] = {1: "bar", 4: "bar2"}
+There is no exact match at timestamp 5, so the code looks for the closest earlier timestamp, which is 4.
+Result: "bar2"
+Output: "bar2"
+Final Outputs:
+plaintext
+Copy code
+[null, null, "bar", "bar", null, "bar2", "bar2"]
+Detailed Walkthrough:
+Initialization (TimeMap()):
 
-### Operation 2: `set("foo", "bar2", 4)`
+A new TimeMap object is created with an empty unordered_map.
+State: mp = {}
+First set("foo", "bar", 1):
 
-- The `set` method inserts the value "bar2" for the key "foo" with a timestamp of `4`.
-- `mp` now becomes:
-  ```cpp
-  mp["foo"] = {1: "bar", 4: "bar2"}
-  ```
+The set method adds "foo" with value "bar" at timestamp 1.
+State: mp = {"foo": {1: "bar"}}
+No output for set method, so output is null.
+First get("foo", 1):
 
-### Operation 3: `get("foo", 4)`
+The get method finds an exact match for "foo" at timestamp 1, returning "bar".
+Output: "bar"
+Second get("foo", 3):
 
-- We want to get the value for `"foo"` at timestamp `4`.
-- `mp["foo"]` contains `{1: "bar", 4: "bar2"}`.
-- The `upper_bound(4)` on `mp["foo"]` will return an iterator pointing **past** the entry with timestamp `4`, i.e., it will not include the exact match.
-- The iterator points to an entry after `4`, so we move it back with `it--` to get the last timestamp `<= 4`, which is `4`.
-- The value corresponding to timestamp `4` is `"bar2"`.
-- **Return**: `"bar2"`
+The get method does not find an exact match for "foo" at timestamp 3, so it looks for the closest earlier timestamp. The closest earlier timestamp is 1, returning "bar".
+Output: "bar"
+Second set("foo", "bar2", 4):
 
-### Operation 4: `get("foo", 5)`
+The set method adds "foo" with value "bar2" at timestamp 4.
+State: mp = {"foo": {1: "bar", 4: "bar2"}}
+No output for set method, so output is null.
+Third get("foo", 4):
 
-- We want to get the value for `"foo"` at timestamp `5`.
-- `mp["foo"]` contains `{1: "bar", 4: "bar2"}`.
-- The `upper_bound(5)` on `mp["foo"]` will return an iterator pointing **past** the largest timestamp, i.e., it will point to the end of the map.
-- Since the iterator points past the last timestamp, we decrement it with `it--` to get the largest timestamp `<= 5`, which is `4`.
-- The value corresponding to timestamp `4` is `"bar2"`.
-- **Return**: `"bar2"`
+The get method finds an exact match for "foo" at timestamp 4, returning "bar2".
+Output: "bar2"
+Fourth get("foo", 5):
 
-### Operation 5: `get("foo", 2)`
-
-- We want to get the value for `"foo"` at timestamp `2`.
-- `mp["foo"]` contains `{1: "bar", 4: "bar2"}`.
-- The `upper_bound(2)` on `mp["foo"]` will return an iterator pointing to timestamp `4`.
-- We decrement the iterator with `it--` to get the largest timestamp `<= 2`, which is `1`.
-- The value corresponding to timestamp `1` is `"bar"`.
-- **Return**: `"bar"`
-
-### Operation 6: `get("foo", 0)`
-
-- We want to get the value for `"foo"` at timestamp `0`.
-- `mp["foo"]` contains `{1: "bar", 4: "bar2"}`.
-- The `upper_bound(0)` on `mp["foo"]` will return an iterator pointing to the first entry (timestamp `1`).
-- Since `upper_bound` returns an iterator to the first element, there are no timestamps `<= 0`.
-- **Return**: `""` (empty string)
-
-### Final State of `mp`:
-```cpp
-mp["foo"] = {1: "bar", 4: "bar2"}
-```
-
-### Summary of Results:
-- `get("foo", 4)` → `"bar2"`
-- `get("foo", 5)` → `"bar2"`
-- `get("foo", 2)` → `"bar"`
-- `get("foo", 0)` → `""`
-
-This code efficiently handles timestamped key-value storage and retrieval by utilizing maps with `upper_bound` to locate the appropriate value based on the timestamp.
+The get method does not find an exact match for "foo" at timestamp 5, so it looks for the closest earlier timestamp. The closest earlier timestamp is 4, returning "bar2".
+Output: "bar2"
+Summary:
+The set method stores values with timestamps.
+The get method retrieves the value at a specific timestamp or the closest earlier one.
+Outputs match exactly what’s expected:
+plaintext
+Copy code
+[null, null, "bar", "bar", null, "bar2", "bar2"]
