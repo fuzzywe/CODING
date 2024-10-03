@@ -28,7 +28,8 @@ Explanation: The answer [[-2,4],[3,3]] would also be accepted.
 
 
 
-```#define pii pair<int,int>
+```
+#define pii pair<int,int>
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
