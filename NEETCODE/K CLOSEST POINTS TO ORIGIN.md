@@ -28,7 +28,7 @@ Explanation: The answer [[-2,4],[3,3]] would also be accepted.
 
 
 
-#define pii pair<int,int>
+```#define pii pair<int,int>
 class Solution {
 public:
     vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
@@ -50,7 +50,7 @@ public:
         
     }
 };
-
+```
 Let's go through this code step-by-step to understand how it works and dry run each part of the algorithm to find the `k` closest points to the origin.
 
 ### Input:
