@@ -467,3 +467,147 @@ ans = [3, 3, 1, 4]
 - The answer array `[3, 3, 1, 4]` corresponds to the smallest interval sizes for each query `[2, 3, 4, 5]`.
 
 Let me know if you still have any questions!
+
+Let's break down this part of the code in detail to help you understand what it's doing.
+
+### Code:
+```cpp
+multiset<int> sizes;                  // 1
+vector<int> ans(queries.size(), -1);   // 2
+
+for (auto event : events) {            // 3
+    if (event[1] == 0)                 // 4
+        sizes.insert(event[2]);        // 5
+    else if (event[1] == 1) {          // 6
+        if (sizes.size() > 0)          // 7
+            ans[event[2]] = (*sizes.begin());  // 8
+    }
+    else                               // 9
+        sizes.erase(sizes.lower_bound(event[2])); // 10
+}
+
+return ans;                            // 11
+```
+
+### Explanation Line by Line:
+
+1. **`multiset<int> sizes;`**
+   - A `multiset` is used here because it keeps track of active interval sizes and automatically sorts them. This is crucial for quickly finding the smallest interval size.
+   - **Why `multiset`?** It allows efficient insertion, deletion, and finding the smallest element, which we need for this problem.
+   
+2. **`vector<int> ans(queries.size(), -1);`**
+   - `ans` is a vector that will store the result for each query. Initially, it's filled with `-1` to indicate that if no valid interval is found for a query, it will remain `-1`.
+
+3. **`for (auto event : events)`**
+   - This loop processes each event in the sorted `events` list. Each event can be one of three types: starting an interval, ending an interval, or a query.
+
+4. **`if (event[1] == 0)`**
+   - This checks if the event is an **interval start** event (`event[1] == 0`).
+   
+5. **`sizes.insert(event[2]);`**
+   - If it's a start event, the size of the interval (`event[2]`) is added to the `multiset`. 
+   - **Purpose:** This marks the interval as "active" by adding its size to the set of active intervals.
+
+6. **`else if (event[1] == 1)`**
+   - This checks if the event is a **query event** (`event[1] == 1`).
+   
+7. **`if (sizes.size() > 0)`**
+   - This checks if there are any active intervals at the time of the query. If `sizes` is not empty, it means there are intervals that cover the query.
+
+8. **`ans[event[2]] = (*sizes.begin());`**
+   - If there are active intervals, the smallest one is taken from `sizes` (since `sizes` is sorted, the smallest interval size is at the beginning). The result is stored in `ans[event[2]]`, where `event[2]` is the index of the query.
+   - **Purpose:** This step ensures the query gets the smallest active interval size that covers it.
+
+9. **`else`**
+   - This `else` handles **interval end** events (`event[1] == 2`).
+   
+10. **`sizes.erase(sizes.lower_bound(event[2]));`**
+   - When an interval ends, we remove its size from `sizes`. `lower_bound(event[2])` is used to find the exact element to erase.
+   - **Purpose:** This step removes intervals that are no longer active.
+
+11. **`return ans;`**
+   - After processing all events, the function returns `ans`, which contains the smallest interval sizes for each query.
+
+---
+
+### The Logic Flow:
+
+- **When a start event occurs**: The interval’s size is added to `sizes` (active intervals).
+- **When a query event occurs**: If there are active intervals, the smallest one is found by looking at `sizes.begin()`, and this value is stored in `ans`.
+- **When an end event occurs**: The interval’s size is removed from `sizes` since the interval has ended.
+
+---
+
+### Dry Run Example:
+
+For clarity, let's go over this part with an example.
+
+#### Intervals:
+```
+[[1, 4], [2, 4], [3, 6], [4, 4]]
+```
+#### Queries:
+```
+[2, 3, 4, 5]
+```
+
+#### Events after sorting:
+```
+{1, 0, 4}, {2, 0, 3}, {2, 1, 0}, {3, 0, 4}, {3, 1, 1}, {4, 0, 1}, {4, 1, 2}, {4, 2, 4}, {4, 2, 3}, {4, 2, 1}, {5, 1, 3}, {6, 2, 4}
+```
+
+##### Step-by-Step Event Processing:
+
+1. `{1, 0, 4}`: Add size `4` to `sizes`.
+   - `sizes = {4}`
+
+2. `{2, 0, 3}`: Add size `3` to `sizes`.
+   - `sizes = {3, 4}`
+
+3. `{2, 1, 0}`: Query `2`. Smallest size is `3`.
+   - `ans[0] = 3`
+
+4. `{3, 0, 4}`: Add size `4` to `sizes`.
+   - `sizes = {3, 4, 4}`
+
+5. `{3, 1, 1}`: Query `3`. Smallest size is `3`.
+   - `ans[1] = 3`
+
+6. `{4, 0, 1}`: Add size `1` to `sizes`.
+   - `sizes = {1, 3, 4, 4}`
+
+7. `{4, 1, 2}`: Query `4`. Smallest size is `1`.
+   - `ans[2] = 1`
+
+8. `{4, 2, 4}`: Remove size `4` from `sizes`.
+   - `sizes = {1, 3, 4}`
+
+9. `{4, 2, 3}`: Remove size `3` from `sizes`.
+   - `sizes = {1, 4}`
+
+10. `{4, 2, 1}`: Remove size `1` from `sizes`.
+    - `sizes = {4}`
+
+11. `{5, 1, 3}`: Query `5`. Smallest size is `4`.
+    - `ans[3] = 4`
+
+12. `{6, 2, 4}`: Remove size `4` from `sizes`.
+    - `sizes = {}`
+
+---
+
+### Final `ans` Array:
+```
+ans = [3, 3, 1, 4]
+```
+
+Each query has found the smallest interval size that contains the query value.
+
+---
+
+### Summary:
+- **`multiset<int> sizes`**: Keeps track of the sizes of active intervals and ensures quick access to the smallest size.
+- **For each query**: It finds the smallest active interval at the time of the query by checking the `multiset`.
+- **For interval ends**: It removes the size of intervals that have ended, ensuring only active intervals are considered for queries.
+
+Let me know if you need more clarification!
