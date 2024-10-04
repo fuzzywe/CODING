@@ -21,6 +21,7 @@ Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
 The substring "BBBB" has the longest repeating letters, which is 4.
 There may exists other ways to achieve this answer too.
 
+```
 class Solution {
 public:
     int characterReplacement(string s, int k) {
@@ -44,7 +45,7 @@ public:
         return ans;
     }
 };
-
+```
  Got it! I'll explain this visually and break it down with as much detail as possible, using diagrams and simple steps. Let's go step by step to understand how the sliding window works and how the code runs.
 
 ### Problem Summary:
@@ -140,5 +141,6 @@ We continue moving `i` and adjusting the window until we maximize the longest su
 - The final longest substring we get for `'A'` is `"A A A A"` with a length of **4**.
 
 ---
+
 
 
