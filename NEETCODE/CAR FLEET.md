@@ -66,7 +66,8 @@ public:
         // The size of the stack is the number of fleets
         return stack.size();
     }
-};```
+};
+```
 Complexity
 Time complexity:o(nlogn)
 Space complexity:o(n)
