@@ -353,3 +353,156 @@ nums = {1, 1, 1, 1, 1}, target = 3
    ```
 
 So, there are 5 ways to assign `+` and `-` signs to the numbers in `nums` to achieve the target sum `3`.
+
+
+Let's focus on how the numbers are being added to the `dp` array. I'll explain the process of updating `dp` when we iterate through each number in `nums`. We'll break down **how** the numbers are added.
+
+### Key Idea:
+Each element in the `dp` array represents the number of ways to achieve a particular sum using the numbers we've processed so far. For every number `i` in `nums`, we check if we can use this number to form new sums by adding it to previously achievable sums. 
+
+To achieve this, we use **backward iteration** from `req_sum` to `i` because we want to avoid overwriting `dp[j]` before it's used.
+
+#### Understanding `dp[j] += dp[j - i]`:
+- `dp[j]` means: "How many ways can we achieve the sum `j` using the numbers we've processed so far?"
+- `dp[j - i]` means: "How many ways can we achieve the sum `j - i` (without using the current number `i`)?"
+
+When we add `dp[j - i]` to `dp[j]`, we're saying:
+"If I can achieve the sum `j - i` using previous numbers, then I can achieve the sum `j` by adding `i`."
+
+### Example with `nums = {1, 1, 1, 1, 1}` and `target = 3`:
+
+Let's walk through each number in `nums` to see how we update the `dp` array.
+
+**Initial state of `dp`**:
+```
+dp = {1, 0, 0, 0, 0}  
+// dp[0] = 1 because there's exactly 1 way to make sum 0 (by choosing no elements).
+```
+
+Now, we'll process each number in `nums`:
+
+---
+
+### Processing the first `1`:
+We start from `req_sum = 4` and go down to `1` (backward iteration to avoid overwriting `dp` values):
+
+1. `dp[4] += dp[4 - 1] = dp[3] → dp[4] = 0`
+   (No ways to make sum 4 yet)
+
+2. `dp[3] += dp[3 - 1] = dp[2] → dp[3] = 0`
+   (No ways to make sum 3 yet)
+
+3. `dp[2] += dp[2 - 1] = dp[1] → dp[2] = 0`
+   (No ways to make sum 2 yet)
+
+4. `dp[1] += dp[1 - 1] = dp[0] → dp[1] = 1`
+   (We can make sum 1 by adding the current `1` to sum `0`)
+
+After processing the first `1`:
+```
+dp = {1, 1, 0, 0, 0}  
+// 1 way to make sum 1, 0 ways for other sums.
+```
+
+---
+
+### Processing the second `1`:
+We again iterate from `req_sum = 4` down to `1`:
+
+1. `dp[4] += dp[4 - 1] = dp[3] → dp[4] = 0`
+   (No ways to make sum 4 yet)
+
+2. `dp[3] += dp[3 - 1] = dp[2] → dp[3] = 0`
+   (No ways to make sum 3 yet)
+
+3. `dp[2] += dp[2 - 1] = dp[1] → dp[2] = 1`
+   (We can now make sum 2 by adding the current `1` to sum `1`)
+
+4. `dp[1] += dp[1 - 1] = dp[0] → dp[1] = 2`
+   (We can make sum 1 in 2 ways: using the two `1`s or the first `1` only)
+
+After processing the second `1`:
+```
+dp = {1, 2, 1, 0, 0}  
+// 2 ways to make sum 1, 1 way to make sum 2.
+```
+
+---
+
+### Processing the third `1`:
+Again, we iterate from `req_sum = 4` down to `1`:
+
+1. `dp[4] += dp[4 - 1] = dp[3] → dp[4] = 0`
+   (No ways to make sum 4 yet)
+
+2. `dp[3] += dp[3 - 1] = dp[2] → dp[3] = 1`
+   (We can now make sum 3 by adding the current `1` to sum `2`)
+
+3. `dp[2] += dp[2 - 1] = dp[1] → dp[2] = 3`
+   (We can make sum 2 in 3 ways: adding the third `1` to sum `1`)
+
+4. `dp[1] += dp[1 - 1] = dp[0] → dp[1] = 3`
+   (Now there are 3 ways to make sum 1)
+
+After processing the third `1`:
+```
+dp = {1, 3, 3, 1, 0}  
+// 3 ways to make sum 1, 3 ways to make sum 2, 1 way to make sum 3.
+```
+
+---
+
+### Processing the fourth `1`:
+Same process:
+
+1. `dp[4] += dp[4 - 1] = dp[3] → dp[4] = 1`
+   (We can now make sum 4 by adding the current `1` to sum `3`)
+
+2. `dp[3] += dp[3 - 1] = dp[2] → dp[3] = 4`
+   (We can now make sum 3 by adding the current `1` to sum `2`)
+
+3. `dp[2] += dp[2 - 1] = dp[1] → dp[2] = 6`
+   (There are now 6 ways to make sum 2)
+
+4. `dp[1] += dp[1 - 1] = dp[0] → dp[1] = 4`
+   (Now there are 4 ways to make sum 1)
+
+After processing the fourth `1`:
+```
+dp = {1, 4, 6, 4, 1}  
+// 4 ways to make sum 1, 6 ways to make sum 2, 4 ways to make sum 3, 1 way to make sum 4.
+```
+
+---
+
+### Processing the fifth `1`:
+Final pass:
+
+1. `dp[4] += dp[4 - 1] = dp[3] → dp[4] = 5`
+   (We can now make sum 4 by adding the current `1` to sum `3`)
+
+2. `dp[3] += dp[3 - 1] = dp[2] → dp[3] = 10`
+   (We can now make sum 3 by adding the current `1` to sum `2`)
+
+3. `dp[2] += dp[2 - 1] = dp[1] → dp[2] = 10`
+   (Now there are 10 ways to make sum 2)
+
+4. `dp[1] += dp[1 - 1] = dp[0] → dp[1] = 5`
+   (Now there are 5 ways to make sum 1)
+
+Final state of `dp`:
+```
+dp = {1, 5, 10, 10, 5}  
+// 5 ways to make sum 1, 10 ways to make sum 2, 10 ways to make sum 3, 5 ways to make sum 4.
+```
+
+---
+
+### Result:
+At the end, `dp[req_sum] = dp[4] = 5`. So, there are 5 ways to assign `+` or `-` signs to the numbers in `nums` to achieve the target sum `3`.
+
+---
+
+### Summary:
+- Each time we add a number `i` from `nums`, we check how we can use that number to form new sums (starting from `req_sum` down to `i`).
+- The value `dp[j] += dp[j - i]` means we add the number of ways to form the sum `j - i` to the number of ways to form the sum `j` by using the current number `i`.
