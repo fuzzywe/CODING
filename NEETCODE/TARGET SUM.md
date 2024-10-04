@@ -173,7 +173,8 @@ For the input `[1, 1, 1, 1, 1]` and `S = 3`, there are **5 ways** to achieve the
 
 optimized:
 
-```class Solution {
+```
+class Solution {
 public:
     int findTargetSumWays(vector<int>& nums, int target) {
         int total_sum = accumulate(nums.begin() , nums.end() , 0);
