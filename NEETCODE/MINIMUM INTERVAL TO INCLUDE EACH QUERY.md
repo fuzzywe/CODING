@@ -147,6 +147,7 @@ Explanation: The queries are processed as follows:
 
  This code solves the problem of finding the smallest interval containing each query using an **event-driven approach** and a **multiset** for efficient size management. Let’s go line by line, explain the math behind it, and perform a dry run.
 
+```
 class Solution {
 public:
     vector<int> minInterval(vector<vector<int>>& intervals, vector<int>& queries) {
@@ -173,7 +174,7 @@ public:
 
 	return ans;
 }
-};
+};```
 
 ### Code Explanation (Line by Line):
 
@@ -314,3 +315,155 @@ ans = [3, 3, 1, 4]
 ```
 
 This matches the expected result!
+
+Let’s break the process into smaller steps and take a simpler approach to understand it. Here’s how the code works step-by-step, followed by a dry run of each part:
+
+### Problem Restatement (Simple Version)
+We have:
+1. A list of intervals like `[1, 4]`, `[2, 4]`, etc.
+2. A list of queries like `2, 3, 4, 5`.
+
+For each query, we need to find the smallest interval that contains the query. The smallest interval is determined by its size (length = `right - left + 1`).
+
+### Approach Summary
+- **We convert the intervals and queries into events.**
+- **Events** are processed in order to decide when to add or remove intervals.
+- **For each query**, we find the smallest active interval at that moment.
+- **multiset** is used to store the sizes of the intervals currently active.
+
+### Code Breakdown (Line-by-Line)
+```cpp
+vector<int> minInterval(vector<vector<int>>& intervals, vector<int>& queries) {
+    vector<vector<int>> events;   // This will hold all events
+```
+- We are going to create "events" for each interval and each query.
+
+#### Step 1: Create events for intervals
+```cpp
+    for (int i = 0; i < intervals.size(); i++) {
+        // Add the start event for an interval
+        events.push_back({intervals[i][0], 0, intervals[i][1] - intervals[i][0] + 1});
+        // Add the end event for the same interval
+        events.push_back({intervals[i][1], 2, intervals[i][1] - intervals[i][0] + 1});
+    }
+```
+- For each interval `[left, right]`:
+  - Add an event for the interval starting (type `0`).
+  - Add an event for the interval ending (type `2`).
+- Example: For interval `[1, 4]`, we add `{1, 0, 4}` (start event) and `{4, 2, 4}` (end event). The last `4` here is the size of the interval.
+
+#### Step 2: Create events for queries
+```cpp
+    for (int i = 0; i < queries.size(); i++) {
+        events.push_back({queries[i], 1, i});  // Add a query event
+    }
+```
+- For each query, we add an event. A query event has type `1` and stores the query’s position and its index.
+- Example: For query `2`, we add `{2, 1, 0}`. The `0` is the index of this query in the `queries` array.
+
+#### Step 3: Sort the events
+```cpp
+    sort(events.begin(), events.end());
+```
+- We sort all events by their position. Sorting is important because it allows us to process intervals and queries in the correct order (left to right).
+
+#### Step 4: Process the events
+```cpp
+    multiset<int> sizes;  // A set to hold sizes of active intervals
+    vector<int> ans(queries.size(), -1);  // Initialize the result array with -1
+```
+- **multiset `sizes`**: Keeps track of active interval sizes in sorted order.
+- **`ans`**: Stores the result for each query.
+
+### Event Processing Loop
+```cpp
+    for (auto event : events) {
+        if (event[1] == 0) {
+            sizes.insert(event[2]);  // Start of interval, add its size to sizes
+        } else if (event[1] == 1) {
+            if (!sizes.empty()) {
+                ans[event[2]] = *sizes.begin();  // Query, take the smallest size
+            }
+        } else {
+            sizes.erase(sizes.lower_bound(event[2]));  // End of interval, remove its size
+        }
+    }
+```
+#### Event Types:
+1. **Start of interval** (`event[1] == 0`):
+   - Add the size of this interval to `sizes`.
+2. **Query event** (`event[1] == 1`):
+   - Check the smallest interval in `sizes` and assign that to the query.
+3. **End of interval** (`event[1] == 2`):
+   - Remove the interval’s size from `sizes` because the interval has ended.
+
+---
+
+### Dry Run of the Code:
+
+#### Input:
+```cpp
+intervals = [[1, 4], [2, 4], [3, 6], [4, 4]]
+queries = [2, 3, 4, 5]
+```
+
+### Step 1: Events Creation
+We create events from intervals and queries:
+```
+For interval [1, 4]: Add events {1, 0, 4} and {4, 2, 4}
+For interval [2, 4]: Add events {2, 0, 3} and {4, 2, 3}
+For interval [3, 6]: Add events {3, 0, 4} and {6, 2, 4}
+For interval [4, 4]: Add events {4, 0, 1} and {4, 2, 1}
+For query 2: Add event {2, 1, 0}
+For query 3: Add event {3, 1, 1}
+For query 4: Add event {4, 1, 2}
+For query 5: Add event {5, 1, 3}
+```
+
+The event list before sorting:
+```
+{1, 0, 4}, {4, 2, 4}, {2, 0, 3}, {4, 2, 3}, {3, 0, 4}, {6, 2, 4}, {4, 0, 1}, {4, 2, 1}, {2, 1, 0}, {3, 1, 1}, {4, 1, 2}, {5, 1, 3}
+```
+
+### Step 2: Sort Events
+After sorting by the position (first element of each event):
+```
+{1, 0, 4}, {2, 0, 3}, {2, 1, 0}, {3, 0, 4}, {3, 1, 1}, {4, 0, 1}, {4, 1, 2}, {4, 2, 4}, {4, 2, 3}, {4, 2, 1}, {5, 1, 3}, {6, 2, 4}
+```
+
+### Step 3: Process Events
+
+1. `{1, 0, 4}` → Start interval `[1, 4]`, add `4` to `sizes`:  
+   `sizes = {4}`
+2. `{2, 0, 3}` → Start interval `[2, 4]`, add `3` to `sizes`:  
+   `sizes = {3, 4}`
+3. `{2, 1, 0}` → Query `2`. Smallest size is `3`:  
+   `ans[0] = 3`
+4. `{3, 0, 4}` → Start interval `[3, 6]`, add `4` to `sizes`:  
+   `sizes = {3, 4, 4}`
+5. `{3, 1, 1}` → Query `3`. Smallest size is `3`:  
+   `ans[1] = 3`
+6. `{4, 0, 1}` → Start interval `[4, 4]`, add `1` to `sizes`:  
+   `sizes = {1, 3, 4, 4}`
+7. `{4, 1, 2}` → Query `4`. Smallest size is `1`:  
+   `ans[2] = 1`
+8. `{4, 2, 4}` → End interval `[1, 4]`, remove `4` from `sizes`:  
+   `sizes = {1, 3, 4}`
+9. `{4, 2, 3}` → End interval `[2, 4]`, remove `3` from `sizes`:  
+   `sizes = {1, 4}`
+10. `{4, 2, 1}` → End interval `[4, 4]`, remove `1` from `sizes`:  
+   `sizes = {4}`
+11. `{5, 1, 3}` → Query `5`. Smallest size is `4`:  
+   `ans[3] = 4`
+12. `{6, 2, 4}` → End interval `[3, 6]`, remove `4` from `sizes`:  
+   `sizes = {}`
+
+### Final Result:
+```
+ans = [3, 3, 1, 4]
+```
+
+### Summary:
+- The answer array `[3, 3, 1, 4]` corresponds to the smallest interval sizes for each query `[2, 3, 4, 5]`.
+
+Let me know if you still have any questions!
