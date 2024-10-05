@@ -196,3 +196,177 @@ When the loop finishes, this returns the sum of the squares of the digits stored
 ### Conclusion:
 
 The code determines whether a number is a happy number by repeatedly transforming it into the sum of the squares of its digits. If the number eventually becomes `1`, it is a happy number. If it enters a loop, it is not happy.
+
+Solution 2 - two pointers
+Solution 2 is based on almost the same idea as Solution 1. How can we quickly find the number 1?
+
+My answer is to use two pointers.
+
+Input: n = 19
+1 
+2
+  + 9 
+2
+  = 82
+8 
+2
+  + 2 
+2
+  = 68
+6 
+2
+  + 8 
+2
+  = 100
+1 
+2
+  + 0 
+2
+  + 0 
+2
+  = 1
+
+Let's say we have a slow pointer and a fast pointer.
+
+slow pointer move once.
+fast pointer move twice.
+
+If input is 19, we will have
+
+19 → 82 → 68 → 100 → 1 
+Let's move the two pointers. Every time slow move once and fast move twice. We stop if both pointers are the same number.
+
+
+19 → 82 → 68 → 100 → 1 
+sf
+--------------------------
+slow calculated 19.
+fast calculated 19 and 82.
+
+19 → 82 → 68 → 100 → 1 
+     s    f
+--------------------------
+slow calculated 82.
+fast calculated 68 and 100.
+
+19 → 82 → 68 → 100 → 1 
+          s          f
+--------------------------
+slow calculated 68.
+fast calculated 1 and 1. (= 1 produces 1)
+
+19 → 82 → 68 → 100 → 1 → 1 → 1 
+                s            f
+  
+--------------------------
+slow calculated 100.
+fast calculated 1 and 1. (= 1 produces 1)
+
+19 → 82 → 68 → 100 → 1 → 1 → 1 → 1 → 1 
+                     s               f
+
+Now slow and fast pointer are both 1, that means 19 is a happy number.
+
+Moreover, if fast pointer is 1, we can immediately return True because 1 produces 1. We know that in the end slow pointer will become 1 at some point, because slow pointer will touch each number one by one.
+
+But why do you use two pointers?
+In solution 1, I use set to prevent revisiting the same number. In other word, I try to prevent an infinity looping. I'm trying to achieve the same thing using two pointers.
+
+To prove that, let's see false case.
+
+20 → 4 →　16 → 37 → 58 → 89 → 145 → 42 → (20...)
+sf
+------------------------------
+slow calculated 20.
+fast calculated 20 and 4.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+     s   f 
+------------------------------
+slow calculated 4.
+fast calculated 16 and 37.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+         s          f 
+------------------------------
+slow calculated 16.
+fast calculated 58 and 89.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+              s               f 
+------------------------------
+slow calculated 37.
+fast calculated 145 and 42.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+f                   s               
+------------------------------
+slow calculated 58.
+fast calculated 20 and 4.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+         f              s               
+------------------------------
+slow calculated 89.
+fast calculated 16 and 37.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+                   f          s               
+------------------------------
+slow calculated 145.
+fast calculated 58 and 89.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+                              f    s               
+------------------------------
+slow calculated 42.
+fast calculated 145 and 42.
+
+20 → 4 → 16 → 37 → 58 → 89 → 145 → 42 → (20...)
+fs               
+
+The fast pointer touched all numbers and we didn't find 1.
+
+Now the slow pointer and the fast pointer are both 20, that means the fast pointer has calculated all the numbers and looped back around because the fast pointer caught up with the slow pointer from behind. That's why we can return false.
+
+Easy!😄
+Let's see solution codes!
+
+Complexity
+Time complexity: O(logn)
+
+Space complexity: O(1)
+
+
+
+```cpp
+
+class Solution {
+public:
+    bool isHappy(int n) {
+        int slow = getNextNumber(n);
+        int fast = getNextNumber(getNextNumber(n));
+
+        while (slow != fast) {
+            if (fast == 1) return true;
+            slow = getNextNumber(slow);
+            fast = getNextNumber(getNextNumber(fast));
+        }
+
+        return slow == 1;
+    }
+
+private:
+    int getNextNumber(int n) {
+        int output = 0;
+        
+        while (n > 0) {
+            int digit = n % 10;
+            output += digit * digit;
+            n = n / 10;
+        }
+        
+        return output;
+    }
+};
+```
