@@ -40,7 +40,7 @@ Explanation:
 
   
 
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -71,6 +71,7 @@ int main()
     cout << "The maximum subarray sum is: " << maxSum << endl;
     return 0;
 }
+```
 
 Complexity Analysis
 Time Complexity: O(N2), where N = size of the array.
@@ -78,7 +79,7 @@ Reason: We are using two nested loops, each running approximately N times.
 
 Space Complexity: O(1) as we are not using any extra space.
 
-
+```cpp
   
 #include <bits/stdc++.h>
 using namespace std;
@@ -125,3 +126,4 @@ Time Complexity: O(N), where N = size of the array.
 Reason: We are using a single loop running N times.
 
 Space Complexity: O(1) as we are not using any extra space.
+```
