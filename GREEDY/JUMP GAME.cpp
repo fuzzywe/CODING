@@ -30,7 +30,7 @@ From index 2, with value 1 we can only jump to index 3.
 From index 3, with value 0 we cannot jump any further.
 Hence, from all possibilities we are unable to jump to the last index so we return false.
 
-
+```cpp
 #include <vector>   
 #include <algorithm>
 #include <iostream>
@@ -89,7 +89,7 @@ int main() {
     return 0;
 }
                             
-                        
+ ```                       
 Output Array representing maximum jump from each index: 4 3 7 1 2
 
 It is possible to reach the last index.
