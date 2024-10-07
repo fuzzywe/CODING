@@ -14,7 +14,7 @@ Example 3:
 Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB"
 Output: false
 
-https://leetcode.com/problems/word-search/solutions/5767663/video-check-4-directions-with-counting-length-of-a-path/?envType=problem-list-v2&envId=plakya4j&difficulty=MEDIUM&status=TO_
+
 
 Complexity
 Time complexity: O(m∗n∗4 
