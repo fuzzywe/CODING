@@ -41,7 +41,7 @@ Algorithm:
 First, we will declare a ‘mini’ variable initialized with a large number.
 After that, we will traverse the array and compare each element with the ‘mini’ variable. Each time the ‘mini’ variable will be updated with the minimum value i.e. min(mini, arr[i]).
 Finally, we will return ‘mini’ as our answer.
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -63,7 +63,7 @@ int main()
     return 0;
 }
 
-
+```
 Output: The minimum element is: 0
 
 Complexity Analysis
@@ -103,7 +103,7 @@ Note: Though the time complexity of the following code is the same as the previo
 
 
 
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -147,7 +147,7 @@ int main()
     cout << "The minimum element is: " << ans << "\n";
     return 0;
 }
-
+```
 Output: The minimum element is: 0
 
 Complexity Analysis
