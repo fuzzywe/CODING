@@ -1,3 +1,4 @@
+related to no of islands question 
 Example 1:
 
 
