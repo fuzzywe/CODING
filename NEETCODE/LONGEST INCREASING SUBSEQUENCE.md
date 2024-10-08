@@ -99,3 +99,4 @@ int main() {
     return 0;
 }
 ```
+https://leetcode.com/problems/longest-increasing-subsequence/solutions/1326308/c-python-dp-binary-search-bit-segment-tree-solutions-picture-explain-o-nlogn/?envType=problem-list-v2&envId=plakya4j&difficulty=MEDIUM&status=TO_DO
