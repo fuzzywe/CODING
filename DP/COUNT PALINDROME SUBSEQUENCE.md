@@ -26,6 +26,7 @@ Time Complexity: O(3^(n*n)), it is exponential increasing which can see using re
 Auxiliary Space: O(n), as max number of stack frames in recursion tree of it will have n frames.
 
 
+```cpp
 class Solution{
     public:
     const long long int mod = 1000000007;
@@ -54,7 +55,7 @@ class Solution{
     }
 };
 
-
+```
 Let's walk through this C++ code step by step and break down its logic, particularly for solving the problem of counting palindromic subsequences in a string.
 
 ### Code Structure Overview:
