@@ -18,12 +18,8 @@ Output: false
 
 
 Complexity
-Time complexity: O(m∗n∗4 
-l
- en(word))
-Space complexity: O(4 
-l
- en(word))
+Time complexity: O(m∗n∗4 en(word))
+Space complexity: O(4 len(word))
 
 
 ```cpp
