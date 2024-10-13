@@ -93,3 +93,35 @@ public:
     }
 };
 ```
+  Time Complexity : O(N^2), Where N is the size of the Array(nums). Here Two nested loop creates the time 
+    complexity.
+
+    Space complexity : O(1), Constant space. Extra space is only allocated for the Array(output), however the
+    output does not count towards the space complexity.
+
+    Solved using Array(Two Nested Loop). Brute Force Approach.
+
+    Note : This will give TLE.
+
+*/
+
+
+/***************************************** Approach 1 *****************************************/
+```cpp
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> output;
+        for(int i=0; i<n; i++){
+            int product = 1;
+            for(int j=0; j<n; j++){
+                if(i == j) continue;
+                product *= nums[j];
+            }
+            output.push_back(product);
+        }
+        return output;
+    }
+};
+```
