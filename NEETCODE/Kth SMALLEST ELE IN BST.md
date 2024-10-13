@@ -100,3 +100,128 @@ public:
 
 Space Complexity: 𝑂(ℎ) 
 Time Complexity: O(k)
+
+
+It’s not possible to reduce the space complexity to **O(1)** in terms of auxiliary space while maintaining the correctness of the solution, because the in-order traversal inherently requires either a stack (for an iterative approach) or recursion (which implicitly uses the call stack). 
+
+However, we can achieve **O(1)** auxiliary space using **Morris Traversal**. Morris Traversal is a method for in-order traversal of a binary tree that doesn’t use a stack or recursion. Instead, it temporarily modifies the tree structure by creating and removing threads (links) between nodes, and then restores the original tree structure after the traversal is complete.
+
+### Morris In-Order Traversal:
+
+The Morris Traversal algorithm avoids using extra space by threading the tree. It establishes a temporary link between the current node and its predecessor in the in-order sequence, allowing you to traverse the tree without a stack.
+
+### Code for finding the \(k\)th smallest element with **O(1)** space complexity:
+
+```cpp
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int count = 0;  // To count the number of processed nodes
+        int result = -1;  // To store the result
+
+        TreeNode* current = root;
+
+        while (current != nullptr) {
+            if (current->left == nullptr) {
+                // Visit this node
+                count++;
+                if (count == k) {
+                    result = current->val;
+                }
+                // Move to the right subtree
+                current = current->right;
+            } else {
+                // Find the inorder predecessor of current
+                TreeNode* pred = current->left;
+                while (pred->right != nullptr && pred->right != current) {
+                    pred = pred->right;
+                }
+
+                // Make a thread (temporary link) between the predecessor and current
+                if (pred->right == nullptr) {
+                    pred->right = current;
+                    current = current->left;
+                }
+                // Revert the changes (remove the thread) and visit the node
+                else {
+                    pred->right = nullptr;
+                    count++;
+                    if (count == k) {
+                        result = current->val;
+                    }
+                    current = current->right;
+                }
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+### **Explanation**:
+
+1. **Morris Traversal** modifies the tree structure temporarily:
+   - If the left child is null, visit the node and move to the right child.
+   - If the left child exists, find the in-order predecessor (rightmost node in the left subtree).
+   - Create a temporary thread (link) from the in-order predecessor to the current node.
+   - Move to the left child to continue traversal.
+   - When returning to the node after visiting the left subtree, remove the thread (restore the tree) and visit the node.
+
+2. **When we find the \(k\)-th node**:
+   - We increment the count each time we visit a node.
+   - When `count == k`, we store the result and terminate.
+
+### **Dry Run Example**:
+
+Let's take the same binary tree:
+
+```
+     5
+    / \
+   3   7
+  / \   \
+ 2   4   8
+/
+1
+```
+
+Assume \(k = 3\) (we want to find the 3rd smallest element).
+
+1. **Current Node = 5**:
+   - Left child exists, find predecessor (rightmost in left subtree).
+   - Predecessor = 4. Create a thread from 4 to 5 and move to 3.
+
+2. **Current Node = 3**:
+   - Left child exists, find predecessor (rightmost in left subtree).
+   - Predecessor = 2. Create a thread from 2 to 3 and move to 2.
+
+3. **Current Node = 2**:
+   - Left child exists, find predecessor (rightmost in left subtree).
+   - Predecessor = 1. Create a thread from 1 to 2 and move to 1.
+
+4. **Current Node = 1**:
+   - No left child, visit node (count = 1), move to the right (null).
+
+5. **Back to Node = 2**:
+   - Remove thread from 1 to 2, visit node (count = 2), move to the right (null).
+
+6. **Back to Node = 3**:
+   - Remove thread from 2 to 3, visit node (count = 3). Since count == 3, we return 3.
+
+### **Time Complexity**:
+
+- **Time Complexity**: **O(n)**.
+  - Every edge of the tree is visited at most twice (once to create the thread, once to remove it).
+  - Therefore, the time complexity is linear in the number of nodes.
+
+### **Space Complexity**:
+
+- **Space Complexity**: **O(1)** auxiliary space.
+  - No stack or recursion is used.
+  - Only a few pointers are used, and the tree structure is temporarily modified and restored.
+
+### **Summary**:
+
+- The Morris Traversal method allows you to achieve **O(1)** space complexity (without using recursion or a stack) while maintaining **O(n)** time complexity.
+- This is the most space-efficient solution possible for the problem. However, it comes at the cost of temporarily modifying the tree structure. If you can't modify the tree, you'd need to use the previous iterative or recursive approaches.
