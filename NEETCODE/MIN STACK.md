@@ -56,3 +56,20 @@ public:
     int getMin() { return s[minIdx.back()]; }
 };
 ```
+Time Complexity:
+Push:
+Time Complexity: O(1)
+Checking whether to update minIdx and adding the element to s and minIdx both take constant time.
+Pop:
+Time Complexity: O(1)
+Removing the top element from s and potentially from minIdx takes constant time.
+Top:
+Time Complexity: O(1)
+Accessing the top element of the stack using s.back() is a constant-time operation.
+GetMin:
+Time Complexity: O(1)
+Accessing the minimum element using minIdx.back() and indexing into s takes constant time.
+Space Complexity:
+Space Complexity: O(n)
+We store the stack elements in s, which requires O(n) space where n is the number of elements in the stack.
+The minIdx vector stores only the indices of elements that are the current minimum. In the worst case, every new element could be a new minimum, requiring O(n) space, but typically it will be much smaller in size than storing the minimum value with each stack element.
