@@ -275,3 +275,439 @@ We map the **inorder** traversal instead of the **preorder** traversal because o
 - **Inorder** helps split the tree into left and right subtrees by locating the root’s position, so we map it for efficient lookup (O(1) time).
 
 By combining the root discovery from **preorder** and the tree-splitting from **inorder**, the algorithm can efficiently reconstruct the binary tree.
+
+
+solution two
+
+Complexity
+Time complexity: O(n2)
+Space complexity: O(n2)
+
+
+```cpp
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        deque<int> preorderQueue(preorder.begin(), preorder.end());
+        return build(preorderQueue, inorder);        
+    }
+
+private:
+    TreeNode* build(deque<int>& preorder, vector<int>& inorder) {
+        if (!inorder.empty()) {
+            int val = preorder.front();
+            preorder.pop_front();
+            auto it = find(inorder.begin(), inorder.end(), val);
+            int idx = it - inorder.begin();
+
+            TreeNode* root = new TreeNode(val);
+            vector<int> leftInorder(inorder.begin(), inorder.begin() + idx);
+            vector<int> rightInorder(inorder.begin() + idx + 1, inorder.end());
+
+            root->left = build(preorder, leftInorder);
+            root->right = build(preorder, rightInorder);
+
+            return root;
+        }
+
+        return nullptr;
+    }    
+};
+
+```
+Let's walk through a dry run of the code **line by line** with the following example:
+
+### Example Input:
+- `preorder = [3, 9, 20, 15, 7]`
+- `inorder = [9, 3, 15, 20, 7]`
+
+We'll go through each step, explaining what happens and how the data structures change.
+
+### Code:
+```cpp
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        deque<int> preorderQueue(preorder.begin(), preorder.end());
+        return build(preorderQueue, inorder);        
+    }
+
+private:
+    TreeNode* build(deque<int>& preorder, vector<int>& inorder) {
+        if (!inorder.empty()) {
+            int val = preorder.front();
+            preorder.pop_front();
+            auto it = find(inorder.begin(), inorder.end(), val);
+            int idx = it - inorder.begin();
+
+            TreeNode* root = new TreeNode(val);
+            vector<int> leftInorder(inorder.begin(), inorder.begin() + idx);
+            vector<int> rightInorder(inorder.begin() + idx + 1, inorder.end());
+
+            root->left = build(preorder, leftInorder);
+            root->right = build(preorder, rightInorder);
+
+            return root;
+        }
+        return nullptr;
+    }
+};
+```
+
+---
+
+### **Step 1: `buildTree(preorder, inorder)`**
+
+- **Line:**
+  ```cpp
+  deque<int> preorderQueue(preorder.begin(), preorder.end());
+  ```
+  - **Explanation:** Convert the `preorder` vector `[3, 9, 20, 15, 7]` into a `deque`. Now, `preorderQueue` will look like this:
+    ```
+    preorderQueue = [3, 9, 20, 15, 7]
+    ```
+
+- **Line:**
+  ```cpp
+  return build(preorderQueue, inorder);
+  ```
+  - **Explanation:** Call the recursive function `build()` with `preorderQueue` and the original `inorder` vector `[9, 3, 15, 20, 7]`.
+
+---
+
+### **Step 2: `build(preorderQueue, inorder)` (First Call)**
+
+- **Line:**
+  ```cpp
+  if (!inorder.empty()) { 
+  ```
+  - **Explanation:** Since the `inorder` array is not empty (`[9, 3, 15, 20, 7]`), continue.
+
+- **Line:**
+  ```cpp
+  int val = preorder.front();
+  ```
+  - **Explanation:** Get the first value from `preorderQueue`, which is `3`. Now:
+    ```
+    val = 3
+    preorderQueue = [9, 20, 15, 7]
+    ```
+
+- **Line:**
+  ```cpp
+  preorder.pop_front();
+  ```
+  - **Explanation:** Remove the front element (`3`) from `preorderQueue`.
+
+- **Line:**
+  ```cpp
+  auto it = find(inorder.begin(), inorder.end(), val);
+  int idx = it - inorder.begin();
+  ```
+  - **Explanation:** Find the value `3` in the `inorder` array. It is at index `1`. Now:
+    ```
+    idx = 1
+    ```
+
+- **Line:**
+  ```cpp
+  TreeNode* root = new TreeNode(val);
+  ```
+  - **Explanation:** Create a new `TreeNode` with the value `3`. This node will be the root of the tree or subtree. Now:
+    ```
+    root = TreeNode(3)
+    ```
+
+- **Line:**
+  ```cpp
+  vector<int> leftInorder(inorder.begin(), inorder.begin() + idx);
+  vector<int> rightInorder(inorder.begin() + idx + 1, inorder.end());
+  ```
+  - **Explanation:** Split the `inorder` array into two parts based on the index `1`:
+    - **Left Subtree:** Elements before index `1` (`[9]`).
+    - **Right Subtree:** Elements after index `1` (`[15, 20, 7]`).
+    Now:
+    ```
+    leftInorder = [9]
+    rightInorder = [15, 20, 7]
+    ```
+
+- **Line:**
+  ```cpp
+  root->left = build(preorder, leftInorder);
+  ```
+  - **Explanation:** Recursively build the left subtree of the current root (`3`) using `preorderQueue` and `leftInorder` (`[9]`).
+
+---
+
+### **Step 3: `build(preorderQueue, leftInorder)` (Left Subtree of 3)**
+
+- **Line:**
+  ```cpp
+  if (!inorder.empty()) { 
+  ```
+  - **Explanation:** Since the `inorder` array is not empty (`[9]`), continue.
+
+- **Line:**
+  ```cpp
+  int val = preorder.front();
+  ```
+  - **Explanation:** Get the first value from `preorderQueue`, which is `9`. Now:
+    ```
+    val = 9
+    preorderQueue = [20, 15, 7]
+    ```
+
+- **Line:**
+  ```cpp
+  preorder.pop_front();
+  ```
+  - **Explanation:** Remove the front element (`9`) from `preorderQueue`.
+
+- **Line:**
+  ```cpp
+  auto it = find(inorder.begin(), inorder.end(), val);
+  int idx = it - inorder.begin();
+  ```
+  - **Explanation:** Find the value `9` in the `inorder` array. It is at index `0`. Now:
+    ```
+    idx = 0
+    ```
+
+- **Line:**
+  ```cpp
+  TreeNode* root = new TreeNode(val);
+  ```
+  - **Explanation:** Create a new `TreeNode` with the value `9`. This node will be the left child of the root `3`. Now:
+    ```
+    root = TreeNode(9)
+    ```
+
+- **Line:**
+  ```cpp
+  vector<int> leftInorder(inorder.begin(), inorder.begin() + idx);
+  vector<int> rightInorder(inorder.begin() + idx + 1, inorder.end());
+  ```
+  - **Explanation:** Split the `inorder` array into two parts based on the index `0`:
+    - **Left Subtree:** No elements (`[]`).
+    - **Right Subtree:** No elements (`[]`).
+    Now:
+    ```
+    leftInorder = []
+    rightInorder = []
+    ```
+
+- **Line:**
+  ```cpp
+  root->left = build(preorder, leftInorder);
+  ```
+  - **Explanation:** Recursively build the left subtree of the current root (`9`) using `preorderQueue` and `leftInorder` (`[]`).
+
+---
+
+### **Step 4: `build(preorderQueue, leftInorder)` (Left Subtree of 9)**
+
+- **Line:**
+  ```cpp
+  if (!inorder.empty()) {
+  ```
+  - **Explanation:** Since `inorder` is empty (`[]`), return `nullptr` for the left child of `9`.
+
+---
+
+### **Step 5: Back to Left Subtree of 9**
+
+- **Line:**
+  ```cpp
+  root->right = build(preorder, rightInorder);
+  ```
+  - **Explanation:** Recursively build the right subtree of `9` using `preorderQueue` and `rightInorder` (`[]`).
+
+---
+
+### **Step 6: `build(preorderQueue, rightInorder)` (Right Subtree of 9)**
+
+- **Line:**
+  ```cpp
+  if (!inorder.empty()) {
+  ```
+  - **Explanation:** Since `inorder` is empty (`[]`), return `nullptr` for the right child of `9`.
+
+---
+
+### **Step 7: Back to Root 3 (Right Subtree)**
+
+- **Line:**
+  ```cpp
+  root->right = build(preorder, rightInorder);
+  ```
+  - **Explanation:** Recursively build the right subtree of the root (`3`) using `preorderQueue` and `rightInorder` (`[15, 20, 7]`).
+
+---
+
+### **Step 8: `build(preorderQueue, rightInorder)` (Right Subtree of 3)**
+
+Repeat similar steps as above for constructing the right subtree of `3` with nodes `20`, `15`, and `7`.
+
+---
+
+### Final Output:
+
+The constructed binary tree will look like:
+
+```
+      3
+     / \
+    9   20
+       /  \
+     15    7
+```
+
+This code reconstructs a binary tree from its **preorder** and **inorder** traversal arrays. Here's a detailed breakdown of how the code works, followed by an explanation of each part:
+
+### Step-by-Step Explanation:
+
+#### 1. **`buildTree()` Function:**
+- **Purpose:** This function is the entry point, which initiates the tree construction by calling the recursive helper function `build()`.
+- **Parameters:**
+  - `preorder`: A vector of integers representing the preorder traversal of the binary tree.
+  - `inorder`: A vector of integers representing the inorder traversal of the binary tree.
+  
+- **Deque Initialization:** 
+  - The `preorder` vector is converted to a `deque` (double-ended queue) called `preorderQueue`.
+  - **Why `deque`?** A `deque` allows fast access to the front, and popping from the front (which is needed in preorder traversal) is efficient.
+
+```cpp
+deque<int> preorderQueue(preorder.begin(), preorder.end());
+return build(preorderQueue, inorder);
+```
+
+- **`build()` Recursive Function Call:** The `build()` function is called with `preorderQueue` and `inorder` to recursively construct the tree.
+
+---
+
+#### 2. **`build()` Recursive Helper Function:**
+- **Purpose:** Recursively builds the binary tree using the preorder and inorder arrays.
+- **Parameters:**
+  - `preorder`: A reference to the `deque` containing the preorder traversal elements.
+  - `inorder`: A vector representing the current portion of the inorder traversal array.
+
+##### Base Case:
+- **Empty Inorder Array:** If the `inorder` array is empty, there is no node to construct, so return `nullptr` (indicating no child in that branch).
+```cpp
+if (!inorder.empty()) { /* continue */ } else { return nullptr; }
+```
+
+##### Recursive Case:
+- **Step 1: Get the Root from Preorder**
+  - **`preorder.front()`** gives the first element of the preorder array, which is always the root node of the current subtree.
+  - This value is stored in `val`, and `preorder.pop_front()` removes it from the `deque`.
+  
+```cpp
+int val = preorder.front();
+preorder.pop_front();
+```
+
+- **Step 2: Find the Root in Inorder**
+  - The root value `val` is found in the `inorder` array using `find()`.
+  - `idx` represents the index of the root value in the `inorder` array. This index splits the `inorder` array into two parts:
+    - **Left subtree elements:** Elements before `idx`.
+    - **Right subtree elements:** Elements after `idx`.
+
+```cpp
+auto it = find(inorder.begin(), inorder.end(), val);
+int idx = it - inorder.begin();
+```
+
+- **Step 3: Construct the Root Node**
+  - A new `TreeNode` is created with the root value `val`.
+```cpp
+TreeNode* root = new TreeNode(val);
+```
+
+- **Step 4: Divide the Inorder Array**
+  - The `inorder` array is split into two parts:
+    - **Left Subtree Inorder:** Elements before the root (`inorder.begin()` to `inorder.begin() + idx`).
+    - **Right Subtree Inorder:** Elements after the root (`inorder.begin() + idx + 1` to `inorder.end()`).
+
+```cpp
+vector<int> leftInorder(inorder.begin(), inorder.begin() + idx);
+vector<int> rightInorder(inorder.begin() + idx + 1, inorder.end());
+```
+
+- **Step 5: Recursively Build Subtrees**
+  - The `build()` function is recursively called for both the left and right subtrees using the `preorder` deque and the divided `inorder` arrays.
+  - These recursive calls return the left and right child nodes, which are assigned to the root node’s `left` and `right` pointers.
+
+```cpp
+root->left = build(preorder, leftInorder);
+root->right = build(preorder, rightInorder);
+```
+
+- **Return the Root:** Finally, return the constructed root node (and its subtrees).
+
+```cpp
+return root;
+```
+
+##### Base Case for Empty Subtree:
+- If the `inorder` array is empty (i.e., no more nodes in that subtree), return `nullptr`.
+
+```cpp
+return nullptr;
+```
+
+---
+
+### Dry Run Example:
+
+Given:
+- `preorder = [3, 9, 20, 15, 7]`
+- `inorder = [9, 3, 15, 20, 7]`
+
+1. **First Call (Root Construction):**
+   - `preorder.front()` is `3`, so the root is `3`.
+   - In `inorder`, `3` is at index `1`. Split `inorder` into:
+     - Left subtree: `[9]`
+     - Right subtree: `[15, 20, 7]`
+   - Recursively build left and right subtrees.
+
+2. **Left Subtree of 3:**
+   - `preorder.front()` is `9`, so the left child of `3` is `9`.
+   - In `inorder`, `9` is at index `0`. Split `inorder` into:
+     - Left subtree: `[]`
+     - Right subtree: `[]` (both empty).
+   - Since both parts are empty, the left and right children of `9` are `nullptr`.
+
+3. **Right Subtree of 3:**
+   - `preorder.front()` is `20`, so the right child of `3` is `20`.
+   - In `inorder`, `20` is at index `1`. Split `inorder` into:
+     - Left subtree: `[15]`
+     - Right subtree: `[7]`
+   - Recursively build left and right subtrees.
+
+4. **Left Subtree of 20:**
+   - `preorder.front()` is `15`, so the left child of `20` is `15`.
+   - In `inorder`, `15` is at index `0`. Split `inorder` into:
+     - Left subtree: `[]`
+     - Right subtree: `[]` (both empty).
+   - The left and right children of `15` are `nullptr`.
+
+5. **Right Subtree of 20:**
+   - `preorder.front()` is `7`, so the right child of `20` is `7`.
+   - In `inorder`, `7` is at index `0`. Split `inorder` into:
+     - Left subtree: `[]`
+     - Right subtree: `[]` (both empty).
+   - The left and right children of `7` are `nullptr`.
+
+### Final Tree Structure:
+```
+      3
+     / \
+    9   20
+       /  \
+     15    7
+```
+
+### Conclusion:
+This code constructs a binary tree using preorder and inorder traversals by leveraging the order of node discovery from preorder and the splitting of subtrees from inorder. The use of `deque` for preorder makes it efficient to pop elements, while recursively dividing the inorder array helps build the correct subtree structure.
