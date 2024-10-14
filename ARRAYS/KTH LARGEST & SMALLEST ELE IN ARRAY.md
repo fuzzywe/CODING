@@ -60,13 +60,19 @@ Given:
 
 Does this help clarify the question?
 
-_Solution 1: Sorting the Array
+__Solution 1: Sorting the Array
+
 The most naive approach is to sort the given array in descending order.
+
 The index of kth Largest element = k-1 ( zero-based indexing ) 
+
 The index of kth Smallest element = n-k 
+
 The array can also be sorted in ascending order.
+
 The index of kth Largest element = n-k 
-The index of kth Smallest element = k-1 ( zero based indexing )_
+
+The index of kth Smallest element = k-1 ( zero based indexing )__
 
 
 ```cpp
