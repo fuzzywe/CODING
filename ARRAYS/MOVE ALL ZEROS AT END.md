@@ -59,7 +59,8 @@ public:
     void moveZeroes(vector<int>& nums) {
         vector<int>temp;
         int zerocnt =0;
-        for(int i=0;i<nums.size();i++)//step 1:traverese the array and get non zero elements
+//step 1:traverese the array and get non zero elements
+        for(int i=0;i<nums.size();i++)
         {
             if(nums[i] !=0)
             {
@@ -67,11 +68,13 @@ public:
             }
             zerocnt++;
         }
-        for(int i=0;i<temp.size();i++)//Step 2: Copy non-zero elements back to original array
+//Step 2: Copy non-zero elements back to original array
+        for(int i=0;i<temp.size();i++)
         {
             nums[i] = temp[i];
         }
-        for(int i=temp.size();i<nums.size();i++)// Step 3: Append zeros at the end
+// Step 3: Append zeros at the end
+        for(int i=temp.size();i<nums.size();i++)
         {
             nums[i]=0;
         }
