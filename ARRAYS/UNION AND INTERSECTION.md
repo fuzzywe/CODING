@@ -1,3 +1,6 @@
+
+
+https://leetcode.com/problems/intersection-of-two-arrays/description/
 Examples
 
 Input: arr1[] = [1, 2, 3, 4, 5], arr2[] = [1, 2, 3]
@@ -452,3 +455,136 @@ Time Complexity: O(m+n), Because at max i runs for n times and j runs for m time
 Space Complexity : O(m+n) {If Space of Union ArrayList is considered} 
 
 O(1) {If Space of union ArrayList is not considered}
+
+
+
+**FINDING INTERSECTION IN AN ARRAY**
+
+Let's break down the function `intersection` that finds the intersection of two arrays `nums1` and `nums2`, meaning it returns the common elements present in both arrays without duplicates.
+
+### Code Explanation
+
+```cpp
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        set<int> set1(nums1.begin(), nums1.end()); // Convert nums1 to a set
+        set<int> set2(nums2.begin(), nums2.end()); // Convert nums2 to a set
+        vector<int> result; // Vector to store the result
+
+        for (const auto& num : set2) { // Iterate through the second set
+            if (set1.count(num)) { // Check if num exists in the first set
+                result.push_back(num); // If so, add it to the result
+            }
+        }
+        return result; // Return the result vector
+    }
+};
+```
+
+### Detailed Explanation of Each Line
+
+1. **`class Solution {`**
+   - Declares a class named `Solution`.
+
+2. **`public:`**
+   - Specifies the public access specifier for the class, allowing access to the member functions.
+
+3. **`vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {`**
+   - Defines a public member function `intersection` that takes two vectors, `nums1` and `nums2`, as input and returns a `vector<int>` containing the intersection (common elements) of both arrays.
+
+4. **`set<int> set1(nums1.begin(), nums1.end());`**
+   - Converts the vector `nums1` into a set `set1`:
+     - **Reason:** Sets automatically remove duplicates and store unique elements. By converting `nums1` into a set, we eliminate any duplicate elements and make lookups faster (average O(1) time complexity).
+   - `nums1.begin(), nums1.end()` initializes the set with all elements of `nums1`.
+
+5. **`set<int> set2(nums2.begin(), nums2.end());`**
+   - Similarly, this converts `nums2` into a set `set2`:
+     - **Reason:** To ensure unique elements from `nums2` and allow for efficient comparison with `set1`.
+   - `nums2.begin(), nums2.end()` initializes the set with all elements of `nums2`.
+
+6. **`vector<int> result;`**
+   - Initializes an empty vector `result` to store the common elements (the intersection of `nums1` and `nums2`).
+
+7. **`for (const auto& num : set2) {`**
+   - Iterates over each element `num` in `set2`:
+     - **Reason:** We loop through the second set because we only need to check if elements from `set2` exist in `set1`. This reduces redundant checks since sets only store unique elements.
+
+8. **`if (set1.count(num)) {`**
+   - For each element `num` in `set2`, it checks if that element exists in `set1`:
+     - `set1.count(num)` checks if `num` is present in `set1`. It returns `1` if `num` is present, otherwise `0`.
+
+9. **`result.push_back(num);`**
+   - If the element `num` exists in `set1`, it is added to the `result` vector.
+
+10. **`return result;`**
+    - After the loop completes, the function returns the `result` vector, which now contains the common elements between `nums1` and `nums2`.
+
+### Dry Run Example
+
+Let's dry run the code with an example:
+
+```cpp
+nums1 = [4, 9, 5]
+nums2 = [9, 4, 9, 8, 4]
+```
+
+#### **Initial State:**
+- `nums1 = [4, 9, 5]`
+- `nums2 = [9, 4, 9, 8, 4]`
+
+#### Step-by-Step Execution:
+
+1. **Line: `set<int> set1(nums1.begin(), nums1.end());`**
+   - `set1` is created from `nums1`:
+   ```cpp
+   set1 = {4, 9, 5} // All elements in nums1 are added to set1, duplicates are removed.
+   ```
+
+2. **Line: `set<int> set2(nums2.begin(), nums2.end());`**
+   - `set2` is created from `nums2`:
+   ```cpp
+   set2 = {9, 4, 8} // All elements in nums2 are added to set2, duplicates are removed.
+   ```
+
+3. **Line: `vector<int> result;`**
+   - An empty vector `result` is initialized to store the intersection.
+
+4. **Line: `for (const auto& num : set2) {`**
+   - The loop starts iterating through each element in `set2`:
+   
+   **First Iteration:**
+   - `num = 9`
+   - **Condition:** `if (set1.count(9))` → `set1.count(9)` is `true` because 9 exists in `set1`.
+     - `result.push_back(9);`
+     - **State of `result`:**
+     ```cpp
+     result = [9]
+     ```
+
+   **Second Iteration:**
+   - `num = 4`
+   - **Condition:** `if (set1.count(4))` → `set1.count(4)` is `true` because 4 exists in `set1`.
+     - `result.push_back(4);`
+     - **State of `result`:**
+     ```cpp
+     result = [9, 4]
+     ```
+
+   **Third Iteration:**
+   - `num = 8`
+   - **Condition:** `if (set1.count(8))` → `set1.count(8)` is `false` because 8 does not exist in `set1`.
+     - No action is taken in this iteration.
+
+5. **Line: `return result;`**
+   - The loop finishes, and the final `result` vector is returned:
+   ```cpp
+   result = [9, 4]
+   ```
+
+### Final Output:
+The intersection of `nums1` and `nums2` is `[9, 4]`.
+
+### Summary:
+- The code efficiently finds the common elements between two arrays by converting them into sets to eliminate duplicates and using efficient lookups.
+- The result is stored in a vector and returned, containing the elements present in both arrays without duplicates.
