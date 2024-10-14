@@ -25,7 +25,7 @@ Output:
 Explanation:
  All the zeros are moved to the end and non-negative integers are moved to front by maintaining order
 
-** OPTIMAL SOLUTION**
+**OPTIMAL SOLUTION**
 
  ```cpp
 Complexity
