@@ -329,3 +329,56 @@ if (x - arr[mid] > arr[mid + k] - x)
 By comparing these two values, the algorithm determines which side (left or right) has elements closer to `x`. If the left side is closer, the window moves left. If the right side is closer, the window moves right.
 
 This way, we find the starting point for the window of size `k` that contains the closest elements to `x`.
+
+The binary search approach used in your code is already highly optimized for this problem, with a time complexity of **O(log(n - k) + k)**:
+
+- The **binary search** part has a time complexity of **O(log(n - k))**, where `n` is the size of the array, and `k` is the number of closest elements.
+- The **slicing of the array** to get the result has a time complexity of **O(k)**.
+
+This is efficient because the binary search narrows down the range of `k` closest elements in logarithmic time, and then the slicing only involves copying the `k` elements.
+
+However, if you want an alternative solution or a slight improvement for readability, you can consider this **two-pointer approach**. It's also efficient but may not be as fast as binary search in certain cases.
+
+### Two-pointer Approach:
+```cpp
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int lft = 0;
+        int rgt = arr.size() - 1;
+
+        // Shrink the window from both sides until the window size is `k`
+        while (rgt - lft >= k) {
+            if (abs(arr[lft] - x) > abs(arr[rgt] - x)) {
+                lft++;  // If the left element is farther from `x`, move the left pointer
+            } else {
+                rgt--;  // If the right element is farther from `x`, move the right pointer
+            }
+        }
+
+        // Return the `k` closest elements in the window
+        return vector<int>(arr.begin() + lft, arr.begin() + lft + k);
+    }
+};
+```
+
+### Explanation:
+
+1. **Two pointers (`lft` and `rgt`)**: The left pointer starts at `0` and the right pointer starts at `n - 1`.
+2. **Shrink the window**: We shrink the window from both ends until the window size is `k`. We compare the distance of the current elements from `x`:
+   - If the element at `lft` is farther from `x` than the element at `rgt`, we increment `lft`.
+   - If the element at `rgt` is farther from `x`, we decrement `rgt`.
+3. **Stop when window size becomes `k`**: When the difference between `rgt` and `lft` becomes `k`, we stop.
+4. **Return the result**: The `k` closest elements are in the range `[lft, lft + k)`.
+
+### Time Complexity:
+- **O(n)** in the worst case, where `n` is the size of the array, because we may end up moving both pointers across the entire array.
+- This approach is not better than the binary search solution but might be easier to understand.
+
+---
+
+### Why Binary Search is Better:
+- The **binary search** approach is more optimal, especially for large input sizes, because it reduces the search space logarithmically.
+- The **two-pointer** approach is simple but can become less efficient when the array size `n` is large.
+
+So, the binary search solution you already have is considered the most optimized solution for this problem.
