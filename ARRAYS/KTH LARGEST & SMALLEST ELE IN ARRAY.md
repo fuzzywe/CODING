@@ -58,9 +58,9 @@ Given:
 2. **Optimized Approach** (without full sort):
    - You could use **heaps** or the **QuickSelect** algorithm to directly find the K-th largest or smallest element without fully sorting the array. This reduces the time complexity compared to sorting the entire array.
 
-Does this help clarify the question?
 
-__Solution 1: Sorting the Array
+
+****__Solution 1: Sorting the Array****
 
 The most naive approach is to sort the given array in descending order.
 
