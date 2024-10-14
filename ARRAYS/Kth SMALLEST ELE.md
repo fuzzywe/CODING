@@ -22,16 +22,20 @@ Expected Auxiliary Space: O(max_element)
 Time complexity: O(n log n) (because of inserting all elements and popping from the heap).
 Space complexity: O(n) (because the heap stores all n elements).
 int kthSmallest(vector<int> &arr, int k) {
-        priority_queue<int>pq;
-        for(int i=0;i<arr.size();i++){
-            pq.push(arr[i]);
+       priority_queue<int> maxHeap;
+        
+        // Push elements into the heap
+        for (int i = 0; i < arr.size(); i++) {
+            maxHeap.push(arr[i]);
+            
+            // If heap size exceeds k, remove the largest element (top)
+            if (maxHeap.size() > k) {
+                maxHeap.pop();
+            }
         }
-        int ans;
-        for(int i=arr.size();i>=k;i--){
-            ans=pq.top();
-            pq.pop();
-        }
-        return ans;
+        
+        // The top element is the Kth smallest element
+        cout << "Kth Smallest element: " << maxHeap.top() << "\n";
 
 }
 ```
