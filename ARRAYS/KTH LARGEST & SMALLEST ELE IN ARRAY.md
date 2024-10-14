@@ -266,13 +266,11 @@ Time complexity: O(n) , where n = size of the array
 Space complexity: O(1) 
 
 
+****code for Kth Smallest element:****
+
 ```cpp
 
-code for Kth Smallest element:
 
-C++
-Java
-Python
 #include<bits/stdc++.h>
 using namespace std;
 
