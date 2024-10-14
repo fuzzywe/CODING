@@ -1,7 +1,9 @@
-MISTAKES I MADE DURING CODING PLATFORM I TRIED TO REV THE ARRAY
+**MISTAKES I MADE DURING CODING PLATFORM I TRIED TO REV THE ARRAY**
 //{ Driver Code Starts
 // Initial function template for C++
 
+
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -69,7 +71,7 @@ int main() {
 
 
 CORRECT ANSWER:
-
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -154,6 +156,7 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
+```
 
 Time Complexity:
 Best/Average case: O(n).
