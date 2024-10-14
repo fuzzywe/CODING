@@ -1,3 +1,4 @@
+```cpp
 Positive or Negative number: C | C++ |  Java | Python
 Even or Odd number: C | C++ | Java | Python
 Sum of First N Natural numbers:  C | C++ | Java | Python
@@ -27,7 +28,7 @@ Harshad number : C | C++ | Java | Python
 Abundant number : C| C++ | Java | Python
 Friendly pair : C | C++ |   Java | Python
 
-
+```
 **Working with Numbers**
 Highest Common Factor(HCF): C | C++ |  Java | Python
 Lowest Common Multiple (LCM) : C | C++ | Java | Python
