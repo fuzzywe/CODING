@@ -117,8 +117,7 @@ To get the Kth Smallest element, we will use a min-heap. After the removal of th
 Let the array be
 [17,7,2,30,21] and k = 3
 
-
-
+**dont study this one study last approach**
 
 Similarly, for the smallest kth element we will be using Min-Heap. After, extracting the top k-1 values will be having Kth Smallest element.
 
