@@ -27,7 +27,24 @@ Time complexity: O(log N)
 Space complexity: O(N)
 
 Sure! I'll break down each line of the code and explain it in a way that's easy to understand.
-
+```cpp
+class Solution {
+public:
+    vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int lft = 0, rgt = arr.size() - k;
+        while (lft < rgt) {
+            int mid = lft + (rgt - lft) / 2;
+            if (x - arr[mid] > arr[mid + k] - x) {
+                lft = mid + 1;
+            } else {
+                rgt = mid;
+            }
+        }
+        vector<int> sol(arr.begin() + lft, arr.begin() + lft + k);
+        return sol;
+    }
+};
+```
 ### Problem:
 You are given a sorted array `arr`, and you need to find the `k` closest elements to a given value `x`. The "closest" means elements that have the smallest difference with `x`. If there are ties (i.e., two numbers have the same difference), we pick the smaller number. The solution uses a technique called **binary search** to efficiently solve this problem.
 
