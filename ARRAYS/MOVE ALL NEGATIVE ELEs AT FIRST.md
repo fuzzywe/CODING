@@ -122,3 +122,102 @@ Output
 -9 -8 -4 -5 -6 -7 3 2 2 2 1 3 2 1 
 Time complexity: O(N) 
 Auxiliary Space: O(1)
+
+Sure! Let's break down the provided function `reArrange` that rearranges an array such that all negative numbers are on one side and all positive numbers are on the other side. The method uses two pointers, `low` and `high`, to efficiently swap elements. 
+
+### Code Explanation
+
+```cpp
+void reArrange(int arr[], int n) {
+    int low = 0, high = n - 1;  // Initialize pointers
+    while (low < high) {        // Loop until pointers meet
+        if (arr[low] < 0) {     // Check if the left pointer is negative
+            low++;               // Move left pointer to the right
+        } else if (arr[high] > 0) { // Check if the right pointer is positive
+            high--;              // Move right pointer to the left
+        } else {
+            swap(arr[low], arr[high]); // Swap elements at low and high
+        }
+    }
+}
+```
+
+### Detailed Explanation of Each Line
+
+1. **`void reArrange(int arr[], int n) {`**
+   - Declares a function named `reArrange` that takes an array `arr` and its size `n`. This function rearranges the array in place.
+
+2. **`int low = 0, high = n - 1;`**
+   - Initializes two pointers:
+     - `low`: starting from the beginning of the array (index 0).
+     - `high`: starting from the end of the array (index `n-1`).
+
+3. **`while (low < high) {`**
+   - Begins a loop that continues as long as the `low` pointer is less than the `high` pointer.
+
+### Iteration of the While Loop
+
+Let’s dry run this code with an example array:
+```cpp
+arr = [12, -7, 5, -3, -8, 6]
+```
+
+#### **Initial State:**
+- `arr = [12, -7, 5, -3, -8, 6]`
+- `n = 6`
+- `low = 0`
+- `high = 5`
+
+### Step-by-Step Execution:
+
+#### **First Iteration:**
+- **Condition:** `low < high` (0 < 5) → true
+- **Check:** `if (arr[low] < 0)` (12 < 0) → false
+- **Check:** `else if (arr[high] > 0)` (6 > 0) → true
+  - Execute `high--;`
+  - **State:** `high = 4`
+
+#### **Second Iteration:**
+- **Condition:** `low < high` (0 < 4) → true
+- **Check:** `if (arr[low] < 0)` (12 < 0) → false
+- **Check:** `else if (arr[high] > 0)` (-8 > 0) → false
+- **Else Block:** 
+  - Execute `swap(arr[low], arr[high]);`
+  - `swap(arr[0], arr[4]);` (12 and -8 are swapped)
+  - **State:** `arr = [-8, -7, 5, -3, 12, 6]`
+  - Then execute `low++` and `high--`.
+  - **State:** `low = 1`, `high = 3`
+
+#### **Third Iteration:**
+- **Condition:** `low < high` (1 < 3) → true
+- **Check:** `if (arr[low] < 0)` (-7 < 0) → true
+  - Execute `low++;`
+  - **State:** `low = 2`
+
+#### **Fourth Iteration:**
+- **Condition:** `low < high` (2 < 3) → true
+- **Check:** `if (arr[low] < 0)` (5 < 0) → false
+- **Check:** `else if (arr[high] > 0)` (-3 > 0) → false
+- **Else Block:**
+  - Execute `swap(arr[low], arr[high]);`
+  - `swap(arr[2], arr[3]);` (5 and -3 are swapped)
+  - **State:** `arr = [-8, -7, -3, 5, 12, 6]`
+  - Then execute `low++` and `high--`.
+  - **State:** `low = 3`, `high = 2`
+
+#### **Fifth Iteration:**
+- **Condition:** `low < high` (3 < 2) → false
+- Exit the while loop.
+
+### Final State of `arr`:
+- After the loop completes, the rearranged array is:
+```cpp
+arr = [-8, -7, -3, 5, 12, 6]
+```
+- All negative numbers are now on the left side, and all positive numbers are on the right side.
+
+### Summary
+- The function efficiently rearranges the elements of the array in place using two pointers:
+  - The `low` pointer finds positive numbers and the `high` pointer finds negative numbers.
+  - When a positive number is found at the `low` index and a negative number is found at the `high` index, they are swapped.
+  - The process continues until the two pointers cross each other. This method effectively sorts negative and positive numbers without using extra space for another array.
