@@ -100,3 +100,51 @@ public:
     }
 };
 ```
+
+Both expressions are used to calculate the **midpoint** in binary search, but they differ slightly in terms of readability and performance. Here's a detailed breakdown:
+
+### 1. **Expression 1: `int mid = i + (j - i) / 2;`**
+
+This is a common and safe way to calculate the midpoint between two integers `i` and `j`. Let's break it down:
+
+- **`i + (j - i) / 2`** ensures that there is no overflow when adding `i` and `j`.
+- By calculating `(j - i) / 2`, you're determining the difference between `j` and `i`, halving it, and then adding it to `i`. This gives the middle point.
+
+#### Why is this used?
+- **Avoids overflow**: In cases where `i` and `j` are very large, directly adding them (`i + j`) could result in an integer overflow. For example, if both `i` and `j` are close to the maximum value of an integer, adding them could exceed the limit of `int`, causing unexpected results.
+  
+#### Example:
+If `i = 1,000,000,000` and `j = 2,000,000,000`:
+- Direct sum: `i + j = 3,000,000,000`, which could overflow if `int` can only hold values up to `2,147,483,647` (in a 32-bit system).
+- Using `i + (j - i) / 2`, we first compute `j - i = 1,000,000,000`, then `1,000,000,000 / 2 = 500,000,000`. Adding it to `i`, we get `i + 500,000,000 = 1,500,000,000`, which avoids overflow.
+
+### 2. **Expression 2: `int mid = (left + right) >> 1;`**
+
+This expression uses **bitwise shifting** to calculate the midpoint. The right-shift operator (`>> 1`) divides the sum of `left` and `right` by 2, effectively calculating the midpoint. Let's break it down:
+
+- **`(left + right) >> 1`** first adds `left` and `right` and then divides by 2 using the bitwise right-shift operator. Right-shifting by 1 is equivalent to dividing by 2.
+
+#### Why is this used?
+- **Bitwise operations are fast**: Bitwise shifts are faster than arithmetic operations like division, so this is often used when performance is critical. However, modern compilers are generally optimized to perform division efficiently, so the performance gain may be negligible in most cases.
+  
+#### Example:
+If `left = 10` and `right = 30`:
+- Direct sum: `left + right = 40`
+- Right-shift by 1: `40 >> 1 = 20` (which is the same as `40 / 2`).
+
+#### Potential issue:
+- **Overflow risk**: Unlike the first method, this approach does not protect against integer overflow. If `left + right` exceeds the maximum value that can be stored in an `int`, it could lead to an overflow and result in incorrect values.
+
+### Key Differences:
+
+| Aspect                | `i + (j - i) / 2`                                        | `(left + right) >> 1`                                  |
+|-----------------------|----------------------------------------------------------|--------------------------------------------------------|
+| **Overflow Protection**| Safeguards against overflow by subtracting first.         | Can overflow if `left + right` exceeds `int` capacity.  |
+| **Performance**        | Slightly slower (but safer) due to extra arithmetic.      | Bitwise operation is fast, but modern compilers often optimize both. |
+| **Readability**        | More intuitive for general understanding and usage.       | More compact, but less intuitive unless familiar with bitwise shifts. |
+
+### Conclusion:
+- **Use `i + (j - i) / 2` when you're concerned about large values and potential overflow.** This method is safer and should be your default choice.
+- **Use `(left + right) >> 1` if you're confident there won't be overflow** and you need slightly better performance, especially in competitive programming or performance-critical scenarios.
+
+In modern compilers, the difference in performance is often negligible, and they might optimize both approaches similarly.
