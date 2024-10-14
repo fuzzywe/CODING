@@ -9,7 +9,7 @@ Output: -12 -13 -5 -7 -3 -6 11 6 5
 Naive approach: The idea is to sort the array of elements, this will make sure that all the negative elements will come before all the positive elements.
 Below is the implementation of the above approach:
 
-
+```cpp
 #include <iostream>
 #include<vector>
 #include<algorithm>
@@ -25,7 +25,7 @@ int main() {
        cout<<e << " ";
     return 0;
 }
-
+```
 // This code is contributed by repakaeshwaripriya
 
 Output
@@ -39,6 +39,8 @@ The idea is to simply apply the partition process of quicksort.
 
 // A C++ program to put all negative
 // numbers before positive numbers
+
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -70,13 +72,13 @@ int main()
     printArray(arr, n);
     return 0;
 }
-
+```
 Output
 -1 -3 -7 4 5 6 2 8 9 
 Time complexity: O(N) 
 Auxiliary Space: O(1)
 
-
+```cpp
   #include <iostream>
 using namespace std;
 
@@ -114,6 +116,7 @@ int main() {
     displayArray(arr,n);
     return 0;
 }
+```
 
 Output
 -9 -8 -4 -5 -6 -7 3 2 2 2 1 3 2 1 
