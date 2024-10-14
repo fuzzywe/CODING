@@ -29,8 +29,9 @@ Abundant number : C| C++ | Java | Python
 Friendly pair : C | C++ |   Java | Python
 
 ```
-```cpp
+
 **Working with Numbers**
+```cpp
 Highest Common Factor(HCF): C | C++ |  Java | Python
 Lowest Common Multiple (LCM) : C | C++ | Java | Python
 Greatest Common Divisor : C | C++ | Java | Python
@@ -57,7 +58,8 @@ Counting number of days in a given month of a year: C | C++ | Java | Python
 Finding Number of times x digit occurs in a given input : C | C++ | Java | Python
 Finding number of integers which has exactly x divisors: C | C++ | Java | Python
 Finding Roots of a quadratic equation : C | C++ | Java | Python
-
+```
+```cpp
 **Codes for Recursion**
 Power of a Number – C | C++ | Java | Python
 Prime Number – C | C++ | Java | Python
@@ -78,9 +80,10 @@ Find all possible Palindromic partitions of the given String – C | C++ | Java 
 Find all the N bit binary numbers having more than or equal 1’s than 0’s – C | C++ | Java | Python
 Given a set of positive integers, find all its subsets – C | C++ | Java | Python
 Given a string s, remove all its adjacent duplicate characters recursively – C | C++ | Java | Python
-
+```
 
 **Important Codes related to Arrays**
+```cpp
 Find Largest element in an array : C | C++ | Java | Python
 Find Smallest Element in an Array : C | C++ | Java | Python
 Find the Smallest and largest element in an array : C | C++ | Java | Python
@@ -113,8 +116,10 @@ Block swap algorithm for array rotation : C | C++ | Java| Python
 Juggling algorithm for array rotation : C | C++ | Java | Python
 Finding Circular rotation of an array by K positions : C | C++ | Java | Python
 Balanced Parenthesis Problem : C | C++ | Java | Python
-
-Operations on Strings
+```
+**
+Operations on Strings**
+```cpp
 Check whether a character is a vowel or consonant : C | C++ | Java | Python
 Check whether a character is a alphabet or not : C | C++ | Java | Python
 Find the ASCII value of a character : C | C++ | Java | Python
@@ -137,9 +142,9 @@ Replacing a particular word with another word in a string – C | C++ | Java | P
 Count common sub-sequence in two strings : C | C++ | Java | Python
 Check if two strings match where one string contains wildcard characters : C | C++ | Java | Python
 Print all permutations of a given string in lexicographically sorted order : C | C++ | Java | Python
-
+```
 **Operations on Strings**
-
+```cpp
 Advanced Codes related to Arrays
 Given an array which consists of only 0, 1 and 2. Sort the array without using any  algorithm – C | C++ | Java | Python
 Find the “Kth” max and min element of an array – C | C++ | Java | Python
@@ -170,8 +175,9 @@ Three way partitioning of an array around a given value – C | C++ | Java | Pyt
 Minimum no. of operations required to make an array palindrome – C | C++ | Java | Python
 Median of 2 sorted arrays of equal size – C | C++ | Java | Python
 Median of 2 sorted arrays of different size – C | C++ | Java | Python
-
+```
 **Codes related to Matrix**
+```cpp
 Spiral traversal on a Matrix – C | C++ | Java | Python
 Search an element in a matrix – C | C++ | Java | Python
 Find median in a row wise sorted matrix – C | C++ | Java | Python
@@ -181,9 +187,10 @@ Find a specific pair in matrix – C | C++ | Java | Python
 Rotate matrix by 90 degrees – C | C++ | Java | Python
 Kth smallest element in a row-column wise sorted matrix – C | C++ | Java | Python
 Common elements in all rows of a given matrix – C | C++ | Java | Python
-
+```
 
 **Pattern Printing**
+```cpp
 array
            ****
            ****
@@ -678,9 +685,10 @@ C | Java | Python
            6*6*6*6
 Basic Diamond Number Star Pattern (Sandwich Inverted)
 
-
+```
 
 **Few more pattern programs**
+```cpp
 Program for Pyramid star pattern
 Program for Pyramid number pattern
 Program for Palindromic Pyramid Pattern – Java | Python
