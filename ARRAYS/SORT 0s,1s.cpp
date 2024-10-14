@@ -1,5 +1,5 @@
 Sort 0s, 1s and 2s
-Difficulty: EasyAccuracy: 50.58%Submissions: 698K+Points: 2
+
 Given an array arr containing only 0s, 1s, and 2s. Sort the array in ascending order.
 
 Examples:
@@ -7,12 +7,15 @@ Examples:
 Input: arr[]= [0, 2, 1, 2, 0]
 Output: 0 0 1 2 2
 Explanation: 0s 1s and 2s are segregated into ascending order.
+  
 Input: arr[] = [0, 1, 0]
 Output: 0 0 1
 Explanation: 0s 1s and 2s are segregated into ascending order.
+
+  
 Expected Time Complexity: O(n)
 Expected Auxiliary Space: O(1)
-
+```cpp
   //{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
@@ -67,12 +70,13 @@ int main() {
 }
 
 // } Driver Code Ends
+```
 
 Time Complexity: O(N) + O(N), where N = size of the array. First O(N) for counting the number of 0’s, 1’s, 2’s, and second O(N) for placing them correctly in the original array.
 
 Space Complexity: O(1) as we are not using any extra space.
 
-
+```cpp
   BETTER:
 
 #include <bits/stdc++.h>
@@ -110,6 +114,7 @@ int main()
     cout << endl;
     return 0;
 }
+```
 
 Output:
 After sorting:
@@ -121,6 +126,9 @@ Reason: We are using a single loop that can run at most N times.
 
 Space Complexity: O(1) as we are not using any extra space.
 
+ 
+
+```cpp
   class Solution {
 public:
     void sortColors(vector<int>& nums) {
@@ -138,6 +146,8 @@ public:
         }
     }
 };
+
+```
 Complexity
 Time complexity: O(n)
 Space complexity: O(1)
@@ -148,6 +158,8 @@ Complexity
 Time complexity: O(n)
 Space complexity: O(1)
 Code
+
+```cpp
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
@@ -170,3 +182,4 @@ public:
         }
     }
 };
+```
