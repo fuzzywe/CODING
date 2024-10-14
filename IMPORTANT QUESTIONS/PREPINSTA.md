@@ -29,6 +29,7 @@ Abundant number : C| C++ | Java | Python
 Friendly pair : C | C++ |   Java | Python
 
 ```
+```cpp
 **Working with Numbers**
 Highest Common Factor(HCF): C | C++ |  Java | Python
 Lowest Common Multiple (LCM) : C | C++ | Java | Python
@@ -690,3 +691,5 @@ Program for Pascal triangle – Java | Python
 Program to Check array similarity
 Program for Square sum
 Program for Longest palindrome in the array
+
+```
