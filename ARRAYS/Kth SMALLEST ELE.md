@@ -1,4 +1,58 @@
 https://leetcode.com/problems/kth-largest-element-in-an-array/description/
+https://www.geeksforgeeks.org/problems/kth-smallest-element5635/1
+
+
+
+Given an array arr[] and an integer k where k is smaller than the size of the array, the task is to find the kth smallest element in the given array.
+
+Follow up: Don't solve it using the inbuilt sort function.
+
+Examples :
+
+Input: arr[] = [7, 10, 4, 3, 20, 15], k = 3
+Output:  7
+Explanation: 3rd smallest element in the given array is 7.
+Input: arr[] = [2, 3, 1, 20, 15], k = 4 
+Output: 15
+Explanation: 4th smallest element in the given array is 15.
+Expected Time Complexity: O(n+(max_element) )
+Expected Auxiliary Space: O(max_element)
+
+```cpp
+Time complexity: O(n log n) (because of inserting all elements and popping from the heap).
+Space complexity: O(n) (because the heap stores all n elements).
+int kthSmallest(vector<int> &arr, int k) {
+        priority_queue<int>pq;
+        for(int i=0;i<arr.size();i++){
+            pq.push(arr[i]);
+        }
+        int ans;
+        for(int i=arr.size();i>=k;i--){
+            ans=pq.top();
+            pq.pop();
+        }
+        return ans;
+
+}
+```
+
+```cpp
+Time complexity: O(n log n) (because of inserting all elements and popping from the heap).
+Space complexity: O(n) (because the heap stores all n elements).
+int n = arr.size(); // Get the size of the array
+
+// Step 1: Create a max-heap (priority_queue) with all the elements
+priority_queue<int> pq(arr.begin(), arr.end()); 
+
+// Step 2: Pop elements until the remaining top element is the k-th smallest
+for(int i = 0; i < n - k; i++) {
+    pq.pop(); 
+}
+
+// Step 3: Return the k-th smallest element
+return pq.top(); 
+
+```
 
 **MISTAKES I MADE DURING CODING PLATFORM I TRIED TO REV THE ARRAY**
 //{ Driver Code Starts
@@ -6,6 +60,8 @@ https://leetcode.com/problems/kth-largest-element-in-an-array/description/
 
 
 ```cpp
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
