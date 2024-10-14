@@ -1,3 +1,7 @@
+https://www.geeksforgeeks.org/problems/find-minimum-and-maximum-element-in-an-array4428/1
+
+
+
 Maximum and minimum of an array using minimum number of comparisons
 Last Updated : 14 Sep, 2024
 Given an array of size N. The task is to find the maximum and the minimum element of the array using the minimum number of comparisons.
@@ -19,7 +23,7 @@ You initialize mini with the largest possible value (INT_MAX) because you're loo
 INT_MIN for maxi:
 Similarly, you initialize maxi with the smallest possible value (INT_MIN) because you're searching for the largest value. Since every number in the array will be larger than INT_MIN, the first comparison will correctly update maxi. It continues updating until the largest value is found.
 
-
+```cpp
 #include <iostream>
 #include <limits.h>
 using namespace std;
@@ -52,7 +56,7 @@ int main()
     cout <<"Minimum element is: " <<setmini(A, N) << endl;
     cout <<"Miximum  element is: "<< setmaxi(A, N) << endl;
 }
-
+```
 Output
 Minimum element is: 2
 Miximum  element is: 9
@@ -74,6 +78,7 @@ Below is the implementation of the above approach:
 
 
 // C++ implementation of the above approach
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -106,7 +111,7 @@ int main()
 
     return 0;
 }
-
+```
 // This code is contributed by Tapesh(tapeshdua420)
 
 Output
@@ -115,8 +120,7 @@ Maximum element is 3000
 Time complexity: O(n log n), where n is the number of elements in the array, as we are using a sorting algorithm.
 Auxilary Space: is O(1), as we are not using any extra space
 
-
-CODE PLATFORM
+**CODE PLATFORM**
 
 //{ Driver Code Starts
 #include <bits/stdc++.h>
@@ -171,6 +175,8 @@ int main() {
 
 
 2.//{ Driver Code Starts
+
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -215,8 +221,9 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
+```
 
-3.
+```cpp
   //{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
@@ -257,5 +264,5 @@ int main() {
     return 0;
 }
 // } Driver Code Ends
-
+```
 
