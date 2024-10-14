@@ -304,3 +304,141 @@ public:
     }
 };
 ```
+Let's break it down even more step by step, using simpler explanations. We will first explain the **idea behind the algorithm** and then proceed with an **easy-to-follow dry run**. Here's how it works:
+
+### **Understanding the Algorithm:**
+
+This algorithm solves the **Dutch National Flag problem** where we need to sort an array of 0s, 1s, and 2s. The goal is to place:
+- All `0`s on the left side,
+- All `1`s in the middle, and
+- All `2`s on the right side of the array.
+
+We use **three pointers**:
+1. `l` (left pointer) — Tracks where the next `0` should go.
+2. `m` (middle pointer) — Moves through the array to check each element.
+3. `r` (right pointer) — Tracks where the next `2` should go.
+
+**Key Operations:**
+- If `nums[m] == 0`, we swap it with the element at `l`, because `0` belongs to the left.
+- If `nums[m] == 1`, we do nothing and just move `m` forward, as `1` is already in the correct place.
+- If `nums[m] == 2`, we swap it with the element at `r`, because `2` belongs to the right.
+
+### **Step-by-Step Dry Run with Example:**
+Let's take an example array `nums = {2, 0, 2, 1, 1, 0}` and follow how the algorithm works step by step.
+
+---
+
+#### **Initial State:**
+- **Array:** `nums = {2, 0, 2, 1, 1, 0}`
+- **Pointers:** `l = 0`, `m = 0`, `r = 5`
+
+We start with the following positions:
+- `l` (left pointer) is at index 0.
+- `m` (middle pointer) is at index 0.
+- `r` (right pointer) is at index 5 (the last element).
+
+---
+
+#### **Iteration 1 (`m = 0`):**
+
+1. **Check:** The value at `m` (index 0) is `nums[m] = 2`.
+2. **Action:** Since `nums[m] == 2`, we swap it with the element at `r` (index 5).
+   - **Before Swap:** `nums = {2, 0, 2, 1, 1, 0}`
+   - **After Swap:** `nums = {0, 0, 2, 1, 1, 2}`
+3. **Update:** After the swap, we decrease `r` to `4` (move the right pointer left). We do **not** move `m` because we need to check the new value at index `m`.
+
+- **Array:** `nums = {0, 0, 2, 1, 1, 2}`
+- **Pointers:** `l = 0`, `m = 0`, `r = 4`
+
+---
+
+#### **Iteration 2 (`m = 0`):**
+
+1. **Check:** The value at `m` (index 0) is now `nums[m] = 0`.
+2. **Action:** Since `nums[m] == 0`, we swap it with the element at `l` (index 0).
+   - **Before Swap:** `nums = {0, 0, 2, 1, 1, 2}`
+   - **After Swap:** `nums = {0, 0, 2, 1, 1, 2}` (No change, it's a self-swap)
+3. **Update:** After the swap, we increase both `l` and `m` by 1.
+   - `l = 1` (move the left pointer right).
+   - `m = 1` (move the middle pointer right).
+
+- **Array:** `nums = {0, 0, 2, 1, 1, 2}`
+- **Pointers:** `l = 1`, `m = 1`, `r = 4`
+
+---
+
+#### **Iteration 3 (`m = 1`):**
+
+1. **Check:** The value at `m` (index 1) is `nums[m] = 0`.
+2. **Action:** Since `nums[m] == 0`, we swap it with the element at `l` (index 1).
+   - **Before Swap:** `nums = {0, 0, 2, 1, 1, 2}`
+   - **After Swap:** `nums = {0, 0, 2, 1, 1, 2}` (No change, it's a self-swap)
+3. **Update:** After the swap, we increase both `l` and `m` by 1.
+   - `l = 2`, `m = 2`.
+
+- **Array:** `nums = {0, 0, 2, 1, 1, 2}`
+- **Pointers:** `l = 2`, `m = 2`, `r = 4`
+
+---
+
+#### **Iteration 4 (`m = 2`):**
+
+1. **Check:** The value at `m` (index 2) is `nums[m] = 2`.
+2. **Action:** Since `nums[m] == 2`, we swap it with the element at `r` (index 4).
+   - **Before Swap:** `nums = {0, 0, 2, 1, 1, 2}`
+   - **After Swap:** `nums = {0, 0, 1, 1, 2, 2}`
+3. **Update:** After the swap, we decrease `r` to `3`. We do **not** move `m` because we need to check the new value at index `m`.
+
+- **Array:** `nums = {0, 0, 1, 1, 2, 2}`
+- **Pointers:** `l = 2`, `m = 2`, `r = 3`
+
+---
+
+#### **Iteration 5 (`m = 2`):**
+
+1. **Check:** The value at `m` (index 2) is now `nums[m] = 1`.
+2. **Action:** Since `nums[m] == 1`, it is already in the correct position. We just move `m` to the next element.
+3. **Update:** `m = 3`.
+
+- **Array:** `nums = {0, 0, 1, 1, 2, 2}`
+- **Pointers:** `l = 2`, `m = 3`, `r = 3`
+
+---
+
+#### **Iteration 6 (`m = 3`):**
+
+1. **Check:** The value at `m` (index 3) is `nums[m] = 1`.
+2. **Action:** Since `nums[m] == 1`, it is already in the correct position. We just move `m` to the next element.
+3. **Update:** `m = 4`.
+
+- **Array:** `nums = {0, 0, 1, 1, 2, 2}`
+- **Pointers:** `l = 2`, `m = 4`, `r = 3`
+
+---
+
+#### **Termination:**
+
+- At this point, `m = 4` and `r = 3`, so the condition `m <= r` is **false**, and the loop terminates.
+- The array is now sorted: `nums = {0, 0, 1, 1, 2, 2}`.
+
+---
+
+### **Summary of the Steps:**
+
+- The algorithm uses three pointers to sort the array in a single pass.
+- If `nums[m] == 0`, we swap it with the left pointer `l` and increment both `l` and `m`.
+- If `nums[m] == 1`, we leave it in place and just increment `m`.
+- If `nums[m] == 2`, we swap it with the right pointer `r` and decrement `r` (without incrementing `m`).
+
+---
+
+### **Final Sorted Array:**
+After the full process, the array is sorted:  
+**Result:** `nums = {0, 0, 1, 1, 2, 2}`
+
+---
+
+### **Complexity:**
+
+- **Time Complexity:** O(n), where `n` is the size of the array, because we only traverse the array once.
+- **Space Complexity:** O(1), as the sorting is done in place without using any extra space.
