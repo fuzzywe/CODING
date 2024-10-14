@@ -83,6 +83,9 @@ class Solution {
 ```
 
 ### Dry Run with Input:
+
+**The j++ is a post-increment operation, which means that arr[j] is assigned the value of nums[i], and then j is incremented by 1.**
+
 ```cpp
 arr = [12, -7, 5, -3, -8, 6]
 ```
