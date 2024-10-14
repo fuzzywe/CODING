@@ -197,8 +197,248 @@ Partition Algorithm: All the elements are compared to the PIVOT, and the element
 Now since all elements right to the PIVOT are greater and left to the PIVOT are smaller, compare the index with N-k ( where N = size of the array )  and recursively find the part to find the Kth largest element.
 The worst-case time complexity of this method is O(n^2) but its Average time complexity is O(n).
 
+**2. APPROACH**
 
-Code for kth largest element:
+Yes, the code can be optimized further by reducing the need to store all elements in a heap. Instead of pushing all elements into the heap, we can maintain a **min-heap** for the K-th largest element and a **max-heap** for the K-th smallest element using the following approach:
+
+### Optimized Approach:
+1. **K-th Largest Element**:
+   - Instead of using a max heap with all the elements, we can maintain a **min-heap** of size `K`. The top element of the heap will give us the K-th largest element.
+   - **How it works**: We push elements into the heap, but once the heap size exceeds `K`, we pop the smallest element, ensuring the heap only contains the `K` largest elements. The smallest element in the heap will then be the K-th largest.
+
+2. **K-th Smallest Element**:
+   - Similarly, we maintain a **max-heap** of size `K` for the K-th smallest element.
+   - **How it works**: We push elements into the heap, but once the heap size exceeds `K`, we pop the largest element, ensuring the heap only contains the `K` smallest elements. The largest element in the heap will be the K-th smallest.
+
+### Optimized Code
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+
+class Solution {
+public:
+    // Function to find Kth largest element using min-heap
+    void kth_Largest_MinHeap(vector<int>& arr, int k) {
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+        
+        // Push elements into the heap
+        for (int i = 0; i < arr.size(); i++) {
+            minHeap.push(arr[i]);
+            
+            // If heap size exceeds k, remove the smallest element (top)
+            if (minHeap.size() > k) {
+                minHeap.pop();
+            }
+        }
+        
+        // The top element is the Kth largest element
+        cout << "Kth Largest element: " << minHeap.top() << "\n";
+    }
+
+    // Function to find Kth smallest element using max-heap
+    void kth_Smallest_MaxHeap(vector<int>& arr, int k) {
+        priority_queue<int> maxHeap;
+        
+        // Push elements into the heap
+        for (int i = 0; i < arr.size(); i++) {
+            maxHeap.push(arr[i]);
+            
+            // If heap size exceeds k, remove the largest element (top)
+            if (maxHeap.size() > k) {
+                maxHeap.pop();
+            }
+        }
+        
+        // The top element is the Kth smallest element
+        cout << "Kth Smallest element: " << maxHeap.top() << "\n";
+    }
+};
+```
+
+### Explanation of the Optimized Code:
+
+#### 1. **For Finding K-th Largest Element (`kth_Largest_MinHeap`)**:
+- **Min Heap (`minHeap`)** is used to maintain only the `K` largest elements.
+- After inserting an element, if the heap size exceeds `K`, we pop the smallest element, leaving the K largest elements.
+- The top of the min heap will be the K-th largest element because the heap holds the K largest elements, with the smallest of those K at the top.
+
+#### 2. **For Finding K-th Smallest Element (`kth_Smallest_MaxHeap`)**:
+- **Max Heap (`maxHeap`)** is used to maintain only the `K` smallest elements.
+- After inserting an element, if the heap size exceeds `K`, we pop the largest element, leaving the K smallest elements.
+- The top of the max heap will be the K-th smallest element because the heap holds the K smallest elements, with the largest of those K at the top.
+
+### Dry Run for Optimized Code:
+
+For `arr = [3, 2, 1, 5, 6, 4]` and `k = 2`:
+
+- **For K-th Largest**:
+  - Insert 3: Heap = `[3]`
+  - Insert 2: Heap = `[2, 3]`
+  - Insert 1: Heap = `[1, 3, 2]`, pop 1 (since heap size > 2), new heap = `[2, 3]`
+  - Insert 5: Heap = `[2, 3, 5]`, pop 2, new heap = `[3, 5]`
+  - Insert 6: Heap = `[3, 5, 6]`, pop 3, new heap = `[5, 6]`
+  - Insert 4: Heap = `[4, 6, 5]`, pop 4, new heap = `[5, 6]`
+  - Result: The top of the heap is `5`, which is the 2nd largest element.
+
+- **For K-th Smallest**:
+  - Insert 3: Heap = `[3]`
+  - Insert 2: Heap = `[3, 2]`
+  - Insert 1: Heap = `[3, 2, 1]`, pop 3 (since heap size > 2), new heap = `[2, 1]`
+  - Insert 5: Heap = `[5, 2, 1]`, pop 5, new heap = `[2, 1]`
+  - Insert 6: Heap = `[6, 2, 1]`, pop 6, new heap = `[2, 1]`
+  - Insert 4: Heap = `[4, 2, 1]`, pop 4, new heap = `[2, 1]`
+  - Result: The top of the heap is `2`, which is the 2nd smallest element.
+
+### Time Complexity:
+- **Inserting into the heap** takes O(log K) for each element.
+- Since we process `n` elements, the overall time complexity for both functions is:
+  - **O(n log K)**, where `n` is the size of the array and `K` is the rank of the element to be found.
+
+### Space Complexity:
+- The heap maintains only `K` elements, so the space complexity is **O(K)**.
+
+This optimization reduces the space complexity and speeds up the operation, especially when `K` is much smaller than `n`.
+
+Let’s walk through the optimized solution for finding the K-th largest and K-th smallest element in an unsorted array using heaps. The code contains two main functions:
+
+- `kth_Largest_MinHeap`: Finds the K-th largest element using a **min-heap**.
+- `kth_Smallest_MaxHeap`: Finds the K-th smallest element using a **max-heap**.
+
+I’ll provide an **explanation** and **dry run** for each line of the code below.
+
+### Optimized Code Explanation (Line by Line):
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <queue>  // Needed for priority_queue (min-heap and max-heap)
+using namespace std;
+
+class Solution {
+public:
+    // Function to find Kth largest element using min-heap
+    void kth_Largest_MinHeap(vector<int>& arr, int k) {
+        // Step 1: Declare a min-heap (priority_queue with greater<int>)
+        priority_queue<int, vector<int>, greater<int>> minHeap;
+```
+- **Explanation**: A **min-heap** is initialized using `priority_queue`. In a min-heap, the smallest element is always at the top.
+- **Dry Run**: We initialize an empty min-heap: `minHeap = {}`.
+
+```cpp
+        // Step 2: Iterate over the array and push elements into the min-heap
+        for (int i = 0; i < arr.size(); i++) {
+            minHeap.push(arr[i]);
+```
+- **Explanation**: We iterate over the array `arr` and insert each element into the min-heap. Initially, the heap can grow larger than size `K`, but we will control its size later.
+- **Dry Run**: Suppose `arr = [3, 2, 1, 5, 6, 4]`. After inserting the first 3 elements, `minHeap = {1, 2, 3}`.
+
+```cpp
+            // Step 3: If heap size exceeds K, remove the smallest element
+            if (minHeap.size() > k) {
+                minHeap.pop(); // Remove the smallest element to keep only K elements
+            }
+        }
+```
+- **Explanation**: If the heap size exceeds `K`, we remove the smallest element using `minHeap.pop()`. This ensures the heap always contains the `K` largest elements.
+- **Dry Run**: 
+    - After inserting `5`: `minHeap = {2, 3, 5}` (popped `1`).
+    - After inserting `6`: `minHeap = {3, 5, 6}` (popped `2`).
+    - After inserting `4`: `minHeap = {4, 5, 6}` (popped `3`).
+  
+```cpp
+        // Step 4: The top element is the K-th largest
+        cout << "Kth Largest element: " << minHeap.top() << "\n";
+    }
+```
+- **Explanation**: The top element of the min-heap is the K-th largest element because the heap contains exactly the K largest elements, and the smallest among them (which is at the top of the heap) is the K-th largest.
+- **Dry Run**: The heap now contains `{4, 5, 6}`, and the top element is `4`. Therefore, the 3rd largest element is `4`.
+
+---
+
+```cpp
+    // Function to find Kth smallest element using max-heap
+    void kth_Smallest_MaxHeap(vector<int>& arr, int k) {
+        // Step 1: Declare a max-heap (default priority_queue is a max-heap)
+        priority_queue<int> maxHeap;
+```
+- **Explanation**: A **max-heap** is initialized using `priority_queue`. In a max-heap, the largest element is always at the top.
+- **Dry Run**: We initialize an empty max-heap: `maxHeap = {}`.
+
+```cpp
+        // Step 2: Iterate over the array and push elements into the max-heap
+        for (int i = 0; i < arr.size(); i++) {
+            maxHeap.push(arr[i]);
+```
+- **Explanation**: We iterate over the array `arr` and insert each element into the max-heap.
+- **Dry Run**: Suppose `arr = [3, 2, 1, 5, 6, 4]`. After inserting the first 3 elements, `maxHeap = {3, 2, 1}`.
+
+```cpp
+            // Step 3: If heap size exceeds K, remove the largest element
+            if (maxHeap.size() > k) {
+                maxHeap.pop(); // Remove the largest element to keep only K elements
+            }
+        }
+```
+- **Explanation**: If the heap size exceeds `K`, we remove the largest element using `maxHeap.pop()`. This ensures the heap always contains the `K` smallest elements.
+- **Dry Run**:
+    - After inserting `5`: `maxHeap = {3, 2, 1}` (popped `5`).
+    - After inserting `6`: `maxHeap = {3, 2, 1}` (popped `6`).
+    - After inserting `4`: `maxHeap = {3, 2, 1}` (popped `4`).
+  
+```cpp
+        // Step 4: The top element is the K-th smallest
+        cout << "Kth Smallest element: " << maxHeap.top() << "\n";
+    }
+};
+```
+- **Explanation**: The top element of the max-heap is the K-th smallest element because the heap contains exactly the K smallest elements, and the largest among them (which is at the top of the heap) is the K-th smallest.
+- **Dry Run**: The heap now contains `{3, 2, 1}`, and the top element is `3`. Therefore, the 3rd smallest element is `3`.
+
+---
+
+### Final Dry Run for Both Functions:
+
+Let’s dry run the code with `arr = [3, 2, 1, 5, 6, 4]` and `k = 3`.
+
+- **For K-th Largest Element**:
+    - Initially, `minHeap = {}`.
+    - Insert `3`: `minHeap = {3}`.
+    - Insert `2`: `minHeap = {2, 3}`.
+    - Insert `1`: `minHeap = {1, 3, 2}`. Since size > 3, pop `1`: `minHeap = {2, 3}`.
+    - Insert `5`: `minHeap = {2, 3, 5}`.
+    - Insert `6`: `minHeap = {2, 3, 5, 6}`. Since size > 3, pop `2`: `minHeap = {3, 5, 6}`.
+    - Insert `4`: `minHeap = {3, 4, 5, 6}`. Since size > 3, pop `3`: `minHeap = {4, 5, 6}`.
+    - **Result**: The 3rd largest element is `4`.
+
+- **For K-th Smallest Element**:
+    - Initially, `maxHeap = {}`.
+    - Insert `3`: `maxHeap = {3}`.
+    - Insert `2`: `maxHeap = {3, 2}`.
+    - Insert `1`: `maxHeap = {3, 2, 1}`.
+    - Insert `5`: `maxHeap = {5, 3, 2, 1}`. Since size > 3, pop `5`: `maxHeap = {3, 2, 1}`.
+    - Insert `6`: `maxHeap = {6, 3, 2, 1}`. Since size > 3, pop `6`: `maxHeap = {3, 2, 1}`.
+    - Insert `4`: `maxHeap = {4, 3, 2, 1}`. Since size > 3, pop `4`: `maxHeap = {3, 2, 1}`.
+    - **Result**: The 3rd smallest element is `3`.
+
+### Time and Space Complexity:
+
+- **Time Complexity**: O(n log K)
+    - Inserting into a heap takes O(log K) time, and we do this `n` times, where `n` is the size of the array.
+- **Space Complexity**: O(K)
+    - The heap will contain at most `K` elements at any time.
+
+This is more efficient than using heaps of size `n`!
+
+
+
+
+
+
+
+**Code for kth largest element:**
 ```cpp
 #include <bits/stdc++.h>
 using namespace std ;
