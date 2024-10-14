@@ -27,43 +27,123 @@ Input: grid = [
 ]
 Output: 3
 
-Final Complexity:
-Time Complexity: O(n * m), where n is the number of rows and m is the number of columns.
-Space Complexity: O(n * m) for the visitation matrix and the recursive stack in the worst case.
+🔍 Methods To Solve This Problem:
+I'll be covering two different methods to solve this problem:
 
- ```cpp
+Depth-First Search (DFS)
+Breadth-First Search (BFS)
+1️⃣ Depth-First Search (DFS):
+The DFS approach involves exploring each cell in the grid. When encountering a '1' (representing land), it signifies the start of a new island. The goal is to explore and mark all connected land cells (forming an island) using recursive DFS.
+
+DFS Function: Define a recursive DFS function that takes the grid and the current cell coordinates (i, j) as parameters.
+
+If the cell is out of the grid boundaries or not land ('1'), return.
+Mark the current cell as visited by changing it from '1' to '0'.
+Recursively call DFS for the neighboring cells (up, down, left, right) to explore and mark all connected land cells.
+Main Function:
+
+Iterate through each cell in the grid.
+When encountering an unvisited '1', increment the island count and trigger DFS to explore and mark all connected land cells belonging to this island.
+Code👨🏻‍💻:
+```cpp
 class Solution {
 public:
     int numIslands(vector<vector<char>>& grid) {
-        int n = grid.size();
-        if (n == 0) return 0;
-        int m = grid[0].size();
-        vector<vector<int>> vis(n, vector<int>(m, 0));
-        int count = 0;
-
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < m; col++) {
-                if (!vis[row][col] && grid[row][col] == '1') {
-                    count++;
-                    dfs(row, col, vis, grid);
+        if (grid.empty() || grid[0].empty()) {
+            return 0;
+        }
+        
+        int numIslands = 0;
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[0].size(); j++) {
+                if (grid[i][j] == '1') {
+                    numIslands++;
+                    dfs(grid, i, j);
                 }
             }
         }
-        return count;
+        
+        return numIslands;
     }
-
+    
 private:
-    void dfs(int row, int col, vector<vector<int>>& vis, vector<vector<char>>& grid) {
-        if(row < 0 || row > grid.size() -1 || col < 0 || col > grid[0].size() - 1 || grid[row][col] == '0' || vis[row][col])
-        {
+    void dfs(vector<vector<char>>& grid, int i, int j) {
+        if (i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size() || grid[i][j] != '1') {
             return;
         }
-        vis[row][col] = 1;
-        dfs(row-1,col,vis,grid);
-        dfs(row+1,col,vis,grid);
-        dfs(row,col-1,vis,grid);
-        dfs(row,col+1,vis,grid);
+        
+        grid[i][j] = '0'; // mark as visited
+        dfs(grid, i + 1, j); // down
+        dfs(grid, i - 1, j); // up
+        dfs(grid, i, j + 1); // right
+        dfs(grid, i, j - 1); // left
     }
 };
+```
+2️⃣ Breadth-First Search (BFS):
+The BFS approach involves using a queue to systematically explore all cells of each island. We'll iterate through each cell in the grid. When encountering a '1' (indicating land), we'll use BFS to explore all connected land cells and mark them as visited.
+
+BFS Function: Use a queue to perform BFS starting from each unvisited land cell ('1').
+
+Initialize a queue with the starting cell.
+While the queue is not empty, dequeue a cell, mark it as visited, and enqueue its neighboring land cells (up, down, left, right).
+Continue until all connected land cells of the current island are visited.
+Main Function:
+
+Iterate through each cell in the grid.
+If encountering an unvisited '1', increment the island count and trigger BFS to explore and mark all connected land cells of this island.
+Code👩🏻‍💻:
+```cpp
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if (grid.empty() || grid[0].empty()) {
+            return 0;
+        }
+        
+        int numIslands = 0;
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        
+        queue<pair<int, int>> q;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    numIslands++;
+                    q.push({i, j});
+                    
+                    while (!q.empty()) {
+                        auto [x, y] = q.front();
+                        q.pop();
+                        
+                        if (x < 0 || x >= m || y < 0 || y >= n || grid[x][y] != '1') {
+                            continue;
+                        }
+                        
+                        grid[x][y] = '0'; // mark as visited
+                        
+                        for (auto& dir : directions) {
+                            int nx = x + dir.first;
+                            int ny = y + dir.second;
+                            if (nx >= 0 && nx < m && ny >= 0 && ny < n && grid[nx][ny] == '1') {
+                                q.push({nx, ny});
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return numIslands;
+    }
+};
+```
+Comparison⚔️:
+Both DFS and BFS are used to explore and mark connected land cells.
+DFS uses a recursive approach, while BFS employs an iterative queue-based approach.
+DFS can lead to deep recursion (which might cause stack overflow for extremely large grids), while BFS uses a queue, which can be more suitable for larger grids.
+Time complexity for both methods is O(m * n) where m is the number of rows and n is the number of columns in the grid.
 
 ```
