@@ -165,3 +165,168 @@ The closest 2 elements to `3` are `[2, 3]`.
 - The goal is to narrow down a "window" in the array where the `k` closest elements to `x` are located.
 - The formula `mid = lft + (rgt - lft) / 2` helps us efficiently divide the search space into halves, which speeds up the process.
 
+Let’s break down the process visually to help understand how the algorithm works. I'll use an example and a step-by-step visualization to explain the logic of the binary search approach.
+
+---
+
+### Problem Recap:
+
+You are given a sorted array `arr`, and you need to find `k` closest elements to a target `x`. The code uses **binary search** to efficiently find the starting position of the `k` elements.
+
+Let's consider this example:
+```cpp
+arr = [1, 2, 3, 4, 5]
+k = 2
+x = 3
+```
+We want to find **2 closest elements** to `3` in the sorted array `[1, 2, 3, 4, 5]`.
+
+---
+
+### Visual Explanation of the Algorithm:
+
+The goal is to find a **window of size `k`** that contains the closest elements to `x`.
+
+#### 1. Initial Setup:
+We have two pointers:
+- `lft = 0` (left pointer starting at the beginning of the array).
+- `rgt = arr.size() - k = 5 - 2 = 3` (right pointer starting at `3`, which is 2 elements before the end of the array).
+
+```
+arr = [1, 2, 3, 4, 5]
+        ^         ^
+       lft       rgt
+```
+- `lft` starts at index `0`, and `rgt` starts at index `3` because the window size we’re searching for is `k = 2`.
+
+#### 2. First Iteration of the `while` Loop:
+We calculate the middle of the current range (`mid`) using:
+```cpp
+mid = lft + (rgt - lft) / 2
+```
+In the first iteration:
+```cpp
+mid = 0 + (3 - 0) / 2 = 1
+```
+Now, `mid` points to index `1` in the array (`arr[1] = 2`):
+
+```
+arr = [1, 2, 3, 4, 5]
+        ^  ^      ^
+       lft mid   rgt
+```
+
+Next, we check which side is closer to `x`:
+```cpp
+if (x - arr[mid] > arr[mid + k] - x)
+```
+In our case:
+```cpp
+x - arr[1] = 3 - 2 = 1
+arr[1 + 2] - x = arr[3] - 3 = 4 - 3 = 1
+```
+Since both differences are equal (`1` and `1`), we move the `rgt` pointer to `mid`:
+```cpp
+rgt = mid = 1
+```
+
+So, now `rgt` is moved to `1`:
+```
+arr = [1, 2, 3, 4, 5]
+        ^  ^
+       lft rgt
+```
+
+#### 3. Second Iteration of the `while` Loop:
+We calculate the new `mid`:
+```cpp
+mid = 0 + (1 - 0) / 2 = 0
+```
+Now, `mid` points to index `0` (`arr[0] = 1`):
+
+```
+arr = [1, 2, 3, 4, 5]
+     ^  ^
+    mid lft
+```
+
+We check the condition again:
+```cpp
+x - arr[mid] = 3 - 1 = 2
+arr[mid + k] - x = arr[2] - 3 = 3 - 3 = 0
+```
+This time:
+- `2 > 0`, so we move the `lft` pointer to `mid + 1`:
+```cpp
+lft = mid + 1 = 1
+```
+
+So, now both `lft` and `rgt` are at index `1`:
+```
+arr = [1, 2, 3, 4, 5]
+        ^
+       lft
+       rgt
+```
+
+#### 4. End of the Loop:
+At this point, `lft = rgt`, so the `while` loop terminates.
+
+#### 5. Final Step:
+We now know that the starting index of the `k` closest elements is `lft = 1`. We can slice the array from index `lft` to `lft + k`:
+```cpp
+vector<int> sol(arr.begin() + lft, arr.begin() + lft + k);
+```
+This gives us the subarray `[2, 3]`, which are the 2 closest elements to `x = 3`.
+
+---
+
+### Visual Summary:
+- The algorithm uses **binary search** to efficiently find the starting point of the `k` closest elements.
+- Each step of the `while` loop cuts the search space in half by moving either the `lft` or `rgt` pointers based on which side is closer to `x`.
+- Once the loop ends, the `lft` pointer points to the start of the `k` closest elements, and the array is sliced to get the result.
+
+---
+
+### Final Visualization:
+
+Here’s the final breakdown of what happens visually:
+
+1. **Initial state:**
+   ```
+   arr = [1, 2, 3, 4, 5]
+          ^         ^
+         lft       rgt
+   ```
+
+2. **First iteration:**
+   ```
+   arr = [1, 2, 3, 4, 5]
+          ^  ^      ^
+         lft mid   rgt
+   rgt = mid (moved left)
+   ```
+
+3. **Second iteration:**
+   ```
+   arr = [1, 2, 3, 4, 5]
+       ^  ^
+      mid lft
+      rgt
+   lft = mid + 1 (moved right)
+   ```
+
+4. **End of loop:**
+   ```
+   arr = [1, 2, 3, 4, 5]
+          ^
+         lft
+         rgt
+   ```
+
+5. **Result:**
+   ```
+   sol = [2, 3]
+   ```
+
+This process efficiently finds the closest elements to `x` without having to check every single element individually.
