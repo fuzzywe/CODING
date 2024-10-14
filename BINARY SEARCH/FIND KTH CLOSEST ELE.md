@@ -200,150 +200,132 @@ We want to find **2 closest elements** to `3` in the sorted array `[1, 2, 3, 4, 
 
 ---
 
-### Visual Explanation of the Algorithm:
+Let’s go through the updated scenario where the result would be `[1, 2, 3, 4]`. Here's the corrected explanation using an example that matches this output.
 
-The goal is to find a **window of size `k`** that contains the closest elements to `x`.
+---
+
+### Problem Recap:
+
+You are given a sorted array `arr`, and you need to find `k` closest elements to a target `x`. The code uses **binary search** to efficiently find the starting position of the `k` elements.
+
+Let’s use this example for clarity:
+```cpp
+arr = [1, 2, 3, 4, 5]
+k = 4
+x = 3
+```
+
+We need to find the **4 closest elements** to `3` in the sorted array `[1, 2, 3, 4, 5]`.
+
+---
+
+### Step-by-Step Dry Run:
+
+The binary search helps find the starting index of the window of `k` closest elements.
 
 #### 1. Initial Setup:
-We have two pointers:
-- `lft = 0` (left pointer starting at the beginning of the array).
-- `rgt = arr.size() - k = 5 - 2 = 3` (right pointer starting at `3`, which is 2 elements before the end of the array).
+- `lft = 0` (the left pointer starts at index `0`).
+- `rgt = arr.size() - k = 5 - 4 = 1` (the right pointer starts at index `1`, which leaves a window of size `k = 4`).
 
 ```
 arr = [1, 2, 3, 4, 5]
-        ^         ^
-       lft       rgt
+        ^     ^
+       lft   rgt
 ```
-- `lft` starts at index `0`, and `rgt` starts at index `3` because the window size we’re searching for is `k = 2`.
+- `lft` starts at index `0`, and `rgt` starts at index `1` because we need a window of size `4`.
 
 #### 2. First Iteration of the `while` Loop:
 We calculate the middle of the current range (`mid`) using:
 ```cpp
 mid = lft + (rgt - lft) / 2
 ```
-In the first iteration:
-```cpp
-mid = 0 + (3 - 0) / 2 = 1
-```
-Now, `mid` points to index `1` in the array (`arr[1] = 2`):
-
-```
-arr = [1, 2, 3, 4, 5]
-        ^  ^      ^
-       lft mid   rgt
-```
-
-Next, we check which side is closer to `x`:
-```cpp
-if (x - arr[mid] > arr[mid + k] - x)
-```
-In our case:
-```cpp
-x - arr[1] = 3 - 2 = 1
-arr[1 + 2] - x = arr[3] - 3 = 4 - 3 = 1
-```
-Since both differences are equal (`1` and `1`), we move the `rgt` pointer to `mid`:
-```cpp
-rgt = mid = 1
-```
-
-So, now `rgt` is moved to `1`:
-```
-arr = [1, 2, 3, 4, 5]
-        ^  ^
-       lft rgt
-```
-
-#### 3. Second Iteration of the `while` Loop:
-We calculate the new `mid`:
+In this case:
 ```cpp
 mid = 0 + (1 - 0) / 2 = 0
 ```
-Now, `mid` points to index `0` (`arr[0] = 1`):
+Now, `mid` points to index `0` in the array (`arr[0] = 1`):
 
 ```
 arr = [1, 2, 3, 4, 5]
-     ^  ^
-    mid lft
+     ^     ^
+    mid   rgt
 ```
 
-We check the condition again:
+Next, we check which side is closer to `x` using:
 ```cpp
-x - arr[mid] = 3 - 1 = 2
-arr[mid + k] - x = arr[2] - 3 = 3 - 3 = 0
+if (x - arr[mid] > arr[mid + k] - x)
 ```
-This time:
-- `2 > 0`, so we move the `lft` pointer to `mid + 1`:
+In this case:
 ```cpp
-lft = mid + 1 = 1
+x - arr[0] = 3 - 1 = 2
+arr[0 + 4] - x = arr[4] - 3 = 5 - 3 = 2
+```
+Since both differences are equal (`2`), we move the `rgt` pointer to `mid`:
+```cpp
+rgt = mid = 0
 ```
 
-So, now both `lft` and `rgt` are at index `1`:
+Now `lft` and `rgt` both point to index `0`:
 ```
 arr = [1, 2, 3, 4, 5]
-        ^
-       lft
-       rgt
+     ^
+    lft
+    rgt
 ```
 
-#### 4. End of the Loop:
+#### 3. End of the Loop:
 At this point, `lft = rgt`, so the `while` loop terminates.
 
-#### 5. Final Step:
-We now know that the starting index of the `k` closest elements is `lft = 1`. We can slice the array from index `lft` to `lft + k`:
+#### 4. Final Step:
+We now know that the starting index of the `k` closest elements is `lft = 0`. We can slice the array from index `lft` to `lft + k`:
 ```cpp
 vector<int> sol(arr.begin() + lft, arr.begin() + lft + k);
 ```
-This gives us the subarray `[2, 3]`, which are the 2 closest elements to `x = 3`.
+This gives us the subarray `[1, 2, 3, 4]`.
 
 ---
 
 ### Visual Summary:
-- The algorithm uses **binary search** to efficiently find the starting point of the `k` closest elements.
-- Each step of the `while` loop cuts the search space in half by moving either the `lft` or `rgt` pointers based on which side is closer to `x`.
-- Once the loop ends, the `lft` pointer points to the start of the `k` closest elements, and the array is sliced to get the result.
-
----
-
-### Final Visualization:
-
-Here’s the final breakdown of what happens visually:
 
 1. **Initial state:**
    ```
    arr = [1, 2, 3, 4, 5]
-          ^         ^
-         lft       rgt
+          ^     ^
+         lft   rgt
    ```
 
 2. **First iteration:**
    ```
    arr = [1, 2, 3, 4, 5]
-          ^  ^      ^
-         lft mid   rgt
+       ^     ^
+      mid   rgt
    rgt = mid (moved left)
    ```
 
-3. **Second iteration:**
+3. **End of loop:**
    ```
    arr = [1, 2, 3, 4, 5]
-       ^  ^
-      mid lft
+       ^
+      lft
       rgt
-   lft = mid + 1 (moved right)
    ```
 
-4. **End of loop:**
+4. **Result:**
    ```
-   arr = [1, 2, 3, 4, 5]
-          ^
-         lft
-         rgt
+   sol = [1, 2, 3, 4]
    ```
 
-5. **Result:**
-   ```
-   sol = [2, 3]
-   ```
+---
 
-This process efficiently finds the closest elements to `x` without having to check every single element individually.
+### Formula Explanation:
+
+The key formula used in this code is:
+```cpp
+if (x - arr[mid] > arr[mid + k] - x)
+```
+- **`x - arr[mid]`**: This calculates how far `arr[mid]` is from `x` (how close the current middle element is to the target).
+- **`arr[mid + k] - x`**: This calculates how far the element `k` positions ahead of `mid` is from `x`.
+
+By comparing these two values, the algorithm determines which side (left or right) has elements closer to `x`. If the left side is closer, the window moves left. If the right side is closer, the window moves right.
+
+This way, we find the starting point for the window of size `k` that contains the closest elements to `x`.
