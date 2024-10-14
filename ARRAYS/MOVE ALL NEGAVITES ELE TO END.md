@@ -1,5 +1,14 @@
 https://www.geeksforgeeks.org/problems/move-all-negative-elements-to-end1813/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
 
+Examples:
+
+Input : arr[] = [1, -1, 3, 2, -7, -5, 11, 6 ]
+Output : [1, 3, 2, 11, 6, -1, -7, -5]
+Explanation: By doing operations we separated the integers without changing the order.
+Input : arr[] = [-5, 7, -3, -4, 9, 10, -1, 11]
+Output : [7, 9, 10, 11, -5, -3, -4, -1]
+Expected Time Complexity: O(n)
+Expected Auxiliary Space: O(n)
 
 ```cpp
 Time Complexity: O(n) — both the first and second loops traverse the vector, making the overall time complexity linear in the size of a.
