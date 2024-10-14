@@ -10,7 +10,55 @@ Example 2:
 Input: Array = [1,2,6,4,5] , k = 3
 Output : kth largest element = 4,  kth smallest element = 4
 Solution
-Disclaimer: Don't jump directly to the solution, try it out yourself first.   
+Disclaimer: Don't jump directly to the solution, try it out yourself first.  
+
+### Problem Statement Explanation:
+
+The task is to find the **K-th largest** and **K-th smallest** elements from an **unsorted array**. 
+
+Given:
+- An **unsorted array** of integers.
+- A value **K** which represents the position of the element to find in both sorted orders (ascending for smallest, descending for largest).
+
+### Understanding the Problem:
+
+1. **K-th Largest Element**:
+   - If the array is sorted in descending order (from largest to smallest), the K-th element from the start of this sorted array will be the **K-th largest element**.
+
+2. **K-th Smallest Element**:
+   - If the array is sorted in ascending order (from smallest to largest), the K-th element from the start of this sorted array will be the **K-th smallest element**.
+
+### Example 1:
+- **Input**: `Array = [1, 2, 6, 4, 5, 3]`, `K = 3`
+- **Sorted Ascending**: `[1, 2, 3, 4, 5, 6]`
+  - The **3rd smallest element** is **3**.
+- **Sorted Descending**: `[6, 5, 4, 3, 2, 1]`
+  - The **3rd largest element** is **4**.
+- **Output**: 3rd largest element = 4, 3rd smallest element = 3
+
+### Example 2:
+- **Input**: `Array = [1, 2, 6, 4, 5]`, `K = 3`
+- **Sorted Ascending**: `[1, 2, 4, 5, 6]`
+  - The **3rd smallest element** is **4**.
+- **Sorted Descending**: `[6, 5, 4, 2, 1]`
+  - The **3rd largest element** is **4**.
+- **Output**: 3rd largest element = 4, 3rd smallest element = 4
+
+### Key Insights:
+- Sorting the array helps us directly access the K-th largest or smallest element.
+- We can solve this using efficient sorting algorithms or heap-based approaches to avoid fully sorting the array for larger datasets.
+
+### Approach:
+
+1. **Sort the Array**:
+   - First, sort the array in ascending order.
+   - The K-th smallest element is simply at index `K-1`.
+   - The K-th largest element can be found from the reverse side of the sorted array.
+
+2. **Optimized Approach** (without full sort):
+   - You could use **heaps** or the **QuickSelect** algorithm to directly find the K-th largest or smallest element without fully sorting the array. This reduces the time complexity compared to sorting the entire array.
+
+Does this help clarify the question?
 
 _Solution 1: Sorting the Array
 The most naive approach is to sort the given array in descending order.
