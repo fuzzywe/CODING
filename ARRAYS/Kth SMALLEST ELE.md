@@ -54,6 +54,16 @@ return pq.top();
 
 ```
 
+
+**BRUTE FORCE ALGO**
+```cpp
+int kthSmallest(vector<int> &arr, int k) {
+        // code here
+        sort(arr.begin(),arr.end());
+        return arr[k-1];
+    }
+ ```
+
 **MISTAKES I MADE DURING CODING PLATFORM I TRIED TO REV THE ARRAY**
 //{ Driver Code Starts
 // Initial function template for C++
@@ -93,38 +103,7 @@ class Solution {
     }
 };
 
-//{ Driver Code Starts.
 
-int main() {
-    int test_case;
-    cin >> test_case;
-    cin.ignore();
-    while (test_case--) {
-
-        int k;
-        vector<int> arr, brr, crr;
-        string input;
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-        getline(cin, input);
-        ss.clear();
-        ss.str(input);
-        while (ss >> number) {
-            crr.push_back(number);
-        }
-        k = crr[0];
-        int n = arr.size();
-        Solution ob;
-        cout << ob.kthSmallest(arr, k) << endl;
-    }
-    return 0;
-}
-
-// } Driver Code Ends
 ```
 
 
@@ -180,40 +159,7 @@ public:
     }
 };
 
-//{ Driver Code Starts.
-int main() {
-    int test_case;
-    cin >> test_case;
-    cin.ignore();
-    while (test_case--) {
-        int k;
-        vector<int> arr, brr;
-        string input;
-        
-        // Get input for the array arr
-        getline(cin, input);
-        stringstream ss(input);
-        int number;
-        while (ss >> number) {
-            arr.push_back(number);
-        }
-        
-        // Get input for k
-        getline(cin, input);
-        ss.clear();
-        ss.str(input);
-        while (ss >> number) {
-            brr.push_back(number);
-        }
-        k = brr[0];
-        
-        // Call the kthSmallest function
-        Solution ob;
-        cout << ob.kthSmallest(arr, k) << endl;
-    }
-    return 0;
-}
-// } Driver Code Ends
+
 ```
 
 Time Complexity:
