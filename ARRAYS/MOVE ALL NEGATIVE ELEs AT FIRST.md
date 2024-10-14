@@ -74,9 +74,103 @@ int main()
 }
 ```
 Output
--1 -3 -7 4 5 6 2 8 9 
+-1 -3 -7 4 5 6 2 8 9
+
 Time complexity: O(N) 
+
 Auxiliary Space: O(1)
+
+Let's break down the provided function `rearrange` that rearranges an array such that all negative numbers are moved to the front while maintaining the order of positive numbers.
+
+### Code Explanation
+
+```cpp
+void rearrange(int arr[], int n) {
+    int j = 0; // Pointer to track the position for negative numbers
+    for (int i = 0; i < n; i++) { // Iterate through each element
+        if (arr[i] < 0) { // Check if the current element is negative
+            if (i != j) // Only swap if the current index is not the position for negatives
+                swap(arr[i], arr[j]); // Swap negative element to the front
+            j++; // Increment position for the next negative number
+        }
+    }
+}
+```
+
+### Detailed Explanation of Each Line
+
+1. **`void rearrange(int arr[], int n) {`**
+   - Declares a function named `rearrange` that takes an array `arr` and its size `n`. This function rearranges the array such that all negative numbers come first.
+
+2. **`int j = 0;`**
+   - Initializes a pointer `j` that tracks the position in the array where the next negative number should be placed. Initially, it points to the start of the array.
+
+3. **`for (int i = 0; i < n; i++) {`**
+   - Starts a loop to iterate through each element in the array using index `i`.
+
+### Iteration of the For Loop
+
+Let's dry run this code with an example array:
+```cpp
+arr = [12, -7, 5, -3, -8, 6]
+```
+
+#### **Initial State:**
+- `arr = [12, -7, 5, -3, -8, 6]`
+- `n = 6`
+- `j = 0`
+
+### Step-by-Step Execution:
+
+#### **First Iteration (i = 0):**
+- **Condition:** `if (arr[i] < 0)` (12 < 0) → false
+  - No action taken. `j` remains `0`.
+
+#### **Second Iteration (i = 1):**
+- **Condition:** `if (arr[i] < 0)` (-7 < 0) → true
+  - **Check:** `if (i != j)` (1 != 0) → true
+    - Execute `swap(arr[i], arr[j]);`
+    - `swap(arr[1], arr[0]);` (swap -7 and 12)
+    - **State:** `arr = [-7, 12, 5, -3, -8, 6]`
+  - Increment `j`: `j++` → `j = 1`.
+
+#### **Third Iteration (i = 2):**
+- **Condition:** `if (arr[i] < 0)` (5 < 0) → false
+  - No action taken. `j` remains `1`.
+
+#### **Fourth Iteration (i = 3):**
+- **Condition:** `if (arr[i] < 0)` (-3 < 0) → true
+  - **Check:** `if (i != j)` (3 != 1) → true
+    - Execute `swap(arr[i], arr[j]);`
+    - `swap(arr[3], arr[1]);` (swap -3 and 12)
+    - **State:** `arr = [-7, -3, 5, 12, -8, 6]`
+  - Increment `j`: `j++` → `j = 2`.
+
+#### **Fifth Iteration (i = 4):**
+- **Condition:** `if (arr[i] < 0)` (-8 < 0) → true
+  - **Check:** `if (i != j)` (4 != 2) → true
+    - Execute `swap(arr[i], arr[j]);`
+    - `swap(arr[4], arr[2]);` (swap -8 and 5)
+    - **State:** `arr = [-7, -3, -8, 12, 5, 6]`
+  - Increment `j`: `j++` → `j = 3`.
+
+#### **Sixth Iteration (i = 5):**
+- **Condition:** `if (arr[i] < 0)` (6 < 0) → false
+  - No action taken. `j` remains `3`.
+
+### Final State of `arr`:
+- After the loop completes, the rearranged array is:
+```cpp
+arr = [-7, -3, -8, 12, 5, 6]
+```
+- All negative numbers are now at the beginning of the array, while the positive numbers remain in their relative order.
+
+### Summary
+- The function efficiently rearranges the elements of the array in place:
+  - It iterates through the array and, whenever it finds a negative number, it swaps it with the element at the `j` index, which tracks the position for the next negative number.
+  - This method ensures that all negative numbers are grouped at the beginning of the array while preserving the order of the positive numbers, and it only uses constant extra space (just a couple of integer variables).
+ 
+  - 
 
 ```cpp
   #include <iostream>
