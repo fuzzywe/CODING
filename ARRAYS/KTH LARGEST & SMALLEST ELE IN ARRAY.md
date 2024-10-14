@@ -190,12 +190,7 @@ Time complexity: O(k+(n-k)*log(k))  , n = size of array
 
 Space complexity: O(k)
 
-Solution 3: Using Quickselect Algorithm
-Choose any random element as PIVOT.
-Use Partition Algorithm to partition the given array into 2 parts and place the PIVOT at its correct position ( called as index ).
-Partition Algorithm: All the elements are compared to the PIVOT, and the elements less than the PIVOT are shifted toward the left side of the array and greater ones are shifted toward the right side of the array.
-Now since all elements right to the PIVOT are greater and left to the PIVOT are smaller, compare the index with N-k ( where N = size of the array )  and recursively find the part to find the Kth largest element.
-The worst-case time complexity of this method is O(n^2) but its Average time complexity is O(n).
+
 
 **2. APPROACH**
 
@@ -435,6 +430,14 @@ This is more efficient than using heaps of size `n`!
 
 
 
+
+
+Solution 3: Using Quickselect Algorithm
+Choose any random element as PIVOT.
+Use Partition Algorithm to partition the given array into 2 parts and place the PIVOT at its correct position ( called as index ).
+Partition Algorithm: All the elements are compared to the PIVOT, and the elements less than the PIVOT are shifted toward the left side of the array and greater ones are shifted toward the right side of the array.
+Now since all elements right to the PIVOT are greater and left to the PIVOT are smaller, compare the index with N-k ( where N = size of the array )  and recursively find the part to find the Kth largest element.
+The worst-case time complexity of this method is O(n^2) but its Average time complexity is O(n).
 
 
 
