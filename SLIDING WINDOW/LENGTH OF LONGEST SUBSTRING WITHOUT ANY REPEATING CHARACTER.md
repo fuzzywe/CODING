@@ -407,6 +407,10 @@ In your code:
 - **`set.end()`**: A special marker that tells you when you’ve **reached the end** of the set (meaning the item isn’t in the set).
 
 A **brute force** approach to solving the problem of finding the length of the longest substring without repeating characters involves checking **all possible substrings** and verifying if they have unique characters.
+The brute force solution you tried is inefficient for large inputs due to its O(n³) time complexity, which can lead to a Time Limit Exceeded (TLE) error on long strings.
+
+To address this issue, we can use a more efficient algorithm based on the sliding window technique, which operates in O(n) time complexity. This approach maintains a window of characters that do not repeat, allowing us to efficiently find the longest substring without repeating characters.
+
 
 ### Brute Force Algorithm Steps:
 1. Generate all possible substrings of the input string.
