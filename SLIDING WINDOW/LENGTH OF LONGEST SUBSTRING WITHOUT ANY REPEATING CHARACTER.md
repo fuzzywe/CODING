@@ -406,4 +406,86 @@ In your code:
 - **`set.find()`**: Checks if an item exists in the set (like looking inside a box for a letter).
 - **`set.end()`**: A special marker that tells you when you’ve **reached the end** of the set (meaning the item isn’t in the set).
 
-Does this help you understand the concept better?
+A **brute force** approach to solving the problem of finding the length of the longest substring without repeating characters involves checking **all possible substrings** and verifying if they have unique characters.
+
+### Brute Force Algorithm Steps:
+1. Generate all possible substrings of the input string.
+2. For each substring, check if all characters are unique.
+3. Track the length of the longest valid substring (i.e., the one with all unique characters).
+
+### Code for Brute Force Approach (in C++):
+
+```cpp
+#include <iostream>
+#include <string>
+#include <unordered_set>
+
+using namespace std;
+
+class Solution {
+public:
+    // Function to check if all characters in a substring are unique
+    bool allUnique(const string& s, int start, int end) {
+        unordered_set<char> set;
+        for (int i = start; i <= end; i++) {
+            // If character is already in the set, it's a duplicate
+            if (set.find(s[i]) != set.end()) {
+                return false;
+            }
+            set.insert(s[i]);
+        }
+        return true;
+    }
+
+    // Brute force method to find the length of the longest substring without repeating characters
+    int lengthOfLongestSubstring(string s) {
+        int n = s.size();
+        int maxLen = 0;
+
+        // Check every possible substring (i, j)
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                // Check if the substring from i to j has all unique characters
+                if (allUnique(s, i, j)) {
+                    // Update the max length if the current substring is longer
+                    maxLen = max(maxLen, j - i + 1);
+                }
+            }
+        }
+
+        return maxLen;
+    }
+};
+
+int main() {
+    Solution solution;
+    string input = "abcabcbb";
+    cout << "Length of the longest substring without repeating characters: " 
+         << solution.lengthOfLongestSubstring(input) << endl;
+    return 0;
+}
+```
+
+### Explanation:
+
+1. **`allUnique` Function**:
+   - This function checks if all characters in the substring `s[start...end]` are unique by using a **set**. If a duplicate character is found, it returns `false`.
+
+2. **Main Logic**:
+   - The outer loop iterates over each possible starting point of a substring (`i`).
+   - The inner loop generates every possible ending point (`j`).
+   - For each substring, it checks if all characters are unique using `allUnique`.
+   - The length of the substring is calculated as `j - i + 1`, and the maximum length is tracked.
+
+### Time Complexity:
+- The time complexity of this brute force approach is **O(n³)**.
+  - The outer loop runs `n` times (for each `i`).
+  - The inner loop runs roughly `n` times (for each `j` starting from `i`).
+  - For each substring, the function `allUnique` is called, which can take **O(n)** time to check if the substring has all unique characters.
+
+Thus, the overall time complexity is **O(n³)**, where `n` is the length of the string.
+
+### Space Complexity:
+- The space complexity is **O(min(n, m))**, where `m` is the size of the character set (for example, 26 for lowercase English letters) because of the use of an unordered set to store the characters in the substring.
+
+This brute force approach is simple but inefficient for larger strings due to its cubic time complexity.
