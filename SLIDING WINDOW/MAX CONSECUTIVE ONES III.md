@@ -1,3 +1,5 @@
+Basically the same problem as 340. Longest Substring with At Most K Distinct Characters (premium).
+
 1004. Max Consecutive Ones III
 1005. 
 https://leetcode.com/problems/max-consecutive-ones-iii/description/
