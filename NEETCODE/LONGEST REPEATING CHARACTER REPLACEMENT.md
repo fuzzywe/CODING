@@ -1,7 +1,7 @@
 424. Longest Repeating Character Replacement
-Medium
-Topics
-Companies
+
+https://leetcode.com/problems/longest-repeating-character-replacement/solutions/5481539/simplest-solution-without-map-intuition-approach-o-n-time-o-1-space/
+
 You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
 
 Return the length of the longest substring containing the same letter you can get after performing the above operations.
@@ -20,21 +20,33 @@ Output: 4
 Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
 The substring "BBBB" has the longest repeating letters, which is 4.
 There may exists other ways to achieve this answer too.
-Intuition
+
+**Intuition**
 The problem can be transformed into a variant of the Max Consecutive Ones III problem. The idea is to find the longest substring where we can replace at most k characters to make the entire substring consist of the same character. To achieve this, we can consider each of the 26 alphabet characters as the candidate character that we want the substring to consist of, and treat other characters as needing replacement. By iterating through each character and applying the sliding window approach, we can determine the maximum length substring for each candidate and take the overall maximum.
 
 Approach
 Iterate through each character in the alphabet (from 'A' to 'Z').
+
 For each character, use a sliding window to determine the longest substring that can be formed by replacing at most k characters.
+
 Maintain two pointers, i and j, where i represents the start of the window and j represents the end.
+
 Initialize a counter replaced to count how many replacements have been made.
+
 Expand the window by moving j to the right until the number of replacements exceeds k.
+
 If a character at position j matches the current character being considered, simply move j to the right.
+
 If it doesn't match, check if we can replace it. If the number of replacements (replaced) is less than k, replace it and move j.
+
 If we cannot replace it (because replaced is equal to k), move the start pointer i to the right until we can make a replacement again.
+
+
 Track the maximum window size (j - i) and update the answer.
+
 Return the maximum window size found.
-Complexity
+
+**Complexity**
 Time complexity: O(n)
 The outer loop runs 26 times (once for each letter), and within each loop, the inner while loop runs at most n times where n is the length of the string. Therefore, the time complexity is O(26⋅n) which simplifies to O(n).
 Space complexity: O(1)
