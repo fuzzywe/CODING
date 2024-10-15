@@ -26,6 +26,16 @@ Output: 3
 Explanation: The answer is "wke", with the length of 3.
 Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
 
+
+The **time complexity (TC)** and **space complexity (SC)** of the algorithm are as follows:
+
+- **Time Complexity (TC)**:  
+  **O(n)**  
+  - The `right` pointer traverses the entire string `s`, and each character is processed at most twice (once when added to the set and once when removed). Therefore, the time complexity is linear in the size of the input string, where `n` is the length of the string.
+
+- **Space Complexity (SC)**:  
+  **O(min(n, m))**  
+  - The space complexity depends on the number of unique characters in the string. In the worst case, the set could contain all unique characters from the string. If `m` is the size of the character set (for example, 128 for ASCII or 256 for extended ASCII), the space complexity is the smaller of `n` (length of the string) or `m` (size of the character set).
 ```cpp
 class Solution {
 public:
