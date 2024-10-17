@@ -1,5 +1,7 @@
 
 https://leetcode.com/problems/maximum-subarray/
+
+
 53. Maximum Subarray
 
 Given an integer array nums, find the 
@@ -59,9 +61,36 @@ public:
     int maxSubArray(vector<int>& nums) {
         int curMax = 0, maxTillNow = INT_MIN;
         for(auto c : nums)
-            curMax = max(c, curMax + c),
+            curMax = max(c, curMax + c);
             maxTillNow = max(maxTillNow, curMax);
         return maxTillNow;
     }
 };
+```
+```cpp
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int maxi = nums[0]; // Use a small value to store the maximum sum changing from LONG_MAX TO NUMS[0] THE TEST
+// CASES HAS BEEN PASSED NUMS = [-1] OUTPUT = -1;
+        int sum = 0;
+
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            
+            // Update the maximum sum encountered
+            if (sum > maxi) {
+                maxi = sum;
+            }
+
+            // If sum becomes negative, reset it to 0 only if it's not already negative
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+
+        return maxi;
+    }
+};
+
 ```
