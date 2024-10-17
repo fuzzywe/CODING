@@ -1,3 +1,5 @@
+https://leetcode.com/problems/maximum-product-subarray/
+
 **152. Maximum Product Subarray**
 
 Given an integer array nums, find a 
@@ -79,5 +81,28 @@ public:
 Time Complexity: O(n), where n is the size of the nums array.
 Space Complexity: O(1), as the algorithm only uses a constant amount of extra space
 
+
+```cpp
+int maxProductSubArray(vector<int>& nums) {
+    int prod1 = nums[0],prod2 = nums[0],result = nums[0];
+    
+    for(int i=1;i<nums.size();i++) {
+        int temp = max({nums[i],prod1*nums[i],prod2*nums[i]});
+        prod2 = min({nums[i],prod1*nums[i],prod2*nums[i]});
+        prod1 = temp;
+        
+        result = max(result,prod1);
+    }
+    
+    return result;
+}
+
+```
+
+Time Complexity: O(N)
+
+Reason: A single iteration is used.
+
+Space Complexity: O(1)
 
 
