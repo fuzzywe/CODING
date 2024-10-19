@@ -120,5 +120,131 @@ The code provided is a C++ solution to generate **Pascal's Triangle** for a give
 - The result is a correctly constructed Pascal’s Triangle.
 
 - Both the **time complexity** and **space complexity** of the code are **O(numRows²)**. Here’s a quick recap:
+---------------------------------------------------------------------------------------------------------------------
+Example 1:
+Input Format:
+ N = 5, r = 5, c = 3
+Result:
+ 6 (for variation 1)
+1 4 6 4 1 (for variation 2)
+
+1 
+1 1 
+1 2 1 
+1 3 3 1 
+1 4 6 4 1    (for variation 3)
+
+Explanation:
+ There are 5 rows in the output matrix. Each row is formed using the logic of Pascal’s triangle.
+
+Example 2:
+Input Format:
+ N = 1, r = 1, c = 1
+Result:
+ 1 (for variation 1)
+    1 (for variation 2)
+    1  (for variation 3)
+Explanation:
+ The output matrix has only 1 row.
 
 
+ ---------------------------
+
+```cpp
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int nCr(int n, int r) {
+    long long res = 1;
+
+    // calculating nCr:
+    for (int i = 0; i < r; i++) {
+        res = res * (n - i);
+        res = res / (i + 1);
+    }
+    return res;
+}
+
+int pascalTriangle(int r, int c) {
+    int element = nCr(r - 1, c - 1);
+    return element;
+}
+
+int main()
+{
+    int r = 5; // row number
+    int c = 3; // col number
+    int element = pascalTriangle(r, c);
+    cout << "The element at position (r,c) is: "
+            << element << "n";
+    return 0;
+}
+        
+
+```
+
+Complexity Analysis
+Time Complexity: O(c), where c = given column number.
+Reason: We are running a loop for r times, where r is c-1.
+
+Space Complexity: O(1) as we are not using any extra space.
+--------------------------------------------------------------------------------------------------------------
+NAVIE APPROACH:
+
+Naive Approach
+In this approach, for every column from 1 to n, we will calculate the element (n, c)(where n is the given row number and c is the column number that will vary from 1 to n) using the previous method. Thus, we will print the row.  
+
+Algorithm / Intuition
+In this approach, for every column from 1 to n, we will calculate the element (n, c)(where n is the given row number and c is the column number that will vary from 1 to n) using the previous method. Thus, we will print the row.  
+
+Approach:
+The steps are as follows:
+
+We will use a loop(say c) to iterate over each column i.e. from 1 to n. And for each column, we will do the following steps:
+First, we will consider n-1 as n and c-1 as r.
+After that, we will simply calculate the value of the combination using a loop. 
+The loop will run from 0 to r. And in each iteration, we will multiply (n-i) with the result and divide the result by (i+1).
+Finally, we will print the element.
+Finally, the entire row will be printed.
+Note: For a better understanding of intuition, please watch the video at the bottom of the page.
+
+```cpp
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int nCr(int n, int r) {
+    long long res = 1;
+
+    // calculating nCr:
+    for (int i = 0; i < r; i++) {
+        res = res * (n - i);
+        res = res / (i + 1);
+    }
+    return res;
+}
+
+void pascalTriangle(int n) {
+    // printing the entire row n:
+    for (int c = 1; c <= n; c++) {
+        cout << nCr(n - 1, c - 1) << " ";
+    }
+    cout << "n";
+}
+
+int main()
+{
+    int n = 5;
+    pascalTriangle(n);
+    return 0;
+}
+Output: 1 4 6 4 1
+
+```
+
+Complexity Analysis
+Time Complexity: O(n*r), where n is the given row number, and r is the column index which can vary from 0 to n-1.
+Reason: We are calculating the element for each column. Now, there are total n columns, and for each column, the calculation of the element takes O(r) time where r is the column index.
+
+Space Complexity: O(1) as we are not using any extra space.
