@@ -114,24 +114,11 @@ The code provided is a C++ solution to generate **Pascal's Triangle** for a give
 ]
 ```
 
-### Summary:
+
 - The first loop initializes each row with `1`s.
 - The second loop computes the inner elements (non-edge) of Pascal's Triangle using the sum of the two numbers directly above it.
 - The result is a correctly constructed Pascal’s Triangle.
 
 - Both the **time complexity** and **space complexity** of the code are **O(numRows²)**. Here’s a quick recap:
 
-### Time Complexity:
 
-- The two loops together iterate over every element of the Pascal’s Triangle exactly once, and since the total number of elements in the triangle is proportional to the sum \(1 + 2 + 3 + \dots + \text{numRows}\), which is \(\frac{\text{numRows} \times (\text{numRows} + 1)}{2}\), the overall time complexity is:
-  \[
-  \boxed{O(\text{numRows}^2)}
-  \]
-
-### Space Complexity:
-
-- The space required to store the result (Pascal’s Triangle) is proportional to the number of elements in the triangle, which again follows the sum \(1 + 2 + 3 + \dots + \text{numRows}\), giving:
-  \[
-  \boxed{O(\text{numRows}^2)}
-  \]
-- Other than the `ans` vector, no significant additional space is used, so auxiliary space is \(O(1)\).
