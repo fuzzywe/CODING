@@ -159,9 +159,35 @@ return mergedArr[k - 1];
 
 ### Summary of Dry Run with Example:
 
+
+
+
 1. **Input**: `arr1 = {2, 3, 1}`, `arr2 = {6, 5, 4}`, `k = 4`
 2. **After Merging**: `mergedArr = { 2, 3, 1, 6, 5, 4 }`
 3. **After Sorting**: `mergedArr = { 1, 2, 3, 4, 5, 6 }`
 4. **Return**: The 4th element (index `3`), which is `4`.
 
 This step-by-step dry run helps to understand how the algorithm merges two arrays, sorts them, and retrieves the `k`-th smallest element.
+
+```cpp
+class Solution {
+  public:
+    int kthElement(int K, vector<int>& arr1, vector<int>& arr2) 
+    {
+        // code here
+        priority_queue<int,vector<int>,greater<int>>q(arr1.begin(),arr1.end());
+        for(int i=0;i<arr2.size();i++)
+        {
+            q.push(arr2[i]);
+        }
+        while(K-1)
+        {
+            q.pop();
+            K--;
+        }
+        return q.top();
+        
+    }
+};
+
+```
