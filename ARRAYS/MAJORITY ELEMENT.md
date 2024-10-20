@@ -184,3 +184,81 @@ Show 1 Replies
 Reply
 
 3rd approach using 'Moore Voting Algorithm' was awesome!
+
+
+Let's dry run the Boyer-Moore Voting Algorithm for the `majorityElement` function line by line. We'll assume the input is `nums = [3, 2, 3]`.
+
+### Code:
+```cpp
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int count = 0;         // Step 1: Initialize count as 0.
+        int candidate = 0;     // Step 2: Initialize candidate as 0.
+        
+        for (int num : nums) { // Step 3: Loop through each number in nums.
+            if (count == 0) {  // Step 4: If count is 0, set current num as candidate.
+                candidate = num;
+            }
+            
+            if (num == candidate) {  // Step 5: If num matches candidate, increment count.
+                count++;
+            } else {                 // Step 6: Else, decrement count.
+                count--;
+            }
+        }
+        
+        return candidate;      // Step 7: Return the candidate as the majority element.
+    }
+};
+```
+
+### Dry Run for `nums = [3, 2, 3]`
+
+- **Initial State**:  
+  `count = 0`, `candidate = 0`.
+
+---
+
+#### First Iteration (`num = 3`):
+1. `for (int num : nums)` → The loop starts with `num = 3`.
+2. `if (count == 0)` → Since `count` is 0, `candidate = 3`.  
+   *Now*: `candidate = 3`, `count = 0`.
+3. `if (num == candidate)` → `3 == 3`, so increment `count`.  
+   *Now*: `candidate = 3`, `count = 1`.
+
+---
+
+#### Second Iteration (`num = 2`):
+1. `for (int num : nums)` → The loop continues with `num = 2`.
+2. `if (count == 0)` → `count` is 1, so this block is skipped.
+3. `if (num == candidate)` → `2 != 3`, so decrement `count`.  
+   *Now*: `candidate = 3`, `count = 0`.
+
+---
+
+#### Third Iteration (`num = 3`):
+1. `for (int num : nums)` → The loop continues with `num = 3`.
+2. `if (count == 0)` → Since `count` is 0, `candidate = 3`.  
+   *Now*: `candidate = 3`, `count = 0`.
+3. `if (num == candidate)` → `3 == 3`, so increment `count`.  
+   *Now*: `candidate = 3`, `count = 1`.
+
+---
+
+### End of Loop:
+- The loop is finished, and the function returns `candidate = 3`.
+
+### Final Output:
+- The majority element is `3`.
+
+### Summary:
+- **First Iteration**: `candidate = 3`, `count = 1` (3 becomes the candidate).
+- **Second Iteration**: `candidate = 3`, `count = 0` (count decreases since 2 is not the candidate).
+- **Third Iteration**: `candidate = 3`, `count = 1` (3 is reaffirmed as the majority element).
+
+### Time Complexity:
+- **O(n)**: Each element in the array is visited once.
+
+### Space Complexity:
+- **O(1)**: Only a few variables are used (count and candidate).
