@@ -55,18 +55,27 @@ Explanation: The reverse pairs are:
 class Solution {
 public:
     int reversePairs(vector<int>& nums) {
-        int cnt = 0;
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
+       
+        long long cnt = 0;
+        
+        for (int i = 0; i < nums.size(); i++) 
+        {
+            for (int j = i + 1; j < nums.size(); j++)
+             {
                 // Cast to long long to prevent overflow
-                if (nums[i] > 2LL * nums[j]) {
+                if (nums[i] >2*(long long)nums[j]) {
                     cnt++;
                 }
+
             }
+
         }
+
         return cnt;
+
     }
 };
+
 ```
 
 the time complexity of this algorithm would be O(n 2 ) which would work with minor testcases but is not efficient for testcases as large as 10 
