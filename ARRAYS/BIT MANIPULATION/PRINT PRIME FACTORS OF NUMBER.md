@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/prime-factors5052/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=Prime-Factors
+
 Example 1:
 
 Input: N = 100
