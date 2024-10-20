@@ -87,7 +87,8 @@ public:
 ```
 Approach 3: Moore Voting Algorithm
 Intuition:
-The intuition behind the Moore's Voting Algorithm is based on the fact that if there is a majority element in an array, it will always remain in the lead, even after encountering other elements.
+**The intuition behind the Moore's Voting Algorithm is based on the fact that if there is a majority element in **
+**an array, it will always remain in the lead, even after encountering other elements.**
 
 Explanation:
 Algorithm:
@@ -152,15 +153,24 @@ public:
 
 If you are a beginner solve these problems which makes concepts clear for future coding:
 
+
 Two Sum
 Roman to Integer
+
 Palindrome Number
+
 Maximum Subarray
+
 Remove Element
+
 Contains Duplicate
+
 Add Two Numbers
+
 Majority Element
+
 Remove Duplicates from Sorted Array
+
 Practice them in a row for better understanding and please Upvote the post for more questions.
 
 
