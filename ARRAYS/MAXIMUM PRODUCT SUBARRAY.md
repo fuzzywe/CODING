@@ -22,18 +22,25 @@ Output: 0
 
 Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 ```cpp
-int maxProductSubArray(vector<int>& nums) {
-    int result = INT_MIN;
-    for(int i=0;i<nums.size()-1;i++) {
-        for(int j=i+1;j<nums.size();j++) {
-            int prod = 1;
-            for(int k=i;k<=j;k++) 
-                prod *= nums[k];
-            result = max(result,prod);    
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        // Initialize the result with the minimum possible integer value
+        int result = nums[0]; // Start with the first element instead of INT_MIN
+        
+        // Outer loop to choose the starting point of the subarray
+        for(int i = 0; i < nums.size(); i++) {
+            int prod = 1; // Initialize product for each subarray starting from i
+            // Inner loop to calculate the product for subarrays starting from i
+            for(int j = i; j < nums.size(); j++) {
+                prod *= nums[j]; // Calculate the product of the subarray from i to j
+                result = max(result, prod); // Update the result if the product is larger
+            }
         }
+        return result;
     }
-    return result;
-}
+};
+
 
 
 ```
@@ -53,28 +60,31 @@ Reason: No extra data structure was used
 class Solution {
 public:
     int maxProduct(vector<int>& nums) {
-        int maxi = INT_MIN;
-        int prod=1;
-
-        for(int i=0;i<nums.size();i++)
-        {
-          prod*=nums[i];
-          maxi=max(prod,maxi);
-          if(prod==0)
-           prod=1;
+        // If nums is empty, we return 0 as there's no product possible.
+        if (nums.empty()) return 0;
+        
+        // Initialize maxProduct, minProduct, and result with the first element
+        int maxProduct = nums[0], minProduct = nums[0], result = nums[0];
+        
+        // Iterate through the array starting from the second element
+        for (int i = 1; i < nums.size(); ++i) {
+            // If the current number is negative, swap maxProduct and minProduct
+            if (nums[i] < 0) {
+                std::swap(maxProduct, minProduct);
+            }
+            
+            // Calculate the new max and min products considering the current element
+            maxProduct = std::max(nums[i], maxProduct * nums[i]);
+            minProduct = std::min(nums[i], minProduct * nums[i]);
+            
+            // Update the result with the maximum product found so far
+            result = std::max(result, maxProduct);
         }
-        prod=1;
-        for(int i=nums.size()-1;i>=0;i--)
-        {
-          prod*=nums[i];
-
-          maxi=max(prod,maxi);
-          if(prod==0)
-           prod=1;
-        }
-        return maxi;
+        
+        return result;
     }
 };
+
 
 ```
 
