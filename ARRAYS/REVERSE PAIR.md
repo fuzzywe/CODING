@@ -138,3 +138,143 @@ public:
 };
 
 ```
+Let’s break down the **dry run** step-by-step in a clearer way, along with each line of execution, using the input `nums = [4, 1, 2]`.
+
+### Code Overview:
+
+The goal of the algorithm is to find **reverse pairs**, where `nums[i] > 2 * nums[j]` for `i < j`. This is done using a **modified merge sort** algorithm, which divides the array and counts reverse pairs during the merge process.
+
+---
+
+### Initialization:
+
+```cpp
+int reversePairs(vector<int>& nums) {
+    int n = nums.size();
+    int count = 0, start = 0, end = n - 1;
+    vector<int> temp(n);
+    mergesort(nums, start, end, count, temp);
+    return count;
+}
+```
+- **Input**: `nums = [4, 1, 2]`.
+- `n = 3`, `count = 0`, `start = 0`, `end = 2`, and `temp = [0, 0, 0]`.
+- We call `mergesort(nums, 0, 2)` to start sorting and counting reverse pairs.
+
+---
+
+### First Call: `mergesort(nums, 0, 2)`
+
+```cpp
+mergesort(nums, 0, 2, count, temp);
+```
+
+- The array is split at the middle:
+  - `mid = (0 + 2) / 2 = 1`.
+- Now the array is divided into two parts:
+  - Left: `nums[0..1] = [4, 1]`
+  - Right: `nums[2..2] = [2]`
+
+#### Recursive Call 1: `mergesort(nums, 0, 1)`
+
+```cpp
+mergesort(nums, 0, 1, count, temp);
+```
+
+- The left part `[4, 1]` is split again:
+  - `mid = (0 + 1) / 2 = 0`.
+  - Left: `nums[0..0] = [4]`
+  - Right: `nums[1..1] = [1]`
+
+##### Recursive Call 1.1: `mergesort(nums, 0, 0)`
+- Base case: `start == end`, so this call returns immediately (no action).
+
+##### Recursive Call 1.2: `mergesort(nums, 1, 1)`
+- Base case: `start == end`, so this call also returns immediately.
+
+---
+
+### Merge Call 1: `merge(nums, 0, 1)`
+
+```cpp
+merge(nums, 0, 1, count, temp);
+```
+
+Now we **merge** the two parts `[4]` and `[1]`:
+
+- `i = 0` (points to `4`), `j = 1` (points to `1`), `k = 0` (start index).
+- **Reverse pair counting**:
+  - `arr[i] = 4`, `arr[j] = 1`. Check if `4 > 2 * 1`. Yes, so there is one reverse pair.
+  - **Count = 1**.
+  - Move `j` to the next element (`j = 2`).
+  
+- **Merging sorted elements**:
+  - Since `i` is still pointing to `4` and `j` is out of bounds, merge the elements:
+    - `temp = [1, 4, 0]` (sorted).
+  
+- **Copy back to the original array**:
+  - `nums = [1, 4, 2]` after copying back from `temp`.
+
+---
+
+### Returning to `mergesort(nums, 0, 2)`:
+
+#### Recursive Call 2: `mergesort(nums, 2, 2)`
+
+- Base case: `start == end`, so this call returns immediately.
+
+---
+
+### Merge Call 2: `merge(nums, 0, 2)`
+
+```cpp
+merge(nums, 0, 2, count, temp);
+```
+
+Now we **merge** the two parts `[1, 4]` and `[2]`:
+
+- `i = 0` (points to `1`), `j = 2` (points to `2`), `k = 0`.
+- **Reverse pair counting**:
+  - `arr[i] = 1`, `arr[j] = 2`. Check if `1 > 2 * 2`. No, move `i` to the next element.
+  - `arr[i] = 4`, `arr[j] = 2`. Check if `4 > 2 * 2`. No, move `i` to the next element.
+  - No additional reverse pairs are found in this step.
+
+- **Merging sorted elements**:
+  - `temp = [1, 2, 4]` (sorted).
+
+- **Copy back to the original array**:
+  - `nums = [1, 2, 4]`.
+
+---
+
+### Final Result:
+
+The sorted array is `[1, 2, 4]`, and there is 1 reverse pair (`[4, 1]`).
+
+### Dry Run Summary:
+
+1. **First merge**: Merged `[4]` and `[1]`, found 1 reverse pair (`4 > 2 * 1`).
+2. **Second merge**: Merged `[1, 4]` and `[2]`, no additional reverse pairs were found.
+
+### Time Complexity:
+
+- **O(n log n)**:
+  - The array is split into halves at each step (log(n) levels).
+  - Merging two halves takes linear time (`O(n)`).
+
+### Space Complexity:
+
+- **O(n)**:
+  - An auxiliary array `temp` of size `n` is used for the merging process.
+
+---
+
+### Visual Representation:
+
+1. **Input Array**: `[4, 1, 2]`
+2. Split into: `[4, 1]` and `[2]`
+3. Split `[4, 1]` into `[4]` and `[1]`
+4. Merge `[4]` and `[1]` → `[1, 4]`, 1 reverse pair found.
+5. Merge `[1, 4]` and `[2]` → `[1, 2, 4]`, no additional reverse pairs.
+
+The final count of reverse pairs is `1`.
