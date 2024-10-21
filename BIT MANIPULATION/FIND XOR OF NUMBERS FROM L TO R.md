@@ -40,3 +40,36 @@ class Solution {
     }
 };
 ```
+Time Complexity : O(1)
+
+Space Complexity : O(1)
+
+---
+
+```cpp
+//{ Driver Code Starts
+// Initial Template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function Template for C++
+
+class Solution {
+  public:
+    int findXOR(int l, int r) {
+        // complete the function here
+        int ans = 0;
+    for (int i = l; i <= r; i++) {
+        ans = ans ^ i;
+    }
+    return ans;
+    }
+};
+
+
+```
+Time complexity: O(n)
+Auxiliary Space: O(1)
+
