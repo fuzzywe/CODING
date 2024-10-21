@@ -32,6 +32,9 @@ Approach
 2.Set prime[0] and prime[1] to false since they are not prime.
 3.Iterate from 2 to sqrt(n) (inclusive). For each i, if prime[i] is true, mark all multiples of i (greater than i*i) as false.
 4.Finally, count the number of true values in the prime vector.
+```
+
+
 ```cpp
 Code
 #include <vector>
