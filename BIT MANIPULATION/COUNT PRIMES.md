@@ -32,7 +32,7 @@ Approach
 2.Set prime[0] and prime[1] to false since they are not prime.
 3.Iterate from 2 to sqrt(n) (inclusive). For each i, if prime[i] is true, mark all multiples of i (greater than i*i) as false.
 4.Finally, count the number of true values in the prime vector.
-```
+---
 
 
 ```cpp
@@ -69,7 +69,7 @@ public:
 ---
 
 https://www.geeksforgeeks.org/problems/prime-factorization-using-sieve/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=prime-factorization-using-sieve
-```
+---
 **Prime Factorization using Sieve**
 
 You are given a positive number N. Using the concept of Sieve, compute its prime factorisation.
@@ -83,6 +83,8 @@ Output:
 Explanation: 
 2*3*13*157 = 12246 = N.
 Your Task:
+
+---
 ```cpp
 class Solution {
   public:
