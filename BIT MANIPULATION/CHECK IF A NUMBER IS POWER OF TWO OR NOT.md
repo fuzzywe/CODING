@@ -43,7 +43,7 @@ Using pow() function for calculating power of 2.
 If n is equal to ans, return true else will return false after the loop end.
 Complexity
 Time complexity:
-O(1)
+O(logn)
 
 Space complexity:
 O(1)
