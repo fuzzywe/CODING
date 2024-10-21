@@ -1,3 +1,8 @@
+| will be used to set 
+^ will be used to toggle 
+& will be used to check
+&~ will be used to clear
+
 Given a 32 bit unsigned integer num and an integer i. Perform following operations on the number - 
 
 1. Get ith bit
