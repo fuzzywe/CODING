@@ -186,17 +186,6 @@ Output: [[],[0]]
 class Solution {
 public:
     void solve(vector<int>& nums, vector<vector<int>>& ans, vector<int>& output, int index) {
-        vector<vector<int>> subsetsWithDup(vector<int>& nums) {
-        vector<vector<int>> ans;
-        vector<int> output;
-        
-        // Sort the array to handle duplicates
-        sort(nums.begin(), nums.end());
-        
-        // Start the recursive process
-        solve(nums, ans, output, 0);
-        
-        return ans;
         // Base case: If we have processed all elements, return
         if (index >= nums.size()) {
             ans.push_back(output);
@@ -219,7 +208,17 @@ public:
         solve(nums, ans, output, index + 1);
     }
     
-    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>> ans;
+        vector<int> output;
+        
+        // Sort the array to handle duplicates
+        sort(nums.begin(), nums.end());
+        
+        // Start the recursive process
+        solve(nums, ans, output, 0);
+        
+        return ans;
     }
 };
 ```
