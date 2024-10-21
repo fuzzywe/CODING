@@ -151,7 +151,66 @@ public:
 TC: O(N)
 SC: O(1)
 ---
+**SINGLE NUMBER II**
+BRUTE FORCE
 
+```cpp
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        unordered_map<int, int> m;
+        
+        for(auto x: nums){
+            m[x]++;
+        }
+
+        for(auto x: m){
+            if(x.second == 1){
+                return x.first;
+            }
+        }
+        
+        return -1;
+    }
+};
+```
+```cpp
+class Solution {
+ public:
+  int singleNumber(vector<int>& nums) {
+    int ans = 0;
+
+    for (int i = 0; i < 32; ++i) {
+      int sum = 0;
+      for (const int num : nums)
+        sum += num >> i & 1;
+      sum %= 3;
+      ans |= sum << i;
+    }
+
+    return ans;
+  }
+};
+```
+
+---
+
+```cpp
+class Solution {
+ public:
+  int singleNumber(vector<int>& nums) {
+    int ones = 0;
+    int twos = 0;
+
+    for (const int num : nums) {
+      ones ^= (num & ~twos);
+      twos ^= (num & ~ones);
+    }
+
+    return ones;
+  }
+};
+```
 **SINGLE NUMBER III**
 
 260. Single Number III
@@ -178,7 +237,9 @@ Example 3:
 
 Input: nums = [0,1]
 Output: [1,0]
+
 ---
+
 ```cpp
 class Solution {
 public:
@@ -207,6 +268,7 @@ public:
 
 ```
 ---
+
 BRUTE FORCE:
 
 ```cpp
