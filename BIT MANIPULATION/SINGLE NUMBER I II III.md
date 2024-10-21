@@ -150,3 +150,80 @@ public:
 ```
 TC: O(N)
 SC: O(1)
+---
+
+**SINGLE NUMBER III**
+
+260. Single Number III
+Solved
+Medium
+Topics
+Companies
+Given an integer array nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once. You can return the answer in any order.
+
+You must write an algorithm that runs in linear runtime complexity and uses only constant extra space.
+
+ 
+
+Example 1:
+
+Input: nums = [1,2,1,3,2,5]
+Output: [3,5]
+Explanation:  [5, 3] is also a valid answer.
+Example 2:
+
+Input: nums = [-1,0]
+Output: [-1,0]
+Example 3:
+
+Input: nums = [0,1]
+Output: [1,0]
+---
+```cpp
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+         int xr = 0;
+        for(auto &x: nums) xr ^= x;
+        
+        // find first set bit from LSB
+        int bitNum = 0;
+        while(1){
+            if(xr & (1 << bitNum)) break;
+            bitNum++;
+        }
+
+        // divide into even and odd group
+        int even = 0, odd = 0;
+        for(auto &x: nums){
+            if(x & (1 << bitNum)) odd ^= x;
+            else even ^= x;
+        }
+
+        if(even < odd) return {even, odd};
+        return {odd, even};
+    }
+};
+
+```
+---
+BRUTE FORCE:
+
+```cpp
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        unordered_map<int,int>freq;
+        vector<int>ans;
+      for(auto it: nums)
+      {
+        freq[it]++;
+      }  
+      for(auto it: freq)
+      {
+        if(it.second == 1) ans.push_back(it.first);
+      }
+      return ans;
+    }
+};
+```
