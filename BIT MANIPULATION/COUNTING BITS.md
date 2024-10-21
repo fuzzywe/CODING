@@ -32,6 +32,59 @@ Explanation:
 5 --> 101
 
 ---
+```cpp
+class Solution {
+public:
+    vector<int> countBits(int n) {
+        vector<int> ans;
+        for(int i = 0; i<=n; i++)
+        {
+            int sum = 0;
+            int num = i;
+            while(num != 0)
+            {
+                sum += num%2;
+                num = num/2;
+            }
+            ans.push_back(sum);
+        } 
+        return ans;
+    }
+};
+
+```
+---
+```cpp
+ Intuition
+The intuition behind this problem is to recognize that the number of 1's in the binary representation of a number can be calculated using the information from previously computed numbers. Specifically, we can use the fact that shifting a number right by 1 (i>>1) gives us a number with the same bit count except for possibly the least significant bit.
+
+Approach
+The approach used here is dynamic programming. We start with an array initialized with 0 for the first element (since 0 has no 1's in its binary representation). Then, for each number i from 1 to n:
+
+We use the result for i >> 1 (which is i / 2 for positive integers).
+We add 1 if i is odd (i.e., if the least significant bit is 1).
+This works because i >> 1 is essentially i with its least significant bit removed. So, we're using the count of 1's in i >> 1 and adding 1 if i itself is odd.
+
+Complexity
+Time complexity: O(n)
+We iterate through the numbers from 1 to n once, performing constant time operations for each number.
+
+Space complexity:O(n)
+We use an additional array of size n+1 to store the results.
+
+Code
+class Solution {
+public:
+    vector<int> countBits(int n){
+        vector<int>result(n+1,0);
+        for(int i=1;i<=n;i++){
+            result[i] = result[i>>1]+(i&1);
+        }
+        return result;
+    }
+};
+```
+---
 
 ```cpp
 class Solution {
@@ -71,34 +124,4 @@ public:
     }
 };
 ```
----
-```cpp
- Intuition
-The intuition behind this problem is to recognize that the number of 1's in the binary representation of a number can be calculated using the information from previously computed numbers. Specifically, we can use the fact that shifting a number right by 1 (i>>1) gives us a number with the same bit count except for possibly the least significant bit.
 
-Approach
-The approach used here is dynamic programming. We start with an array initialized with 0 for the first element (since 0 has no 1's in its binary representation). Then, for each number i from 1 to n:
-
-We use the result for i >> 1 (which is i / 2 for positive integers).
-We add 1 if i is odd (i.e., if the least significant bit is 1).
-This works because i >> 1 is essentially i with its least significant bit removed. So, we're using the count of 1's in i >> 1 and adding 1 if i itself is odd.
-
-Complexity
-Time complexity: O(n)
-We iterate through the numbers from 1 to n once, performing constant time operations for each number.
-
-Space complexity:O(n)
-We use an additional array of size n+1 to store the results.
-
-Code
-class Solution {
-public:
-    vector<int> countBits(int n){
-        vector<int>result(n+1,0);
-        for(int i=1;i<=n;i++){
-            result[i] = result[i>>1]+(i&1);
-        }
-        return result;
-    }
-};
-```
