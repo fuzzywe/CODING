@@ -13,7 +13,8 @@ Expected Auxiliary Space: O(1)
 
 ---
 OPTIMAL
-``cpp
+
+```cpp
 //Back-end complete function Template for C++
 
 class Solution{
