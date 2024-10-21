@@ -222,3 +222,37 @@ public:
     }
 };
 ```
+---
+Easy | Without Backtracking | Only 2 Loops
+
+
+Time complexity: O(N∗2 N )
+
+```cpp
+class Solution {
+public:
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+       vector<std::vector<int>> ans(1);
+        unordered_map<int, int> memory; 
+        vector<int> sorted_nums = nums;
+        
+        sort(sorted_nums.begin(), sorted_nums.end());
+        
+        for (int i : sorted_nums) {
+            int l = ans.size();
+            int start = memory[i];
+            
+
+            for (int j = start; j < l; ++j) {
+                vector<int> new_subset = ans[j];
+                new_subset.push_back(i);
+                ans.push_back(new_subset);
+            }
+
+            memory[i] = l;
+        }
+        
+        return ans;
+    }
+};
+```
