@@ -22,7 +22,8 @@ Explanation: Binary representation of 500 is 111110100, in which 3rd index bit f
 #include <bits/stdc++.h>
 using namespace std;
 
-
+Time Complexity: O(1)
+Auxiliary Space: O(1)
 
 
 class Solution {
@@ -39,5 +40,42 @@ class Solution {
         }
     }
 };
+
+```
+Check whether the K-th bit is set or not Using Left Shift Operator:
+To solve the problem follow the below idea:
+
+
+Left shift given number 1 by k to create a number that has only set bit as k-th bit.
+temp = 1 << k
+If bitwise AND of n and temp is non-zero, then result is SET else result is NOT SET.
+
+Below is the implementation of the above approach:
+
+
+```cpp
+
+// CPP program to check if k-th bit
+// of a given number is set or not
+#include <bits/stdc++.h>
+using namespace std;
+ 
+void isKthBitSet(int n, int k)
+{
+    if (n & (1 << k))
+        cout << "SET";
+    else
+        cout << "NOT SET";
+}
+ 
+// Driver code
+int main()
+{
+    int n = 5, k = 1;
+ 
+    // Function call
+    isKthBitSet(n, k);
+    return 0;
+}
 
 ```
