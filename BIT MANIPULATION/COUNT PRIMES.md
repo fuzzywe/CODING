@@ -62,3 +62,58 @@ public:
 };
 
 ```
+
+---
+
+https://www.geeksforgeeks.org/problems/prime-factorization-using-sieve/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=prime-factorization-using-sieve
+```
+**Prime Factorization using Sieve**
+
+You are given a positive number N. Using the concept of Sieve, compute its prime factorisation.
+
+Example:
+
+Input: 
+N = 12246
+Output: 
+2 3 13 157
+Explanation: 
+2*3*13*157 = 12246 = N.
+Your Task:
+```cpp
+class Solution {
+  public:
+    void sieve() {}
+
+    vector<int> findPrimeFactors(int n) {
+
+        // Write your code here
+        vector<int> ans(n+1);
+        
+        for(int i=2; i<n+1; i++){
+            ans[i]=i;
+        }
+        
+        for(int i=2; i*i<n+1; i++){
+            if(ans[i]==i){
+                for(int j=i*i; j<n+1; j+=i){
+                    if(ans[j]=j){
+                        ans[j]=i;
+                    }
+                }
+            }
+        }
+        
+        vector<int> result;
+        while(n!=1){
+            result.push_back(ans[n]);
+            n=n/ans[n];
+        }
+        
+        sort(result.begin(), result.end());
+        return result;
+    }
+};
+
+
+```
