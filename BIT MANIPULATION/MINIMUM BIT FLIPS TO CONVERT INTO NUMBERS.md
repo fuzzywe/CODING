@@ -30,7 +30,7 @@ Explanation: The binary representation of 3 and 4 are 011 and 100 respectively. 
 - Flip the third bit from the right: 000 -> 100.
 It can be shown we cannot convert 3 to 4 in less than 3 steps. Hence, we return 3.
 
-```cpp
+
 Let me break it down further to explain the mathematics behind the code more clearly:
 
 ### Problem
