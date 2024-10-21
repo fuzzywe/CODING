@@ -73,3 +73,9 @@ class Solution {
 Time complexity: O(n)
 Auxiliary Space: O(1)
 
+Test Cases Passed: 
+1005 /2005
+Time limit exceeded.
+
+Your program took more time than expected.Expected Time Limit : 1.12sec
+Hint : Please optimize your code and submit again.
