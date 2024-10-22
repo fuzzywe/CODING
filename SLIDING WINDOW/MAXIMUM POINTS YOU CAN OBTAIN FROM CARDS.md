@@ -71,3 +71,54 @@ public:
 
 
 ```
+
+![image](https://github.com/user-attachments/assets/906237cd-21de-46a5-9e00-d1dc91bee722)
+
+Intuition
+The problem statement involves a scenario where we are given an array and allowed to take steps by selecting an element either from the start or end of the array. Once we select an element, it cannot be chosen again. The goal is to find a strategy that maximizes the sum of the selected elements. Let's understand it by an example!
+
+photo_2023-05-28_11-58-46.jpg
+
+To tackle the given problem, we can employ the sliding window technique to iteratively traverse the array.
+
+Approach
+We can break down the approach in five easy steps
+
+The initial sum is calculated by adding the first k elements of cardPoints.
+The maxSum variable is initialized with the initial sum.
+The sliding window approach is used to calculate the sum by sliding the window from the beginning to the end. At each step, the sum is updated by subtracting the first element of the window while adding the next element.
+The maxSum is updated whenever a larger sum is found.
+Finally, the maxSum is returned as the maximum score.
+Complexity
+Time complexity: O(n)
+Space complexity: O(1)
+Code
+
+```cpp
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int sum = 0;
+        int n = cardPoints.size();
+        
+        // Calculate the initial sum of the first k elements
+        for (int i = 0; i < k; i++) {
+            sum += cardPoints[i];
+        }
+        
+        int maxSum = sum;
+        
+        // Sliding window approach
+        // Calculate the sum by sliding the window from the beginning to the end
+        // and subtracting the first element of the window while adding the next element
+        for (int i = k - 1, j = n - 1; i >= 0; i--, j--) {
+            sum -= cardPoints[i];
+            sum += cardPoints[j];
+            maxSum = max(maxSum, sum);
+        }
+        
+        return maxSum;
+    }
+};
+
+```
