@@ -122,7 +122,90 @@ int main()
     return 0;
 }
 ```
-For directed graphs, if there is an edge between u and v it means the edge only goes from u to v, i.e., v is the neighbor of u, but vice versa is not true. The space needed to represent a directed graph using its adjacency list is E locations, where E denotes the number of edges, as here each edge data appears only once.
+---
+The provided code builds an **adjacency matrix** representation of a graph. Let's break down the key concepts and the mathematics behind it.
+
+### 1. **Adjacency Matrix Representation:**
+An **adjacency matrix** is a way to represent a graph using a 2D array (matrix). In this matrix:
+
+- If there is an edge between node \(u\) and node \(v\), then the value of the matrix at \( \text{adj}[u][v] \) is set to 1.
+- If there is no edge between the nodes, the value remains 0 (or is left uninitialized, but for clarity, it is usually set to 0).
+
+#### For an **undirected graph**:
+- When an edge exists between two nodes \(u\) and \(v\), both \( \text{adj}[u][v] \) and \( \text{adj}[v][u] \) are set to 1. This is because an undirected graph has **bidirectional edges**, meaning if there is an edge from \(u\) to \(v\), there is also an edge from \(v\) to \(u\).
+
+#### For a **directed graph**:
+- The edge between \(u\) and \(v\) is only directed in one way, from \(u\) to \(v\). Hence, only \( \text{adj}[u][v] \) is set to 1, but \( \text{adj}[v][u] \) remains 0 unless there is a reverse edge from \(v\) to \(u\).
+
+### 2. **Code Breakdown:**
+
+```cpp
+int adj[n+1][n+1];
+```
+- This line declares a 2D array of size \((n+1) \times (n+1)\), which is the adjacency matrix. The size is \(n+1\) to account for 1-based indexing (since the node numbers start from 1).
+  
+- **Space Complexity**: The space required to store the adjacency matrix is \(O(n^2)\) because it stores values for every possible pair of nodes, even if no edge exists between them.
+
+---
+
+```cpp
+for(int i = 0; i < m; i++)
+{
+    int u, v;
+    cin >> u >> v;
+    adj[u][v] = 1;
+    adj[v][u] = 1;  // for undirected graph
+}
+```
+- This loop runs \(m\) times, where \(m\) is the number of edges in the graph.
+  
+- For each edge, the two endpoints \(u\) and \(v\) are provided as input, and the matrix is updated:
+  - `adj[u][v] = 1;` sets the matrix value to 1, indicating an edge from node \(u\) to node \(v\).
+  - `adj[v][u] = 1;` (for undirected graphs) ensures the matrix is symmetric, meaning that an edge exists both ways, from \(u\) to \(v\) and from \(v\) to \(u\).
+  
+- **Time Complexity**: The loop that reads and stores the edges runs \(m\) times, making the time complexity of this process \(O(m)\). However, the overall time complexity is often considered as \(O(n^2)\) because filling out the adjacency matrix can take time proportional to \(n^2\) in the worst case.
+
+### 3. **Mathematical Explanation:**
+
+#### Adjacency Matrix for an Undirected Graph:
+
+An adjacency matrix for a graph with \(n\) nodes is an \(n \times n\) matrix where:
+
+\[
+\text{adj}[u][v] =
+\begin{cases}
+1, & \text{if there is an edge between nodes } u \text{ and } v \\
+0, & \text{if there is no edge between nodes } u \text{ and } v
+\end{cases}
+\]
+
+For an **undirected graph**, the adjacency matrix is **symmetric** because an edge from node \(u\) to node \(v\) implies an edge from node \(v\) to node \(u\). This is why the code includes:
+
+```cpp
+adj[u][v] = 1;
+adj[v][u] = 1;
+```
+
+In this way, both directions of the edge are represented.
+
+#### For a **directed graph**, the adjacency matrix is **not symmetric**. An edge from \(u\) to \(v\) does not imply an edge from \(v\) to \(u\), so we only set `adj[u][v] = 1` without setting `adj[v][u] = 1`.
+
+### 4. **Space Complexity of Adjacency Matrix:**
+- The matrix requires \(O(n^2)\) space, as we are storing information for each pair of nodes, whether an edge exists or not. Even for sparse graphs (where there are very few edges compared to the total possible number of edges), the space requirement remains the same.
+
+### 5. **Time Complexity of Building the Adjacency Matrix:**
+- The time complexity for filling the adjacency matrix is \(O(m)\), where \(m\) is the number of edges. Each time an edge is added, two entries in the matrix are updated for undirected graphs.
+- Accessing or checking for an edge between any two nodes is very efficient with adjacency matrices, taking \(O(1)\) time.
+
+### Summary of Time and Space Complexity:
+- **Time Complexity**: \(O(m)\) to read the edges, and the overall time complexity of operations with adjacency matrices is often considered \(O(n^2)\) due to accessing and updating the matrix.
+- **Space Complexity**: \(O(n^2)\), as the adjacency matrix stores information for all possible node pairs.
+
+This method is most efficient for **dense graphs** where the number of edges is close to \(n^2\), but it can be inefficient for sparse graphs due to high space usage.
+
+---
+
+**For directed graphs, **if there is an edge between u and v it means the edge only goes from u to v, i.e., v is the neighbor of u, but vice versa is not true. The space needed to represent a directed graph using its adjacency list is E locations, where E denotes the number of edges, as here each edge data appears only once.
 
 Space complexity = O(E)
 
