@@ -205,6 +205,179 @@ int main()
 }
 ```
 ---
+Let me break it down even further with a more detailed and simple explanation of how a graph is represented using an adjacency list:
+
+### What is a Graph?
+A **graph** is a collection of nodes (vertices) connected by edges. For example, if we have `V` vertices and some edges between them, we want to represent this graph in a way that helps us know which nodes are connected to which.
+
+### What is an Adjacency List?
+An **adjacency list** is a way to represent a graph where each vertex has a list of other vertices that it is directly connected to.
+
+#### Let's say we have 4 vertices: 
+- `V = {0, 1, 2, 3}`
+
+#### And the edges are:
+- `0 -- 1`
+- `0 -- 2`
+- `1 -- 2`
+- `1 -- 3`
+
+### Steps to Create the Adjacency List:
+1. **Step 1: Start with an empty list for each vertex**  
+   Each vertex (0, 1, 2, 3) will have its own list that initially is empty. This will store the neighboring vertices.
+   ```
+   Vertex 0: []
+   Vertex 1: []
+   Vertex 2: []
+   Vertex 3: []
+   ```
+
+2. **Step 2: Add edges**  
+   For each edge, add the vertices that are connected:
+   
+   - Edge `0 -- 1`: Add `1` to the list of `0`, and add `0` to the list of `1`.
+   - Edge `0 -- 2`: Add `2` to the list of `0`, and add `0` to the list of `2`.
+   - Edge `1 -- 2`: Add `2` to the list of `1`, and add `1` to the list of `2`.
+   - Edge `1 -- 3`: Add `3` to the list of `1`, and add `1` to the list of `3`.
+
+3. **Step 3: Final Adjacency List**
+   After processing all edges, your adjacency list will look like this:
+   ```
+   Vertex 0: [1, 2]
+   Vertex 1: [0, 2, 3]
+   Vertex 2: [0, 1]
+   Vertex 3: [1]
+   ```
+
+### How to Read the Adjacency List:
+- **Vertex 0** is connected to vertices 1 and 2.
+- **Vertex 1** is connected to vertices 0, 2, and 3.
+- **Vertex 2** is connected to vertices 0 and 1.
+- **Vertex 3** is connected to vertex 1.
+
+### Why Use an Adjacency List?
+- **Efficient Memory Usage:** It stores only the connections, which is very efficient if the graph has many vertices but fewer edges.
+- **Faster Operations:** You can easily look up the neighbors of a vertex to traverse the graph.
+
+---
+
+Would you like a visual diagram showing how this list is formed at each step to help further?
+----
+Given an undirected graph with V nodes and E edges, create and return an adjacency list of the graph. 0-based indexing is followed everywhere.
+
+Example 1:
+
+Input:
+V = 5, E = 7
+edges = [[0,1], [0,4], [4,1], [4,3], [1,3], [1,2], [3,2]]
+
+![image](https://github.com/user-attachments/assets/26053ed8-b4cf-42b4-b154-c17b08b4e946)
+
+Output: 
+[[1,4], [0,2,3,4], [1,3], [1,2,4], [0,1,3]]
+Explanation:
+Node 0 is connected to 1 and 4.
+Node 1 is connected to 0,2,3 and 4.
+Node 2 is connected to 1 and 3.
+Node 3 is connected to 1,2 and 4.
+Node 4 is connected to 0,1 and 3.
+Example 2:
+
+Input:
+V = 4, E = 3
+edges = [[0,3], [0,2], [2,1]]
+
+![image](https://github.com/user-attachments/assets/2f943137-4b48-4e77-a095-90086d936d26)
+
+
+Output: 
+[[2,3], [2], [0,1], [0]]
+Explanation:
+Node 0 is connected to 2 and 3.
+Node 1 is only connected to 2.
+Node 2 is connected to 0 and 1.
+Node 3 is only connected to 0.
+
+---
+
+```cpp
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+class Solution {
+  public:
+    // Function to return the adjacency list for each vertex.
+    vector<vector<int>> printGraph(int V, vector<pair<int, int>>& edges) {
+        // Code here
+        unordered_map<int,vector<int>>adj;
+        for(int i=0;i<edges.size();i++)
+        {
+            int u = edges[i].first;
+            int v = edges[i].second;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+            
+        }
+        vector<vector<int>>ans;
+        for(int i=0;i<V;i++)
+        {
+            vector<int>temp = adj[i];
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+        vector<pair<int, int>> edges;
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            edges.push_back({u, v});
+        }
+        Solution obj;
+        vector<vector<int>> adj = obj.printGraph(V, edges);
+        bool empty = true;
+        for (int i = 0; i < V; i++) {
+            if (adj[i].empty())
+                continue;
+            empty = false;
+            break;
+        }
+        if (empty) {
+            cout << "[]\n";
+            continue;
+        }
+        for (int i = 0; i < V; i++) {
+            set<int> st(adj[i].begin(), adj[i].end());
+            cout << "[";
+            auto it = st.begin();
+
+            while (it != st.end()) {
+                cout << *it;
+                if (next(it) != st.end())
+                    cout << " ";
+                ++it;
+            }
+            cout << "]";
+            cout << endl;
+        }
+    }
+}
+// } Driver Code Ends
+
+```
+
+---
 
 
 **For directed graphs, **if there is an edge between u and v it means the edge only goes from u to v, i.e., v is the neighbor of u, but vice versa is not true. The space needed to represent a directed graph using its adjacency list is E locations, where E denotes the number of edges, as here each edge data appears only once.
