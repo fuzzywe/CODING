@@ -652,5 +652,74 @@ Let’s go step by step through the rotting process:
 ### **Total Time**: `minutes = 4`.
 
 ---
+Let's break down the condition:
 
-Let me know if this clarifies it!
+```cpp
+if (i >= 0 && i < m && j >= 0 && j < n && visited[i][j] == 1)
+```
+
+This `if` condition ensures two things:
+
+1. **Bounds checking**:
+   - `i >= 0 && i < m`: This checks if `i` (the row index of the neighboring cell) is within the valid row range of the grid.
+   - `j >= 0 && j < n`: This checks if `j` (the column index of the neighboring cell) is within the valid column range of the grid.
+
+2. **Fresh orange check**:
+   - `visited[i][j] == 1`: This checks if the neighboring cell contains a **fresh orange**. In this problem, fresh oranges are represented by `1`. If it’s `1`, that means the orange is fresh and can be rotted by the rotten orange.
+
+---
+
+### **Explanation with Example**:
+
+Assume you have a grid like this:
+
+```
+[[2, 1, 1],
+ [0, 1, 2],
+ [0, 1, 1]]
+```
+
+Let’s say you are processing the rotten orange at position `(0, 0)` (with value `2`).
+
+The goal is to check its neighboring cells. For this example:
+- **`dirs` array** provides 4 directions to check: right, left, up, down.
+    - Right: `(i + 1, j)` → (1, 0)
+    - Left: `(i - 1, j)` → (-1, 0) (out of bounds)
+    - Up: `(i, j - 1)` → (0, -1) (out of bounds)
+    - Down: `(i, j + 1)` → (0, 1)
+
+Now, let's apply the condition `if (i >= 0 && i < m && j >= 0 && j < n && visited[i][j] == 1)` to check the neighbors.
+
+1. **Right neighbor** (`(1, 0)`):
+   - **Check bounds**: `1 >= 0 && 1 < 3 && 0 >= 0 && 0 < 3` → `true`
+   - **Check fresh orange**: `visited[1][0] == 1` → `false` (it’s `0`, meaning an empty cell).
+   - **Result**: The neighbor is either empty or blocked, so no rot happens here.
+
+2. **Left neighbor** (`(-1, 0)`):
+   - **Check bounds**: `-1 >= 0` → `false` (out of bounds).
+   - **Result**: This check fails because it's out of bounds, so we skip it.
+
+3. **Up neighbor** (`(0, -1)`):
+   - **Check bounds**: `0 >= 0 && 0 < 3 && -1 >= 0` → `false` (out of bounds).
+   - **Result**: This check also fails due to out of bounds, so we skip it.
+
+4. **Down neighbor** (`(0, 1)`):
+   - **Check bounds**: `0 >= 0 && 0 < 3 && 1 >= 0 && 1 < 3` → `true`
+   - **Check fresh orange**: `visited[0][1] == 1` → `true` (this is a fresh orange).
+   - **Result**: This fresh orange will now rot and be marked as `2`.
+
+The `if` condition ensures that:
+- We are checking valid neighbors (within bounds of the grid).
+- Only fresh oranges (value `1`) will be rotted.
+
+### **Mathematics and Logic Behind the Condition**:
+
+- **Bounds Checking**: 
+   - `i` is checked between `0` and `m - 1` (total rows), ensuring we don't access rows outside the grid.
+   - `j` is checked between `0` and `n - 1` (total columns), ensuring we don't access columns outside the grid.
+   
+- **Fresh Orange Check**: `visited[i][j] == 1` ensures that only fresh oranges (represented by `1`) are rotted. Rotten oranges (`2`) or empty spaces (`0`) are ignored.
+
+---
+
+This condition is essential to ensure the algorithm doesn't run into errors by accessing out-of-bounds indices or trying to rot cells that can't be rotted.
