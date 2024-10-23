@@ -33,6 +33,97 @@ Example 2:
 Input: isConnected = [[1,0,0],[0,1,0],[0,0,1]]
 Output: 3
 
+This problem is about finding **the number of provinces**, where a **province** is defined as a group of cities that are connected either directly or indirectly. The cities are represented as nodes in a graph, and the connections between them are the edges.
+
+The input is given as an `n x n` matrix `isConnected`:
+- `isConnected[i][j] = 1` means that city `i` is directly connected to city `j`.
+- `isConnected[i][j] = 0` means there is no direct connection between city `i` and city `j`.
+
+### Example 1
+
+#### Input: 
+`isConnected = [[1,1,0], [1,1,0], [0,0,1]]`
+
+The matrix represents the following connections between cities:
+- `City 0` is connected to `City 1` (since `isConnected[0][1] = 1` and `isConnected[1][0] = 1`).
+- `City 2` is not connected to either `City 0` or `City 1` (because `isConnected[2][0] = 0` and `isConnected[2][1] = 0`).
+
+#### Visualization:
+```
+  City 0 --- City 1
+
+  City 2 (isolated)
+```
+
+#### Output: `2` (there are 2 provinces)
+- **Province 1**: {City 0, City 1}
+- **Province 2**: {City 2}
+
+### Example 2
+
+#### Input: 
+`isConnected = [[1,0,0], [0,1,0], [0,0,1]]`
+
+The matrix represents the following situation:
+- `City 0`, `City 1`, and `City 2` are all isolated from each other (no direct or indirect connections between any of them).
+
+#### Visualization:
+```
+  City 0 (isolated)
+  
+  City 1 (isolated)
+  
+  City 2 (isolated)
+```
+
+#### Output: `3` (there are 3 provinces)
+- **Province 1**: {City 0}
+- **Province 2**: {City 1}
+- **Province 3**: {City 2}
+
+---
+
+### Explanation of the Approach:
+
+The task can be viewed as finding **connected components** in a graph:
+- Each city is a **node**.
+- If `isConnected[i][j] = 1` (where `i != j`), there is an **edge** between city `i` and city `j`.
+- We need to find how many **disconnected groups** of cities exist.
+
+We can use either **Depth-First Search (DFS)** or **Breadth-First Search (BFS)** to explore the graph and count how many connected components (provinces) there are.
+
+### Approach:
+1. **Convert the matrix into a graph** representation (adjacency list) or treat it as an adjacency matrix.
+2. **Visit each city** (node):
+   - If the city hasn't been visited yet, it means we found a new province.
+   - **Perform a DFS** or BFS to mark all cities connected to this one.
+3. Keep counting the provinces until all cities have been visited.
+
+---
+
+
+
+### Explanation of the Code:
+
+1. **Adjacency List Construction**:
+   - The nested `for` loop converts the `isConnected` matrix into an adjacency list representation of the graph.
+   - It adds edges between cities `i` and `j` if they are directly connected (`isConnected[i][j] == 1`).
+
+2. **DFS Function**:
+   - The `dfs` function recursively visits all cities connected to a given city and marks them as visited.
+   
+3. **Province Count**:
+   - For each unvisited city, it counts a new province, and then uses DFS to visit all cities in that province.
+   
+4. **Return Result**:
+   - The function returns the total number of provinces.
+
+### Summary:
+- The goal is to count the number of connected components (provinces) in the graph.
+- Each time we find an unvisited city, we perform DFS to mark all cities in its province.
+- The number of times we start a DFS gives the number of provinces.
+
+---
 
 ```cpp
 
