@@ -111,7 +111,11 @@ Space Complexity:  O( N ) { for creating an unordered set and copying all values
 
 Where N = size of wordList Array.
 ---
-
+```
+Approach:
+The problem is solved using a Breadth-First Search (BFS) approach, where each word in the sequence is treated as a node, and the goal is to find the shortest path (smallest number of transformations) from the beginWord to the endWord. The BFS guarantees the shortest path due to its level-by-level exploration.
+```
+---
 ```cpp
 class Solution {
 public:
@@ -162,3 +166,5 @@ public:
     }
 };
 ```
+
+
