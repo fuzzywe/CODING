@@ -25,19 +25,19 @@ Expected Auxiliary Space: O(1).
 ```cpp
 class Solution {
 public:
-    int totalFruits(vector<int>& arr) {
-        int n = arr.size();
+    int totalFruit(vector<int>& fruits) {
+        int n = fruits.size();
         int left = 0, right = 0, maxLen = 0;
         
         map<int, int> fruitCount;
         
         while (right < n) {
-            fruitCount[arr[right]]++;
+            fruitCount[fruits[right]]++;
             
             while (fruitCount.size() > 2) {
-                fruitCount[arr[left]]--;
-                if (fruitCount[arr[left]] == 0) {
-                    fruitCount.erase(arr[left]);
+                fruitCount[fruits[left]]--;
+                if (fruitCount[fruits[left]] == 0) {
+                    fruitCount.erase(fruits[left]);
                 }
                 left++;
             }
@@ -49,6 +49,7 @@ public:
         return maxLen;
     }
 };
+
 
 ```
 
