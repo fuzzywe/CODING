@@ -449,3 +449,208 @@ return -1;
   - Spreading rot to neighboring fresh oranges.
   - Keeping track of time (in minutes) it takes to rot all reachable fresh oranges.
 
+
+Sure, let's go over the part you don't understand, line by line, and focus on what happens in this block of code. This is the **breadth-first search (BFS)** portion of the algorithm, where rotten oranges "spread" their rot to neighboring fresh oranges. Let's break it down with examples and explanations:
+
+---
+
+### **1. `while (!q.empty())`**: (Outer while loop)
+
+This loop will continue as long as the queue `q` is not empty. The queue stores the coordinates of all the rotten oranges that need to spread their rot to neighboring oranges.
+
+- **Example**: Let’s assume the grid looks like this initially:
+
+    ```
+    [[2, 1, 1],
+     [0, 1, 2],
+     [0, 1, 1]]
+    ```
+  The queue `q` will initially contain the positions of all rotten oranges:
+  
+    ```
+    q = [(0, 0), (1, 2)]
+    ```
+
+### **2. `int size = q.size();`**: (Store the number of rotten oranges to process in the current minute)
+
+This line stores the current size of the queue in `size`. This size tells us how many rotten oranges are currently in the queue. Each orange in the queue will spread rot to its neighbors.
+
+- **Example**: In the first iteration of the outer `while` loop, `q.size()` is `2` (since there are 2 rotten oranges in the queue initially). Therefore, `size = 2`.
+
+---
+
+### **3. `while (size--)`: (Inner while loop)
+
+This inner loop runs `size` times. This ensures that for each rotten orange currently in the queue, we process it and spread the rot to its neighboring fresh oranges.
+
+- **In the first iteration**, `size` is `2`, so the inner loop runs twice to process the 2 rotten oranges in the queue.
+
+---
+
+### **4. `auto [x, y] = q.front();` & `q.pop();`: (Process the next rotten orange from the queue)**
+
+- **`auto [x, y] = q.front();`**: This line takes the coordinates of the first rotten orange from the queue.
+  
+- **`q.pop();`**: This removes the rotten orange from the queue after we have processed it.
+
+- **Example**:
+    - First, we take the rotten orange at `(0, 0)` from the queue.
+    - Then we remove `(0, 0)` from the queue, so now `q = [(1, 2)]`.
+
+---
+
+### **5. `for (auto [dx, dy] : dirs)`: (Check 4 neighbors in 4 directions)**
+
+This loop goes over all possible neighboring cells around the current rotten orange. The `dirs` list contains four possible directions to move:
+- Right: `(1, 0)` (move down)
+- Left: `(-1, 0)` (move up)
+- Up: `(0, -1)` (move left)
+- Down: `(0, 1)` (move right)
+
+For each direction, we calculate the coordinates of the neighboring cell and check if it contains a fresh orange.
+
+---
+
+### **6. `int i = x + dx;` & `int j = y + dy;`: (Calculate neighbor’s coordinates)**
+
+This line calculates the coordinates `(i, j)` of the neighboring cell by adding the direction offsets `(dx, dy)` to the current rotten orange’s coordinates `(x, y)`.
+
+- **Example**:
+    - If the current rotten orange is at `(0, 0)`:
+        - Check right: `(0+1, 0) = (1, 0)`
+        - Check left: `(0-1, 0) = (-1, 0)` (out of bounds)
+        - Check up: `(0, 0-1) = (0, -1)` (out of bounds)
+        - Check down: `(0, 0+1) = (0, 1)`
+  
+  The valid neighboring cells are `(1, 0)` and `(0, 1)`.
+
+---
+
+### **7. `if (i >= 0 && i < m && j >= 0 && j < n && visited[i][j] == 1)`: (Check if the neighbor is fresh)**
+
+This condition ensures the following:
+- The neighboring cell `(i, j)` is within the grid’s bounds.
+- The cell contains a **fresh orange** (value `1`).
+
+If both conditions are true, the fresh orange will rot in the next step.
+
+- **Example**:
+    - For the rotten orange at `(0, 0)`, the valid neighboring cells are `(0, 1)` (fresh orange) and `(1, 0)` (empty cell, not fresh).
+    - The cell `(0, 1)` contains a fresh orange, so the condition is true for that neighbor.
+
+---
+
+### **8. `visited[i][j] = 2;`: (Rot the fresh orange)**
+
+If the neighboring cell contains a fresh orange, this line changes its value to `2`, which means the fresh orange has rotted.
+
+- **Example**:
+    - For `(0, 1)`, which contains a fresh orange, the orange rots, and the grid is updated to:
+
+    ```
+    [[2, 2, 1],
+     [0, 1, 2],
+     [0, 1, 1]]
+    ```
+
+---
+
+### **9. `countFreshOrange--;`: (Decrease fresh orange count)**
+
+Since one fresh orange has rotted, the total number of fresh oranges (`countFreshOrange`) is decremented by 1.
+
+- **Example**:
+    - If `countFreshOrange` was `5` initially, it becomes `4` after rotting the fresh orange at `(0, 1)`.
+
+---
+
+### **10. `q.push({i, j});`: (Add the new rotten orange to the queue)**
+
+This line adds the coordinates of the newly rotted orange `(i, j)` to the queue `q`, so that in the next minute, this orange can rot its neighbors.
+
+- **Example**:
+    - After rotting the fresh orange at `(0, 1)`, we add `(0, 1)` to the queue, so the queue becomes:
+
+    ```
+    q = [(1, 2), (0, 1)]
+    ```
+
+---
+
+### **11. `minutes++;`: (Increment the time by 1 minute)**
+
+After processing all the rotten oranges for this minute, we increment `minutes` by 1, as one round of rotting has occurred.
+
+- **Example**:
+    - After processing both `(0, 0)` and `(1, 2)` (the initial rotten oranges), the time increases to `minutes = 0 + 1 = 1`.
+
+---
+
+### **Final Explanation with Example**
+
+Let’s go step by step through the rotting process:
+
+**Initial grid:**
+
+```
+[[2, 1, 1],
+ [0, 1, 2],
+ [0, 1, 1]]
+```
+
+- **Minute 0 (initially rotten oranges)**: The queue `q = [(0, 0), (1, 2)]`.
+
+- **Minute 1**:
+  - **Rotten orange (0, 0)**:
+    - Spread rot to `(0, 1)` (newly rotted, add to queue).
+  - **Rotten orange (1, 2)**:
+    - Spread rot to `(1, 1)` (newly rotted, add to queue).
+  - Grid after minute 1:
+
+    ```
+    [[2, 2, 1],
+     [0, 2, 2],
+     [0, 1, 1]]
+    ```
+
+  - Queue after minute 1: `q = [(0, 1), (1, 1)]`.
+  
+- **Minute 2**:
+  - **Rotten orange (0, 1)**:
+    - Spread rot to `(0, 2)` (newly rotted, add to queue).
+  - **Rotten orange (1, 1)**:
+    - Spread rot to `(2, 1)` (newly rotted, add to queue).
+  - Grid after minute 2:
+
+    ```
+    [[2, 2, 2],
+     [0, 2, 2],
+     [0, 2, 1]]
+    ```
+
+  - Queue after minute 2: `q = [(0, 2), (2, 1)]`.
+
+- **Minute 3**:
+  - **Rotten orange (0, 2)**:
+    - No fresh neighbors to rot.
+  - **Rotten orange (2, 1)**:
+    - Spread rot to `(2, 2)` (newly rotted).
+  - Grid after minute 3:
+
+    ```
+    [[2, 2, 2],
+     [0, 2, 2],
+     [0, 2, 2]]
+    ```
+
+  - Queue after minute 3: `q = [(2, 2)]`.
+
+- **Minute 4**:
+  - **Rotten orange (2, 2)**: No fresh neighbors to rot.
+  - Queue is now empty. All oranges are rotten.
+
+### **Total Time**: `minutes = 4`.
+
+---
+
+Let me know if this clarifies it!
