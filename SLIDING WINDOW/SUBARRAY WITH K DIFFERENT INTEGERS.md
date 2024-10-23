@@ -9,6 +9,7 @@ A good array is an array where the number of different integers in that array is
 For example, [1,2,3,1,2] has 3 different integers: 1, 2, and 3.
 A subarray is a contiguous part of an array.
 
+blob:https://leetcode.com/352cd6b5-32cf-4216-bb2f-f1f7729bb5dc
  
 
 Example 1:
