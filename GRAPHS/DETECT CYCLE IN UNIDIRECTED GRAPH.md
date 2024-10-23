@@ -434,3 +434,242 @@ int main() {
 // } Driver Code Ends
 
 ```
+Let's go step-by-step through this **DFS-based cycle detection code**, explaining each line and performing a dry run with a sample undirected graph, just as we did for the BFS approach.
+
+### Example Graph for Dry Run
+
+Consider the same graph:
+
+```
+0 -- 1
+|    |
+2 -- 3
+```
+
+- **Vertices**: 4 (0, 1, 2, 3)
+- **Edges**: 4
+- **Adjacency List**:
+  ```
+  adj[0] = [1, 2]
+  adj[1] = [0, 3]
+  adj[2] = [0, 3]
+  adj[3] = [1, 2]
+  ```
+
+Now, let's go through the **code line by line** and provide a **dry run** of the graph above.
+
+---
+
+### Code Breakdown with Dry Run
+
+#### Step 1: Include Libraries
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+```
+
+- **Explanation**: Includes the necessary C++ libraries using `bits/stdc++.h`, which is a standard header that includes all C++ libraries.
+- **Math Behind**: No math here, just importing needed libraries.
+
+---
+
+#### Step 2: Define DFS Function
+
+```cpp
+class Solution {
+private:
+    bool dfs(int node, int parent, const vector<vector<int>>& adj, vector<int>& vis) {
+```
+
+- **Explanation**: The `Solution` class is defined, and the `dfs` function (depth-first search) is created. It takes in:
+  - `node`: The current node being visited.
+  - `parent`: The node from which we reached the current node (helps track back edges).
+  - `adj`: The adjacency list representing the graph.
+  - `vis`: The visited array to keep track of which nodes have been visited.
+
+---
+
+#### Step 3: Mark Node as Visited
+
+```cpp
+    vis[node] = 1;
+```
+
+- **Explanation**: Marks the current node as visited by setting `vis[node] = 1`.
+
+- **Dry Run** (starting with `node = 0`):
+  ```
+  vis = [1, 0, 0, 0]
+  ```
+
+---
+
+#### Step 4: Explore Neighbors
+
+```cpp
+    for (int neighbor : adj[node]) {
+```
+
+- **Explanation**: Iterates over all neighbors of the current node using a `for` loop.
+
+- **Dry Run** (for `node = 0`):
+  - Neighbors of node 0: `[1, 2]`
+
+---
+
+#### Step 5: Recursive DFS for Unvisited Neighbor
+
+```cpp
+    if (!vis[neighbor]) {
+        if (dfs(neighbor, node, adj, vis)) 
+            return true;
+```
+
+- **Explanation**: If a neighbor has not been visited, we recursively call the `dfs` function on that neighbor. If a cycle is detected in the DFS subtree, the function returns `true`.
+
+- **Dry Run** (neighbor `1` for `node = 0`):
+  - **Call**: `dfs(1, 0, adj, vis)`
+  - Now processing `node = 1`, mark `vis[1] = 1`
+  - `vis = [1, 1, 0, 0]`
+
+---
+
+#### Step 6: Check for Back Edge (Cycle Detection)
+
+```cpp
+    } else if (neighbor != parent) {
+        return true;
+    }
+```
+
+- **Explanation**: If a neighbor has already been visited but it is **not** the parent of the current node, this indicates a back edge, which means there is a cycle. In such a case, the function returns `true`.
+
+- **Dry Run**:
+  - For `node = 1`, neighbors are `[0, 3]`.
+  - `0` is already visited, but it's the parent of `1`, so no cycle detected here.
+
+- Proceed with neighbor `3` for `node = 1`:
+  - **Call**: `dfs(3, 1, adj, vis)`
+  - Now processing `node = 3`, mark `vis[3] = 1`
+  - `vis = [1, 1, 0, 1]`
+
+- Neighbors of `node = 3` are `[1, 2]`.
+  - `1` is already visited but it's the parent, so no cycle here.
+  - Proceed with neighbor `2` for `node = 3`:
+    - **Call**: `dfs(2, 3, adj, vis)`
+    - Now processing `node = 2`, mark `vis[2] = 1`
+    - `vis = [1, 1, 1, 1]`
+
+- Neighbors of `node = 2` are `[0, 3]`.
+  - `0` is already visited and is **not** the parent of `2`, which indicates a back edge and a cycle.
+
+- **Cycle Detected**! The function returns `true`.
+
+---
+
+#### Step 7: Return False if No Cycle
+
+```cpp
+    return false;
+}
+```
+
+- **Explanation**: If no cycle is found during DFS traversal, it returns `false` (i.e., no cycle).
+
+---
+
+#### Step 8: Main Function to Detect Cycle
+
+```cpp
+public:
+    bool isCycle(const vector<vector<int>>& adj) {
+```
+
+- **Explanation**: The `isCycle` function detects if there is a cycle in the entire graph by calling `dfs` for all components of the graph.
+
+---
+
+#### Step 9: Initialize Visited Array and Traverse All Nodes
+
+```cpp
+    int V = adj.size();
+    vector<int> vis(V, 0);
+```
+
+- **Explanation**: The number of vertices `V` is set as the size of the adjacency list. A visited array `vis` is created with size `V`, initialized to 0 (all vertices unvisited).
+
+- **Dry Run**:
+  - `V = 4`
+  - `vis = [0, 0, 0, 0]`
+
+---
+
+#### Step 10: Perform DFS for Unvisited Components
+
+```cpp
+    for (int i = 0; i < V; ++i) {
+        if (!vis[i]) {
+            if (dfs(i, -1, adj, vis)) 
+                return true;
+        }
+    }
+```
+
+- **Explanation**: Loops through all nodes to ensure that all components of the graph are visited (handling disconnected components). If any component contains a cycle, the function returns `true`.
+
+- **Dry Run**:
+  - Start from `i = 0`, call `dfs(0, -1, adj, vis)`.
+  - We already performed the DFS and detected a cycle, so `isCycle` returns `true`.
+
+---
+
+#### Step 11: Return False if No Cycle
+
+```cpp
+    return false;
+}
+```
+
+- **Explanation**: If no cycle is found in any of the components, the function returns `false`.
+
+---
+
+### Step 12: Main Function
+
+```cpp
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int V, E;
+        cin >> V >> E;
+        vector<vector<int>> adj(V);
+        for (int i = 0; i < E; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u].push_back(v);
+            adj[v].push_back(u);
+        }
+        Solution obj;
+        bool ans = obj.isCycle(adj);
+        if (ans)
+            cout << "1\n";
+        else
+            cout << "0\n";
+    }
+    return 0;
+}
+```
+
+- **Explanation**: The main function reads the number of test cases, the number of vertices (`V`), and edges (`E`), then builds the adjacency list. It calls the `isCycle` function to check if there is a cycle, and prints `1` if a cycle is found, or `0` otherwise.
+
+---
+
+### Dry Run Summary
+
+For the given graph, a cycle is detected as follows:
+
+- `dfs(0)` explores nodes 0 → 1 → 3 → 2 → detects a cycle when it revisits node 0 through a back edge.
+- The function prints `1` since a cycle is found.
+
