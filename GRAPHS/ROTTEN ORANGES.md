@@ -246,7 +246,9 @@ public:
     }
 };
 ```
-
+Time Complexity and Space Complexity:
+Time complexity: O(m*n)
+Space complexity: O(m*n)
 ---
 
 Sure, let's go over the **mathematical calculations** for each part of the code line by line. This approach will focus on how numbers, like row/column indices or counters, change or are affected by each operation.
