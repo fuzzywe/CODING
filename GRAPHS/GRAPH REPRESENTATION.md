@@ -71,59 +71,6 @@ int main()
 }
 ```
 ---
-
-Adjacency Lists
-In the previous storing method, we saw it was taking n² space to store the graph, this is where the adjacency list comes into the picture, it takes a very less amount of space.
-
-This is a node-based representation. In this representation, we associate with each node a list of nodes adjacent to it. Normally an array is used to store the nodes. The array provides random access to the adjacency list for any particular node.
-Consider the example of the following undirected graph,
-
-![image](https://github.com/user-attachments/assets/690af3b6-6636-48e6-8521-4ce29d838722)
-
-
-To create an adjacency list, we will create an array of size n+1 where n is the number of nodes. This array will contain a list, so in C++ list is nothing but the vector of integers.
-
-vector <int> adj[n+1];
-Now every index is containing an empty vector/ list. With respect to the example, 6 indexes contain empty vectors.
-
-What is the motive of the list?
-
-In the example, we can clearly see that node 4 has nodes 2, 3, and 5 as its adjacent neighbors. So, to store its immediate neighbors in any order, we use the list.
-
-![image](https://github.com/user-attachments/assets/16a91ef8-2e1e-4633-829b-1a34e17ce3de)
-
-
-Hence, we stored all the neighbors in the particular indexes. In this representation, for an undirected graph, each edge data appears twice. For example, nodes 1 and 2 are adjacent hence node 2 appears in the list of node 1, and node 1 appears in the list of node 2. So, the space needed to represent an undirected graph using its adjacency list is 2 x E locations, where E denotes the number of edges.
-
-Space complexity = O(2xE)
-
-This representation is much better than the adjacency matrix, as matrix representation consumes n² locations, and most of them are unused.
-
-Code:
-
-```C++
-#include <iostream>
-
-using namespace std;
-
-int main()
-{
-    int n, m;
-    cin >> n >> m;
-    // adjacency list for undirected graph
-    // time complexity: O(2E)
-    vector<int> adj[n+1];
-    for(int i = 0; i < m; i++)
-    {
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    }
-    return 0;
-}
-```
----
 The provided code builds an **adjacency matrix** representation of a graph. Let's break down the key concepts and the mathematics behind it.
 
 ### 1. **Adjacency Matrix Representation:**
@@ -205,6 +152,60 @@ In this way, both directions of the edge are represented.
 This method is most efficient for **dense graphs** where the number of edges is close to \(n^2\), but it can be inefficient for sparse graphs due to high space usage.
 
 ---
+
+Adjacency Lists
+In the previous storing method, we saw it was taking n² space to store the graph, this is where the adjacency list comes into the picture, it takes a very less amount of space.
+
+This is a node-based representation. In this representation, we associate with each node a list of nodes adjacent to it. Normally an array is used to store the nodes. The array provides random access to the adjacency list for any particular node.
+Consider the example of the following undirected graph,
+
+![image](https://github.com/user-attachments/assets/690af3b6-6636-48e6-8521-4ce29d838722)
+
+
+To create an adjacency list, we will create an array of size n+1 where n is the number of nodes. This array will contain a list, so in C++ list is nothing but the vector of integers.
+
+vector <int> adj[n+1];
+Now every index is containing an empty vector/ list. With respect to the example, 6 indexes contain empty vectors.
+
+What is the motive of the list?
+
+In the example, we can clearly see that node 4 has nodes 2, 3, and 5 as its adjacent neighbors. So, to store its immediate neighbors in any order, we use the list.
+
+![image](https://github.com/user-attachments/assets/16a91ef8-2e1e-4633-829b-1a34e17ce3de)
+
+
+Hence, we stored all the neighbors in the particular indexes. In this representation, for an undirected graph, each edge data appears twice. For example, nodes 1 and 2 are adjacent hence node 2 appears in the list of node 1, and node 1 appears in the list of node 2. So, the space needed to represent an undirected graph using its adjacency list is 2 x E locations, where E denotes the number of edges.
+
+Space complexity = O(2xE)
+
+This representation is much better than the adjacency matrix, as matrix representation consumes n² locations, and most of them are unused.
+
+Code:
+
+```C++
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n, m;
+    cin >> n >> m;
+    // adjacency list for undirected graph
+    // time complexity: O(2E)
+    vector<int> adj[n+1];
+    for(int i = 0; i < m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    return 0;
+}
+```
+---
+
 
 **For directed graphs, **if there is an edge between u and v it means the edge only goes from u to v, i.e., v is the neighbor of u, but vice versa is not true. The space needed to represent a directed graph using its adjacency list is E locations, where E denotes the number of edges, as here each edge data appears only once.
 
