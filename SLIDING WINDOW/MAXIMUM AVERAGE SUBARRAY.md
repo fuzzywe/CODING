@@ -6,6 +6,18 @@ You are given an integer array nums consisting of n elements, and an integer k.
 
 Find a contiguous subarray whose length is equal to k that has the maximum average value and return this value. Any answer with a calculation error less than 10-5 will be accepted.
 
+Our given input
+Given input nums and k value
+
+![image](https://github.com/user-attachments/assets/145bc847-91d3-44da-9514-3646eceea7c8)
+
+Initialization
+This image expplains sliding window concept and our initial values
+
+
+![image](https://github.com/user-attachments/assets/04a77b65-7c27-454e-82ad-8cd6ea6d4d52)
+
+Operations
 
 
 ![image](https://github.com/user-attachments/assets/7b70e8c4-a3ed-4254-b2a0-475d6f7c35eb)
