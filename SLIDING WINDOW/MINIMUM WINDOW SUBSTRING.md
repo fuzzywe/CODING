@@ -86,7 +86,9 @@ string minWindow(string s, string t) {
         }
         return d==INT_MAX? "":s.substr(head, d);
     }
-    ```
+
+```
+
 ---
 
 Here comes the template.
