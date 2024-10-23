@@ -53,7 +53,7 @@ let's understand :
 
 Code
 
-```
+```cpp
 class Solution {
 public:
     int uniqueLetterString(string s) {
