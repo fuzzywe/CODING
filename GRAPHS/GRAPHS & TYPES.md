@@ -199,6 +199,12 @@ is a combination of two mathematical concepts. Let’s break down each part to u
   \[
   C(n, 2) = \frac{n \times (n-1)}{2}
   \]
+  Number of Edges= 
+2
+(n−1)×n
+​
+ 
+
 
   This formula gives the total number of **distinct pairs** of nodes that can form an edge.
 
