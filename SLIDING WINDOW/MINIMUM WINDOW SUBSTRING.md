@@ -66,6 +66,12 @@ public:
 };
 ```
 ---
+
+**Don't follow the below approaches because we need readability rather than shortest.**
+
+---
+
+
 ** Here is a 10-line template that can solve most 'substring' problems**
 
 
