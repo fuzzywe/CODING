@@ -167,4 +167,224 @@ public:
 };
 ```
 
+I'll break down the code **line by line**, explaining how each part works along with a **dry run** using the input example: 
 
+### Input Example:
+```
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot", "dot", "dog", "lot", "log", "cog"]
+```
+
+### Code with Dry Run:
+
+```cpp
+class Solution { 
+public: 
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) { 
+```
+- **Explanation**: This function takes the `beginWord`, `endWord`, and a list of words (`wordList`) as input. The goal is to find the shortest transformation sequence from `beginWord` to `endWord`.
+  
+**Dry Run Start**:  
+- Inputs: `beginWord = "hit"`, `endWord = "cog"`, `wordList = ["hot", "dot", "dog", "lot", "log", "cog"]`.
+
+---
+
+```cpp
+        unordered_set<string> s(wordList.begin(), wordList.end()); 
+```
+- **Explanation**: We convert `wordList` into a `set` for **O(1) lookup** time when checking if a word exists. This avoids redundant searching and improves performance.
+
+**Dry Run**:  
+- Set `s = {"hot", "dot", "dog", "lot", "log", "cog"}`.
+
+---
+
+```cpp
+        queue<pair<string, int>> q;
+```
+- **Explanation**: A queue is used for **Breadth-First Search (BFS)**, where each element in the queue stores a pair of the word and the current step count. This allows us to explore transformations level by level.
+
+**Dry Run**:  
+- Initialize the queue `q` which is empty at this point.
+
+---
+
+```cpp
+        int step = 1; 
+        q.push({beginWord, step});
+```
+- **Explanation**: We initialize the step count to `1` (since the `beginWord` is the first word in the sequence) and push the `beginWord` along with the step count to the queue.
+
+**Dry Run**:  
+- Queue `q = [("hit", 1)]`.
+
+---
+
+```cpp
+        s.erase(beginWord);
+```
+- **Explanation**: Since we've already started with the `beginWord`, we remove it from the set `s` to avoid revisiting it in future transformations.
+
+**Dry Run**:  
+- Set `s = {"hot", "dot", "dog", "lot", "log", "cog"}` (no change because "hit" wasn't in `wordList`).
+
+---
+
+```cpp
+        while (!q.empty()) {
+```
+- **Explanation**: Start the BFS loop, which continues until the queue is empty (i.e., all possible transformations have been explored).
+
+**Dry Run**:  
+- The queue is not empty, so we proceed inside the loop.
+
+---
+
+```cpp
+            string word = q.front().first;
+            int step = q.front().second;
+            q.pop();
+```
+- **Explanation**: Extract the front element of the queue, which contains the current word and the step count. After processing it, we remove it from the queue using `q.pop()`.
+
+**Dry Run**:  
+- `word = "hit"`, `step = 1`.  
+- Queue `q = []` after popping.
+
+---
+
+```cpp
+            if (word == endWord) {
+                return step;
+            }
+```
+- **Explanation**: If the current word is the `endWord`, we return the step count as the result. This indicates the shortest transformation sequence has been found.
+
+**Dry Run**:  
+- `word` is "hit", which is not equal to `endWord` ("cog"), so we continue.
+
+---
+
+```cpp
+            for (int i = 0; i < word.size(); i++) {
+```
+- **Explanation**: Loop through each character of the current word to try changing it to every possible letter from 'a' to 'z'.
+
+**Dry Run**:  
+- `word = "hit"`, so the loop will iterate 3 times (for `i = 0`, `i = 1`, and `i = 2`).
+
+---
+
+```cpp
+                char original = word[i];
+```
+- **Explanation**: Store the original character of the current position `i` in the word. This is necessary so that after trying different letters, we can restore the original word.
+
+**Dry Run**:  
+- For `i = 0`, `original = 'h'`.
+
+---
+
+```cpp
+                for (char ch = 'a'; ch <= 'z'; ch++) {
+```
+- **Explanation**: Try replacing the character at position `i` with every letter from 'a' to 'z'.
+
+**Dry Run**:  
+- We start trying with `ch = 'a'`.
+
+---
+
+```cpp
+                    word[i] = ch;
+```
+- **Explanation**: Replace the character at position `i` with `ch`.
+
+**Dry Run**:  
+- For `i = 0` and `ch = 'a'`, `word = "ait"`.  
+- For `ch = 'b'`, `word = "bit"`.  
+- ...  
+- For `ch = 'h'`, `word = "hit"`.
+
+---
+
+```cpp
+                    if (s.find(word) != s.end()) {
+```
+- **Explanation**: Check if the modified word exists in the set `s`. If it exists, it's a valid transformation.
+
+**Dry Run**:  
+- For `word = "hot"`, it's found in the set `s`.
+
+---
+
+```cpp
+                        s.erase(word);
+```
+- **Explanation**: Once we find a valid transformation, we remove the word from the set `s` to avoid revisiting it in future transformations.
+
+**Dry Run**:  
+- Remove `"hot"` from the set:  
+  Set `s = {"dot", "dog", "lot", "log", "cog"}`.
+
+---
+
+```cpp
+                        q.push({word, step + 1});
+```
+- **Explanation**: Push the transformed word into the queue with the step count incremented by 1, as it represents the next level of transformation.
+
+**Dry Run**:  
+- Push `("hot", 2)` to the queue.  
+- Queue `q = [("hot", 2)]`.
+
+---
+
+```cpp
+                }
+                word[i] = original;
+```
+- **Explanation**: After trying all possible transformations for the character at position `i`, we restore the original word.
+
+**Dry Run**:  
+- After restoring, `word = "hit"`.
+
+---
+
+```cpp
+            }
+        }
+```
+- **Explanation**: End of the loop for changing each character in the word.
+
+**Dry Run**:  
+- Continue processing the next word in the queue.
+
+---
+
+```cpp
+        return 0;
+```
+- **Explanation**: If we exhaust all possibilities and don't find the `endWord`, return `0` indicating that no valid transformation sequence exists.
+
+**Dry Run**:  
+- This line won't be reached in our case since there is a valid sequence.
+
+---
+
+### Summary of BFS Traversal:
+
+1. `q = [("hit", 1)]`, step 1.
+   - "hit" -> "hot", push `("hot", 2)`.
+2. `q = [("hot", 2)]`, step 2.
+   - "hot" -> "dot", push `("dot", 3)`.
+   - "hot" -> "lot", push `("lot", 3)`.
+3. `q = [("dot", 3), ("lot", 3)]`, step 3.
+   - "dot" -> "dog", push `("dog", 4)`.
+   - "lot" -> "log", push `("log", 4)`.
+4. `q = [("dog", 4), ("log", 4)]`, step 4.
+   - "dog" -> "cog", push `("cog", 5)`.
+   - Found `endWord = "cog"`.
+
+Output: `5` (steps: "hit" -> "hot" -> "dot" -> "dog" -> "cog").
