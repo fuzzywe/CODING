@@ -10,10 +10,12 @@ The distance between two adjacent cells is 1.
 
 Example 1:
 
+![image](https://github.com/user-attachments/assets/dd0942ab-5616-4602-a24a-2d7cf5724d89)
 
 Input: mat = [[0,0,0],[0,1,0],[0,0,0]]
 Output: [[0,0,0],[0,1,0],[0,0,0]]
 Example 2:
+![image](https://github.com/user-attachments/assets/21ee8238-fdb1-4635-b0a2-26c16a68cf24)
 
 
 Input: mat = [[0,0,0],[0,1,0],[1,1,1]]
