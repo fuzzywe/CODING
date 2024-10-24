@@ -41,24 +41,37 @@ Afterall, we can achieve the minimum distance of all cells in our matrix.
 ```cpp
 class Solution {
 public:
-    vector<int> DIR = {0, 1, 0, -1, 0};
     vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-        int m = mat.size(), n = mat[0].size();
-        queue<pair<int, int>> q;
-        for (int r = 0; r < m; ++r)
-            for (int c = 0; c < n; ++c)
-                if (mat[r][c] == 0) q.emplace(r, c);
-                else mat[r][c] = -1; // Marked as not processed yet!
+        if (mat.empty() || mat[0].empty())
+            return {};
 
-        while (!q.empty()) {
-            auto [r, c] = q.front(); q.pop();
-            for (int i = 0; i < 4; ++i) {
-                int nr = r + DIR[i], nc = c + DIR[i+1];
-                if (nr < 0 || nr == m || nc < 0 || nc == n || mat[nr][nc] != -1) continue;
-                mat[nr][nc] = mat[r][c] + 1;
-                q.emplace(nr, nc);
+        int m = mat.size(), n = mat[0].size();
+        queue<pair<int, int>> queue;
+        int MAX_VALUE = m * n;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (mat[i][j] == 0) {
+                    queue.push({i, j});
+                } else {
+                    mat[i][j] = MAX_VALUE;
+                }
             }
         }
+        
+        vector<pair<int, int>> directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        
+        while (!queue.empty()) {
+            auto [row, col] = queue.front(); queue.pop();
+            for (auto [dr, dc] : directions) {
+                int r = row + dr, c = col + dc;
+                if (r >= 0 && r < m && c >= 0 && c < n && mat[r][c] > mat[row][col] + 1) {
+                    queue.push({r, c});
+                    mat[r][c] = mat[row][col] + 1;
+                }
+            }
+        }
+        
         return mat;
     }
 };
@@ -68,6 +81,230 @@ Complexity
 
 Time: O(M * N), where M is number of rows, N is number of columns in the matrix.
 Space: O(M * N), space for the queue.
+
+Problem Understanding
+In the "01 Matrix Distance" problem, we are given a binary matrix, where each cell contains either a 0 or a 1. The task is to transform this matrix such that each cell contains the shortest distance to a cell with a 0.
+
+For instance, given the matrix:
+
+mat= 
+⎣
+⎡
+​
+  
+0
+0
+1
+​
+  
+0
+1
+1
+​
+  
+0
+0
+1
+​
+  
+⎦
+⎤
+​
+ 
+
+The output should be:
+
+output= 
+⎣
+⎡
+​
+  
+0
+0
+1
+​
+  
+0
+1
+2
+​
+  
+0
+0
+1
+​
+  
+⎦
+⎤
+​
+ 
+
+Live Coding BFS?
+
+
+Approach: Multi-source BFS
+To solve the "01 Matrix Distance" problem, we employ a multi-source BFS approach, starting our traversal from all the cells containing 0s and updating the distances of all adjacent cells.
+
+Key Data Structures:
+Matrix: Represents the given binary matrix.
+Queue: Used to hold cells for BFS traversal.
+Enhanced Breakdown:
+Initialization:
+
+Create a queue and initialize it with all cells containing 0s. These will be our BFS starting points.
+Set all cells containing 1s to a large value which acts as a placeholder indicating that the cell hasn't been visited yet.
+BFS Traversal:
+
+Dequeue a cell and explore its neighboring cells (top, down, left, right).
+If the distance to the current cell plus one is less than the value in the neighboring cell, update the neighboring cell's distance and enqueue it for further processing.
+Wrap-up:
+
+Once all cells have been visited and updated, return the transformed matrix.
+Example:
+We'll use the example:
+
+mat= 
+⎣
+⎡
+​
+  
+0
+0
+1
+​
+  
+0
+1
+1
+​
+  
+0
+0
+1
+​
+  
+⎦
+⎤
+​
+ 
+
+We want to debug the function to visualize how the matrix gets updated at each step.
+
+Initialization:
+First, we determine the size of the matrix:
+
+m=3 (rows) and n=3 (columns).
+
+MAX_VALUE is set to m×n=9.
+
+Next, we iterate over the matrix. For every cell that has a 1, we set it to MAX_VALUE (i.e., 9). Every cell with a 0 gets appended to the queue.
+
+At this point, the matrix looks like:
+
+⎣
+⎡
+​
+  
+0
+0
+9
+​
+  
+0
+9
+9
+​
+  
+0
+0
+9
+​
+  
+⎦
+⎤
+​
+ 
+
+And the queue contains: [(0,0), (0,1), (0,2), (1,0), (1,2)].
+
+BFS Traversal:
+We start the BFS traversal by dequeuing the first element in the queue, which is (0,0).
+
+We then check its neighboring cells in the directions [(1, 0), (-1, 0), (0, 1), (0, -1)].
+
+For (0,0), the valid neighbors are (1,0) and (0,1).
+
+Since (1,0) has a value of 0, we don't need to update its value or enqueue it. Similarly, (0,1) already has a value of 0, so it's not enqueued or updated either.
+
+The matrix, at this point, looks like:
+
+⎣
+⎡
+​
+  
+0
+0
+9
+​
+  
+0
+9
+9
+​
+  
+0
+0
+9
+​
+  
+⎦
+⎤
+​
+ 
+
+And the queue is: [(0,1), (0,2), (1,0), (1,2)].
+
+The process continues, dequeuing (0,1) and checking its neighbors.
+
+(1,1) will be updated to 1 (from 9) and enqueued.
+
+This BFS process continues until the queue is empty.
+
+Final State:
+After processing all the elements in the queue, the matrix is transformed to:
+
+⎣
+⎡
+​
+0
+0
+1
+​
+  
+0
+1
+2
+​
+  
+0
+0
+1
+​
+  
+⎦
+⎤
+​
+ 
+
+This matrix represents the shortest distance of each cell to the nearest 0.
+
+Complexity:
+Time Complexity:
+
+O(m×n) - Since each cell in the matrix is processed once.
+Space Complexity:
+
+O(m×n) - In the worst case, all cells might be added to the queue.
 ✔️ Solution 2: Dynamic Programming
 
 For convinience, let's call the cell with value 0 as zero-cell, the cell has with value 1 as one-cell, the distance of
