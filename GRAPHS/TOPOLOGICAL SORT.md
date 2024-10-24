@@ -38,11 +38,10 @@ Finally, pop all the elements of stack into resultant Vector
 Source Code
 ```cpp
 // DFS Solution
-class Solution
-{
-	public:
-	
-	void dfs(int start, vector<bool> &vis, stack<int> &s, vector<int> adj[]) {
+class Solution {
+  public:
+  
+  void dfs(int start, vector<bool> &vis, stack<int> &s, vector<vector<int>>& adj) {
 	    vis[start] = 1;
 	    
 	    for(int nbr : adj[start]) {
@@ -53,9 +52,11 @@ class Solution
 	    
 	    s.push(start);
 	}
-	
-	vector<int> topoSort(int V, vector<int> adj[]) {
-	    vector<bool> vis(V);
+    // Function to return list containing vertices in Topological order.
+    vector<int> topologicalSort(vector<vector<int>>& adj) {
+        // Your code here
+        int V = adj.size();
+        vector<bool> vis(V);
 	    stack<int> s;
 	    for(int i = 0; i < V; i++) {
 	        if(!vis[i]) {
@@ -67,7 +68,7 @@ class Solution
 	        res.push_back(s.top()); s.pop();
 	    }
 	    return res;
-	}
+    }
 };
  ```
 
