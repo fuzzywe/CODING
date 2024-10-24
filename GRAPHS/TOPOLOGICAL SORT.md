@@ -36,7 +36,7 @@ Call DFS on unvisited Neighbours
 After making all calls to Neighbours Store current Node in a Stack.
 Finally, pop all the elements of stack into resultant Vector
 Source Code
-```
+```cpp
 // DFS Solution
 class Solution
 {
