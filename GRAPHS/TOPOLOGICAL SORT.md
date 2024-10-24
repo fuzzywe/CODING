@@ -91,7 +91,8 @@ class Solution
 {
 	public:
 	//Function to return list containing vertices in Topological order. 
-	vector<int> topoSort(int V, vector<int> adj[]) {
+	vector<int> topologicalSort(vector<vector<int>>& adj) {
+	    int V = adj.size();
 	    vector<int> res;
 	    vector<int> indegree(V, 0);
 	    
@@ -121,5 +122,4 @@ class Solution
 	    return res;
 	}
 };
-
 ```
