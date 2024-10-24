@@ -39,3 +39,44 @@ You don't need to read or print anything. Your task is to complete the function 
 Expected Time Complexity: O(V + E)
 
 Expected Space Complexity: O(V)
+
+```cpp
+class Solution {
+  public:
+    vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
+        // code here
+        vector<int> indegrees(V, 0);
+        vector<int> adjRev[V];
+        vector<int> safeNodes;
+        queue<int> q;
+        
+        for(int i = 0; i < V; i++) {
+            for(auto it : adj[i]) {
+                adjRev[it].push_back(i);
+                indegrees[i]++;
+            }
+        }
+        
+        for(int i = 0; i < V; i++) {
+            if(indegrees[i] == 0) q.push(i);
+        }
+        
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            
+            safeNodes.push_back(node);
+            
+            for(auto it : adjRev[node]) {
+                indegrees[it]--;
+                if(indegrees[it] == 0) q.push(it);
+            }
+        }
+        
+        sort(safeNodes.begin(), safeNodes.end());
+        
+        return safeNodes;
+    }
+};
+
+```
