@@ -15,6 +15,7 @@ Example 1:
 Input: mat = [[0,0,0],[0,1,0],[0,0,0]]
 Output: [[0,0,0],[0,1,0],[0,0,0]]
 Example 2:
+
 ![image](https://github.com/user-attachments/assets/21ee8238-fdb1-4635-b0a2-26c16a68cf24)
 
 
