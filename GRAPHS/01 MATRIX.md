@@ -1,7 +1,7 @@
 542. 01 Matrix
-Medium
-Topics
-Companies
+
+https://leetcode.com/problems/01-matrix/solutions/1369741/c-java-python-bfs-dp-solutions-with-picture-clean-concise-o-1-space/
+
 Given an m x n binary matrix mat, return the distance of the nearest 0 for each cell.
 
 The distance between two adjacent cells is 1.
@@ -24,8 +24,15 @@ Output: [[0,0,0],[0,1,0],[1,2,1]]
 ✔️ Solution 1: BFS on zero cells first
 
 For convinience, let's call the cell with value 0 as zero-cell, the cell has with value 1 as one-cell, the distance of the nearest 0 of a cell as distance.
+
 Firstly, we can see that the distance of all zero-cells are 0.
-Same idea with Topology Sort, we process zero-cells first, then we use queue data structure to keep the order of processing cells, so that cells which have the smaller distance will be processed first. Then we expand the unprocessed neighbors of the current processing cell and push into our queue.
+
+Same idea with Topology Sort, we process zero-cells first, then we use queue data structure to keep the order of
+
+processing cells, so that cells which have the smaller distance will be processed first. Then we expand the 
+
+unprocessed neighbors of the current processing cell and push into our queue.
+
 Afterall, we can achieve the minimum distance of all cells in our matrix.
 
 ![image](https://github.com/user-attachments/assets/109007e1-b377-43aa-ad42-3d88a2525386)
@@ -63,14 +70,31 @@ Time: O(M * N), where M is number of rows, N is number of columns in the matrix.
 Space: O(M * N), space for the queue.
 ✔️ Solution 2: Dynamic Programming
 
-For convinience, let's call the cell with value 0 as zero-cell, the cell has with value 1 as one-cell, the distance of the nearest 0 of a cell as distance.
+For convinience, let's call the cell with value 0 as zero-cell, the cell has with value 1 as one-cell, the distance of
+
+the nearest 0 of a cell as distance.
+
 Firstly, we can see that the distance of all zero-cells are 0, so we skip zero-cells, we process one-cells only.
+
 In DP, we can only use prevous values if they're already computed.
-In this problem, a cell has at most 4 neighbors that are left, top, right, bottom. If we use dynamic programming to compute the distance of the current cell based on 4 neighbors simultaneously, it's impossible because we are not sure if distance of neighboring cells is already computed or not.
+
+In this problem, a cell has at most 4 neighbors that are left, top, right, bottom. If we use dynamic programming to 
+
+compute the distance of the current cell based on 4 neighbors simultaneously, it's impossible because we are not sure
+
+if distance of neighboring cells is already computed or not.
+
 That's why, we need to compute the distance one by one:
-Firstly, for a cell, we restrict it to only 2 directions which are left and top. Then we iterate cells from top to bottom, and from left to right, we calculate the distance of a cell based on its left and top neighbors.
-Secondly, for a cell, we restrict it only have 2 directions which are right and bottom. Then we iterate cells from bottom to top, and from right to left, we update the distance of a cell based on its right and bottom neighbors.
-image
+
+Firstly, for a cell, we restrict it to only 2 directions which are left and top. Then we iterate cells from top to 
+
+bottom, and from left to right, we calculate the distance of a cell based on its left and top neighbors.
+
+Secondly, for a cell, we restrict it only have 2 directions which are right and bottom. Then we iterate cells from
+
+bottom to top, and from right to left, we update the distance of a cell based on its right and bottom neighbors.
+
+
 
 ![image](https://github.com/user-attachments/assets/ffc98ccd-096c-49de-a4a6-2b21a4b9504b)
 
