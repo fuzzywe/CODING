@@ -20,7 +20,7 @@ Input:
 Output: 0
 Explanation: no cycle in the graph
 
-
+using khan's algo
 ```cpp
 class Solution {
   public:
@@ -59,4 +59,50 @@ class Solution {
 
     }
 };
+```
+
+DFS
+
+```cpp
+class Solution {
+  public:
+  bool DFS(int s, vector<vector<int>>&adj, vector<bool>& visited, vector<bool>& visited_back) {
+    visited[s] = true;        // Mark the node as visited
+    visited_back[s] = true;   // Mark it as part of the current recursion stack
+
+    for (int i = 0; i < adj[s].size(); i++) {
+        int neighbor = adj[s][i];  // Get the neighbor node
+
+        if (!visited[neighbor]) {
+            if (DFS(neighbor, adj, visited, visited_back)) {
+                return true;
+            }
+        } 
+        else if (visited_back[neighbor]) {
+            // If the neighbor is already in the recursion stack, a cycle exists
+            return true;
+        }
+    }
+
+    visited_back[s] = false;  // Remove the node from the recursion stack
+    return false;
+}
+    // Function to detect cycle in a directed graph.
+    bool isCyclic(int V, vector<vector<int>> adj) {
+        // code here
+        vector<bool> visited(V, false);
+    vector<bool> visited_back(V, false);  // Track nodes in the current DFS path
+
+    for (int i = 0; i < V; i++) {
+        if (!visited[i]) {
+            if (DFS(i, adj, visited, visited_back)) {
+                return true;  // If a cycle is detected, return true
+            }
+        }
+    }
+
+    return false;  // No cycle detected
+    }
+};
+
 ```
