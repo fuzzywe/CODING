@@ -304,3 +304,288 @@ return ans;
 - It performs a topological sort using BFS to find a valid order of characters.
 - If the graph is acyclic, we get a valid topological order, else, the function would return an empty string.
 
+
+Sure! Let's go through a **detailed dry run** for each line of the code using an example. We'll break it down to understand how each step works with clear explanations.
+
+### Problem:
+
+You have a dictionary of words from an alien language. The order of letters is different from English, and you need to determine the order of characters in the alien alphabet based on the given dictionary.
+
+### Example:
+
+Let’s take a sample dictionary:
+
+```
+dict[] = {"baa", "abcd", "abca", "cab"}
+n = 4  // Number of words
+k = 4  // Number of characters in the alien alphabet (let's assume it's 'a', 'b', 'c', 'd')
+```
+
+### Dry Run and Explanation of Each Line:
+
+```cpp
+class Solution {
+public:
+    string findOrder(string dict[], int n, int k) {
+```
+- We define the function `findOrder` which takes an array of strings `dict[]`, the number of words `n`, and the number of characters in the alien alphabet `k`.
+
+```cpp
+        vector<int> indegree(k);
+```
+- Initialize a vector `indegree` of size `k` (for each character in the alien alphabet). Initially, all elements are `0`. This vector will track how many characters should come before each character.
+- **Dry Run**:
+  ```
+  indegree = [0, 0, 0, 0]  // for characters 'a', 'b', 'c', 'd'
+  ```
+
+```cpp
+        vector<int> adj[k];
+```
+- Initialize an adjacency list `adj[]` of size `k` (one list for each character). This will represent the directed graph where an edge from `x -> y` means that `x` should come before `y` in the alien language order.
+- **Dry Run**:
+  ```
+  adj = [[], [], [], []]  // for 'a', 'b', 'c', 'd'
+  ```
+
+```cpp
+        for(int i = 0; i < n - 1; i++) {
+```
+- This loop compares adjacent words from the dictionary. We compare `dict[i]` with `dict[i + 1]` to infer the ordering of characters.
+- Loop through `i = 0 to n-2`, which means we will compare words like this:
+  - First compare "baa" with "abcd"
+  - Then compare "abcd" with "abca"
+  - Finally compare "abca" with "cab"
+
+```cpp
+            string s1 = dict[i];
+            string s2 = dict[i + 1];
+```
+- Assign `s1` as the current word and `s2` as the next word.
+- **Dry Run**:
+  - First comparison: `s1 = "baa"` and `s2 = "abcd"`
+
+```cpp
+            int len = min(s1.size(), s2.size());
+```
+- Determine the minimum length between `s1` and `s2` to prevent out-of-bound errors during comparison.
+- **Dry Run**:
+  - First comparison: `len = min(3, 4) = 3`
+
+```cpp
+            for(int j = 0; j < len; j++) {
+                if(s1[j] != s2[j]) {
+```
+- Loop through the characters of `s1` and `s2` until we find a mismatch. This mismatch gives us the ordering information. The character `s1[j]` should come before `s2[j]` in the alien language order.
+- **Dry Run (First comparison: "baa" vs "abcd")**:
+  - Compare `s1[0]` ('b') and `s2[0]` ('a'): they are not equal, so we infer that 'b' should come before 'a'.
+  
+```cpp
+                    adj[s1[j] - 'a'].push_back(s2[j] - 'a');
+                    indegree[s2[j] - 'a']++;
+```
+- Add an edge from `s1[j]` to `s2[j]` in the adjacency list.
+- Increase the indegree of `s2[j]` because now we know there is one character that must precede it.
+- **Dry Run (First comparison: 'b' should come before 'a')**:
+  - Add an edge from 'b' to 'a': `adj[1].push_back(0)` ('b' -> 'a')
+  - Increment indegree of 'a': `indegree[0]++`
+  ```
+  adj = [[], [0], [], []]  // 'b' -> 'a'
+  indegree = [1, 0, 0, 0]  // 'a' has one incoming edge
+  ```
+
+```cpp
+                    break;
+```
+- Once we find the first mismatch, we break out of the inner loop because that’s all we need to establish the order between the two words.
+
+```cpp
+            }
+        }
+```
+- Move on to the next pair of words in the dictionary.
+- **Dry Run (Second comparison: "abcd" vs "abca")**:
+  - Compare `s1 = "abcd"` and `s2 = "abca"`.
+  - Start comparing characters:
+    - `s1[0] == s2[0]` ('a' == 'a')
+    - `s1[1] == s2[1]` ('b' == 'b')
+    - `s1[2] == s2[2]` ('c' == 'c')
+    - `s1[3] != s2[3]` ('d' != 'a'): So, 'd' should come before 'a'.
+  - Add edge: `adj[3].push_back(0)` ('d' -> 'a')
+  - Increment indegree of 'a': `indegree[0]++`
+  ```
+  adj = [[], [0], [], [0]]  // 'b' -> 'a', 'd' -> 'a'
+  indegree = [2, 0, 0, 0]  // 'a' has two incoming edges now
+  ```
+
+- **Dry Run (Third comparison: "abca" vs "cab")**:
+  - Compare `s1 = "abca"` and `s2 = "cab"`.
+  - Start comparing characters:
+    - `s1[0] != s2[0]` ('a' != 'c'): So, 'a' should come before 'c'.
+  - Add edge: `adj[0].push_back(2)` ('a' -> 'c')
+  - Increment indegree of 'c': `indegree[2]++`
+  ```
+  adj = [[2], [0], [], [0]]  // 'a' -> 'c', 'b' -> 'a', 'd' -> 'a'
+  indegree = [2, 0, 1, 0]  // 'a' has 2 incoming edges, 'c' has 1
+  ```
+
+```cpp
+        queue<int> q;
+        for(int i = 0; i < indegree.size(); i++) {
+            if(indegree[i] == 0) q.push(i);
+        }
+```
+- Initialize a queue to store nodes (characters) with `0` indegree, meaning they have no dependencies and can be processed first.
+- **Dry Run**:
+  - `indegree = [2, 0, 1, 0]`: Characters with 0 indegree are 'b' (index 1) and 'd' (index 3).
+  - Add 'b' and 'd' to the queue: `q = [1, 3]`
+
+```cpp
+        string ans = "";
+```
+- Initialize an empty string `ans` to store the final order of characters.
+
+```cpp
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            ans.push_back(char(node + 'a'));
+```
+- Process the nodes from the queue one by one:
+  - Dequeue a node and append its corresponding character to the result string `ans`.
+- **Dry Run**:
+  - First dequeue `node = 1` ('b'): Append 'b' to `ans`.
+  - `ans = "b"`
+  - Next dequeue `node = 3` ('d'): Append 'd' to `ans`.
+  - `ans = "bd"`
+
+```cpp
+            for(auto it : adj[node]) {
+                indegree[it]--;
+                if(indegree[it] == 0) q.push(it);
+            }
+```
+- For each node, visit its neighbors (i.e., characters that depend on it). Decrease their indegree, and if a neighbor's indegree becomes 0, add it to the queue to process next.
+- **Dry Run**:
+  - Processing `node = 1` ('b'): 
+    - 'b' has one neighbor, 'a' (from `adj[1]`).
+    - Decrease indegree of 'a': `indegree[0]--` → `indegree = [1, 0, 1, 0]`
+    - 'a' is not ready to be processed yet.
+  - Processing `node = 3` ('d'):
+    - 'd' has one neighbor, 'a' (from `adj[3]`).
+    - Decrease indegree of 'a': `indegree[0]--` → `indegree = [0, 0, 1, 0]`
+    - Now '
+   
+    - Certainly! Let's continue the dry run from where we left off.
+
+### Continuation of Dry Run:
+
+At this point, the **indegree** array is:
+
+```
+indegree = [0, 0, 1, 0]  // 'a' now has 0 incoming edges, 'c' still has 1
+```
+
+Now that the indegree of `'a'` has become 0, it will be added to the queue:
+
+```cpp
+                if(indegree[it] == 0) q.push(it);
+```
+- Since `indegree[0]` is now 0, we push `0` (representing `'a'`) into the queue.
+- **Dry Run**:
+  ```
+  q = [0]  // 'a' is ready to be processed
+  ```
+
+### Continuing with the main while loop:
+```cpp
+        while(!q.empty()) {
+            int node = q.front();
+            q.pop();
+            ans.push_back(char(node + 'a'));
+```
+- Dequeue `'a'` (node = 0) from the queue and append it to `ans`.
+- **Dry Run**:
+  ```
+  ans = "bda"  // After adding 'a'
+  ```
+
+Next, we process the neighbors of `'a'`.
+
+```cpp
+            for(auto it : adj[node]) {
+                indegree[it]--;
+                if(indegree[it] == 0) q.push(it);
+            }
+```
+- Processing `'a'` (node = 0):
+  - `'a'` has one neighbor, `'c'` (from `adj[0]`).
+  - Decrease indegree of `'c'`: `indegree[2]--` → `indegree = [0, 0, 0, 0]`
+  - Now `'c'` is ready to be processed because its indegree becomes 0, so we push `'c'` into the queue.
+- **Dry Run**:
+  ```
+  q = [2]  // 'c' is ready to be processed
+  ```
+
+### Final Iteration:
+
+- Dequeue `'c'` (node = 2) from the queue and append it to `ans`.
+- **Dry Run**:
+  ```
+  ans = "bdac"  // After adding 'c'
+  ```
+
+Now, `'c'` has no neighbors, so we finish processing.
+
+```cpp
+        }
+```
+- The while loop ends because the queue is now empty.
+
+### Return the Result:
+```cpp
+        return ans;
+    }
+};
+```
+- **Return** the final string `ans`, which contains the order of characters in the alien language.
+- **Final Dry Run Output**:
+  ```
+  ans = "bdac"
+  ```
+
+### Full Dry Run Summary:
+
+Given the dictionary:
+```
+dict[] = {"baa", "abcd", "abca", "cab"}
+```
+
+1. Compare "baa" and "abcd": Find that `'b'` comes before `'a'`.
+2. Compare "abcd" and "abca": Find that `'d'` comes before `'a'`.
+3. Compare "abca" and "cab": Find that `'a'` comes before `'c'`.
+
+From these comparisons, the graph is built:
+```
+'b' -> 'a'
+'d' -> 'a'
+'a' -> 'c'
+```
+
+Using topological sorting (Kahn’s algorithm), the order of characters is:
+```
+bdac
+```
+
+### Final Output:
+
+The function returns the alien language order:
+```
+"bdac"
+```
+
+### Key Concepts in the Code:
+- **Graph Building**: We compare adjacent words to establish ordering between characters.
+- **Topological Sort**: We use Kahn’s algorithm (queue + indegree) to find the valid order of characters.
+
+I hope this detailed dry run clarifies how the code works step by step!
