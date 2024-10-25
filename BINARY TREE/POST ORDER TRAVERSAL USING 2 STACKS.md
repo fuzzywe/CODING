@@ -1,3 +1,5 @@
+https://leetcode.com/problems/binary-tree-postorder-traversal/
+
 To perform an **iterative postorder traversal** of a binary tree (left, right, root) using a stack, we need to modify the approach. Postorder traversal is trickier than preorder or inorder because we need to ensure the left and right children are processed before the root.
 
 ### Code for Iterative Postorder Traversal
