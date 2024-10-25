@@ -163,3 +163,164 @@ public:
     }
 };
 ```
+Let's go through a full dry run of this iterative postorder traversal code for a sample binary tree. Here’s the tree we’ll use:
+
+```
+      1
+     / \
+    2   3
+   / \
+  4   5
+```
+
+The expected postorder traversal for this tree is `[4, 5, 2, 3, 1]` (left-right-root). Let’s go through each line of the code with detailed explanations at each step.
+
+### Code with Dry Run
+
+```cpp
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;                   // Result vector for storing the postorder traversal.
+        stack<TreeNode*> st;               // Stack to help with the traversal.
+        TreeNode* lastVisited = nullptr;   // Pointer to keep track of the last visited node.
+
+        while (!st.empty() || root) {      // Continue until stack is empty and root is null.
+            while (root) {                 // Traverse down the leftmost path.
+                st.push(root);             // Push the current node to stack.
+                root = root->left;         // Move to left child.
+            }
+
+            TreeNode* node = st.top();     // Peek the top node in the stack (current root).
+            
+            // If right child is null or already processed, process the current node.
+            if (!node->right || node->right == lastVisited) {
+                ans.push_back(node->val);  // Add current node’s value to result.
+                st.pop();                  // Pop the current node from the stack.
+                lastVisited = node;        // Mark this node as last visited.
+                root = nullptr;            // Set root to null to avoid moving left again.
+            } else {
+                // If the right child exists and hasn't been processed, move to right child.
+                root = node->right;        // Set root to the right child.
+            }
+        }
+
+        return ans;                        // Return the result vector containing postorder traversal.
+    }
+};
+```
+
+### Step-by-Step Dry Run
+
+#### Initial Setup
+- **TreeNode definitions:**
+  - `root` is the root node with value `1`.
+  - `root.left` is node `2`.
+  - `root.right` is node `3`.
+  - `root.left.left` is node `4`.
+  - `root.left.right` is node `5`.
+
+#### Execution Flow
+
+1. **Initialization:**
+   - `ans = []` (empty vector for result).
+   - `st = []` (empty stack).
+   - `lastVisited = nullptr`.
+
+#### Iteration 1
+- **Outer `while` Loop**: `!st.empty() || root` is true (`root` is node `1`).
+  - **Inner `while` Loop**: `root` is node `1`, not null.
+    - `st.push(1)` → Stack: `[1]`.
+    - `root = root->left` → `root` is now node `2`.
+  - **Continue Inner `while`**: `root` is node `2`, not null.
+    - `st.push(2)` → Stack: `[1, 2]`.
+    - `root = root->left` → `root` is now node `4`.
+  - **Continue Inner `while`**: `root` is node `4`, not null.
+    - `st.push(4)` → Stack: `[1, 2, 4]`.
+    - `root = root->left` → `root` is now `nullptr`.
+
+#### Iteration 2
+- **Outer `while` Loop**: `root` is `nullptr`, but `st` is not empty.
+  - **Set `node = st.top()`** → `node` is `4`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is `nullptr` (node `4` has no right child).
+    - **Action**:
+      - `ans.push_back(node->val)` → `ans = [4]`.
+      - `st.pop()` → Stack: `[1, 2]`.
+      - `lastVisited = node` → `lastVisited` is node `4`.
+      - `root = nullptr`.
+
+#### Iteration 3
+- **Outer `while` Loop**: `!st.empty() || root` is true.
+  - **Set `node = st.top()`** → `node` is `2`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is node `5` (right child exists and hasn’t been visited).
+    - **Action**: `root = node->right` → `root` is now node `5`.
+
+#### Iteration 4
+- **Outer `while` Loop**: `!st.empty() || root` is true.
+  - **Inner `while` Loop**: `root` is node `5`, not null.
+    - `st.push(5)` → Stack: `[1, 2, 5]`.
+    - `root = root->left` → `root` is now `nullptr`.
+
+#### Iteration 5
+- **Outer `while` Loop**: `root` is `nullptr`, but `st` is not empty.
+  - **Set `node = st.top()`** → `node` is `5`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is `nullptr`.
+    - **Action**:
+      - `ans.push_back(node->val)` → `ans = [4, 5]`.
+      - `st.pop()` → Stack: `[1, 2]`.
+      - `lastVisited = node` → `lastVisited` is node `5`.
+      - `root = nullptr`.
+
+#### Iteration 6
+- **Outer `while` Loop**: `!st.empty() || root` is true.
+  - **Set `node = st.top()`** → `node` is `2`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is node `5` (which is `lastVisited`).
+    - **Action**:
+      - `ans.push_back(node->val)` → `ans = [4, 5, 2]`.
+      - `st.pop()` → Stack: `[1]`.
+      - `lastVisited = node` → `lastVisited` is node `2`.
+      - `root = nullptr`.
+
+#### Iteration 7
+- **Outer `while` Loop**: `!st.empty() || root` is true.
+  - **Set `node = st.top()`** → `node` is `1`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is node `3` (right child exists and hasn’t been visited).
+    - **Action**: `root = node->right` → `root` is now node `3`.
+
+#### Iteration 8
+- **Outer `while` Loop**: `!st.empty() || root` is true.
+  - **Inner `while` Loop**: `root` is node `3`, not null.
+    - `st.push(3)` → Stack: `[1, 3]`.
+    - `root = root->left` → `root` is now `nullptr`.
+
+#### Iteration 9
+- **Outer `while` Loop**: `root` is `nullptr`, but `st` is not empty.
+  - **Set `node = st.top()`** → `node` is `3`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is `nullptr`.
+    - **Action**:
+      - `ans.push_back(node->val)` → `ans = [4, 5, 2, 3]`.
+      - `st.pop()` → Stack: `[1]`.
+      - `lastVisited = node` → `lastVisited` is node `3`.
+      - `root = nullptr`.
+
+#### Iteration 10
+- **Outer `while` Loop**: `!st.empty() || root` is true.
+  - **Set `node = st.top()`** → `node` is `1`.
+  - **Check**: `!node->right || node->right == lastVisited`:
+    - `node->right` is node `3` (which is `lastVisited`).
+    - **Action**:
+      - `ans.push_back(node->val)` → `ans = [4, 5, 2, 3, 1]`.
+      - `st.pop()` → Stack: `[]`.
+      - `lastVisited = node` → `lastVisited` is node `1`.
+      - `root = nullptr`.
+
+#### End
+- **Return**: `ans = [4, 5, 2, 3, 1]`.
+
+This completes the postorder traversal: **`[4, 5, 2, 3, 1]`**.
