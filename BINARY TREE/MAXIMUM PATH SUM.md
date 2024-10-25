@@ -59,4 +59,138 @@ int sum(TreeNode* root)
     }
 };
 ```
- 
+ Here's a line-by-line breakdown of the code, followed by a dry run for an example binary tree.
+
+### Code Explanation (Line-by-Line)
+
+```cpp
+class Solution {
+public:
+    int maxi = INT_MIN;  // Initialize `maxi` with the minimum integer value to store the maximum path sum found.
+```
+
+- We declare `maxi` as an instance variable to keep track of the highest path sum across all nodes during traversal. Starting with `INT_MIN` allows any path sum to update this value initially.
+
+```cpp
+    int sum(TreeNode* root) {
+```
+
+- The `sum` function recursively computes the maximum path sum "through" each subtree rooted at the `root` node, returning the best path that includes either the left or right subtree.
+
+```cpp
+        if (!root) return 0;
+```
+
+- If `root` is `nullptr`, we return 0 because a non-existent node adds no value to the path sum.
+
+```cpp
+        int leftsum = 0;
+        int rightsum = 0;
+```
+
+- We initialize `leftsum` and `rightsum` to store the maximum path sums of the left and right subtrees rooted at the current node, `root`.
+
+```cpp
+        leftsum = max(0, sum(root->left));
+        rightsum = max(0, sum(root->right));
+```
+
+- We calculate the maximum path sum from each child node:
+  - `sum(root->left)` and `sum(root->right)` are recursive calls that compute the path sums for the left and right subtrees.
+  - `max(0, ...)` ensures we only add positive path sums to our current path. If the subtree sum is negative, we skip it by taking 0 instead.
+
+```cpp
+        maxi = max(maxi, leftsum + rightsum + root->val);
+```
+
+- We update `maxi` to hold the highest path sum found so far. For each node, this sum includes:
+  - The node's value (`root->val`),
+  - The maximum path from the left subtree (`leftsum`), and
+  - The maximum path from the right subtree (`rightsum`).
+  
+  This line checks if the current path sum (from left to right through `root`) is greater than any previous path sum found, updating `maxi` if it is.
+
+```cpp
+        return root->val + max(leftsum, rightsum);
+    }
+```
+
+- This line returns the maximum gain if continuing either left or right subtree's path from `root`. By choosing the higher of `leftsum` or `rightsum`, it allows each recursive call to pass the best path sum upward in the tree.
+
+```cpp
+    int maxPathSum(TreeNode* root) {
+       int ans = sum(root);  // Start the recursive process.
+       return maxi;  // Return the maximum path sum found.
+    }
+};
+```
+
+- `maxPathSum` initializes the recursive process by calling `sum(root)`. After traversing the entire tree, it returns the maximum path sum found.
+
+### Dry Run
+
+Let’s take an example binary tree:
+
+```
+       -10
+       /  \
+      9    20
+          /  \
+         15   7
+```
+
+#### Initial State
+- `maxi = INT_MIN`
+- Root node of the tree is `-10`.
+
+#### Execution Steps
+
+1. **Call `maxPathSum(root)` with `root = -10`:**
+   - This calls `sum(-10)`.
+   
+2. **`sum(-10)` begins:**
+   - `leftsum = max(0, sum(-10->left))`
+   - Call `sum(9)`.
+
+3. **`sum(9)` (left child of `-10`):**
+   - `leftsum = max(0, sum(9->left)) = max(0, sum(nullptr)) = 0`
+   - `rightsum = max(0, sum(9->right)) = max(0, sum(nullptr)) = 0`
+   - Calculate `maxi = max(INT_MIN, 0 + 0 + 9) = 9`
+   - Return `9 + max(0, 0) = 9` to `sum(-10)`.
+
+4. **Continue `sum(-10)` with `leftsum = 9`:**
+   - `rightsum = max(0, sum(-10->right))`
+   - Call `sum(20)`.
+
+5. **`sum(20)` (right child of `-10`):**
+   - `leftsum = max(0, sum(20->left))`
+   - Call `sum(15)`.
+
+6. **`sum(15)` (left child of `20`):**
+   - `leftsum = max(0, sum(15->left)) = 0`
+   - `rightsum = max(0, sum(15->right)) = 0`
+   - Calculate `maxi = max(9, 0 + 0 + 15) = 15`
+   - Return `15 + max(0, 0) = 15` to `sum(20)`.
+
+7. **Continue `sum(20)` with `leftsum = 15`:**
+   - `rightsum = max(0, sum(20->right))`
+   - Call `sum(7)`.
+
+8. **`sum(7)` (right child of `20`):**
+   - `leftsum = max(0, sum(7->left)) = 0`
+   - `rightsum = max(0, sum(7->right)) = 0`
+   - Calculate `maxi = max(15, 0 + 0 + 7) = 15`
+   - Return `7 + max(0, 0) = 7` to `sum(20)`.
+
+9. **Finish `sum(20)` with `leftsum = 15` and `rightsum = 7`:**
+   - Calculate `maxi = max(15, 15 + 7 + 20) = 42`
+   - Return `20 + max(15, 7) = 35` to `sum(-10)`.
+
+10. **Finish `sum(-10)` with `leftsum = 9` and `rightsum = 35`:**
+    - Calculate `maxi = max(42, 9 + 35 + (-10)) = 42`
+    - Return `-10 + max(9, 35) = 25`.
+
+11. **Final Output:**
+    - `maxPathSum(root)` returns `maxi`, which is `42`.
+
+So, the maximum path sum for this tree is **42**, achieved by the path `[15 -> 20 -> 7]`.
