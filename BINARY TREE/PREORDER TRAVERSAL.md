@@ -77,55 +77,7 @@ public:
 
 This code performs a **preorder traversal** (root, left, right) of a binary tree using an **iterative approach** with a **stack**. In preorder traversal, each node is visited in the order: root first, then the left subtree, followed by the right subtree.
 
-Let's go through the code step-by-step and perform a dry run with a sample binary tree.
 
-### Code
-```cpp
-class Solution {
-public:
-    vector<int> preorderTraversal(TreeNode* root) {
-        stack<TreeNode*> st;
-        vector<int> ans;
-
-        while (!st.empty() || root) {
-            while (root) {
-                ans.push_back(root->val);   // Visit root node
-                st.push(root);              // Push root onto stack
-                root = root->left;          // Move to left child
-            }
-            root = st.top();                // Get the node from the top of the stack
-            st.pop();                       // Remove the node from the stack
-            root = root->right;             // Move to right child
-        }
-        return ans;
-    }
-};
-```
-
-### Key Steps in the Code
-1. **Initialize Stack and Result Vector**:  
-   - `stack<TreeNode*> st;` — Stack to help track nodes as we traverse.
-   - `vector<int> ans;` — Stores the preorder traversal results.
-
-2. **Outer `while` Loop**: 
-   - This loop continues as long as either the stack is not empty or `root` is not null.
-   - It ensures that all nodes are visited.
-
-3. **Inner `while` Loop**: 
-   - Moves down the left subtree of each node, visiting nodes in the preorder fashion (root, left, right).
-   - **Key actions**:
-     - **Visit Root Node**: `ans.push_back(root->val);`
-     - **Push Root to Stack**: `st.push(root);`
-     - **Move Left**: `root = root->left;`
-
-4. **After Inner Loop**:
-   - Once there are no more left nodes, `root` is set to the last node from the stack (this would be the most recently visited node's right child).
-   - **Move Right**: `root = root->right;`
-
-5. **End of Traversal**:
-   - When there are no more nodes to process (`root == NULL` and `st.empty()`), the function returns the `ans` vector, containing the preorder traversal.
-
----
 
 ### Sample Dry Run
 
