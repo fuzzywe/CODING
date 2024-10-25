@@ -124,3 +124,42 @@ For this iterative postorder traversal code using two stacks, here is the time a
   - In the worst case, both stacks together may hold all nodes in the tree, giving an **O(n)** space complexity.
   
 So, the **overall time complexity** is **O(n)**, and the **overall space complexity** is **O(n)**.
+
+---
+
+POST ORDER TRAVERSAL USING ONE STACK
+
+---
+```cpp
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> ans;
+        stack<TreeNode*> st;
+        TreeNode* lastVisited = nullptr;
+
+        while (!st.empty() || root) {
+            // Traverse to the leftmost node.
+            while (root) {
+                st.push(root);
+                root = root->left;
+            }
+
+            TreeNode* node = st.top();
+
+            // If right child is null or already processed, process the current node.
+            if (!node->right || node->right == lastVisited) {
+                ans.push_back(node->val);
+                st.pop();
+                lastVisited = node; // Mark this node as visited.
+                root = nullptr; // Prevent going left again.
+            } else {
+                // If the right child exists and hasn't been processed, move to the right child.
+                root = node->right;
+            }
+        }
+
+        return ans;
+    }
+};
+```
