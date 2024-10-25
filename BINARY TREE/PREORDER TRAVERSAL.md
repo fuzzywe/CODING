@@ -49,6 +49,7 @@ Preorder: Root, left, right
 Postorder: Left, right, root
 
 ```
+**ITERATIVE APPROACH **
 
 ```cpp
 class Solution {
@@ -160,3 +161,34 @@ Let's apply the code to the following binary tree:
 
 ### Final Output:
 The **preorder traversal** of the tree `[1, 2, 4, 5, 3]` matches the expected preorder order of visiting nodes (root, left, right).
+
+---
+
+**RECURSIVE APPROACH**
+
+---
+
+```cpp
+class Solution {
+public:
+
+    void solve(TreeNode*t,vector<int>&ans)
+      {
+          if(t==NULL)
+          {
+              return ;
+          }
+           ans.push_back(t->val);
+          solve(t->left,ans);
+         
+          solve(t->right,ans);
+      }
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        solve(root,ans);
+        return ans;
+
+        
+    }
+};
+```
