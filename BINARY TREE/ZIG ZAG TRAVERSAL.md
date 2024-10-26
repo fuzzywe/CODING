@@ -5,7 +5,8 @@ https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/descripti
 Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
 
  
-![Uploading WhatsApp Image 2024-10-26 at 08.56.31_dee137a2.jpg…]()
+![WhatsApp Image 2024-10-26 at 07 12 53_747605a4](https://github.com/user-attachments/assets/9ca82bf0-b112-4665-99bb-faaa13a81199)
+
 
 Example 1:
 ![image](https://github.com/user-attachments/assets/7ef6723e-67e6-4aa6-a876-49676707617c)
