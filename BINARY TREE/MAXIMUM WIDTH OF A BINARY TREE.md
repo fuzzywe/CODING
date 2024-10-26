@@ -12,8 +12,12 @@ The maximum width of a tree is the maximum width among all levels.
 The width of one level is defined as the length between the end-nodes (the leftmost and rightmost non-null nodes), where the null nodes between the end-nodes that would be present in a complete binary tree extending down to that level are also counted into the length calculation.
 
 It is guaranteed that the answer will in the range of a 32-bit signed integer.
+![WhatsApp Image 2024-10-26 at 10 56 50_a71e69d9](https://github.com/user-attachments/assets/71b6fe88-c93f-4f3d-8eaf-354b66643652)
 
- 
+![WhatsApp Image 2024-10-26 at 10 56 50_3d86b489](https://github.com/user-attachments/assets/1491bf54-9bc5-405a-a656-66cb6d57cb32)
+
+ ![WhatsApp Image 2024-10-26 at 10 56 49_2ef71db0](https://github.com/user-attachments/assets/87c580b8-0158-49dc-866b-a353b9a84696)
+
 
 Example 1:
 
