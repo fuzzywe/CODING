@@ -3,3 +3,5 @@
 can't construct the unique binary with preorder and postorder
 
 but can construct using preorder and inorder
+
+![L33  Requirements needed to construct a Unique Binary Tree _ Theory 6-41 screenshot](https://github.com/user-attachments/assets/60a2923f-c646-4fcd-a29b-a91d794d0564)
