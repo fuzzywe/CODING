@@ -12,6 +12,7 @@ Given below is a binary tree. The task is to print the top view of binary tree. 
 
 ```
 
+
 Top view will be: 4 2 1 3 7
 Note: Return nodes from leftmost node to rightmost node. Also if 2 nodes are outside the shadow of the tree and are at same position then consider the left ones only(i.e. leftmost). 
 For ex - 1 2 3 N 4 5 N 6 N 7 N 8 N 9 N N N N N will give 8 2 1 3 as answer. Here 8 and 9 are on the same position but 9 will get shadowed.
@@ -67,7 +68,7 @@ class Solution
             Node *node = it.first;
             int line = it.second;
             q.pop();
-            if(mpp.find(line) == mpp.end()){
+            if(mpp.find(line) == mpp.end()){//0 is 
                 mpp[line] = node->data;
             }
             if(node->left != nullptr){
@@ -88,7 +89,10 @@ class Solution
 };
 
 ```
+---
+**why not  recursive ? recursive traverse all the nodes. i need only top view so i will go for level order bcz** **recursive will traverse all the node.**
 
+---
 
 Let's go through the code step-by-step and perform a dry run with a detailed explanation for each line. This function, `topView`, calculates the "top view" of a binary tree, which is the set of nodes visible when the tree is viewed from above.
 
