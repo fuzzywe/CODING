@@ -2,7 +2,8 @@ https://leetcode.com/problems/symmetric-tree/description/
 
 Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
 
- 
+ ![WhatsApp Image 2024-10-26 at 08 56 41_1353324e](https://github.com/user-attachments/assets/b3936a81-1fb7-441b-958f-c8ad3b7b2c8e)
+
 
 Example 1:
 ![image](https://github.com/user-attachments/assets/c0cb699f-e421-4a88-9228-25f80e69a4a8)
