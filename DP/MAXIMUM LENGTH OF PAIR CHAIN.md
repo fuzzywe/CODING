@@ -3,6 +3,14 @@ Medium
 
 ![Maximum Length of Pair Chain - Leetcode 646 - Python 1-14 screenshot](https://github.com/user-attachments/assets/86d02834-5ef4-4800-817a-9de152c337e8)
 
+![Maximum Length of Pair Chain - Leetcode 646 - Python 2-10 screenshot](https://github.com/user-attachments/assets/21f05421-568e-4b0c-ad10-d9c7f8698b50)
+
+![Maximum Length of Pair Chain - Leetcode 646 - Python 2-24 screenshot](https://github.com/user-attachments/assets/73333e4a-7022-4d72-b290-5927599dc886)
+
+![Maximum Length of Pair Chain - Leetcode 646 - Python 2-44 screenshot](https://github.com/user-attachments/assets/bce87103-739f-4bb1-8642-2dd39daa03fa)
+
+
+
 https://leetcode.com/problems/maximum-length-of-pair-chain/description/
 
 Similar Questions
