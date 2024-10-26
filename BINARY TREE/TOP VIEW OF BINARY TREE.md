@@ -3,6 +3,10 @@ https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
 
 Given below is a binary tree. The task is to print the top view of binary tree. Top view of a binary tree is the set of nodes visible when the tree is viewed from the top. For the given below tree
 
+
+
+**"level order traverse is bcs i need to keep track of the height and level."**
+
  ```cpp
       1
     /     \
