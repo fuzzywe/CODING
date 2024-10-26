@@ -1,5 +1,9 @@
 **Children Sum in a Binary Tree**
 
+![26 10 2024_10 11 12_REC](https://github.com/user-attachments/assets/04e4691c-893a-4a97-9070-823cb5cf77fd)
+
+
+
 https://www.geeksforgeeks.org/problems/children-sum-parent/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=hildren-sum-parent
 
 Given a binary tree having n nodes. Check whether all of its nodes have a value equal to the sum of their child nodes. Return 1 if all the nodes in the tree satisfy the given properties, else it returns 0. For every node, the data value must be equal to the sum of the data values in the left and right children. Consider the data value 0 for a NULL child. Also, leaves are considered to follow the property.
