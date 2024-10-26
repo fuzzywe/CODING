@@ -37,6 +37,7 @@ Input: root = [1,3,2,5]
 Output: 2
 Explanation: The maximum width exists in the second level with length 2 (3,2).
 
+![L28  Maximum Width of Binary Tree _ C++ _ Java 8-4 screenshot](https://github.com/user-attachments/assets/3a920174-51df-4ca4-baab-ec279fa65c47)
 
 ```cpp
 /**
