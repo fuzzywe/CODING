@@ -6,7 +6,8 @@ https://leetcode.com/problems/binary-tree-right-side-view/description/
 
 Given the root of a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
 
- 
+ ![WhatsApp Image 2024-10-26 at 08 56 31_dee137a2](https://github.com/user-attachments/assets/5d56f45e-436c-4184-be3b-a521f6f69422)
+
 
 Example 1:
 ![image](https://github.com/user-attachments/assets/8fe56e12-cf9c-4541-9984-ef05dd7a59f7)
