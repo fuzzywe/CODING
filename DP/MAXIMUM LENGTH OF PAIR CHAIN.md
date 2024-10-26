@@ -1,9 +1,12 @@
 646. Maximum Length of Pair Chain
 Medium
 
+![Maximum Length of Pair Chain - Leetcode 646 - Python 1-14 screenshot](https://github.com/user-attachments/assets/86d02834-5ef4-4800-817a-9de152c337e8)
+
 https://leetcode.com/problems/maximum-length-of-pair-chain/description/
 
 Similar Questions
+
 
 435. Non-overlapping Intervals
 
