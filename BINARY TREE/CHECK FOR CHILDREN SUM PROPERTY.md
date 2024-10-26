@@ -1,7 +1,9 @@
 **Children Sum in a Binary Tree**
 
 ![26 10 2024_10 11 12_REC](https://github.com/user-attachments/assets/04e4691c-893a-4a97-9070-823cb5cf77fd)
+![WhatsApp Image 2024-10-26 at 10 56 51_021c7375](https://github.com/user-attachments/assets/7ed90434-8efc-42c9-bbed-bb75ab50e9f2)
 
+![WhatsApp Image 2024-10-26 at 10 56 49_2ef71db0](https://github.com/user-attachments/assets/2b27ddc3-3c98-499c-bfd7-439378ce4980)
 
 
 https://www.geeksforgeeks.org/problems/children-sum-parent/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=hildren-sum-parent
