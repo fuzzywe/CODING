@@ -6,7 +6,8 @@ According to Wikipedia, every level, except possibly the last, is completely fil
 
 Design an algorithm that runs in less than O(n) time complexity.
 
- 
+ ![L32  Count total Nodes in a COMPLETE Binary Tree _ O(Log^2 N) Approach _ C++ _ Java 5-53 screenshot](https://github.com/user-attachments/assets/3b31c987-b0f1-454b-b510-d86c187ad1fa)
+
 
 Example 1:
 ![image](https://github.com/user-attachments/assets/275508e4-8381-409b-9615-1be20b85d3bc)
