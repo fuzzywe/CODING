@@ -8,7 +8,8 @@ Given the roots of two binary trees p and q, write a function to check if they a
 
 Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
 
- 
+ ![WhatsApp Image 2024-10-26 at 07 10 27_4faf6dd2](https://github.com/user-attachments/assets/643e8688-68fb-4122-adb5-e67614701967)
+
 
 Example 1:
 
