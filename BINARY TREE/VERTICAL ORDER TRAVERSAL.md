@@ -10,7 +10,8 @@ The vertical order traversal of a binary tree is a list of top-to-bottom orderin
 
 Return the vertical order traversal of the binary tree.
 
- 
+ ![WhatsApp Image 2024-10-26 at 07 10 27_4faf6dd2](https://github.com/user-attachments/assets/4285b5ed-d1fa-4c11-9641-0e4390b69a24)
+
 
 Example 1:
 ![image](https://github.com/user-attachments/assets/163cb9a1-ec8e-4cde-a0bf-624bdc930420)
