@@ -33,6 +33,7 @@ Input:
 ```
 Output: 2 1 3
 Example 2:
+![WhatsApp Image 2024-10-26 at 09 08 19_75f0622d](https://github.com/user-attachments/assets/7d1cfdb5-d868-4978-9181-3aca348df534)
 
 Input:
 
