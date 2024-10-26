@@ -54,3 +54,36 @@ Binary tree
 Output: 1
 Explanation: 
 Here, every node is a sum of its left and right child.
+
+
+
+```cpp
+
+class Solution{
+    public:
+    int isSumProperty(Node *root)
+    { 
+      if((root==NULL)||(root->left==NULL && root->right==NULL))return 1;
+      int sum=0;
+      if(root->left!=NULL) sum +=root->left->data;
+      if(root->right!=NULL)sum+=root->right->data;
+      return (root->data==sum && isSumProperty(root->left) &&isSumProperty(root->right));
+    }
+};
+
+```
+![SCVWB](https://github.com/user-attachments/assets/6bf0422b-88c6-4fea-9b75-717d50bd9335)
+
+
+Starting from the root (35), we traverse the left subtree first.
+At node 20, its value is equal to the sum of its children (15 + 5 = 20).
+Similarly, at node 15, it's a leaf node, which satisfies the property. Now, we traverse the right subtree.
+At node 15, it satisfies the property as well.
+Finally, at node 5, it's a leaf node, adhering to the property.
+Thus, the binary tree satisfies the Children Sum Property.
+Time and Space Complexity
+The time complexity of this solution is O(N), where N is the number of nodes in the binary tree. This is because we need to visit each node once.
+The space complexity is also O(H) due to the recursion stack space incurred during the traversal.
+ 
+Conclusion
+Understanding and implementing the Children Sum Property in a binary tree is essential for solving various tree-related problems efficiently. By employing a recursive approach, we can traverse the tree and validate whether each node adheres to this property. The provided code offers an optimized solution, ensuring a balance between time and space complexity.
