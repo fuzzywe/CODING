@@ -158,14 +158,16 @@ public:
 ```
 
 - **Time Complexity**: \(O(m \times n)\)
+  
 - **Space Complexity**: \(O(m \times n)\)
 
 Each code is optimized to compute the desired results independently:
+
 - The **Maximal Square** code returns the area of the largest square.
+  
 - The **Count Square Submatrices** code returns the count of all square submatrices with `1`s.
 
 ```
----
 
 // For Maximal Square
 
@@ -178,5 +180,4 @@ return maxSide * maxSide; // Return area
 int totalSquares = 0; // Tracking total count of squares
 totalSquares += dp[i][j]; // Add square count ending at (i, j)
 return totalSquares; // Return count of squares
-
 ```
