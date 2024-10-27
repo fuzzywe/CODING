@@ -1,3 +1,16 @@
+
+1. 1D/2D Array Counting Problems
+These problems often require counting subarrays, subsequences, or submatrices with specific properties, and slight variations in counting logic or result tracking can adapt the solution to multiple problems.
+
+Count Square Submatrices with All Ones - Count all submatrices with only 1s.
+
+Maximal Square - Find the largest square with only 1s and return its area.
+
+Largest Rectangle in Histogram - Identify the largest rectangular area in a histogram (similar logic used in maximal submatrices).
+
+Count Submatrices with All Ones - Variants like "count rectangular submatrices," focusing on maximum width/height submatrices.
+
+
 1277. Count Square Submatrices with All Ones
 1278. 
 https://leetcode.com/problems/count-square-submatrices-with-all-ones/description/
