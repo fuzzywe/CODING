@@ -82,7 +82,18 @@ Topics
 Companies
 Given an m x n binary matrix filled with 0's and 1's, find the largest square containing only 1's and return its area.
 
- 
+https://www.youtube.com/watch?v=RElcqtFYTm0&ab_channel=Techdose
+
+
+
+ ![Maximal square _ Dynamic programming _ Leetcode #221 0-47 screenshot](https://github.com/user-attachments/assets/26091363-6ebb-4297-967d-f4064b3da653)
+
+![Maximal square _ Dynamic programming _ Leetcode #221 1-52 screenshot](https://github.com/user-attachments/assets/10f0e3b5-7a43-407c-8477-ff4ba17ce096)
+
+![Maximal square _ Dynamic programming _ Leetcode #221 3-10 screenshot](https://github.com/user-attachments/assets/80078216-095a-4790-b2a0-e7853ab797d5)
+![Maximal square _ Dynamic programming _ Leetcode #221 4-25 screenshot](https://github.com/user-attachments/assets/d874bc70-e219-4b98-92b5-b6c19d6f347c)
+![Uploading Maximal square _ Dynamic programming _ Leetcode #221 6-44 screenshot.png…]()
+
 
 Example 1:
 
