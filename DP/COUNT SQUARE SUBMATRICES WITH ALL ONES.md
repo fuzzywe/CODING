@@ -88,6 +88,11 @@ Example 3:
 Input: matrix = [["0"]]
 Output: 0
 
+Here are two separate codes for each problem. The core logic is similar, but each one specifically returns the required output for each problem.
+
+### 1. Maximal Square
+For **Maximal Square**, we need to find the area of the largest square submatrix that contains all `1`s.
+
 ```cpp
 class Solution {
 public:
@@ -95,15 +100,15 @@ public:
         int rows = matrix.size();
         if (rows == 0) return 0;
         int cols = matrix[0].size();
-        int maxSide = 0;
-
+        
+        int maxSide = 0;  // Track the largest side length of the square found
         vector<vector<int>> dp(rows, vector<int>(cols, 0));
         
         for (int i = 0; i < rows; ++i) {
             for (int j = 0; j < cols; ++j) {
                 if (matrix[i][j] == '1') {
                     if (i == 0 || j == 0) {
-                        dp[i][j] = 1; // First row or column
+                        dp[i][j] = 1; // First row or column has max side 1 if cell is '1'
                     } else {
                         dp[i][j] = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]}) + 1;
                     }
@@ -115,7 +120,63 @@ public:
         return maxSide * maxSide; // Area of the largest square
     }
 };
+```
 
+- **Time Complexity**: \(O(m \times n)\)
+- **Space Complexity**: \(O(m \times n)\)
+
+### 2. Count Square Submatrices with All Ones
+For **Count Square Submatrices with All Ones**, we need to count all possible square submatrices made up entirely of `1`s.
+
+```cpp
+class Solution {
+public:
+    int countSquares(vector<vector<int>>& matrix) {
+        int rows = matrix.size();
+        if (rows == 0) return 0;
+        int cols = matrix[0].size();
+        
+        int totalSquares = 0; // Track the total count of squares
+        vector<vector<int>> dp(rows, vector<int>(cols, 0));
+        
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                if (matrix[i][j] == 1) {
+                    if (i == 0 || j == 0) {
+                        dp[i][j] = 1; // First row or column square count is 1 if cell is 1
+                    } else {
+                        dp[i][j] = min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]}) + 1;
+                    }
+                    totalSquares += dp[i][j]; // Count all squares ending at (i, j)
+                }
+            }
+        }
+        
+        return totalSquares; // Total number of square submatrices with all 1s
+    }
+};
+```
+
+- **Time Complexity**: \(O(m \times n)\)
+- **Space Complexity**: \(O(m \times n)\)
+
+Each code is optimized to compute the desired results independently:
+- The **Maximal Square** code returns the area of the largest square.
+- The **Count Square Submatrices** code returns the count of all square submatrices with `1`s.
 
 ```
 ---
+
+// For Maximal Square
+
+```cpp
+int maxSide = 0; // Tracking largest side length
+maxSide = max(maxSide, dp[i][j]); // Update largest side length
+return maxSide * maxSide; // Return area
+
+// For Count Square Submatrices
+int totalSquares = 0; // Tracking total count of squares
+totalSquares += dp[i][j]; // Add square count ending at (i, j)
+return totalSquares; // Return count of squares
+
+```
