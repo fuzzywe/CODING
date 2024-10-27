@@ -167,7 +167,7 @@ Each code is optimized to compute the desired results independently:
   
 - The **Count Square Submatrices** code returns the count of all square submatrices with `1`s.
 
-```
+
 
 // For Maximal Square
 
