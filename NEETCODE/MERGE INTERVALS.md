@@ -1,7 +1,12 @@
+maximum no of pairs (all are same code)
+
+435. Non-overlapping Intervals
+
 56. Merge Intervals
-Medium
-Topics
-Companies
+
+1353. Maximum Number of Events That Can Be Attended
+
+
 Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
 
  
