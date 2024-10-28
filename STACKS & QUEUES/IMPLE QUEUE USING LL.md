@@ -76,8 +76,7 @@ QueueNode *newnode = new QueueNode(x);
 A new node is created with data = 10.
 Let's call this node newnode.
 State of newnode:
-
-r
+```cpp
 Copy code
 newnode: [ data = 10, next = NULL ]
 cpp
@@ -86,162 +85,204 @@ if (rear == NULL) {
     rear = front = newnode;
     return;
 }
+```
 Since both front and rear are NULL (the queue is empty), both pointers are set to the new node (newnode).
 The queue now has one element.
 State of the queue:
 
-r
+```cpp
 Copy code
 front = rear = [ data = 10, next = NULL ]
+```
 Operation 2: push(20)
-cpp
+```cpp
 Copy code
 QueueNode *newnode = new QueueNode(x);
+```
 A new node is created with data = 20.
 Let's call this node newnode.
 State of newnode:
 
-r
+```cpp
 Copy code
 newnode: [ data = 20, next = NULL ]
 cpp
 Copy code
 rear->next = newnode;
 rear = newnode;
+```
 The current rear node's next pointer is updated to point to the new node (newnode).
 The rear pointer is moved to the new node.
 State of the queue:
 
-r
+```cpp
 Copy code
 front: [ data = 10, next = → [ data = 20, next = NULL ] ]
 rear: [ data = 20, next = NULL ]
+```
 Operation 3: push(30)
-cpp
+```cpp
 Copy code
 QueueNode *newnode = new QueueNode(x);
 A new node is created with data = 30.
 Let's call this node newnode.
 State of newnode:
-
-r
+```
+```cpp
 Copy code
 newnode: [ data = 30, next = NULL ]
-cpp
+```
+```cpp
 Copy code
 rear->next = newnode;
 rear = newnode;
 The current rear node's next pointer is updated to point to the new node (newnode).
 The rear pointer is moved to the new node.
 State of the queue:
-
-r
+```
+```cpp
 Copy code
 front: [ data = 10, next = → [ data = 20, next = → [ data = 30, next = NULL ] ] ]
 rear: [ data = 30, next = NULL ]
+```
+
 Operation 4: pop()
+```
 cpp
 Copy code
 if (front == NULL) {
     return -1;
 }
+```
+
 Since front is not NULL, we continue.
-cpp
+```cpp
 Copy code
 QueueNode *oldhead = front;
 int temp = front->data;
+```
+
 A pointer oldhead is created to store the current front node (data = 10).
 The value of the front node is stored in temp (temp = 10).
-cpp
+```cpp
 Copy code
 front = front->next;
+```
+
 The front pointer is moved to the next node (data = 20).
 State of the queue:
 
-r
+```cpp
 Copy code
 front: [ data = 20, next = → [ data = 30, next = NULL ] ]
 rear: [ data = 30, next = NULL ]
-cpp
+```
+
+```cpp
 Copy code
 if (front == NULL) {
     rear = NULL;
 }
+```
+
 Since front is not NULL, we don't change the rear.
-cpp
+```cpp
 Copy code
 delete oldhead;
 return temp;
+```
+
 The node with data = 10 (pointed by oldhead) is deleted.
 The function returns temp = 10.
 Operation 5: pop()
-cpp
+```cpp
 Copy code
 if (front == NULL) {
     return -1;
 }
+```
+
 Since front is not NULL, we continue.
-cpp
+```cpp
 Copy code
 QueueNode *oldhead = front;
 int temp = front->data;
+```
+
 A pointer oldhead is created to store the current front node (data = 20).
 The value of the front node is stored in temp (temp = 20).
-cpp
+```cpp
 Copy code
 front = front->next;
 The front pointer is moved to the next node (data = 30).
 State of the queue:
-
-r
+```
+```cpp
 Copy code
 front: [ data = 30, next = NULL ]
 rear: [ data = 30, next = NULL ]
-cpp
+```
+
+```cpp
 Copy code
 if (front == NULL) {
     rear = NULL;
 }
+```
+
 Since front is not NULL, we don't change the rear.
-cpp
+```cpp
 Copy code
 delete oldhead;
 return temp;
+```
+
 The node with data = 20 (pointed by oldhead) is deleted.
 The function returns temp = 20.
 Operation 6: pop()
-cpp
+```cpp
 Copy code
 if (front == NULL) {
     return -1;
 }
+```
+
 Since front is not NULL, we continue.
-cpp
+```cpp
 Copy code
 QueueNode *oldhead = front;
 int temp = front->data;
+```
+
 A pointer oldhead is created to store the current front node (data = 30).
 The value of the front node is stored in temp (temp = 30).
-cpp
+```cpp
 Copy code
 front = front->next;
+```
+
 The front pointer is moved to NULL since there are no more nodes.
 State of the queue:
 
-arduino
-Copy code
+```cpp
 front = NULL
 rear = [ data = 30 ] → NULL
-cpp
+```
+
+```cpp
 Copy code
 if (front == NULL) {
     rear = NULL;
 }
+```
+
 Since front is NULL, we set rear to NULL as well (queue is now empty).
-cpp
+```cpp
 Copy code
 delete oldhead;
 return temp;
+```
+
 The node with data = 30 (pointed by oldhead) is deleted.
 The function returns temp = 30.
 Final State:
