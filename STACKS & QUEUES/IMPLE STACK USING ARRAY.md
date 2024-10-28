@@ -65,9 +65,7 @@ size(): return top+1.
 
 Code:
 
-C++
-Java
-Python
+```cpp
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -110,6 +108,8 @@ int main() {
   cout << "Top of stack after deleting an element " << s.Top() << endl;
   return 0;
 }
+
+```
 Output:
 
 Top of stack is before deleting any element 7
@@ -156,7 +156,7 @@ x = arr[top]: You are retrieving the value from the array at index top and stori
 
 THE CODING MISTAKE I DONE IN CODE PLATFORM:
 
-
+```cpp
 
 void MyStack::push(int x) {
     // Increment the top index and insert the element
@@ -178,7 +178,7 @@ int MyStack::pop() {
     top--;
     return x;
 }
-
+```
 Complexity
 Time Complexity: O(1), for both push(x) and pop() function as only constant time complexity operations.
 Auxiliary Space: O(1), for both push(x) and pop() function as we are not using any extra space.
@@ -187,7 +187,7 @@ Auxiliary Space: O(1), for both push(x) and pop() function as we are not using a
 
            
 WHOLE CODE:
-
+```cpp
 //{ Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
@@ -264,7 +264,7 @@ int main() {
 
 
 
-
+```
 
 
 
