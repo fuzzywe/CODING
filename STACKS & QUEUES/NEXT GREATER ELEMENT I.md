@@ -1,7 +1,9 @@
 Next Greater Element Using Stack
  
+![WhatsApp Image 2024-10-28 at 18 01 50_880d4259](https://github.com/user-attachments/assets/521e8df8-9fc3-4207-8f24-d78c65218ef8)
 
-124
+![WhatsApp Image 2024-10-28 at 18 02 09_d12451d4](https://github.com/user-attachments/assets/799b0355-b09e-4a38-beba-d29d552a8415)
+
 
 7
 Problem Statement: Given a circular integer array A, return the next greater element for every element in A. The next greater element for an element x is the first element greater than x that we come across while traversing the array in a clockwise manner. If it doesn't exist, return -1 for this element.
