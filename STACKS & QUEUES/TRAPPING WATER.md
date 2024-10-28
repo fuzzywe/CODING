@@ -4,7 +4,13 @@ https://leetcode.com/problems/trapping-rain-water/description/
 
 Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.
 
+![L8  Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 1-21 screenshot](https://github.com/user-attachments/assets/5005ba36-19a2-4b7c-8956-a5336c15bd31)
+
+ ![L8  Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 3-49 screenshot](https://github.com/user-attachments/assets/49d0189d-0d60-47ea-bd0b-54f607c22a78)
+
  
+ ![L8  Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 3-45 screenshot](https://github.com/user-attachments/assets/d83cf380-a7f3-43a4-883c-be823f9e4fff)
+
 
 Example 1:
 
