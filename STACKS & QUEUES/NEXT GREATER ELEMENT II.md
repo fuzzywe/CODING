@@ -2,7 +2,18 @@ Given a circular integer array nums (i.e., the next element of nums[nums.length 
 
 The next greater number of a number x is the first greater number to its traversing-order next in the array, which means you could search circularly to find its next greater number. If it doesn't exist, return -1 for this number.
 
+
+![WhatsApp Image 2024-10-28 at 18 03 27_2e69fbef](https://github.com/user-attachments/assets/b64988ad-fd96-4ef8-9ab3-0e200174aa5f)
+
+
+![WhatsApp Image 2024-10-28 at 18 03 33_bccd32ae](https://github.com/user-attachments/assets/7c09f9b9-d085-4c5c-9535-37619c5766ec)
+
+
+![WhatsApp Image 2024-10-28 at 18 03 41_b3bbcb2f](https://github.com/user-attachments/assets/6b97c372-0a7b-47e8-9019-7788c60178a3)
+
  
+ ![WhatsApp Image 2024-10-28 at 18 03 46_4d2ac33d](https://github.com/user-attachments/assets/e8a591d6-7924-47fd-8716-415af9323500)
+
 
 Example 1:
 
