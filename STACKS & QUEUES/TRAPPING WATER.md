@@ -24,7 +24,9 @@ Given n non-negative integers representing an elevation map where the width of e
 
 ![L8  Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 13-28 screenshot](https://github.com/user-attachments/assets/52710d87-5e35-4772-a58e-d1c36f4a5faa)
 
-![Uploading L8. Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 14-10 screenshot.png…]()
+![L8  Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 18-41 screenshot](https://github.com/user-attachments/assets/d5caeb48-a873-41b0-b4db-c7b8c2dc2dbe)
+
+![L8  Trapping Rainwater _ 2 Approaches _ Stack and Queue Playlist 19-12 screenshot](https://github.com/user-attachments/assets/f1dd164f-74f6-4c05-b65b-269ecc095f71)
 
 
 Example 1:
