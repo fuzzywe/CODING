@@ -1,4 +1,10 @@
 Next Greater Element Using Stack
+
+![WhatsApp Image 2024-10-28 at 17 58 24_2e0889e4](https://github.com/user-attachments/assets/28f779ed-7ff9-4528-8cd9-209c7c4ee014)
+
+![WhatsApp Image 2024-10-28 at 17 58 24_3c383cef](https://github.com/user-attachments/assets/df02992f-2af8-4504-8ec8-5a573b4fe5ed)
+
+
  
 ![WhatsApp Image 2024-10-28 at 18 01 50_880d4259](https://github.com/user-attachments/assets/521e8df8-9fc3-4207-8f24-d78c65218ef8)
 
