@@ -37,7 +37,7 @@ Complete the function push() which takes an integer as input parameter and pop()
 Expected Time Complexity: O(1).
 Expected Auxiliary Space: O(1).
 
-
+```cpp
   void MyQueue:: push(int x)
 {
       QueueNode *newnode=new QueueNode(x);
@@ -68,11 +68,15 @@ return temp;
 
 }
 
-Dry Run of Each Line:
+```
+**Dry Run of Each Line:**
 Operation 1: push(10)
+```
 cpp
-Copy code
+
 QueueNode *newnode = new QueueNode(x);
+```
+
 A new node is created with data = 10.
 Let's call this node newnode.
 State of newnode:
