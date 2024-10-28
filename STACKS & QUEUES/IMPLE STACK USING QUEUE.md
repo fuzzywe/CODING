@@ -31,7 +31,7 @@ top(): show the element at the top of the queue.
 size(): size of the current queue.
 Repeat step3 at every insertion of the element.
 
-
+```cpp
 
 class MyStack {
 public:
@@ -64,6 +64,7 @@ public:
         return q.empty();
     }
 };
+```
 
 /**
  * Your MyStack object will be instantiated and called as such:
@@ -99,8 +100,8 @@ empty()
 Initial State:
 Queue q is empty: q = [].
 Operation 1: push(1)
-cpp
-Copy code
+```cpp
+
 q.push(1);  // Push 1 into the queue
 Queue becomes: q = [1].
 cpp
@@ -110,26 +111,33 @@ for (int i = 0; i < length - 1; i++) {
     q.push(q.front());  // No iterations since length-1 = 0
     q.pop();            // No operations
 }
+
+```
+
 The queue remains unchanged: q = [1].
 Operation 2: push(2)
-cpp
+```cpp
 Copy code
 q.push(2);  // Push 2 into the queue
 Queue becomes: q = [1, 2].
-cpp
+    ```
+```cpp
 Copy code
 int length = q.size();  // length = 2
 for (int i = 0; i < length - 1; i++) {
     q.push(q.front());  // Push 1 to the back of the queue: [2, 1]
     q.pop();            // Remove the front (1): [2, 1]
 }
+```
 The queue now simulates a stack: q = [2, 1].
 Operation 3: push(3)
-cpp
-Copy code
+```cpp
+
 q.push(3);  // Push 3 into the queue
 Queue becomes: q = [2, 1, 3].
-cpp
+
+    ```
+```cpp
 Copy code
 int length = q.size();  // length = 3
 for (int i = 0; i < length - 1; i++) {
@@ -139,24 +147,28 @@ for (int i = 0; i < length - 1; i++) {
     q.push(q.front());  // Push 1 to the back of the queue: [3, 2, 1]
     q.pop();            // Remove the front (1): [3, 2, 1]
 }
+```
 The queue now simulates a stack: q = [3, 2, 1].
 Operation 4: top()
-cpp
+```cpp
 Copy code
 return q.front();  // Return the front element of the queue (which is the top of the stack)
 The top element is 3.
 Operation 5: pop()
-cpp
+```
+```cpp
 Copy code
 int topElement = q.front();  // topElement = 3 (the front of the queue)
 q.pop();                     // Remove the front element: [2, 1]
 return topElement;            // Return 3
 The popped element is 3, and the queue is now: q = [2, 1].
 Operation 6: empty()
-cpp
+    ```
+```cpp
 Copy code
 return q.empty();  // Check if the queue is empty. q = [2, 1], so it's not empty.
 The output is false because the queue still has elements (2, 1).
+    ```
 Summary of Queue State after each operation:
 After Push(1): q = [1]
 After Push(2): q = [2, 1]
