@@ -83,9 +83,10 @@ Time Complexity: O(N*N) as for each index we are calculating leftMax and rightMa
 
 Space Complexity: O(1).
 
-```
+
 
 **BETTER APPROACH**
+
  ```cpp
 #include<bits/stdc++.h>
 
@@ -107,7 +108,7 @@ int trap(vector < int > & arr) {
   }
   return waterTrapped;
 }
-
+```
 int main() {
   vector < int > arr;
   arr = {0,1,0,2,1,0,1,3,2,1,2,1};
@@ -118,7 +119,7 @@ Output: The water that can be trapped is 6
 Time Complexity: O(3*N) as we are traversing through the array only once. And O(2*N) for computing prefix and suffix array.
 
 Space Complexity: O(N)+O(N) for prefix and suffix arrays.
-```
+
 
 
 ---
