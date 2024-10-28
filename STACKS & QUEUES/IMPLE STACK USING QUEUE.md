@@ -136,7 +136,7 @@ Operation 3: push(3)
 q.push(3);  // Push 3 into the queue
 Queue becomes: q = [2, 1, 3].
 
-    ```
+```
 ```cpp
 Copy code
 int length = q.size();  // length = 3
@@ -163,12 +163,12 @@ q.pop();                     // Remove the front element: [2, 1]
 return topElement;            // Return 3
 The popped element is 3, and the queue is now: q = [2, 1].
 Operation 6: empty()
-    ```
+ ```
 ```cpp
 Copy code
 return q.empty();  // Check if the queue is empty. q = [2, 1], so it's not empty.
 The output is false because the queue still has elements (2, 1).
-    ```
+```
 Summary of Queue State after each operation:
 After Push(1): q = [1]
 After Push(2): q = [2, 1]
