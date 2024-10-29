@@ -1,5 +1,9 @@
 https://www.geeksforgeeks.org/problems/introduction-to-linked-list/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=introduction-to-linked-list
 
+Convert an array to LL: https://tinyurl.com/55cy4jtd
+Length of LL: https://tinyurl.com/kvdu6t2s 
+Search an element: https://tinyurl.com/27c9b349 
+
 
 Create linked list from a given array
 Last Updated : 01 Aug, 2024
@@ -15,8 +19,10 @@ Output : 10->11->12->13->14
 
 Simple Approach: For each element of an array arr[] we create a node in a linked list and insert it at the end. 
  
+![L1  Introduction to LinkedList _ Traversal _ Length _ Search an Element 31-19 screenshot](https://github.com/user-attachments/assets/706be549-66f8-4973-8e58-2a4d8922f422)
 
 
+![L1  Introduction to LinkedList _ Traversal _ Length _ Search an Element 32-33 screenshot](https://github.com/user-attachments/assets/c9fc60db-ca0c-41c8-80f3-0dc231f663d4)
 
 
 
