@@ -1,3 +1,5 @@
+https://leetcode.com/problems/maximum-subarray/description/
+
 LARGEST SUM CONSECUTIVE SUBARRAY 
 Kadane's Algorithm
 Difficulty: MediumAccuracy: 36.28%Submissions: 979K+Points: 4
@@ -184,3 +186,91 @@ Step-by-step:
 - **Space Complexity**: O(1), since we only use a constant amount of extra space.
 
 This solution will handle large inputs efficiently without causing TLE.
+
+
+Kadane's Algorithm is a well-known method for finding the maximum sum of a contiguous subarray in a given array of integers. Let’s break down the mathematics and logic behind Kadane’s Algorithm to understand why it works and how it achieves optimal results in linear time.
+
+### Problem Statement
+Given an array of integers (which may include both positive and negative numbers), find the contiguous subarray with the maximum sum.
+
+### Kadane’s Algorithm: Key Idea
+The core idea behind Kadane’s Algorithm is to use **dynamic programming** to build up a solution by making local decisions at each element in the array. It does this by maintaining a running maximum subarray sum that ends at each position and updates the global maximum sum as it goes through the array.
+
+### Mathematical Breakdown
+
+1. **Define Variables**:
+   - `current_sum`: This keeps track of the maximum sum of the subarray ending at the current position.
+   - `max_sum`: This keeps track of the maximum sum encountered so far across the array.
+
+2. **Dynamic Programming Transition**:
+   - For each element at index `i`, update `current_sum` as:
+     \[
+     \text{current\_sum} = \max(\text{array}[i], \text{current\_sum} + \text{array}[i])
+     \]
+   - This transition uses the intuition that at each step, you decide whether to:
+     - Include the current element in the existing subarray (adding `array[i]` to `current_sum`), or
+     - Start a new subarray beginning at `array[i]` (setting `current_sum` to `array[i]` itself).
+   - By taking the maximum of these two values, you ensure `current_sum` always holds the highest possible sum for any subarray ending at index `i`.
+
+3. **Update Global Maximum**:
+   - After updating `current_sum` for each element, compare it to `max_sum`:
+     \[
+     \text{max\_sum} = \max(\text{max\_sum}, \text{current\_sum})
+     \]
+   - This step ensures that `max_sum` will always store the highest subarray sum encountered so far.
+
+### Why Kadane's Algorithm Works
+
+The algorithm leverages the **optimal substructure** property, which means the solution to the problem can be built using solutions to its subproblems. In Kadane's algorithm, the maximum sum ending at index `i` depends only on the maximum sum ending at index `i - 1` and the element `array[i]`. Thus, it iterates through the array only once (O(n) time complexity), making it highly efficient.
+
+### Example Walkthrough
+
+Consider the array:
+\[
+\text{array} = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+\]
+
+Using Kadane's Algorithm, let’s calculate `current_sum` and `max_sum` at each step:
+
+1. **Initialize**:
+   - `current_sum = array[0] = -2`
+   - `max_sum = -2`
+
+2. **Iterate through the array**:
+
+   - **Index 1**: `array[1] = 1`
+     - `current_sum = max(1, -2 + 1) = 1`
+     - `max_sum = max(-2, 1) = 1`
+   - **Index 2**: `array[2] = -3`
+     - `current_sum = max(-3, 1 + (-3)) = -2`
+     - `max_sum = max(1, -2) = 1`
+   - **Index 3**: `array[3] = 4`
+     - `current_sum = max(4, -2 + 4) = 4`
+     - `max_sum = max(1, 4) = 4`
+   - **Index 4**: `array[4] = -1`
+     - `current_sum = max(-1, 4 + (-1)) = 3`
+     - `max_sum = max(4, 3) = 4`
+   - **Index 5**: `array[5] = 2`
+     - `current_sum = max(2, 3 + 2) = 5`
+     - `max_sum = max(4, 5) = 5`
+   - **Index 6**: `array[6] = 1`
+     - `current_sum = max(1, 5 + 1) = 6`
+     - `max_sum = max(5, 6) = 6`
+   - **Index 7**: `array[7] = -5`
+     - `current_sum = max(-5, 6 + (-5)) = 1`
+     - `max_sum = max(6, 1) = 6`
+   - **Index 8**: `array[8] = 4`
+     - `current_sum = max(4, 1 + 4) = 5`
+     - `max_sum = max(6, 5) = 6`
+
+3. **Final Result**:
+   - After going through all elements, `max_sum` is `6`.
+   - The maximum sum of any contiguous subarray in `array` is `6`.
+
+### Why Kadane’s Algorithm is Optimal
+
+Kadane’s Algorithm is optimal because it uses only one pass through the array, updating `current_sum` and `max_sum` as it goes. Each element is evaluated just once, resulting in \( O(n) \) time complexity, which is the best possible for this problem. Additionally, it uses only \( O(1) \) extra space for the variables, making it space-efficient.
+
+### Conclusion
+
+Kadane’s Algorithm leverages simple mathematical operations (comparisons and additions) to determine whether to continue a subarray or start fresh at each step, ensuring it always has the maximum subarray sum up to the current index. This approach ensures an efficient and optimal solution to the maximum subarray sum problem.
