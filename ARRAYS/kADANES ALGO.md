@@ -1,6 +1,18 @@
 https://www.naukri.com/code360/problems/630526?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=DISCUSS
+```cpp
+long long maxSubarraySum(vector<int> arr, int n) {
+    long long max_sum = 0;// should be zero only 
+    long long current_sum = 0;
+    
+    for (int i = 0; i < n; i++) {
+        current_sum += arr[i];
+        max_sum = max(max_sum, current_sum);
+        if(current_sum <0) current_sum =0;
+    }
+    return max_sum;
+}
 
-
+```
 Test case 4
 
 Input
