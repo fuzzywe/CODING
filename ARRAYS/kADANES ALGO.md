@@ -1,3 +1,58 @@
+https://www.naukri.com/code360/problems/630526?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=DISCUSS
+
+
+Test case 4
+
+Input
+1
+
+2
+
+15
+-7 -8 -16 -4 -8 -5 -7 -11 -10 -12 -4 -6 -4 -16 -10 
+Output
+1
+
+2
+
+-4
+
+The output you're seeing, `-4`, for the given test case suggests that the code isn't properly handling cases where all numbers are negative, and it defaults to returning a maximum sum of a subarray that may not be optimal. Kadane’s Algorithm should return the largest (least negative) number in the array in such cases, as this would represent the maximum possible sum of any subarray, even if it’s just a single negative number.
+
+Let's ensure that our implementation handles this case correctly. Instead of initializing `current_sum` and `max_sum` both to `arr[0]`, let's handle cases where each element is negative by adjusting our initial `current_sum` to zero. We can then update `max_sum` based on whether `current_sum` becomes positive at any point.
+
+Here’s the revised code:
+
+```cpp
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+long long maxSubarraySum(vector<int> arr, int n) {
+    // Initialize max_sum as a small number to handle cases with all negatives
+    long long max_sum = arr[0];
+    long long current_sum = 0;
+    
+    for (int i = 0; i < n; i++) {
+        // Update current_sum
+        current_sum += arr[i];
+        max_sum = max(max_sum, current_sum);
+
+        // Reset current_sum if it becomes negative
+        if (current_sum < 0) {
+            current_sum = 0;
+        }
+    }
+    return max_sum;
+}
+```
+
+### Explanation of Changes
+1. **Initialize `max_sum` with `arr[0]`**: This handles cases with all negative numbers by ensuring `max_sum` will at least capture the maximum negative value.
+2. **Reset `current_sum` to 0 when it goes negative**: This allows the algorithm to restart from a new subarray, avoiding accumulation of large negative sums.
+  
+Now, when all elements are negative, `max_sum` will store the maximum single element from `arr`, which is the desired outcome. This should now correctly output `-4` as the maximum sum for this test case, matching the largest element in the array.
+
 https://leetcode.com/problems/maximum-subarray/description/
 
 LARGEST SUM CONSECUTIVE SUBARRAY 
