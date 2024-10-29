@@ -6,7 +6,7 @@ public:
     Node(int data1, Node* next1) {
         data = data1;
         next = next1;
-    }
+    }  
     // Constructor for a node with only data provided, next initialized to nullptr
     Node(int data1) {
         data = data1;
