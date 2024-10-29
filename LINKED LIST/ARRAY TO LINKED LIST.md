@@ -19,7 +19,7 @@ Simple Approach: For each element of an array arr[] we create a node in a linked
 
 //{ Driver Code Starts
 // Initial Template for C++
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -41,10 +41,10 @@ class Node {
     }
 };
 
-
+```
 // } Driver Code Ends
 // User function Template for C++
-
+```cpp
 class Solution {
   public:
     // Function to construct the linked list from a vector of integers
@@ -109,7 +109,7 @@ int main() {
 
 // } Driver Code Ends
 
-
+```
 Output
 1 2 3 4 5
 Time Complexity : O(n*n)
@@ -118,7 +118,7 @@ Efficient Approach: We traverse array from end and insert every element at the b
 
 
 
-
+```cpp
 
 #include <iostream>
 using namespace std;
@@ -166,7 +166,7 @@ int main()
     display(root);
     return 0;
 }
-
+```
 Output
 1 2 3 4 5
 Time Complexity : O(n)
