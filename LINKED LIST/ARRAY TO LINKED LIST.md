@@ -1,3 +1,6 @@
+https://www.geeksforgeeks.org/problems/introduction-to-linked-list/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=introduction-to-linked-list
+
+
 Create linked list from a given array
 Last Updated : 01 Aug, 2024
 Given an array arr[] of size N. The task is to create linked list from the given array.
