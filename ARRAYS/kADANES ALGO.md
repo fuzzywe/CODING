@@ -1,4 +1,10 @@
 https://www.naukri.com/code360/problems/630526?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=DISCUSS
+
+https://www.geeksforgeeks.org/problems/kadanes-algorithm-1587115620/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+
+https://leetcode.com/problems/maximum-subarray/description/
+
 ```cpp
 long long maxSubarraySum(vector<int> arr, int n) {
     long long max_sum = 0;// should be zero only 
@@ -65,7 +71,7 @@ long long maxSubarraySum(vector<int> arr, int n) {
   
 Now, when all elements are negative, `max_sum` will store the maximum single element from `arr`, which is the desired outcome. This should now correctly output `-4` as the maximum sum for this test case, matching the largest element in the array.
 
-https://leetcode.com/problems/maximum-subarray/description/
+
 
 LARGEST SUM CONSECUTIVE SUBARRAY 
 Kadane's Algorithm
