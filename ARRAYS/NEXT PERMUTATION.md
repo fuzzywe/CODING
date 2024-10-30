@@ -17,3 +17,43 @@ While the next permutation of arr = [3,2,1] is [1,2,3] because [3,2,1] does not 
 Given an array of integers nums, find the next permutation of nums.
 
 The replacement must be in place and use only constant extra memory.
+
+**BRUTE FORCE **
+
+```cpp
+
+#include <algorithm> // For std::next_permutation
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        std::next_permutation(nums.begin(), nums.end());
+    }
+};
+
+
+```
+
+```
+
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
+using namespace std;
+
+int main() {
+    int arr[] = {1,3,2};
+    
+    next_permutation(arr,arr+3);//using in-built function of C++
+    
+    cout<<arr[0]<<" "<<arr[1]<<" "<<arr[2];
+    
+    return 0;
+}
+
+
+
+```
+
+---
