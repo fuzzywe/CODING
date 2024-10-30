@@ -1,5 +1,9 @@
 128. Longest Consecutive Sequence
 
+https://leetcode.com/problems/longest-consecutive-sequence/description/
+
+https://www.naukri.com/code360/problems/longest-successive-elements_6811740?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse
+
 
 Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
