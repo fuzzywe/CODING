@@ -39,6 +39,15 @@ https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problem
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 16-36 screenshot](https://github.com/user-attachments/assets/d8d12239-00f3-41bb-935e-b058b43c69d2)
 
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 18-5 screenshot](https://github.com/user-attachments/assets/c3ac50d1-015c-4604-88cd-cb6ee8f7cbdc)
+
+from looking right side 
+
+we have elements [2 1 5 4 3 0 0]
+
+3 > 1 so place 2 3 _ _ _ _ _ [ the remaining elements to fill [5 4  1 0 0]
+
 break point is 1 and on the right side we have elements < 1 which is 0,0.
 
 
