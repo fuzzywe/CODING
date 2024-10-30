@@ -34,6 +34,8 @@ BEFORE  100 , 99 should be there so here no consecutive sequence so start number
 
 ![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 16-38 screenshot](https://github.com/user-attachments/assets/bca281c3-548f-40c8-b63e-54c7af4a6a2b)
 
+
+
 before 100 there is no 99 so start from 100
 
 before 1 there is no 0 so start from 1
@@ -239,6 +241,7 @@ Space Complexity: O(1), as we are not using any extra space to solve this proble
 
 ---
 
+BRUTE FORCE
 
 ```cpp
 
