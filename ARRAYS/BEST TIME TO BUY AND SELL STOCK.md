@@ -1,5 +1,7 @@
 Stock Buy And Sell
 
+![30 10 2024_06 48 22_REC](https://github.com/user-attachments/assets/6bdb79c2-bb18-40e0-84c4-ce75dfced7f0)
+
 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/
 
@@ -147,18 +149,7 @@ The goal is to maximize the difference between a selling price and a buying pric
    - For each day \(i\), calculate the potential profit if the stock was bought at the minimum price tracked so far and sold on day \(i\).
    - Keep track of the maximum profit you can achieve.
 
-### Formula
 
-For an array of stock prices `prices`:
-1. Let `min_price` be the minimum price seen up to day \(i\).
-2. `profit_i` for day \(i\) is calculated as:
-   \[
-   \text{profit}_i = \text{prices}[i] - \text{min\_price}
-   \]
-3. Update `max_profit` as:
-   \[
-   \text{max\_profit} = \max(\text{max\_profit}, \text{profit}_i)
-   \]
 
 ### Algorithm (Pseudocode)
 
