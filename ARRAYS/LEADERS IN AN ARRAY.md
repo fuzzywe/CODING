@@ -2,6 +2,23 @@ https://www.geeksforgeeks.org/problems/leaders-in-an-array-1587115620/1?utm_sour
 
 https://www.naukri.com/code360/problems/superior-elements_6783446?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse
 
+```cpp
+vector<int> superiorElements(vector<int>&a) {
+    // Write your code here.
+    int n = a.size();
+  int maxi = INT_MIN;
+        vector<int>ans;
+      
+        for(int i=n-1; i>=0; i--){
+          if (a[i] > maxi) {
+            ans.push_back(a[i]);
+          }
+          maxi = max(maxi,a[i]);
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+}
+```
 
 Array Leaders
 Difficulty: EasyAccuracy: 29.94%Submissions: 754K+Points: 2
