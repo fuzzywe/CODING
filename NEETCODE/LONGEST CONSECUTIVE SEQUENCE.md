@@ -22,6 +22,12 @@ BETTER APPROACH
 BEFORE  100 , 99 should be there so here no consecutive sequence so start numbering from 
 1 onwards.
 
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 10-15 screenshot](https://github.com/user-attachments/assets/0dc805b7-02f8-40b0-9ca1-2079e16c8a72)
+
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 10-28 screenshot](https://github.com/user-attachments/assets/1c59cd7d-f285-4341-a47f-ccfad8fbd92e)
+
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 11-29 screenshot](https://github.com/user-attachments/assets/eb3ea94d-c922-4f86-af8e-b82114d59272)
+
 
 
 the last element should be one lesser like before 3 , 2 should be present then i will increase the count and longest.
