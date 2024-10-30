@@ -28,6 +28,16 @@ BEFORE  100 , 99 should be there so here no consecutive sequence so start number
 
 ![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 11-29 screenshot](https://github.com/user-attachments/assets/eb3ea94d-c922-4f86-af8e-b82114d59272)
 
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 12-30 screenshot](https://github.com/user-attachments/assets/9d1f0b4c-475b-4362-9056-89874704f71a)
+
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 15-32 screenshot](https://github.com/user-attachments/assets/3e1d401f-776f-4be2-9bcf-990e8c6bbf85)
+
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 16-38 screenshot](https://github.com/user-attachments/assets/bca281c3-548f-40c8-b63e-54c7af4a6a2b)
+
+before 100 there is no 99 so start from 100
+
+before 1 there is no 0 so start from 1
+
 
 
 the last element should be one lesser like before 3 , 2 should be present then i will increase the count and longest.
