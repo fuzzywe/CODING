@@ -48,6 +48,10 @@ we have elements [2 1 5 4 3 0 0]
 
 3 > 1 so place 2 3 _ _ _ _ _ [ the remaining elements to fill [5 4  1 0 0]
 
+place the remaining elements in sorted order 
+
+2 3 0 0 1 4 5
+
 break point is 1 and on the right side we have elements < 1 which is 0,0.
 
 
