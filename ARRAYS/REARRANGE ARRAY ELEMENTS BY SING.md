@@ -1,5 +1,12 @@
 2149. Rearrange Array Elements by Sign
 
+https://www.naukri.com/code360/problems/alternate-numbers_6783445?utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_Arrayproblems&leftPanelTabValue=PROBLEM
+
+
+https://leetcode.com/problems/rearrange-array-elements-by-sign/description/
+
+
+
 ![30 10 2024_07 23 48_REC](https://github.com/user-attachments/assets/af6244cd-e841-41e4-ad7f-df4fe6ee1197)
 
 
