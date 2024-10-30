@@ -17,6 +17,8 @@ https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problem
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 1-43 screenshot](https://github.com/user-attachments/assets/1a06ce05-e469-4ce9-8af3-a4bad0360a66)
 
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 4-49 screenshot (1)](https://github.com/user-attachments/assets/010f3ad3-970d-425e-9c8f-50f54dff8845)
+
 
 A permutation of an array of integers is an arrangement of its members into a sequence or linear order.
 
