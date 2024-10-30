@@ -42,6 +42,8 @@ https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problem
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 18-5 screenshot](https://github.com/user-attachments/assets/c3ac50d1-015c-4604-88cd-cb6ee8f7cbdc)
 
+break point is 1 and on the right side we have elements < 1 which is 0,0.
+
 from looking right side 
 
 we have elements [2 1 5 4 3 0 0]
@@ -52,7 +54,8 @@ place the remaining elements in sorted order
 
 2 3 0 0 1 4 5
 
-break point is 1 and on the right side we have elements < 1 which is 0,0.
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 20-58 screenshot](https://github.com/user-attachments/assets/a98bbc6a-5b29-4a6d-8b9b-cf42c81dc331)
 
 
 explain to interviewer
