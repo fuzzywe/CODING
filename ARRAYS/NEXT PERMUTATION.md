@@ -20,6 +20,16 @@ https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problem
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 4-49 screenshot (1)](https://github.com/user-attachments/assets/010f3ad3-970d-425e-9c8f-50f54dff8845)
 
 
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-22 screenshot](https://github.com/user-attachments/assets/963b109a-b4aa-4ad5-89f2-c48eccf9e553)
+
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-33 screenshot](https://github.com/user-attachments/assets/1331eaca-0595-4f9a-85a1-007fc5bd4a25)
+
+**after 5 all elements are decreasing so the break point is from 1**
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-22 screenshot](https://github.com/user-attachments/assets/b515ead2-e4c5-420d-8c24-a120cab67f7c)
+
+
 explain to interviewer
 for brute force
 
@@ -28,6 +38,8 @@ for brute force
 3.return the next permutation
 
 A permutation of an array of integers is an arrangement of its members into a sequence or linear order.
+for better approach 
+explain the stl function next_permutation.
 
 For example, for arr = [1,2,3], the following are all the permutations of arr: [1,2,3], [1,3,2], [2, 1, 3], [2, 3, 1], [3,1,2], [3,2,1].
 The next permutation of an array of integers is the next lexicographically greater permutation of its integer. More formally, if all the permutations of the array are sorted in one container according to their lexicographical order, then the next permutation of that array is the permutation that follows it in the sorted container. If such arrangement is not possible, the array must be rearranged as the lowest possible order (i.e., sorted in ascending order).
