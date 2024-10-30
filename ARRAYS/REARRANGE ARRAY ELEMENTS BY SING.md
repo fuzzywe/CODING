@@ -58,3 +58,27 @@ public:
 };
 
 ```
+
+BRUTE FORCE:
+
+```cpp
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) { // [3,1,-2,-5,2,-4]
+     vector<int>pos;
+     vector<int>neg;
+     for(int i=0;i<nums.size();i++)
+     {
+        if(nums[i]>0) pos.push_back(nums[i]);// [3,1,2]
+        else neg.push_back(nums[i]);// [-2,-5,-4] 
+     }
+        
+        for(int i =0;i<nums.size()/2;i++)
+        {
+           nums[2*i] = pos[i];
+           nums[2*i+1] = neg[i];
+        }return nums; // [3,-2,1,-5,2,-4].
+    }
+};
+
+```
