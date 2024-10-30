@@ -4,8 +4,9 @@ Stock Buy And Sell
 
 ```cpp
 
-minPrice = min(minPrice, arr[i]);
-maxPro = max(maxPro, arr[i] - minPrice);
+min_price = min(min_price,price);
+        int profit = price-min_price;
+        max_profit = max(max_profit,profit);
 
 ```
 
