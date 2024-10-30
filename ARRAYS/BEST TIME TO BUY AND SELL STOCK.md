@@ -1,5 +1,8 @@
 Stock Buy And Sell
 
+https://www.naukri.com/code360/problems/893405?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=SUBMISSION
+
+
 ![30 10 2024_06 48 22_REC](https://github.com/user-attachments/assets/6bdb79c2-bb18-40e0-84c4-ce75dfced7f0)
 
 ```cpp
