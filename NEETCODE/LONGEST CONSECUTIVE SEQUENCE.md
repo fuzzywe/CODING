@@ -4,7 +4,14 @@ https://leetcode.com/problems/longest-consecutive-sequence/description/
 
 https://www.naukri.com/code360/problems/longest-successive-elements_6811740?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse
 
+
+BRUTE FORCE
+
 ![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 5-11 screenshot](https://github.com/user-attachments/assets/3af5206e-d933-4ef5-b66b-37a53ca63ac6)
+
+
+BETTER APPROACH 
+
 
 ![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 7-45 screenshot](https://github.com/user-attachments/assets/e50fe097-496e-4691-a039-f8b65e029eeb)
 
