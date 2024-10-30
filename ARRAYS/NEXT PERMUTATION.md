@@ -65,6 +65,14 @@ if ind = -1 then just reverse the arr
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 22-41 screenshot](https://github.com/user-attachments/assets/c2836a15-a109-40e1-a18e-344b073aa131)
 
+from seeing right to left 3 is greater then 1 so swap .
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 23-24 screenshot](https://github.com/user-attachments/assets/c44e9bd8-6b7f-41b5-9a6b-6d7270017019)
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 23-56 screenshot](https://github.com/user-attachments/assets/26f49b87-2d69-4e5f-a0d2-74214de64ab3)
+
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 24-38 screenshot](https://github.com/user-attachments/assets/6990a0a0-b55e-48ba-a1c9-414e0debd1b1)
 
 explain to interviewer
 for brute force
