@@ -5,6 +5,94 @@ https://leetcode.com/problems/next-permutation/
 
 https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website
 
+for coding ninjas
+
+
+Problem at Hand:
+
+Given a sequence of integers, the task is to generate the next permutation that comes immediately after the current one in lexicographical order. If the current permutation is the highest possible permutation, the result should be the lowest permutation, which is the sequence sorted in ascending order.
+
+ 
+
+Approach Explained:
+
+(1)Find the Pivot:
+
+Start from the end of the sequence and look for the first pair where an element is smaller than the next one. This is called the pivot. It's the point where we need to make a change to get the next permutation.
+(2)Locate the Successor:
+
+Next, from the end of the sequence, find the smallest element that is larger than the pivot element. This element will replace the pivot to form the next permutation.
+(3)Swap and Sort:
+
+Swap the pivot with the found successor. After that, to get the smallest possible permutation, sort the portion of the sequence after the original pivot position.
+ 
+
+Code Implementation:
+```cpp
+#include <bits/stdc++.h> 
+
+vector<int> nextPermutation(vector<int> &permutation, int n){
+
+    if(n<1){
+
+        return {};
+
+    }
+
+    int index=-1;
+
+    for(int i=n-2;i>=0;i--){
+
+        if(permutation[i]<permutation[i+1]){
+
+            index=i;
+
+            break;
+
+        }
+
+    }
+
+    if (index == -1) {
+
+        reverse(permutation.begin(), permutation.end());
+
+        return permutation;
+
+    }
+
+    int ele=permutation[index];
+
+    int newindex=-1;
+
+    for(int j=n-1;j>=index;j--){
+
+        if(permutation[j]>ele){
+
+            newindex=j;
+
+            break;
+
+        }
+
+    }
+
+    swap(permutation[index],permutation[newindex]);
+
+    sort(permutation.begin()+index+1,permutation.end());
+
+    return permutation;
+
+}
+
+ ```
+
+Complexity Analysis:
+
+Time Complexity: O(n log n), due to the sorting operation on the suffix.
+Space Complexity: O(n), as sorting requires extra space.
+
+
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 1-43 screenshot](https://github.com/user-attachments/assets/3a98b57e-2c68-4f98-92b5-42a2136cc034)
 
