@@ -2,10 +2,11 @@ Stock Buy And Sell
 
 ![30 10 2024_06 48 22_REC](https://github.com/user-attachments/assets/6bdb79c2-bb18-40e0-84c4-ce75dfced7f0)
 
-
 ```cpp
- minPrice = min(minPrice, arr[i]);
+
+minPrice = min(minPrice, arr[i]);
 maxPro = max(maxPro, arr[i] - minPrice);
+
 ```
 
 https://leetcode.com/problems/best-time-to-buy-and-sell-stock/solutions/
