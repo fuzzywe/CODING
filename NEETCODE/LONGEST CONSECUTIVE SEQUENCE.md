@@ -1,7 +1,6 @@
 128. Longest Consecutive Sequence
-Medium
-Topics
-Companies
+
+
 Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
 You must write an algorithm that runs in O(n) time.
@@ -17,6 +16,8 @@ Example 2:
 
 Input: nums = [0,3,7,2,5,8,4,6,0,1]
 Output: 9
+
+
 
  ```cpp
 Time complexity: O(n)
@@ -151,3 +152,96 @@ Let's take the input `nums = [100, 4, 200, 1, 3, 2]` and go through the function
 ### Final Answer:
 
 For the input `nums = [100, 4, 200, 1, 3, 2]`, the longest consecutive sequence is `[1, 2, 3, 4]`, and the function returns `4`.
+
+
+--- 
+
+BETTER APPROACH
+
+```cpp
+
+
+int longestSuccessiveElements(vector<int>&a) {
+    int n = a.size();
+    if (n == 0) return 0;
+
+    //sort the array:
+    sort(a.begin(), a.end());
+    int lastSmaller = INT_MIN;
+    int cnt = 0;
+    int longest = 1;
+
+    //find longest sequence:
+    for (int i = 0; i < n; i++) {
+        if (a[i] - 1 == lastSmaller) {
+            //a[i] is the next element of the
+            //current sequence.
+            cnt += 1;
+            lastSmaller = a[i];
+        }
+        else if (a[i] != lastSmaller) {
+            cnt = 1;
+            lastSmaller = a[i];
+        }
+        longest = max(longest, cnt);
+    }
+    return longest;
+
+}
+```
+Time Complexity: O(NlogN) + O(N), N = size of the given array.
+Reason: O(NlogN) for sorting the array. To find the longest sequence, we are using a loop that results in O(N).
+
+Space Complexity: O(1), as we are not using any extra space to solve this problem.
+
+---
+
+
+```cpp
+
+bool linearSearch(vector<int>&a, int num) {
+    int n = a.size(); //size of array
+    for (int i = 0; i < n; i++) {
+        if (a[i] == num)
+            return true;
+    }
+    return false;
+}
+int longestSuccessiveElements(vector<int>&a) {
+    int n = a.size(); //size of array
+    int longest = 1;
+    //pick a element and search for its
+    //consecutive numbers:
+    for (int i = 0; i < n; i++) {
+        int x = a[i];
+        int cnt = 1;
+        //search for consecutive numbers
+        //using linear search:
+        while (linearSearch(a, x + 1) == true) {
+            x += 1;
+            cnt += 1;
+        }
+
+        longest = max(longest, cnt);
+    }
+    return longest;
+}
+
+int main()
+{
+    vector<int> a = {100, 200, 1, 2, 3, 4};
+    int ans = longestSuccessiveElements(a);
+    cout << "The longest consecutive sequence is " << ans << "\n";
+    return 0;
+}
+
+```
+Output: The longest consecutive sequence is 4.
+
+Complexity Analysis
+
+Time Complexity: O(N2), N = size of the given array.
+Reason: We are using nested loops each running for approximately N times.
+
+Space Complexity: O(1), as we are not using any extra space to solve this problem.
+
