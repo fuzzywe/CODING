@@ -4,6 +4,15 @@ https://leetcode.com/problems/longest-consecutive-sequence/description/
 
 https://www.naukri.com/code360/problems/longest-successive-elements_6811740?utm_source=striver&utm_medium=website&utm_campaign=codestudio_a_zcourse
 
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 5-11 screenshot](https://github.com/user-attachments/assets/3af5206e-d933-4ef5-b66b-37a53ca63ac6)
+
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 7-45 screenshot](https://github.com/user-attachments/assets/e50fe097-496e-4691-a039-f8b65e029eeb)
+
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 8-45 screenshot](https://github.com/user-attachments/assets/c552e212-5417-413a-9491-852c0a5bb480)
+
+the last element should be one lesser like before 3 , 2 should be present then i will increase the count and longest.
+
+
 
 Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
