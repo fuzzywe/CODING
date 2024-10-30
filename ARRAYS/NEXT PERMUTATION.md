@@ -36,7 +36,10 @@ https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problem
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 16-7 screenshot](https://github.com/user-attachments/assets/c0be00ae-0498-4204-9121-7f8a13036660)
 
-![30 10 2024_06 48 22_REC](https://github.com/user-attachments/assets/6f1572bf-babf-4628-9835-145e54dd150f)
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 16-36 screenshot](https://github.com/user-attachments/assets/d8d12239-00f3-41bb-935e-b058b43c69d2)
+
+break point is 1 and on the right side we have elements < 1 which is 0,0.
 
 
 explain to interviewer
