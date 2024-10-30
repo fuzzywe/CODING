@@ -20,14 +20,23 @@ https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problem
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 4-49 screenshot (1)](https://github.com/user-attachments/assets/010f3ad3-970d-425e-9c8f-50f54dff8845)
 
 
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-22 screenshot](https://github.com/user-attachments/assets/b515ead2-e4c5-420d-8c24-a120cab67f7c)
+
+
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-22 screenshot](https://github.com/user-attachments/assets/963b109a-b4aa-4ad5-89f2-c48eccf9e553)
 
 
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-33 screenshot](https://github.com/user-attachments/assets/1331eaca-0595-4f9a-85a1-007fc5bd4a25)
 
+
+
+
 **after 5 all elements are decreasing so the break point is from 1**
 
-![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 15-22 screenshot](https://github.com/user-attachments/assets/b515ead2-e4c5-420d-8c24-a120cab67f7c)
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 16-7 screenshot](https://github.com/user-attachments/assets/c0be00ae-0498-4204-9121-7f8a13036660)
+
+![30 10 2024_06 48 22_REC](https://github.com/user-attachments/assets/6f1572bf-babf-4628-9835-145e54dd150f)
 
 
 explain to interviewer
