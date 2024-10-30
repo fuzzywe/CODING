@@ -17,6 +17,13 @@ BETTER APPROACH
 
 ![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 8-45 screenshot](https://github.com/user-attachments/assets/c552e212-5417-413a-9491-852c0a5bb480)
 
+![Longest Consecutive Sequence _ Google Interview Question _ Brute Better Optimal 9-35 screenshot](https://github.com/user-attachments/assets/ade7225c-91a8-46b4-94ca-a891c6dbcf12)
+
+BEFORE  100 , 99 should be there so here no consecutive sequence so start numbering from 
+1 onwards.
+
+
+
 the last element should be one lesser like before 3 , 2 should be present then i will increase the count and longest.
 
 
