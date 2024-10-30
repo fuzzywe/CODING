@@ -87,7 +87,122 @@ class Solution{
 };
 
 ```
+Let’s go through a detailed dry run of this code, line by line, using a sample array to help understand each step.
 
+Suppose we have an input array:
+```cpp
+a = [16, 17, 4, 3, 5, 2]
+n = 6
+```
+
+The purpose of the function is to find all **leaders** in the array. A "leader" is an element that is greater than all the elements to its right.
+
+### Code Walkthrough
+
+```cpp
+vector<int> leaders(int a[], int n) {
+```
+
+- The function `leaders` takes two parameters:
+  - `a[]`: the input array.
+  - `n`: the number of elements in the array.
+
+#### Step 1: Initialize `mx` to the Last Element
+
+```cpp
+int mx = a[n-1];
+```
+
+- `mx` is initialized to the last element of the array. In our example:
+  ```cpp
+  mx = a[5] = 2
+  ```
+
+#### Step 2: Initialize `ans` Vector and Add the Last Element
+
+```cpp
+vector<int> ans;
+ans.push_back(mx);
+```
+
+- A vector `ans` is created to store the leaders. We initially push the last element (`mx`) into `ans` because, by definition, the last element is always a leader.
+
+- After this line:
+  ```cpp
+  ans = [2]
+  ```
+
+#### Step 3: Loop Through the Array from Right to Left
+
+```cpp
+for(int i = n - 2; i >= 0; i--) {
+```
+
+- We start a loop from the second last element (`i = n - 2`) and move to the beginning of the array (`i >= 0`).
+
+#### Step 4: Check if `a[i]` is Greater Than or Equal to `mx`
+
+```cpp
+if(a[i] < mx) continue;
+```
+
+- For each element `a[i]`, we check if it’s smaller than `mx`. If it is, we skip to the next element (`continue`).
+
+- If `a[i]` is **greater than or equal to `mx`**, we update `mx` to `a[i]` and push `mx` to `ans` as it qualifies as a leader.
+
+Let’s go through each iteration in the loop:
+
+1. **Iteration 1 (`i = 4`):** `a[4] = 5`
+   - **Check**: `a[4] = 5` (greater than `mx = 2`)
+   - **Update**: `mx = 5`
+   - **Push to `ans`**: `ans = [2, 5]`
+
+2. **Iteration 2 (`i = 3`):** `a[3] = 3`
+   - **Check**: `a[3] = 3` (less than `mx = 5`)
+   - **Skip**: `continue` to the next iteration.
+
+3. **Iteration 3 (`i = 2`):** `a[2] = 4`
+   - **Check**: `a[2] = 4` (less than `mx = 5`)
+   - **Skip**: `continue` to the next iteration.
+
+4. **Iteration 4 (`i = 1`):** `a[1] = 17`
+   - **Check**: `a[1] = 17` (greater than `mx = 5`)
+   - **Update**: `mx = 17`
+   - **Push to `ans`**: `ans = [2, 5, 17]`
+
+5. **Iteration 5 (`i = 0`):** `a[0] = 16`
+   - **Check**: `a[0] = 16` (less than `mx = 17`)
+   - **Skip**: `continue` to the next iteration.
+
+#### Step 5: Reverse `ans` to Maintain Left-to-Right Order
+
+```cpp
+reverse(ans.begin(), ans.end());
+```
+
+- The leaders were added in reverse order, so reversing `ans` gives the correct left-to-right order.
+
+- After reversing:
+  ```cpp
+  ans = [17, 5, 2]
+  ```
+
+#### Final Result
+
+The function returns the `ans` vector, which contains the leaders `[17, 5, 2]`.
+
+### Summary of Output
+
+For the input `[16, 17, 4, 3, 5, 2]`, the output of the function is:
+
+```cpp
+[17, 5, 2]
+```
+
+### Complexity
+
+- **Time Complexity**: \(O(n)\) because we are only looping through the array once.
+- **Space Complexity**: \(O(n)\) for the `ans` vector, which stores the leaders.
 --- 
 
 BRUTE FORCE 
