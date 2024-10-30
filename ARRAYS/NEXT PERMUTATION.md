@@ -58,6 +58,11 @@ place the remaining elements in sorted order
 ![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 20-58 screenshot](https://github.com/user-attachments/assets/a98bbc6a-5b29-4a6d-8b9b-cf42c81dc331)
 
 
+if ind = -1 then just reverse the arr
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 21-50 screenshot](https://github.com/user-attachments/assets/e4215b3a-df0d-465d-af72-3644d73714d8)
+
+
 explain to interviewer
 for brute force
 
