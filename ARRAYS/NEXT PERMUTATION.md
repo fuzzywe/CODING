@@ -2,11 +2,20 @@
 
 https://leetcode.com/problems/next-permutation/
 
-![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 1-43 screenshot](https://github.com/user-attachments/assets/3a98b57e-2c68-4f98-92b5-42a2136cc034)
 
 https://www.naukri.com/code360/problems/893046?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website
 
 
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 1-43 screenshot](https://github.com/user-attachments/assets/3a98b57e-2c68-4f98-92b5-42a2136cc034)
+
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 3-23 screenshot](https://github.com/user-attachments/assets/85c2d1b4-76e6-49d8-8884-64f28df37329)
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 3-24 screenshot](https://github.com/user-attachments/assets/5bdd0622-4e5b-49f1-837f-cd56d88018fb)
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 2-18 screenshot](https://github.com/user-attachments/assets/d7fbd572-b24e-4ab3-bb76-affc272e40f0)
+
+![Next Permutation - Intuition in Detail 🔥 _ Brute to Optimal 1-43 screenshot](https://github.com/user-attachments/assets/1a06ce05-e469-4ce9-8af3-a4bad0360a66)
 
 
 A permutation of an array of integers is an arrangement of its members into a sequence or linear order.
