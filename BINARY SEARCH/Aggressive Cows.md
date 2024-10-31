@@ -1,6 +1,9 @@
 https://www.geeksforgeeks.org/problems/aggressive-cows/0
 
 
+https://www.naukri.com/code360/problems/aggressive-cows_1082559
+
+
 
 Aggressive Cows 
 Example 1:
