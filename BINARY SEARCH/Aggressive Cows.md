@@ -316,8 +316,8 @@ The function checks if we can place `k = 4` cows with at least `i` distance betw
 - Since placing cows at `i = 4` is not possible, the loop exits and returns `i - 1`, which is `3`.
 - So, the maximum possible minimum distance between cows is `3`.
 
-### Output:
-```
+
+```cpp
 The maximum possible minimum distance is: 3
 
 ```cpp
