@@ -25,6 +25,17 @@ Assume the given stalls array is: {1,2,8,4,9} and after sorting it will be {1, 2
 
 We have to fit three cows in these 5 stalls. Each stall can accommodate only one. Our task is to maximize the minimum distance between two stalls. Let’s look at some arrangements:
 
+![BS-17  Aggressive Cows _ Binary Search Hard 3-38 screenshot](https://github.com/user-attachments/assets/b43878b2-b958-4312-8cea-3af44836729c)
+
+why we need to sort means we need to get the min in consecutive manner.
+
+![BS-17  Aggressive Cows _ Binary Search Hard 5-29 screenshot](https://github.com/user-attachments/assets/08f1510d-b052-4627-8153-1afde17071e8)
+
+after finding the min distance get the max value from all the min elements.
+
+
+
+
 
 
 
@@ -32,6 +43,9 @@ We have to fit three cows in these 5 stalls. Each stall can accommodate only one
 
 
 In the first arrangement, the minimum distance between the cows is 1. Now, in the later cases, we have tried to place the cows in a manner so that the minimum distance can be increased. This is done in the second and third cases. It’s not possible to get a minimum distance of more than 3 in any arrangement, so we output 3. 
+
+
+
 
 Observation:
 
