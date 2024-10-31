@@ -1,33 +1,35 @@
+https://leetcode.com/problems/search-a-2d-matrix-ii/description/
+
+
+
+
+
 Search in a row and column-wise sorted matrix
 
-Problem Statement: You have been given a 2-D array 'mat' of size 'N x M' where 'N' and 'M' denote the number of rows and columns, respectively. The elements of each row and each column are sorted in non-decreasing order.
-But, the first element of a row is not necessarily greater than the last element of the previous row (if it exists).
-You are given an integer ‘target’, and your task is to find if it exists in the given 'mat' or not.
+240. Search a 2D Matrix II
+Medium
+Topics
+Companies
+Write an efficient algorithm that searches for a value target in an m x n integer matrix matrix. This matrix has the following properties:
 
-Pre-requisite: Search in a 2D sorted matrix
+Integers in each row are sorted in ascending from left to right.
+Integers in each column are sorted in ascending from top to bottom.
 
-Examples
-Example 1:
-Input Format:
- N = 5, M = 5, target = 14
-mat[] = 
+![image](https://github.com/user-attachments/assets/b5608ef8-6172-412f-9710-06dd3b4924bc)
 
-Result:
- true
-Explanation:
- Target 14 is present in the cell (3, 2)(0-based indexing) of the matrix. So, the answer is true.
+Input: matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5
+Output: true
 
-Example 2:
-Input Format:
- N = 3, M = 3, target = 12,
-mat[] = 
 
-Result:
- false
-Explanation:
- As target 12 is not present in the matrix, the answer is false.
+
+![image](https://github.com/user-attachments/assets/bf93b8e6-e405-4af7-92d7-69a4ad2177e6)
+
+
+Input: matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
+Output: false
+
   
-
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -53,6 +55,8 @@ int main()
     };
     searchElement(matrix, 8) == true ? cout << "true\n" : cout << "false\n";
 }
+
+```
 
 Time Complexity: O(N X M), where N = given row number, M = given column number.
 Reason: In order to traverse the matrix, we are using nested loops running for n and m times respectively.
@@ -95,6 +99,7 @@ If matrix[row][col] == target: We have found the target and so we will return tr
 If matrix[row][col] > target: We need the smaller elements to reach the target. But the column is in increasing order and so it contains only greater elements. So, we will eliminate the column by decreasing the current column value by 1(i.e. col--) and thus we will move row-wise.
 If matrix[row][col] < target: In this case, We need the bigger elements to reach the target. But the row is in decreasing order and so it contains only smaller elements. So, we will eliminate the row by increasing the current row value by 1(i.e. row++) and thus we will move column-wise.
 If we are outside the loop without getting any matching element, we will return false.
+```cpp
 
   #include <bits/stdc++.h>
 using namespace std;
@@ -121,6 +126,8 @@ int main()
     };
     searchElement(matrix, 8) == true ? cout << "true\n" : cout << "false\n";
 }
+
+```
 
 Output: true
 
