@@ -73,7 +73,7 @@ Thinking Process -: we will find our ans using binary search which reduces the t
  
 
 
-```
+```cpp
 class Solution
 {
     public:
