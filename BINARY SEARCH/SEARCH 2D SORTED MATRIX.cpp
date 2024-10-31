@@ -102,3 +102,78 @@ Time Complexity: O(N + logM), where N = given row number, M = given column numbe
 Reason: We are traversing all rows and it takes O(N) time complexity. But for all rows, we are not applying binary search rather we are only applying it once for a particular row. That is why the time complexity is O(N + logM) instead of O(N*logM).
 
 Space Complexity: O(1) as we are not using any extra space.
+
+ Sure! Let's break down that specific piece of code step by step and understand the logic and math behind it.
+
+### Context
+
+The goal of this code is to find a target value in a 2D matrix where each row is sorted in ascending order. The matrix is structured so that the first element of each row is less than or equal to the last element of that row.
+
+### Code Breakdown
+
+```cpp
+for (int i = 0; i < n; i++) {
+    if (matrix[i][0] <= target && target <= matrix[i][m - 1]) {
+        return binarySearch(matrix[i], target);
+    }
+}
+```
+
+### Detailed Explanation
+
+1. **Loop Through Rows**:
+   - The loop `for (int i = 0; i < n; i++)` iterates through each row of the matrix. Here, `n` is the number of rows.
+
+2. **Condition Check**:
+   - The condition `if (matrix[i][0] <= target && target <= matrix[i][m - 1])` is the key part. It checks whether the target value can possibly be found in the current row `i`.
+     - **`matrix[i][0]`**: This is the first element of row `i`.
+     - **`matrix[i][m - 1]`**: This is the last element of row `i`.
+     - **`target`**: This is the value we are searching for.
+
+### Mathematical Logic
+
+- **First Element**: `matrix[i][0] <= target`
+  - This checks if the first element of the row is less than or equal to the target. If this is false, it means the target is less than the smallest element in that row, so it cannot exist in that row.
+
+- **Last Element**: `target <= matrix[i][m - 1]`
+  - This checks if the target is less than or equal to the last element of the row. If this is false, it means the target is greater than the largest element in that row, so it cannot exist in that row.
+
+### Combined Condition
+
+By combining these two conditions with `&&` (logical AND), you ensure that the target falls within the range of the current row's first and last elements:
+
+- If both conditions are true, it means the target **could** potentially exist in the current row, and we can safely perform a binary search on that row.
+
+### Example
+
+Consider the following matrix:
+
+```
+[
+  [1, 2, 3, 4],
+  [5, 6, 7, 8],
+  [9, 10, 11, 12]
+]
+```
+
+If the target is `6`, the process will be:
+
+- For **Row 0** (`[1, 2, 3, 4]`):
+  - First element: `1` (not greater than `6`)
+  - Last element: `4` (not less than `6`)
+  - **Condition fails**: Move to next row.
+
+- For **Row 1** (`[5, 6, 7, 8]`):
+  - First element: `5` (less than or equal to `6`)
+  - Last element: `8` (greater than or equal to `6`)
+  - **Condition passes**: We perform binary search on this row.
+
+- For **Row 2** (`[9, 10, 11, 12]`):
+  - First element: `9` (greater than `6`)
+  - **Condition fails**: No need to check further.
+
+### Conclusion
+
+This conditional check efficiently narrows down which rows need to be searched, significantly reducing the number of binary searches performed. It uses the properties of the sorted rows to determine if the target could possibly exist in that row based on its boundaries.
+
+If you have any more questions or need further clarification, feel free to ask!
