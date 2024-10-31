@@ -1,12 +1,113 @@
 https://leetcode.com/problems/find-peak-element/
 
+https://www.naukri.com/code360/problems/find-peak-element_1081482?leftPanelTabValue=SUBMISSION
 
+https://www.geeksforgeeks.org/problems/peak-element/1
+
+for geeksforgeeks
+
+User
+Nilesh Tiwari
+(Edited)
+8 months agoMar 01, 2024 03:51 (GMT +5:30)
+
+First approach -> Brute force ✅
+Time Complexity -> O(n)
+
+Space Complexity -> O(1)
+
+Thinking Process -> A peak element is defined as an element that is greater than its neighboring elements. Neighboring elements for an index 'i' are the elements at positions 'i-1' and 'i+1'. 
+
+For example, in the array [1, 2, 3], the neighbors of 2 are {1, 3}.
+
+In our approach, we iterate through each element in the array. At each index, we check whether the element is greater than its neighbors. For indices 0 and n-1, there is only one neighbor, and we check accordingly. If a peak element is found, we return its index. If no peak element is found, we return -1.
+
+Edge Case: If the array size is one, the only element is greater than its non-existent neighbors. Therefore, we return 0.
+
+ ```cpp
+
+class Solution
+{
+public:
+    int peakElement(int arr[], int n)
+    {
+       
+        if (n == 1)
+            return 0;
+
+        for (int i = 0; i < n; i++)
+        {      
+            if (i == 0)
+            {
+                if (arr[i] >= arr[i + 1])
+                    return i;
+            }
+            else if (i == n - 1)
+            {
+                if (arr[i] >= arr[i - 1])
+                    return i;
+            }
+            else
+            {
+                if (arr[i] >= arr[i - 1] && arr[i] >= arr[i + 1])
+                    return i;
+            }
+        }
+
+        // If no peak element is found, return -1.
+        return -1;
+    }
+};
+
+```
+---
+Optimize approach -: ✅
+Time Complexity - O(log (n))
+
+space complexity - O(1)
+
+Thinking Process -: we will find our ans using binary search which reduces the time complexity to O(log(n)).
+
+
+
+ 
+
+
+```
+class Solution
+{
+    public:
+     int peakElement(int arr[], int n)
+    {
+        //edge case
+        if (n == 1) return 0;
+        if (arr[0] > arr[1]) return 0;
+        if (arr[n - 1] > arr[n - 2]) return n - 1;
+        int left = 0;
+        int right = n - 2;
+        while(left<=right){
+        // Perform a binary search to find a peak element.
+        int mid = (left + right) / 2;
+
+        //If arr[mid] is the peak:
+        if (arr[mid - 1] <= arr[mid] && arr[mid] >=arr[mid + 1])
+            return mid;
+
+        // If we are in the left:
+        if (arr[mid] > arr[mid - 1]) left = mid + 1;
+
+        // If we are in the right:
+        // Or, arr[mid] is a common point:
+        else right = mid - 1;
+    }
+        return -1;
+    }
+    
+};
+```
 
 162. Find Peak Element
-Solved
-Medium
-Topics
-Companies
+
 A peak element is an element that is strictly greater than its neighbors.
 
 Given a 0-indexed integer array nums, find a peak element, and return its index. If the array contains multiple peaks, return the index to any of the peaks.
