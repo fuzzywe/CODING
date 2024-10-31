@@ -1,5 +1,9 @@
 https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=median-in-a-row-wise-sorted-matrix
 
+https://www.naukri.com/code360/problems/median-of-a-row-wise-sorted-matrix_1115473?leftPanelTabValue=PROBLEM
+
+
+
 ![BS-27  Median in a Row Wise Sorted Matrix 2-6 screenshot (1)](https://github.com/user-attachments/assets/cc676cf5-d3ce-4388-ab8b-518252fe48d0)
 
 ![BS-27  Median in a Row Wise Sorted Matrix 9-12 screenshot](https://github.com/user-attachments/assets/7c99367b-59f7-4df2-bb42-ce4d504b9c75)
