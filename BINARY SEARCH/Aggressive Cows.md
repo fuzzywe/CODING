@@ -58,7 +58,7 @@ If we are outside the loop, we cannot place k cows with a minimum distance of â€
 
 brute force
 
-
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -98,6 +98,8 @@ int main()
     cout << "The maximum possible minimum distance is: " << ans << "\n";
     return 0;
 }
+
+```
 
 Complexity Analysis
 Time Complexity: O(NlogN) + O(N *(max(stalls[])-min(stalls[]))), where N = size of the array, max(stalls[]) = maximum element in stalls[] array, min(stalls[]) = minimum element in stalls[] array.
