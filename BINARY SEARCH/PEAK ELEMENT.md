@@ -74,35 +74,35 @@ Thinking Process -: we will find our ans using binary search which reduces the t
 
 
 ```cpp
-class Solution
-{
-    public:
-     int peakElement(int arr[], int n)
-    {
-        //edge case
-        if (n == 1) return 0;
-        if (arr[0] > arr[1]) return 0;
-        if (arr[n - 1] > arr[n - 2]) return n - 1;
-        int left = 0;
-        int right = n - 2;
-        while(left<=right){
-        // Perform a binary search to find a peak element.
-        int mid = (left + right) / 2;
-
-        //If arr[mid] is the peak:
-        if (arr[mid - 1] <= arr[mid] && arr[mid] >=arr[mid + 1])
-            return mid;
-
-        // If we are in the left:
-        if (arr[mid] > arr[mid - 1]) left = mid + 1;
-
-        // If we are in the right:
-        // Or, arr[mid] is a common point:
-        else right = mid - 1;
-    }
-        return -1;
-    }
+class Solution {
+  public:
+    int peakElement(vector<int> &arr) {
+        // Your code here
+        int n = arr.size();
+         int i=1;
+        if(n==1)
+        {
+            return 0;
+        }
+        if(arr[0]>=arr[1])
+        {
+             return 0;
+        }
+        if(arr[n-1]>=arr[n-2])
+        {
+             return n-1;
+        }
+        while(i<n-1)
+        {
+        if(arr[i-1]<=arr[i]&&arr[i]>=arr[i+1])
+        {
+             return i;
+        }
+        i++;
+        }
+        return 0;
     
+    }
 };
 ```
 
