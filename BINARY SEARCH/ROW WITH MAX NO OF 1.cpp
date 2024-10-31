@@ -1,5 +1,6 @@
 Find the row with maximum number of 1's
 
+https://www.geeksforgeeks.org/problems/row-with-max-1s0023/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=row-with-max-1s
 
 
 Problem Statement: You have been given a non-empty grid ‘mat’ with 'n' rows and 'm' columns consisting of only 0s and 1s. All the rows are sorted in ascending order.
@@ -137,3 +138,41 @@ Time Complexity: O(n X logm), where n = given row number, m = given column numbe
 Reason: We are using a loop running for n times to traverse the rows. Then we are applying binary search on each row with m columns.
 
 Space Complexity: O(1) as we are not using any extra space.
+
+OPTIMAL SOLUTION
+
+
+int lowerbound(vector<int>&arr ,int n , int x){
+      int low = 0 , high = n-1;
+      int ans = n;
+      while(low<=high){
+          int mid = low+(high-low)/2;
+          if(arr[mid]>=x){
+              ans = mid;
+              high = mid-1;
+          }
+          else{
+              low = mid+1;
+          }
+          
+      }
+      return ans;
+  }
+  
+  
+    int rowWithMax1s(vector<vector<int> > &arr) {
+        // code here
+        int n = arr.size(),m=arr[0].size();
+        int count_max = 0;
+        int index = -1;
+        // for every row we count the ones 
+        for(int i =0;i<n;i++){
+            int count_ones = m - lowerbound(arr[i],m,1);
+            if(count_ones>count_max){
+                count_max = count_ones;
+                index = i;
+            }
+        }
+        return index;
+        
+    }
