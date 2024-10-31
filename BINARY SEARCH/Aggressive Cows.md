@@ -320,7 +320,7 @@ The function checks if we can place `k = 4` cows with at least `i` distance betw
 ```
 The maximum possible minimum distance is: 3
 
-```
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -363,6 +363,8 @@ int main()
     cout << "The maximum possible minimum distance is: " << ans << "\n";
     return 0;
 }
+
+```
 
 Output:The maximum possible minimum distance is: 3.
 
