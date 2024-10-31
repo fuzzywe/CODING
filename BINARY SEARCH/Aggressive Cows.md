@@ -44,6 +44,9 @@ after finding the min distance get the max value from all the min elements.
 
 In the first arrangement, the minimum distance between the cows is 1. Now, in the later cases, we have tried to place the cows in a manner so that the minimum distance can be increased. This is done in the second and third cases. It’s not possible to get a minimum distance of more than 3 in any arrangement, so we output 3. 
 
+![31 10 2024_23 20 36_REC](https://github.com/user-attachments/assets/f0646a82-864a-42ec-b0bd-51eafa795802)
+
+![31 10 2024_23 20 12_REC](https://github.com/user-attachments/assets/6e79b8ae-00bd-4282-a899-b22e75bdeb54)
 
 
 
