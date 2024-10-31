@@ -1,3 +1,7 @@
+https://www.geeksforgeeks.org/problems/aggressive-cows/0
+
+
+
 Aggressive Cows 
 Example 1:
 Input Format:
