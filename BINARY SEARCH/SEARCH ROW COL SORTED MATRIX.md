@@ -1,8 +1,8 @@
 https://leetcode.com/problems/search-a-2d-matrix-ii/description/
 
+https://www.naukri.com/code360/problems/search-in-a-2d-matrix-ii_1089637?leftPanelTabValue=PROBLEM
 
-
-
+https://www.hackerrank.com/contests/vit-bhopal/challenges/search-in-2-d-matrx
 
 Search in a row and column-wise sorted matrix
 
