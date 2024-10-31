@@ -276,18 +276,15 @@ Consider the following matrix:
 ### Step 2: Calculate Requirement
 
 - **Required Count (`req`)**: This is the position of the median, which for an odd number of elements (9 in this case) is:
-  \[
-  req = \left\lfloor \frac{R \times C}{2} \right\rfloor = \left\lfloor \frac{9}{2} \right\rfloor = 4
-  \]
+
 
 ### Step 3: Binary Search
 
 #### First Iteration
 
 - **Calculate Mid**:
-  \[
-  mid = \frac{low + high}{2} = \frac{1 + 9}{2} = 5
-  \]
+
+![31 10 2024_15 49 53_REC](https://github.com/user-attachments/assets/c1dfb99d-f964-4a9d-a956-98bb43a4e019)
 
 - **Count Elements ≤ 5**: Call `NoOfSmallerNum(mat, 5)`:
   - From the matrix:
@@ -297,17 +294,14 @@ Consider the following matrix:
   - **Total Count**: 3 + 1 + 1 = **5**
 
 - **Comparison**:
-  \[
-  \text{smallernum} = 5 \quad (\text{which is } > 4)
-  \]
+  smallernum= 5  (which is > 4)
+  
   - Update `ans = 5` and search for smaller numbers by setting `high = mid - 1` → `high = 4`.
 
 #### Second Iteration
 
-- **Calculate Mid**:
-  \[
-  mid = \frac{low + high}{2} = \frac{1 + 4}{2} = 2
-  \]
+
+![31 10 2024_15 48 38_REC](https://github.com/user-attachments/assets/bc12f2de-ed17-4353-8a20-a83b3491115d)
 
 - **Count Elements ≤ 2**: Call `NoOfSmallerNum(mat, 2)`:
   - From the matrix:
@@ -317,49 +311,24 @@ Consider the following matrix:
   - **Total Count**: 1 + 1 + 0 = **2**
 
 - **Comparison**:
-  \[
-  \text{smallernum} = 2 \quad (\text{which is } < 4)
-  \]
+  
+  smallernum = 2 (which is  < 4)
+
   - So, set `low = mid + 1` → `low = 3`.
 
 #### Third Iteration
 
 - **Calculate Mid**:
-  \[
-  mid = \frac{low + high}{2} = \frac{3 + 4}{2} = 3
-  \]
+  
+![31 10 2024_15 47 03_REC](https://github.com/user-attachments/assets/90425014-df83-4d08-b7e7-025f6807318e)
 
-- **Count Elements ≤ 3**: Call `NoOfSmallerNum(mat, 3)`:
-  - From the matrix:
-    - Row 1: `1, 3, 5` → 2 elements ≤ 3
-    - Row 2: `2, 6, 9` → 1 element ≤ 3
-    - Row 3: `3, 6, 9` → 1 element ≤ 3
-  - **Total Count**: 2 + 1 + 1 = **4**
-
-- **Comparison**:
-  \[
-  \text{smallernum} = 4 \quad (\text{which is } = 4)
-  \]
   - Since `smallernum` is equal to `req`, we set `low = mid + 1` → `low = 4`.
 
 #### Fourth Iteration
 
-- **Calculate Mid**:
-  \[
-  mid = \frac{low + high}{2} = \frac{4 + 4}{2} = 4
-  \]
+![31 10 2024_15 45 33_REC](https://github.com/user-attachments/assets/f3e900e0-423a-4f44-add1-789b31901e16)
 
-- **Count Elements ≤ 4**: Call `NoOfSmallerNum(mat, 4)`:
-  - From the matrix:
-    - Row 1: `1, 3, 5` → 2 elements ≤ 4
-    - Row 2: `2, 6, 9` → 1 element ≤ 4
-    - Row 3: `3, 6, 9` → 1 element ≤ 4
-  - **Total Count**: 2 + 1 + 1 = **4**
 
-- **Comparison**:
-  \[
-  \text{smallernum} = 4 \quad (\text{which is } = 4)
-  \]
   - Again, `smallernum` is equal to `req`, so we set `low = mid + 1` → `low = 5`.
 
 ### Final Result
