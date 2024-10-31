@@ -62,6 +62,7 @@ public:
 
 
 --- Approach 2 ---
+
 ```cpp
 
 class Solution {
@@ -88,6 +89,50 @@ public:
 };
 
 ```
+![31 10 2024_17 40 37_REC](https://github.com/user-attachments/assets/6d5d7b46-940a-43ae-9687-a2d31d5e2468)
+
+![31 10 2024_17 42 27_REC](https://github.com/user-attachments/assets/e254a8dc-f80b-4518-a401-6f5358434de0)
+
+
+![31 10 2024_17 42 57_REC](https://github.com/user-attachments/assets/f1da36bb-d575-4b7a-988b-215411d59fdf)
+
+
+
+
+Great question! The conditions `mid == 0` and `mid == m - 1` in the code are used to handle edge cases when checking if the maximum element at `matrix[max_row][mid]` is a peak. Let's break down what each condition means:
+
+### Explanation of Conditions
+
+1. **`mid == 0`**:
+   - This condition checks if the current column (`mid`) is the first column of the matrix.
+   - If `mid` is `0`, it means there is no left neighbor to compare with. Thus, the left neighbor check (`matrix[max_row][mid] > matrix[max_row][mid - 1]`) is not applicable, so we can skip it.
+   - In this case, we only need to ensure that the maximum element is greater than its right neighbor, if it exists.
+
+2. **`mid == m - 1`**:
+   - This condition checks if the current column (`mid`) is the last column of the matrix.
+   - If `mid` is `m - 1`, it means there is no right neighbor to compare with. Thus, the right neighbor check (`matrix[max_row][mid] > matrix[max_row][mid + 1]`) is not applicable, so we can skip it.
+   - Here, we only need to ensure that the maximum element is greater than its left neighbor, if it exists.
+
+### Combined Check
+
+The entire condition checks both sides of the maximum element:
+```cpp
+if ((mid == 0 || matrix[max_row][mid] > matrix[max_row][mid - 1]) && 
+    (mid == m - 1 || matrix[max_row][mid] > matrix[max_row][mid + 1]))
+```
+- **Left Condition (`mid == 0 || ...`)**: 
+  - If `mid == 0`, we don't have a left neighbor, so we only consider the right neighbor.
+  - If `mid > 0`, we check if the maximum is greater than the left neighbor.
+
+- **Right Condition (`mid == m - 1 || ...`)**: 
+  - If `mid == m - 1`, we don't have a right neighbor, so we only consider the left neighbor.
+  - If `mid < m - 1`, we check if the maximum is greater than the right neighbor.
+
+### Conclusion
+
+This approach ensures that the peak-checking logic works correctly at the boundaries of the matrix, preventing any out-of-bounds access and allowing for accurate peak identification regardless of the position of the maximum element. 
+
+If you have further questions or need more clarification, feel free to ask!
 
 
 Sure! Let's go through the entire process of finding a peak element in a 2D matrix in detail, including the concepts, the algorithm, and a visual breakdown of each step.
