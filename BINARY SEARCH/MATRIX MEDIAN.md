@@ -1,5 +1,12 @@
 https://www.geeksforgeeks.org/problems/median-in-a-row-wise-sorted-matrix1527/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=median-in-a-row-wise-sorted-matrix
 
+![BS-27  Median in a Row Wise Sorted Matrix 2-6 screenshot (1)](https://github.com/user-attachments/assets/cc676cf5-d3ce-4388-ab8b-518252fe48d0)
+
+![BS-27  Median in a Row Wise Sorted Matrix 9-12 screenshot](https://github.com/user-attachments/assets/7c99367b-59f7-4df2-bb42-ce4d504b9c75)
+
+![BS-27  Median in a Row Wise Sorted Matrix 11-29 screenshot](https://github.com/user-attachments/assets/1810b2e9-932a-41d6-ae3c-809746b37d26)
+
+sort the array first
 
 
 Median of Row Wise Sorted Matrix
