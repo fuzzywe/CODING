@@ -247,3 +247,133 @@ low: 1           mid: 5   high: 9
 The initialization of `low` and `high` provides a clear and efficient way to search for the median. It narrows down the potential candidates based on the values in the matrix, allowing for faster calculations.
 
 If you still have questions or if there's a specific part that needs more clarification, let me know, and I’ll be happy to help!
+
+
+Sure! Let’s break down the algorithm to find the median in a row-wise sorted matrix with a detailed example to illustrate the math behind it.
+
+### Understanding the Problem
+
+Given a 2D matrix where each row is sorted, the goal is to find the median of all the elements in the matrix.
+
+### Example Matrix
+
+Consider the following matrix:
+
+```
+1  3  5
+2  6  9
+3  6  9
+```
+
+- **Dimensions**: 3 rows (R) and 3 columns (C).
+- **Total Elements**: R * C = 3 * 3 = 9.
+
+### Step 1: Initialization
+
+- **Low**: Initialize `low` to the minimum value in the first column, which is `1`.
+- **High**: Initialize `high` to the maximum value in the last column, which is `9`.
+
+### Step 2: Calculate Requirement
+
+- **Required Count (`req`)**: This is the position of the median, which for an odd number of elements (9 in this case) is:
+  \[
+  req = \left\lfloor \frac{R \times C}{2} \right\rfloor = \left\lfloor \frac{9}{2} \right\rfloor = 4
+  \]
+
+### Step 3: Binary Search
+
+#### First Iteration
+
+- **Calculate Mid**:
+  \[
+  mid = \frac{low + high}{2} = \frac{1 + 9}{2} = 5
+  \]
+
+- **Count Elements ≤ 5**: Call `NoOfSmallerNum(mat, 5)`:
+  - From the matrix:
+    - Row 1: `1, 3, 5` → 3 elements ≤ 5
+    - Row 2: `2, 6, 9` → 1 element ≤ 5
+    - Row 3: `3, 6, 9` → 1 element ≤ 5
+  - **Total Count**: 3 + 1 + 1 = **5**
+
+- **Comparison**:
+  \[
+  \text{smallernum} = 5 \quad (\text{which is } > 4)
+  \]
+  - Update `ans = 5` and search for smaller numbers by setting `high = mid - 1` → `high = 4`.
+
+#### Second Iteration
+
+- **Calculate Mid**:
+  \[
+  mid = \frac{low + high}{2} = \frac{1 + 4}{2} = 2
+  \]
+
+- **Count Elements ≤ 2**: Call `NoOfSmallerNum(mat, 2)`:
+  - From the matrix:
+    - Row 1: `1, 3, 5` → 1 element ≤ 2
+    - Row 2: `2, 6, 9` → 1 element ≤ 2
+    - Row 3: `3, 6, 9` → 0 elements ≤ 2
+  - **Total Count**: 1 + 1 + 0 = **2**
+
+- **Comparison**:
+  \[
+  \text{smallernum} = 2 \quad (\text{which is } < 4)
+  \]
+  - So, set `low = mid + 1` → `low = 3`.
+
+#### Third Iteration
+
+- **Calculate Mid**:
+  \[
+  mid = \frac{low + high}{2} = \frac{3 + 4}{2} = 3
+  \]
+
+- **Count Elements ≤ 3**: Call `NoOfSmallerNum(mat, 3)`:
+  - From the matrix:
+    - Row 1: `1, 3, 5` → 2 elements ≤ 3
+    - Row 2: `2, 6, 9` → 1 element ≤ 3
+    - Row 3: `3, 6, 9` → 1 element ≤ 3
+  - **Total Count**: 2 + 1 + 1 = **4**
+
+- **Comparison**:
+  \[
+  \text{smallernum} = 4 \quad (\text{which is } = 4)
+  \]
+  - Since `smallernum` is equal to `req`, we set `low = mid + 1` → `low = 4`.
+
+#### Fourth Iteration
+
+- **Calculate Mid**:
+  \[
+  mid = \frac{low + high}{2} = \frac{4 + 4}{2} = 4
+  \]
+
+- **Count Elements ≤ 4**: Call `NoOfSmallerNum(mat, 4)`:
+  - From the matrix:
+    - Row 1: `1, 3, 5` → 2 elements ≤ 4
+    - Row 2: `2, 6, 9` → 1 element ≤ 4
+    - Row 3: `3, 6, 9` → 1 element ≤ 4
+  - **Total Count**: 2 + 1 + 1 = **4**
+
+- **Comparison**:
+  \[
+  \text{smallernum} = 4 \quad (\text{which is } = 4)
+  \]
+  - Again, `smallernum` is equal to `req`, so we set `low = mid + 1` → `low = 5`.
+
+### Final Result
+
+The while loop exits because `low` (5) is greater than `high` (4). 
+
+### Conclusion
+
+- The median is found at the point where the total number of elements less than or equal to the median is exactly half the total number of elements. In this case, the median of the matrix is `5`.
+
+### Summary of the Math
+
+1. **Finding `low` and `high`**: Establishing the range for potential median values.
+2. **Binary Search**: Efficiently narrowing down the range based on counts of elements.
+3. **Count Function**: Provides critical information about how many elements are less than or equal to the current midpoint, guiding the search for the median.
+
+This structured approach efficiently finds the median in logarithmic time relative to the range of values, rather than iterating through all elements, making it suitable for larger matrices. If you have more questions or need further examples, let me know!
