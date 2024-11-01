@@ -131,7 +131,11 @@ int main()
          << median(a, b) << '\n';
 }
 
+
 ```
+
+![image](https://github.com/user-attachments/assets/4557d371-a4f2-410f-a84f-e1f8a019b68c)
+
 Time Complexity: O(log(min(n1,n2))), where n1 and n2 are the sizes of two given arrays.
 Reason: We are applying binary search on the range [0, min(n1, n2)].
 
