@@ -5,7 +5,11 @@ https://leetcode.com/problems/binary-tree-preorder-traversal/description/
 
 
 
-144. Binary Tree Preorder Traversal
+14![L37  Morris Traversal _ Preorder _ Inorder _ C++ _ Java 4-28 screenshot](https://github.com/user-attachments/assets/5a754ad1-600b-47eb-b433-2379dd94ea63)
+
+![L37  Morris Traversal _ Preorder _ Inorder _ C++ _ Java 5-36 screenshot](https://github.com/user-attachments/assets/da3565be-01d3-471c-b454-8b9a4091a5f9)
+
+4. Binary Tree Preorder Traversal
 Solved
 Easy
 Topics
