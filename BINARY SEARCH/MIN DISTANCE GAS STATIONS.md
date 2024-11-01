@@ -1,3 +1,7 @@
+https://www.geeksforgeeks.org/problems/minimize-max-distance-to-gas-station/1
+
+https://www.naukri.com/code360/problems/minimise-max-distance_7541449
+
 Minimise Maximum Distance between Gas Stations
 
 Example 1:
@@ -373,7 +377,51 @@ We will pass the potential value of ‘dist’, represented by the variable 'mid
 If result > k: On satisfying this condition, we can conclude that the number ‘mid’ is smaller than our answer. So, we will eliminate the left half and consider the right half(i.e. low = mid).
 Otherwise, the value mid is one of the possible answers. But we want the minimum value. So, we will eliminate the right half and consider the left half(i.e. high = mid).
 Finally, outside the loop, we can return either low or high as their difference is beyond 10^(-6). They both can be the possible answer. Here, we have returned the ‘high’.
+```cpp
 
+
+class Solution {
+  public:
+  int gaskdist(vector<int>&stations,long double dist)
+  {int cnt =0;
+  
+      for (int i =1;i<stations.size();i++)
+      {
+          int diff = ((stations[i] - stations[i-1])/dist);
+          if((stations[i]-stations[i-1])/dist == (dist*diff))
+          {
+              diff--;
+          }cnt += diff;
+      }return cnt;
+      
+  }
+    double findSmallestMaxDist(vector<int> &stations, int k) {
+        // Code here
+        long double low =0;
+        long double high =0;
+        long double diff = 1e-6;
+        
+        for(int i =1;i<stations.size();i++)
+        {
+            high = max(high,(long double)(stations[i] -stations[i-1]));
+        }
+        while(high - low > diff){
+            long double mid = (long double)(high+low)/(2.0);
+            int gastations = gaskdist(stations,mid);
+            if(gastations>k) low = mid;
+            else high= mid;
+        }return round(high*100.0)/100.0;
+    }
+};
+
+
+```
+
+---
+
+or  
+
+---
 
  ```cpp 
  
