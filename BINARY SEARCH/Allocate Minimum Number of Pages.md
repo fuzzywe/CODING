@@ -48,7 +48,7 @@ Finally, we will return the value of ‘students’.
 
 brute force:
 
-
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -95,7 +95,7 @@ int main()
     cout << "The answer is: " << ans << "\n";
     return 0;
 }
-
+```
 Time Complexity: O(N * (sum(arr[])-max(arr[])+1)), where N = size of the array, sum(arr[]) = sum of all array elements, max(arr[]) = maximum of all array elements.
 Reason: We are using a loop from max(arr[]) to sum(arr[]) to check all possible numbers of pages. Inside the loop, we are calling the countStudents() function for each number. Now, inside the countStudents() function, we are using a loop that runs for N times.
 
