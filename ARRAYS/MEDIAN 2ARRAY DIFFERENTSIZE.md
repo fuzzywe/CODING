@@ -33,7 +33,7 @@ Explanation:
  The array after merging 'a' and 'b' will be { 1, 2, 3, 4, 6 }. The median is simply 3.
 
 
-
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -72,13 +72,22 @@ int main()
          << median(a, b) << '\n';
 }
 
+```
+
+![FireShot Capture 002 - ChatGPT - chatgpt com](https://github.com/user-attachments/assets/88f07213-a019-4a95-8e48-7d4431ef5a7b)
+
 Time Complexity: O(n1+n2), where  n1 and n2 are the sizes of the given arrays.
 Reason: We traverse through both arrays linearly.
 
 Space Complexity: O(n1+n2), where  n1 and n2 are the sizes of the given arrays.
-Reason: We are using an extra array of size (n1+n2) to solve this problem.
+Reason: We are using an extra array of size (n1+n2) to solve this problem
 
-  best soln:
+---.
+
+**  best soln:**
+
+```cpp
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -121,6 +130,8 @@ int main()
     cout << "The median of two sorted array is " << fixed << setprecision(1)
          << median(a, b) << '\n';
 }
+
+```
 Time Complexity: O(log(min(n1,n2))), where n1 and n2 are the sizes of two given arrays.
 Reason: We are applying binary search on the range [0, min(n1, n2)].
 
