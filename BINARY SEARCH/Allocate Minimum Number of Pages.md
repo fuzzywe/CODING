@@ -1,3 +1,15 @@
+
+
+https://www.naukri.com/code360/problems/allocate-books_1090540?utm_source=youtube&utm_medium=affiliate&utm_campaign=codestudio_Striver_BinarySeries&leftPanelTabValue=PROBLEM
+
+
+https://www.interviewbit.com/problems/allocate-books/
+
+
+https://www.geeksforgeeks.org/problems/allocate-minimum-number-of-pages0937/1
+
+
+
 Allocate Minimum Number of Pages
 Example 1:
 Input Format:
