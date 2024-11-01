@@ -123,7 +123,6 @@ public:
 ![image](https://github.com/user-attachments/assets/c1c044ea-abd7-4fea-9634-33c0c7ad145b)
 
 
-![FireShot Capture 004 - ChatGPT - chatgpt com](https://github.com/user-attachments/assets/e4620c18-f5a4-4847-b664-d78ada9519f2)
 
 
 
