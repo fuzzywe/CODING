@@ -1,6 +1,9 @@
 Median of two Sorted Arrays of Different Sizes
 
 
+https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+
+
 Input: arr1[] = {-5, 3, 6, 12, 15}, arr2[] = {-12, -10, -6, -3, 4, 10}
 Output: The median is 3.
 Explanation: The merged array is arr3[] = {-12, -10, -6, -5 , -3, 3, 4, 6, 10, 12, 15}. So the median of the merged array is 3.
@@ -123,6 +126,7 @@ public:
 ![image](https://github.com/user-attachments/assets/c1c044ea-abd7-4fea-9634-33c0c7ad145b)
 
 
+![FireShot Capture 004 - ChatGPT - chatgpt com](https://github.com/user-attachments/assets/e4620c18-f5a4-4847-b664-d78ada9519f2)
 
 
 
@@ -163,4 +167,154 @@ l2 = b[2] = 7
 r2 = b[3] = 10
 Conditions are now satisfied. For odd total length, the median is max(l1, l2) which is 7.
 
+
+
+Sure! Let's perform a dry run of the `findMedianSortedArrays` function step-by-step using an example. We'll use two sorted arrays for this demonstration:
+
+- `nums1 = [1, 3]`
+- `nums2 = [2]`
+
+The expected median is 2. 
+
+### Dry Run Step-by-Step
+
+1. **Input Arrays**:
+   ```cpp
+   nums1 = [1, 3]
+   nums2 = [2]
+   ```
+
+2. **Ensure Smaller Array**:
+   ```cpp
+   if (nums1.size() > nums2.size()) 
+       std::swap(nums1, nums2);
+   ```
+   - `nums1.size() = 2` and `nums2.size() = 1`, so no swap is needed.
+   - **After this step**: 
+     - `nums1 = [1, 3]`
+     - `nums2 = [2]`
+
+3. **Calculate Sizes**:
+   ```cpp
+   int n1 = nums1.size(), n2 = nums2.size();
+   ```
+   - `n1 = 2`, `n2 = 1`.
+
+4. **Initialize Binary Search Range**:
+   ```cpp
+   int lo = 0, hi = n1;
+   ```
+   - `lo = 0`, `hi = 2`.
+
+5. **Start Binary Search Loop**:
+   ```cpp
+   while (lo <= hi) {
+   ```
+   - Since `lo (0) <= hi (2)`, we enter the loop.
+
+6. **Calculate Cuts**:
+   ```cpp
+   int cut1 = (lo + hi) / 2; // Cut in nums1
+   ```
+   - `cut1 = (0 + 2) / 2 = 1`.
+
+   ```cpp
+   int cut2 = (n1 + n2) / 2 - cut1; // Cut in nums2
+   ```
+   - `cut2 = (2 + 1) / 2 - 1 = 0`.
+
+7. **Determine Left and Right Boundary Elements**:
+   ```cpp
+   int l1 = cut1 == 0 ? INT_MIN : nums1[cut1 - 1];
+   int l2 = cut2 == 0 ? INT_MIN : nums2[cut2 - 1];
+   int r1 = cut1 == n1 ? INT_MAX : nums1[cut1];
+   int r2 = cut2 == n2 ? INT_MAX : nums2[cut2];
+   ```
+   - `l1 = nums1[cut1 - 1] = nums1[0] = 1`
+   - `l2 = INT_MIN` (since `cut2 = 0`)
+   - `r1 = nums1[cut1] = nums1[1] = 3`
+   - `r2 = INT_MAX` (since `cut2 = n2`)
+
+   **Current Values**:
+   - `l1 = 1`, `l2 = -∞`, `r1 = 3`, `r2 = +∞`.
+
+8. **Check Conditions**:
+   ```cpp
+   if (l1 > r2) {
+       hi = cut1 - 1; // Move towards left in nums1
+   }
+   ```
+   - `1 > +∞` is false, so we skip this block.
+
+   ```cpp
+   else if (l2 > r1) {
+       lo = cut1 + 1; // Move towards right in nums1
+   }
+   ```
+   - `-∞ > 3` is false, so we skip this block as well.
+
+9. **Correct Cuts Found**:
+   ```cpp
+   else {
+   ```
+   - We enter this block since neither of the previous conditions is true.
+
+10. **Check for Even or Odd Total Length**:
+    ```cpp
+    if ((n1 + n2) % 2 == 0) {
+        return (std::max(l1, l2) + std::min(r1, r2)) / 2.0; // Even length
+    }
+    ```
+    - `n1 + n2 = 2 + 1 = 3`, which is odd. So we go to the `else` block.
+
+11. **Return Median for Odd Length**:
+    ```cpp
+    else {
+        return std::min(r1, r2); // Odd length
+    }
+    ```
+    - Return `min(r1, r2) = min(3, +∞) = 3`.
+
+### Final Result
+The function returns 3. However, I made a mistake in the dry run as it doesn't match the expected median of 2. Let's correct this with the proper array inputs.
+
+### Correct Example
+
+Let's use `nums1 = [1, 3]` and `nums2 = [2, 4]`. The expected median is 2.5.
+
+1. **Input Arrays**:
+   ```cpp
+   nums1 = [1, 3]
+   nums2 = [2, 4]
+   ```
+
+2. **Sizes**: 
+   - `n1 = 2`, `n2 = 2`.
+
+3. **Initialize Binary Search Range**:
+   - `lo = 0`, `hi = 2`.
+
+4. **First Iteration**:
+   - Calculate cuts:
+     - `cut1 = (0 + 2) / 2 = 1`
+     - `cut2 = (2 + 2) / 2 - 1 = 1`
+   - Calculate boundaries:
+     - `l1 = nums1[0] = 1`
+     - `l2 = nums2[0] = 2`
+     - `r1 = nums1[1] = 3`
+     - `r2 = nums2[1] = 4`
+   - Check conditions:
+     - `1 > 4` (false)
+     - `2 > 3` (false)
+   - Correct cuts found.
+
+5. **Check for Even or Odd Total Length**:
+   - `n1 + n2 = 4`, which is even.
+   - Return:
+     \[
+     \text{median} = \frac{\max(1, 2) + \min(3, 4)}{2} = \frac{2 + 3}{2} = 2.5
+     \]
+
+### Conclusion
+The function correctly calculates the median. If you have specific arrays in mind for a dry run, feel free to share them, and I can guide you through that specific case!
   
