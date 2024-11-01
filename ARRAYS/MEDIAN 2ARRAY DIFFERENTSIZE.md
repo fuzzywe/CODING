@@ -4,6 +4,9 @@ Median of two Sorted Arrays of Different Sizes
 https://leetcode.com/problems/median-of-two-sorted-arrays/description/
 
 
+https://www.geeksforgeeks.org/problems/median-of-2-sorted-arrays-of-different-sizes/1
+
+
 Input: arr1[] = {-5, 3, 6, 12, 15}, arr2[] = {-12, -10, -6, -3, 4, 10}
 Output: The median is 3.
 Explanation: The merged array is arr3[] = {-12, -10, -6, -5 , -3, 3, 4, 6, 10, 12, 15}. So the median of the merged array is 3.
