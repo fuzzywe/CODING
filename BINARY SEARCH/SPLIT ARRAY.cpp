@@ -1,4 +1,7 @@
-Split Array - Largest Sum
+Split Array - Largest Sum and allocate books are exactly the same.
+
+
+ https://leetcode.com/problems/split-array-largest-sum/
 
 
 
