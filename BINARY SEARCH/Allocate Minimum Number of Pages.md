@@ -230,6 +230,8 @@ The maximum possible minimum distance is: 3
   
 **optimal solution:**
 
+```cpp
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -279,7 +281,7 @@ int main()
     cout << "The answer is: " << ans << "\n";
     return 0;
 }
-
+```
 Output:The answer is: 71.
 
 Complexity Analysis
