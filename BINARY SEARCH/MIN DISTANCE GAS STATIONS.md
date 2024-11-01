@@ -23,39 +23,73 @@ Observation: A possible arrangement for placing 2 gas stations is as follows: {1
 
 Conclusions:
 
-From the above observation, we can conclude that placing new gas stations before the first existing station or after the last existing station will make no difference to the maximum distance between two consecutive stations.
+From the above observation, we can conclude that placing new gas stations before the first existing station or after the 
+
+last existing station will make no difference to the maximum distance between two consecutive stations.
+ 
 So, in order to minimize the maximum distance we have to place the new gas stations in between the existing stations.
+ 
 How to place the gas stations in between so that the maximum distance is minimized:
 
-Until now we have figured out that we have to place the gas stations in between the existing ones. But we have to place them in such a way that the maximum distance between two consecutive stations is the minimum possible. 
+Until now we have figured out that we have to place the gas stations in between the existing ones. 
+ 
+ But we have to place them in such a way that the maximum distance between two consecutive stations is the minimum possible.
+ 
 Let’s understand this considering the previous example. Given gas stations = {1, 7} and k = 2.
-If we place the gas stations as follows: {1, 2, 6, 7}, the maximum distance will be 4(i.e. 6-2 = 4). But if we place them like this: {1, 3, 5, 7}, the maximum distance boils down to 2. It can be proved that we cannot make the maximum distance lesser than 2.
-To minimize the maximum distance between gas stations, we need to insert new stations with equal spacing. If we have to add 'k' gas stations within a section of length 'section_length', each station should be placed at a distance of
+
+If we place the gas stations as follows: {1, 2, 6, 7}, the maximum distance will be 4(i.e. 6-2 = 4).
+ 
+ But if we place them like this: {1, 3, 5, 7}, the maximum distance boils down to 2. It can be proved that we cannot make the maximum distance lesser than 2.
+ 
+To minimize the maximum distance between gas stations, we need to insert new stations with equal spacing. 
+ 
+ If we have to add 'k' gas stations within a section of length 'section_length', each station should be placed at a distance of
 (section_length / (k + 1)) from one another.
+ 
 This way, we maintain a uniform spacing between consecutive gas stations.
 
-For example, the gas stations are = {1, 7} and k = 2. Here, the ‘dist’ is = (7-1) = 6. So, the space between two gas stations will be dis / (k+1) = 6 / (2+1) = 2. The placements will be as follows: {1, 3, 5, 7}.
+For example, the gas stations are = {1, 7} and k = 2. Here, the ‘dist’ is = (7-1) = 6. 
+
+So, the space between two gas stations will be dis / (k+1) = 6 / (2+1) = 2. The placements will be as follows: {1, 3, 5, 7}.
 
 BRUTE FORCE
   
 Naive Approach: 
-We are given n gas stations. Between them, there are n-1 sections where we may insert the new stations to reduce the distance. So, we will create an array of size n-1 and each of its indexes will represent the respective sections between the given gas stations. 
+We are given n gas stations. Between them, there are n-1 sections where we may insert the new stations to reduce the distance. 
 
-In each iteration, we will identify the index 'i' where the distance (arr[i+1] - arr[i]) is the maximum. Then, we will insert new stations into that section to reduce that maximum distance. The number of stations inserted in each section will be tracked using the previously declared array of size n-1.
+So, we will create an array of size n-1 and each of its indexes will represent the respective sections between the given gas stations. 
 
-Finally, after placing all the stations we will find the maximum distance between two consecutive stations. To calculate the distance using the previously discussed formula, we will just do as follows for each section:
+In each iteration, we will identify the index 'i' where the distance (arr[i+1] - arr[i]) is the maximum. Then, 
+ 
+ we will insert new stations into that section to reduce that maximum distance. The number of stations inserted in each section
+
+will be tracked using the previously declared array of size n-1.
+
+Finally, after placing all the stations we will find the maximum distance between two consecutive stations. 
+ 
+ To calculate the distance using the previously discussed formula, we will just do as follows for each section:
+
 distance = section_length / (number_of_stations_ inserted+1)
 
 Among all the values of ‘distance’, the maximum one will be our answer.
 
 Algorithm:
 First, we will declare an array ‘howMany[]’ of size n-1, to keep track of the number of placed gas stations.
+ 
 Next, using a loop we will pick k gas stations one at a time.
-Then, using another loop, we will find the index 'i' where the distance (arr[i+1] - arr[i]) is the maximum and insert the current gas station between arr[i] and arr[i+1] (i.e. howMany[i]++).
+ 
+Then, using another loop, we will find the index 'i' 
+ 
+ where the distance (arr[i+1] - arr[i]) is the maximum and insert the current gas station between arr[i] and arr[i+1] (i.e. howMany[i]++).
+
 Finally, after placing all the new stations, we will find the distance between two consecutive gas stations. For a particular section,
+ 
 distance = section_length / (number_of_stations_ inserted+1)
+ 
     = (arr[i+1]-arr[i]) / (howMany[i]+1)
+ 
 Among all the distances, the maximum one will be the answer.
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -102,6 +136,8 @@ int main()
     cout << "The answer is: " << ans << "\n";
     return 0;
 }
+
+```
 Time Complexity: O(k*n) + O(n), n = size of the given array, k = no. of gas stations to be placed.
 Reason: O(k*n) to insert k gas stations between the existing stations with maximum distance. Another O(n) for finding the answer i.e. the maximum distance.
 
@@ -338,6 +374,9 @@ If result > k: On satisfying this condition, we can conclude that the number ‘
 Otherwise, the value mid is one of the possible answers. But we want the minimum value. So, we will eliminate the right half and consider the left half(i.e. high = mid).
 Finally, outside the loop, we can return either low or high as their difference is beyond 10^(-6). They both can be the possible answer. Here, we have returned the ‘high’.
 
+
+ ```cpp 
+ 
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -387,6 +426,8 @@ int main()
     cout << "The answer is: " << ans << "\n";
     return 0;
 }
+
+```
 Time Complexity: O(n*log(Len)) + O(n), n = size of the given array, Len = length of the answer space.
 Reason: We are applying binary search on the answer space. For every possible answer, we are calling the function numberOfGasStationsRequired() that takes O(n) time complexity. And another O(n) for finding the maximum distance initially.
 
