@@ -1,6 +1,10 @@
 Kth Missing Positive Number
 
+https://www.naukri.com/code360/problems/kth-missing-element_893215?leftPanelTabValue=PROBLEM
 
+https://leetcode.com/problems/kth-missing-positive-number/
+
+https://www.geeksforgeeks.org/problems/k-th-missing-element3635/0
 
 Problem Statement: You are given a strictly increasing array ‘vec’ and a positive integer 'k'. Find the 'kth' positive integer missing from 'vec'.
 
