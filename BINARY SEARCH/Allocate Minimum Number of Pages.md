@@ -226,9 +226,9 @@ The maximum possible minimum distance between cows is `3`.
 ```
 The maximum possible minimum distance is: 3
 ```
-
+---
   
-optimal solution:
+**optimal solution:**
 
 #include <bits/stdc++.h>
 using namespace std;
