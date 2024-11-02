@@ -25,27 +25,31 @@ Output: 0
 
 OPTIMAL 
 
-```cpp
-
 class Solution {
 public:
-    int addDigits(int num) {
-        string s=to_string(num);
-        int k=10;
-        while(k>9)
-        {
-            k=0;
-            for(int i=0;i<s.size();i++)
-            {
-                k+=s[i]-48;
-            }
-            s=to_string(k);
+    string addStrings(string num1, string num2) {
+        string result;
+        int i = num1.length() - 1, j = num2.length() - 1, carry = 0, sum;
+
+        while (i >= 0 || j >= 0 || carry > 0) {
+            int digit1 = (i >= 0) ? num1[i--] - '0' : 0;
+            int digit2 = (j >= 0) ? num2[j--] - '0' : 0;
+
+            sum = digit1 + digit2 + carry;
+            result.push_back((sum % 10) + '0');  // Append the last digit of sum as a character
+            carry = sum / 10;  // Update carry for the next iteration
         }
-        return k;
+
+        reverse(result.begin(), result.end());  // Reverse the result to get the correct order
+        return result;
     }
 };
 
-```
+
+---
+
+
+
 
 Let’s visually walk through the process of how the loop adds two strings digit by digit, just like you would with long addition. Imagine we have two numbers as strings, `num1 = "123"` and `num2 = "7890"`. We’ll start from the right (the least significant digit) and move left, keeping track of any carry.
 
@@ -122,3 +126,26 @@ When we subtract `'3' - '0'`, we get:
 - **51 - 48 = 3**
 
 This is why the line `digit1 = num1[i] - '0'` effectively converts the character at `num1[i]` to an integer. This method works for any single character digit and is a standard way in C++ and other languages to convert a character from `0` to `9` into its numeric value.
+
+
+```cpp
+
+class Solution {
+public:
+    int addDigits(int num) {
+        string s=to_string(num);
+        int k=10;
+        while(k>9)
+        {
+            k=0;
+            for(int i=0;i<s.size();i++)
+            {
+                k+=s[i]-48;
+            }
+            s=to_string(k);
+        }
+        return k;
+    }
+};
+
+```
