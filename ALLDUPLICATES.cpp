@@ -1,3 +1,7 @@
+
+
+
+```cpp
 class Solution {
 public:
     vector<int> findDuplicates(vector<int>& nums) {
@@ -24,6 +28,8 @@ public:
 
     
 };
+
+```
 Time Complexity: 
 
 O(n), where 
@@ -37,6 +43,9 @@ n+1 to store frequencies. Additionally, the space for storing the result (vector
 
 O(n).
 JUST MODIFICATION OF THIS CODE IN DUPLICATES IN ARRAY:
+
+```cpp
+
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -59,6 +68,7 @@ int main() {
   arr = {1,3,4,2,3};
   cout << "The duplicate element is " << findDuplicate(arr) << endl;
 }
+```
 
 optimized soln:
 The code you provided is based on Floyd's Cycle Detection Algorithm (Tortoise and Hare), 
@@ -78,8 +88,8 @@ et's modify your current approach to a more appropriate solution that works with
 Optimized Code:
 Here's a solution that finds all duplicates in the list:
 
-cpp
-Copy code
+```cpp
+    
 class Solution {
 public:
     vector<int> findDuplicates(vector<int>& nums) {
@@ -102,6 +112,8 @@ public:
         return result;
     }
 };
+
+```
 Explanation:
 We loop through each element in the array.
 For each number, we calculate its absolute value and treat it as an index (adjusted by -1
