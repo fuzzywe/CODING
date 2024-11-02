@@ -1,3 +1,13 @@
+
+https://www.naukri.com/code360/problems/reverse-the-singly-linked-list_799897
+
+https://www.geeksforgeeks.org/problems/reverse-a-linked-list/1
+
+https://leetcode.com/problems/reverse-linked-list/
+
+
+https://www.codechef.com/practice/course/interview-dsa/DSAPREP_08/problems/RTLL
+
 Reverse a Linked List
 
 Input Format:
