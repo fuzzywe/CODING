@@ -132,6 +132,8 @@ public:
             bucketSmallest[index] = min(bucketSmallest[index], nums[i]);
         }
 ```
+![02 11 2024_14 48 54_REC](https://github.com/user-attachments/assets/34306ecb-097f-4f2a-a1a7-a16ec1add800)
+
 
 5. **`for` loop to distribute elements into buckets**:
    - For each element `nums[i]`, we calculate its bucket index using:
