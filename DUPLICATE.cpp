@@ -1,5 +1,6 @@
 https://leetcode.com/problems/find-the-duplicate-number/description/
 
+https://www.naukri.com/code360/problems/duplicate-in-array_893397?leftPanelTabValue=PROBLEM
 
 
 
@@ -119,13 +120,21 @@ O(1)
 
 
 frequency array:
-n = arr.size();
-int freq[n+1] ={0};
-for (int i=0;i<=n;i++){
-if(freq(arr[i]==0)
-{
-freq(arr[i]) +=1;}
-else {return arr[i];}}
-return 0;
+
+int findDuplicate(vector<int> &arr) 
+{int n = arr.size();
+    // Write your code here
+	 vector<int> freq(n + 1, 0);
+    for(int i=0;i<arr.size();i++)
+    {
+        if(freq[arr[i]]==0)
+        {
+            freq[arr[i]] +=1;
+        }
+        else
+        return arr[i];
+    }return 0;
+}
+
 TC :O(N);
 SC O(N);
