@@ -50,3 +50,53 @@ Example 4:
 Input: root = [1]
 
 Output: [1]
+
+
+```cpp
+
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> preorder;
+        TreeNode* cur = root;
+
+        while (cur != NULL) {
+            // If the current node has no left child
+            if (cur->left == NULL) {
+                // Add the value of the current node to the preorder vector
+                preorder.push_back(cur->val);
+                
+                // Move to the right child
+                cur = cur->right;
+            } else {
+                // Find the rightmost node in the left subtree
+                TreeNode* prev = cur->left;
+                while (prev->right && prev->right != cur) {
+                    prev = prev->right;
+                }
+
+                if (prev->right == NULL) {
+                    // Set the right child of the rightmost node to the current node
+                    prev->right = cur;
+                    
+                    // Add the current node value (for preorder)
+                    preorder.push_back(cur->val);
+                    
+                    // Move to the left child
+                    cur = cur->left;
+                } else {
+                    // If the right child of the rightmost node is not NULL, reset it
+                    prev->right = NULL;
+                    
+                    // Move to the right child
+                    cur = cur->right;
+                }
+            }
+        }
+
+        return preorder;
+    }
+};
+
+
+```
