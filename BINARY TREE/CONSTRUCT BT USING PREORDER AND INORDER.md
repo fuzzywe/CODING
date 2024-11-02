@@ -17,214 +17,163 @@ Example 2:
 Input: preorder = [-1], inorder = [-1]
 Output: [-1]
 
+To construct a binary tree from **preorder** and **inorder** traversal arrays, we use the following approach:
+
+1. **Preorder traversal** provides the root nodes in sequence, i.e., the first element in the preorder array is always the root of the tree (or subtree).
+2. **Inorder traversal** provides the left and right subtrees relative to each root node. For any root node, elements to the left of it in the inorder array are part of the left subtree, and elements to the right are part of the right subtree.
+
+### Algorithm to Build the Tree
+
+1. Start with the root node as the first element of the preorder traversal.
+2. Locate this root in the inorder traversal; this divides the tree into left and right subtrees in the inorder array.
+3. Recursively apply this process for left and right subtrees using slices of preorder and inorder arrays.
+
+Here’s the code implementation:
+
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-unordered_map<int,int>mp;
-int preorderIndex;
+    int preIndex; // To keep track of the current root in preorder traversal
 
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        mp.clear();
-        for(int i=0;i<inorder.size();i++){
-            mp[inorder[i]] = i;
-
-        }
-        int preorderIndex=0;
-        return build(preorder,0,inorder.size()-1);
+        preIndex = 0; // Start from the first element in preorder
+        return build(preorder, inorder, 0, inorder.size() - 1);
     }
-    TreeNode* build(vector<int>& preorder,int start,int end){
-        if(start>end) return nullptr;
-        int rootval= preorder[preorderIndex++];
-        TreeNode* root= new TreeNode(rootval);
-        int mid = mp[rootval];
-        root->left= build(preorder,start,mid-1);
-        root->right= build(preorder,mid+1,end);
+
+private:
+    TreeNode* build(vector<int>& preorder, vector<int>& inorder, int inStart, int inEnd) {
+        // Base case: if there are no elements to construct the subtree
+        if (inStart > inEnd) {
+            return nullptr;
+        }
+
+        // Get the root value from the preorder traversal and increment the index
+        int rootVal = preorder[preIndex++];
+        TreeNode* root = new TreeNode(rootVal); // Create the root node
+
+        // Find the index of the root in the inorder traversal
+        int rootIndex = inStart;
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == rootVal) {
+                rootIndex = i;
+                break;
+            }
+        }
+
+        // Recursively build the left and right subtrees
+        root->left = build(preorder, inorder, inStart, rootIndex - 1);
+        root->right = build(preorder, inorder, rootIndex + 1, inEnd);
+
         return root;
-
     }
 };
 ```
-Let's go through this `buildTree` function and `build` helper function line by line, explaining each line's purpose, followed by a dry run on a sample input.
 
-### Code Explanation
+### Dry Run and Visual Explanation
 
+Let's go through this code line-by-line with an example.
+
+**Example Input:**
 ```cpp
-class Solution {
-public:
-    unordered_map<int,int> mp;  // Stores indices of elements in the inorder traversal
-    int preorderIndex;          // Tracks the current root element in the preorder traversal
-
-    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
-        mp.clear();             // Clear any previous data in the map
-        
-        // Map elements of inorder array to their indices for quick access
-        for (int i = 0; i < inorder.size(); i++) {
-            mp[inorder[i]] = i;
-        }
-        
-        preorderIndex = 0;      // Initialize the preorder index to start from the root element
-        return build(preorder, 0, inorder.size() - 1);  // Begin recursive tree building
-    }
-
-    TreeNode* build(vector<int>& preorder, int start, int end) {
-        // Base case: If the current subtree range is invalid, return nullptr
-        if (start > end) return nullptr;
-
-        // Get the current root value from preorder and increment preorder index
-        int rootval = preorder[preorderIndex++];
-        
-        // Create a new tree node with this root value
-        TreeNode* root = new TreeNode(rootval);
-        
-        // Find the index of this root value in the inorder traversal
-        int mid = mp[rootval];
-
-        // Recursively build the left subtree with the range left of the root in inorder
-        root->left = build(preorder, start, mid - 1);
-        
-        // Recursively build the right subtree with the range right of the root in inorder
-        root->right = build(preorder, mid + 1, end);
-        
-        return root; // Return the current subtree rooted at this node
-    }
-};
+preorder = {3, 9, 20, 15, 7};
+inorder = {9, 3, 15, 20, 7};
 ```
+
+**Goal:** Construct the tree based on the given traversals.
 
 ---
 
-### Example Input for Dry Run
+### Step-by-Step Construction
 
-Let's take the following input arrays:
+1. **Initialize** `preIndex = 0` (pointing to the first element in `preorder`).
 
-```cpp
-preorder = [3, 9, 20, 15, 7];
-inorder = [9, 3, 15, 20, 7];
-```
+2. **Root Node `3`**
+   - `preorder[preIndex] = 3`, so `3` is the root.
+   - Increment `preIndex` to 1.
+   - Locate `3` in `inorder` at index 1. Elements to the left (`{9}`) are part of the left subtree, and elements to the right (`{15, 20, 7}`) are part of the right subtree.
 
-The tree to be constructed is:
+   **Tree Structure:**
+   ```
+       3
+      / \
+   [left] [right]
+   ```
 
-```
-        3
-       / \
-      9   20
-         /  \
-        15   7
-```
+3. **Left Subtree of `3` (Root Node `9`)**
+   - `preorder[preIndex] = 9`, so `9` is the left child of `3`.
+   - Increment `preIndex` to 2.
+   - Locate `9` in `inorder` at index 0. There are no elements on either side, so both left and right subtrees are `nullptr`.
 
-### Dry Run
+   **Tree Structure:**
+   ```
+       3
+      / \
+     9   [right]
+   ```
 
-1. **`buildTree` Function Call**
-    - **Input**: `preorder = [3, 9, 20, 15, 7]`, `inorder = [9, 3, 15, 20, 7]`.
-    - **Steps**:
-      - `mp.clear()`: Clears any previous entries in the map.
-      - Loop to populate `mp`:
-        - `i = 0`: `mp[9] = 0`
-        - `i = 1`: `mp[3] = 1`
-        - `i = 2`: `mp[15] = 2`
-        - `i = 3`: `mp[20] = 3`
-        - `i = 4`: `mp[7] = 4`
-      - `preorderIndex = 0`: Initialize `preorderIndex` to start at the beginning of `preorder`.
-      - Call `build(preorder, 0, 4)`.
+4. **Right Subtree of `3` (Root Node `20`)**
+   - `preorder[preIndex] = 20`, so `20` is the right child of `3`.
+   - Increment `preIndex` to 3.
+   - Locate `20` in `inorder` at index 3. Elements to the left (`{15}`) form the left subtree, and elements to the right (`{7}`) form the right subtree.
 
-2. **First Call to `build(preorder, 0, 4)`**
-    - **Purpose**: This call is to construct the entire tree.
-    - **Steps**:
-      - **Base Case**: `start (0) <= end (4)`, so we proceed.
-      - `rootval = preorder[0] = 3`: Get the current root value, and increment `preorderIndex` to `1`.
-      - `root = new TreeNode(3)`: Create a new node with value `3`.
-      - `mid = mp[3] = 1`: Find index of `3` in `inorder`.
-      - Call `build(preorder, 0, 0)` to build the left subtree of `3`.
-    
-3. **Second Call to `build(preorder, 0, 0)`**
-    - **Purpose**: To construct the left subtree of node `3`.
-    - **Steps**:
-      - **Base Case**: `start (0) <= end (0)`, so we proceed.
-      - `rootval = preorder[1] = 9`: Get the current root value, and increment `preorderIndex` to `2`.
-      - `root = new TreeNode(9)`: Create a new node with value `9`.
-      - `mid = mp[9] = 0`: Find index of `9` in `inorder`.
-      - Call `build(preorder, 0, -1)` to build the left subtree of `9`.
+   **Tree Structure:**
+   ```
+       3
+      / \
+     9   20
+        /  \
+      [left] [right]
+   ```
 
-4. **Third Call to `build(preorder, 0, -1)`**
-    - **Purpose**: To construct the left subtree of node `9`.
-    - **Steps**:
-      - **Base Case**: `start (0) > end (-1)`, so we return `nullptr`.
-    
-5. **Back to Second Call: `build(preorder, 0, 0)`**
-    - **Purpose**: Now construct the right subtree of node `9`.
-    - Call `build(preorder, 1, 0)`.
+5. **Left Subtree of `20` (Root Node `15`)**
+   - `preorder[preIndex] = 15`, so `15` is the left child of `20`.
+   - Increment `preIndex` to 4.
+   - Locate `15` in `inorder` at index 2. There are no elements on either side, so both left and right subtrees are `nullptr`.
 
-6. **Fourth Call to `build(preorder, 1, 0)`**
-    - **Purpose**: To construct the right subtree of node `9`.
-    - **Steps**:
-      - **Base Case**: `start (1) > end (0)`, so we return `nullptr`.
+   **Tree Structure:**
+   ```
+       3
+      / \
+     9   20
+        /  \
+       15   [right]
+   ```
 
-7. **Back to First Call: `build(preorder, 0, 4)`**
-    - **Purpose**: Now construct the right subtree of node `3`.
-    - Call `build(preorder, 2, 4)`.
+6. **Right Subtree of `20` (Root Node `7`)**
+   - `preorder[preIndex] = 7`, so `7` is the right child of `20`.
+   - Increment `preIndex` to 5 (end of `preorder` array).
+   - Locate `7` in `inorder` at index 4. There are no elements on either side, so both left and right subtrees are `nullptr`.
 
-8. **Fifth Call to `build(preorder, 2, 4)`**
-    - **Purpose**: To construct the right subtree of node `3`.
-    - **Steps**:
-      - **Base Case**: `start (2) <= end (4)`, so we proceed.
-      - `rootval = preorder[2] = 20`: Get the current root value, and increment `preorderIndex` to `3`.
-      - `root = new TreeNode(20)`: Create a new node with value `20`.
-      - `mid = mp[20] = 3`: Find index of `20` in `inorder`.
-      - Call `build(preorder, 2, 2)` to build the left subtree of `20`.
+   **Final Tree Structure:**
+   ```
+       3
+      / \
+     9   20
+        /  \
+       15   7
+   ```
 
-9. **Sixth Call to `build(preorder, 2, 2)`**
-    - **Purpose**: To construct the left subtree of node `20`.
-    - **Steps**:
-      - **Base Case**: `start (2) <= end (2)`, so we proceed.
-      - `rootval = preorder[3] = 15`: Get the current root value, and increment `preorderIndex` to `4`.
-      - `root = new TreeNode(15)`: Create a new node with value `15`.
-      - `mid = mp[15] = 2`: Find index of `15` in `inorder`.
-      - Call `build(preorder, 2, 1)` to build the left subtree of `15`.
+### Final Tree Representation
 
-10. **Seventh Call to `build(preorder, 2, 1)`**
-    - **Purpose**: To construct the left subtree of node `15`.
-    - **Steps**:
-      - **Base Case**: `start (2) > end (1)`, so we return `nullptr`.
-
-11. **Back to Sixth Call: `build(preorder, 2, 2)`**
-    - **Purpose**: Now construct the right subtree of node `15`.
-    - Call `build(preorder, 3, 2)`.
-
-12. **Eighth Call to `build(preorder, 3, 2)`**
-    - **Purpose**: To construct the right subtree of node `15`.
-    - **Steps**:
-      - **Base Case**: `start (3) > end (2)`, so we return `nullptr`.
-
-13. **Back to Fifth Call: `build(preorder, 2, 4)`**
-    - **Purpose**: Now construct the right subtree of node `20`.
-    - Call `build(preorder, 4, 4)`.
-
-14. **Ninth Call to `build(preorder, 4, 4)`**
-    - **Purpose**: To construct the right subtree of node `20`.
-    - **Steps**:
-      - **Base Case**: `start (4) <= end (4)`, so we proceed.
-      - `rootval = preorder[4] = 7`: Get the current root value.
-      - `root = new TreeNode(7)`: Create a new node with value `7`.
-      - `mid = mp[7] = 4`: Find index of `7` in `inorder`.
-      - Call `build(preorder, 4, 3)` for the left subtree of `7`.
-
-15. **Tenth Call to `build(preorder, 4, 3)`**
-    - **Base Case**: `start (4) > end (3)`, so return `nullptr`.
-
-16. **Back to Ninth Call: `build(preorder, 4, 4)`**
-    - **Purpose**: Now construct the right subtree
-
- of node `7`.
-    - Call `build(preorder, 5, 4)`.
-
-17. **Eleventh Call to `build(preorder, 5, 4)`**
-    - **Base Case**: `start (5) > end (4)`, so return `nullptr`.
-
-All nodes are now connected, forming the tree:
+The final binary tree structure from the given `preorder` and `inorder` arrays is:
 
 ```
-        3
-       / \
-      9   20
-         /  \
-        15   7
+       3
+      / \
+     9   20
+        /  \
+       15   7
 ```
+
+This completes the tree construction using the `preorder` and `inorder` traversals. Let me know if you'd like any additional clarification!
