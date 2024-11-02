@@ -43,6 +43,8 @@ Explanation:
 
 The only special character in word is 'b'.
 
+BIT MANIPULATION
+
 
 ```cpp
 
@@ -64,6 +66,32 @@ public:
         }
         
         return ans;
+    }
+};
+
+```
+
+---
+
+```cpp
+
+class Solution {
+public:
+    int numberOfSpecialChars(string word) {
+        unordered_set<int> st; 
+        for(int i=0;i<word.size();i++){
+            int temp = word[i];
+            st.insert(temp);
+        }
+        int count = 0;
+        for(auto it:st){
+            if(it>=65 && it<=90){
+                if(st.find(it+32) != st.end()){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 };
 
