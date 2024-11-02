@@ -17,48 +17,8 @@ Example 2:
 Input: inorder = [-1], postorder = [-1]
 Output: [-1]
 
-```cpp
-class Solution {
-public:
-    unordered_map<int, int> mp;      // Stores the indices of elements in inorder traversal
-    int postorderIndex;              // Tracks the current root element in postorder traversal
 
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        mp.clear();                  // Clear the map for reuse
-        
-        // Map elements of inorder array to their indices
-        for (int i = 0; i < inorder.size(); i++) {
-            mp[inorder[i]] = i;
-        }
-        
-        postorderIndex = postorder.size() - 1;  // Start from the end of postorder (last element is the root)
-        return build(postorder, 0, inorder.size() - 1);  // Begin recursive tree building
-    }
 
-    TreeNode* build(vector<int>& postorder, int start, int end) {
-        // Base case: if there are no elements to construct the subtree
-        if (start > end) return nullptr;
-
-        // Get the current root value from postorder and decrement postorderIndex
-        int rootVal = postorder[postorderIndex--];
-
-        // Create the root node with this value
-        TreeNode* root = new TreeNode(rootVal);
-
-        // Find the index of this root in inorder traversal to split left and right subtrees
-        int mid = mp[rootVal];
-
-        // Recursively build the right subtree first, since we're moving backwards in postorder
-        root->right = build(postorder, mid + 1, end);
-        
-        // Recursively build the left subtree
-        root->left = build(postorder, start, mid - 1);
-        
-        return root;  // Return the constructed subtree rooted at this node
-    }
-};
-
-```
 
 Let's go through a line-by-line dry run of the `buildTree` function and the recursive `build` function for constructing a binary tree from inorder and postorder traversals. I’ll also explain the concepts and the math behind why this approach works.
 
@@ -113,78 +73,210 @@ public:
 };
 ```
 
-### Dry Run with Detailed Explanation
+Let's walk through the code line-by-line, explaining each step while building the tree visually. We’ll construct the tree incrementally with each call, updating its structure as we go along.
 
-Let's go through a dry run with the example:
+### Code and Dry Run
 
+**Initial Input:**
 ```cpp
-inorder = [9, 3, 15, 20, 7];
-postorder = [9, 15, 7, 20, 3];
+inorder = {9, 3, 15, 20, 7}
+postorder = {9, 15, 7, 20, 3}
 ```
 
-#### Step 1: Initializing the Map
-
-The `buildTree` function first fills the map `mp` with the indexes of each element in `inorder`:
-
-```cpp
-mp = {9: 0, 3: 1, 15: 2, 20: 3, 7: 4}
-```
-
-The map allows us to quickly locate the position of each node in the `inorder` traversal, which helps in dividing the array into left and right subtrees.
-
-#### Step 2: Setting the Initial `postorderIndex`
-
-We start from the end of `postorder`, as the last element is the root of the entire tree:
-
-```cpp
-postorderIndex = postorder.size() - 1 = 4
-```
-
-#### Step 3: Building the Tree with `build`
-
-We call `build(postorder, 0, inorder.size() - 1)` to construct the tree.
+**Objective:** Build the tree using the `inorder` and `postorder` traversals.
 
 ---
 
-### Recursive Calls and Explanation
+### Step 1: `buildTree` Function
 
-Now let's see each recursive call in detail:
+```cpp
+postIndex = postorder.size() - 1;
+```
 
-1. **First Call: `build(postorder, start=0, end=4)`**
-   - `rootVal = postorder[4] = 3`
-   - Create `root = new TreeNode(3)`, making `3` the root of the tree.
-   - `mid = mp[3] = 1`, which splits `inorder` into `[9]` (left subtree) and `[15, 20, 7]` (right subtree).
+- Initialize `postIndex` to the last index of `postorder`, which is `4`.
+- `postorder[4]` is `3`, indicating that `3` is the root of the tree.
 
-2. **Construct Right Subtree of `3`: `build(postorder, start=2, end=4)`**
-   - `rootVal = postorder[3] = 20`
-   - Create `root = new TreeNode(20)`, making `20` the right child of `3`.
-   - `mid = mp[20] = 3`, which splits `inorder` into `[15]` (left) and `[7]` (right).
+### Step 2: `build` Function (Root Node Creation)
 
-3. **Construct Right Subtree of `20`: `build(postorder, start=4, end=4)`**
-   - `rootVal = postorder[2] = 7`
-   - Create `root = new TreeNode(7)`, making `7` the right child of `20`.
-   - `mid = mp[7] = 4`, which splits `inorder` into no elements left and right, so both calls will return `nullptr`.
-
-4. **Construct Left Subtree of `20`: `build(postorder, start=2, end=2)`**
-   - `rootVal = postorder[1] = 15`
-   - Create `root = new TreeNode(15)`, making `15` the left child of `20`.
-   - `mid = mp[15] = 2`, which splits `inorder` into no elements left and right, so both calls will return `nullptr`.
-
-5. **Construct Left Subtree of `3`: `build(postorder, start=0, end=0)`**
-   - `rootVal = postorder[0] = 9`
-   - Create `root = new TreeNode(9)`, making `9` the left child of `3`.
-   - `mid = mp[9] = 0`, which splits `inorder` into no elements left and right, so both calls will return `nullptr`.
+1. **First call to `build`**
+   ```cpp
+   return build(inorder, 0, inorder.size() - 1, postorder);
+   ```
+   - We start with the entire range of `inorder`: `inStart = 0`, `inEnd = 4`.
 
 ---
 
-### Why This Works: The Math Behind It
+#### Building Root Node `3`
 
-1. **Postorder Traversal Order**: Since `postorder` goes `left -> right -> root`, we take each root from the end of `postorder`. Each `rootVal` picked divides `inorder` into left and right subtrees.
+1. **Get Root Value**
+   ```cpp
+   int rootVal = postorder[postIndex--];  // rootVal = 3
+   TreeNode* root = new TreeNode(rootVal);
+   ```
+   - `postIndex = 4`, so `rootVal = postorder[4] = 3`.
+   - A new `TreeNode` is created with value `3`.
 
-2. **Using Inorder for Split Points**: By finding each root’s position in `inorder`, we know exactly where left and right subtrees start and end:
-   - For a root at index `mid` in `inorder`, elements from `start` to `mid - 1` are in the left subtree.
-   - Elements from `mid + 1` to `end` are in the right subtree.
+   **Tree Structure:**
+   ```
+       3
+   ```
 
-3. **Recursive Construction**: This recursive splitting continues until all nodes are processed, building subtrees bottom-up, from the leaf nodes to the root.
+2. **Find Root Index in `inorder`**
+   ```cpp
+   rootIndex = 1;  // Position of 3 in inorder array
+   ```
+   - `3` is at `rootIndex = 1` in `inorder`.
 
-In this way, the combination of the `postorder` traversal for selecting roots and `inorder` traversal for structuring left and right children allows us to reconstruct the tree accurately.
+3. **Recursive Calls to Build Subtrees**
+   - **Right Subtree:** `root->right = build(inorder, 2, 4, postorder);`
+   - **Left Subtree:** `root->left = build(inorder, 0, 0, postorder);`
+
+---
+
+### Step 3: Building Right Subtree of `3` (Root Node `20`)
+
+1. **Get Root Value**
+   ```cpp
+   rootVal = postorder[postIndex--];  // rootVal = 20
+   TreeNode* root = new TreeNode(rootVal);
+   ```
+   - `postIndex = 3`, so `rootVal = postorder[3] = 20`.
+   - A new `TreeNode` with value `20` becomes the right child of `3`.
+
+   **Tree Structure:**
+   ```
+       3
+        \
+        20
+   ```
+
+2. **Find Root Index in `inorder`**
+   ```cpp
+   rootIndex = 3;  // Position of 20 in inorder array
+   ```
+   - `20` is at `rootIndex = 3` in `inorder`.
+
+3. **Recursive Calls to Build Subtrees of `20`**
+   - **Right Subtree:** `root->right = build(inorder, 4, 4, postorder);`
+   - **Left Subtree:** `root->left = build(inorder, 2, 2, postorder);`
+
+---
+
+### Step 4: Building Right Subtree of `20` (Root Node `7`)
+
+1. **Get Root Value**
+   ```cpp
+   rootVal = postorder[postIndex--];  // rootVal = 7
+   TreeNode* root = new TreeNode(rootVal);
+   ```
+   - `postIndex = 2`, so `rootVal = postorder[2] = 7`.
+   - A new `TreeNode` with value `7` becomes the right child of `20`.
+
+   **Tree Structure:**
+   ```
+       3
+        \
+        20
+          \
+           7
+   ```
+
+2. **Find Root Index in `inorder`**
+   ```cpp
+   rootIndex = 4;  // Position of 7 in inorder array
+   ```
+   - `7` is at `rootIndex = 4` in `inorder`.
+
+3. **Recursive Calls to Build Subtrees of `7`**
+   - Both left and right subtree calls return `nullptr` as the base condition `inStart > inEnd` is met.
+
+   **Tree Structure:**
+   ```
+       3
+        \
+        20
+          \
+           7
+   ```
+
+---
+
+### Step 5: Building Left Subtree of `20` (Root Node `15`)
+
+1. **Get Root Value**
+   ```cpp
+   rootVal = postorder[postIndex--];  // rootVal = 15
+   TreeNode* root = new TreeNode(rootVal);
+   ```
+   - `postIndex = 1`, so `rootVal = postorder[1] = 15`.
+   - A new `TreeNode` with value `15` becomes the left child of `20`.
+
+   **Tree Structure:**
+   ```
+       3
+        \
+        20
+       /  \
+     15    7
+   ```
+
+2. **Find Root Index in `inorder`**
+   ```cpp
+   rootIndex = 2;  // Position of 15 in inorder array
+   ```
+   - `15` is at `rootIndex = 2` in `inorder`.
+
+3. **Recursive Calls to Build Subtrees of `15`**
+   - Both left and right subtree calls return `nullptr`.
+
+   **Tree Structure:**
+   ```
+       3
+        \
+        20
+       /  \
+     15    7
+   ```
+
+---
+
+### Step 6: Building Left Subtree of `3` (Root Node `9`)
+
+1. **Get Root Value**
+   ```cpp
+   rootVal = postorder[postIndex--];  // rootVal = 9
+   TreeNode* root = new TreeNode(rootVal);
+   ```
+   - `postIndex = 0`, so `rootVal = postorder[0] = 9`.
+   - A new `TreeNode` with value `9` becomes the left child of `3`.
+
+   **Tree Structure:**
+   ```
+       3
+      / \
+     9   20
+        /  \
+      15    7
+   ```
+
+2. **Find Root Index in `inorder`**
+   - `9` is at `rootIndex = 0` in `inorder`.
+
+3. **Recursive Calls to Build Subtrees of `9`**
+   - Both left and right subtree calls return `nullptr`.
+
+---
+
+### Final Tree Structure
+
+The final tree is:
+
+```
+       3
+      / \
+     9  20
+       /  \
+      15   7
+```
+
+This completes the dry run with each line building up the tree step-by-step. Let me know if you'd like more details on any specific part!
