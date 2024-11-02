@@ -32,45 +32,53 @@ The **inorder traversal** (`left -> root -> right`) lets us find the left and ri
 Here's the code for reference, followed by a detailed dry run and explanation.
 
 ```cpp
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
 class Solution {
 public:
-    unordered_map<int, int> mp;      // Stores the indices of elements in inorder traversal
-    int postorderIndex;              // Tracks the current root element in postorder traversal
+    int postIndex; // To keep track of the current root in postorder traversal
 
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        mp.clear();                  // Clear the map for reuse
-        
-        // Map elements of inorder array to their indices
-        for (int i = 0; i < inorder.size(); i++) {
-            mp[inorder[i]] = i;
-        }
-        
-        postorderIndex = postorder.size() - 1;  // Start from the end of postorder (last element is the root)
-        return build(postorder, 0, inorder.size() - 1);  // Begin recursive tree building
+        postIndex = postorder.size() - 1; // Start from the last element in postorder
+        return build(inorder, 0, inorder.size() - 1, postorder);
     }
 
-    TreeNode* build(vector<int>& postorder, int start, int end) {
-        // Base case: if there are no elements to construct the subtree
-        if (start > end) return nullptr;
+    TreeNode* build(vector<int>& inorder, int inStart, int inEnd, vector<int>& postorder) {
+        // Base case: if the start index is greater than the end index
+        if (inStart > inEnd) {
+            return nullptr;
+        }
 
-        // Get the current root value from postorder and decrement postorderIndex
-        int rootVal = postorder[postorderIndex--];
+        // Get the root value from the postorder traversal and decrement the index
+        int rootVal = postorder[postIndex--];
+        TreeNode* root = new TreeNode(rootVal); // Create the root node
 
-        // Create the root node with this value
-        TreeNode* root = new TreeNode(rootVal);
+        // Find the index of the root in the inorder traversal
+        int rootIndex = inStart;
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == rootVal) {
+                rootIndex = i;
+                break;
+            }
+        }
 
-        // Find the index of this root in inorder traversal to split left and right subtrees
-        int mid = mp[rootVal];
+        // Recursively build the right and left subtrees
+        root->right = build(inorder, rootIndex + 1, inEnd, postorder);
+        root->left = build(inorder, inStart, rootIndex - 1, postorder);
 
-        // Recursively build the right subtree first, since we're moving backwards in postorder
-        root->right = build(postorder, mid + 1, end);
-        
-        // Recursively build the left subtree
-        root->left = build(postorder, start, mid - 1);
-        
-        return root;  // Return the constructed subtree rooted at this node
+        return root;
     }
 };
+
 ```
 
 Let's walk through the code line-by-line, explaining each step while building the tree visually. We’ll construct the tree incrementally with each call, updating its structure as we go along.
