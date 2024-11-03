@@ -260,3 +260,96 @@ public:
 ---
 
 I'll continue with more levels similarly if you'd like, or can also create a visual explanation as a text-based solution per line. Let me know how you prefer this structure for each line!
+
+
+Let’s go over the mathematical reasoning behind the formula in the code for calculating the width of a binary tree at each level. The primary concepts are **node indexing** and **normalization**.
+
+### 1. Node Indexing in Binary Trees
+
+In a binary tree, nodes can be indexed as if they were stored in an array, where the left and right children of a node at index `i` have indices `2*i + 1` and `2*i + 2`, respectively. This way of numbering nodes enables us to visualize the layout of nodes at each level without explicitly storing each position in a 2D array. Here’s a quick breakdown of how it works:
+
+#### Example Tree Structure (Indexing Nodes Like an Array)
+
+Given this binary tree:
+
+```
+         1
+       /   \
+      2     3
+     / \     \
+    4   5     7
+```
+
+If we consider the root at `index = 0`, the rest of the nodes are indexed as follows:
+
+```
+         1 (0)
+       /       \
+      2 (1)     3 (2)
+     /   \         \
+    4 (3) 5 (4)     7 (6)
+```
+
+This indexing scheme enables us to compute the "width" of each level simply by looking at the leftmost and rightmost indices at each level.
+
+### 2. Formula for Width Calculation at Each Level
+
+The width of each level in the tree can be calculated as:
+
+\[
+\text{width} = \text{rightmost index} - \text{leftmost index} + 1
+\]
+
+For each level:
+- **Leftmost index** is the index of the first node at that level.
+- **Rightmost index** is the index of the last node at that level.
+
+Using this, the width of a level is the difference between the rightmost and leftmost indices, plus one.
+
+### 3. Handling Integer Overflow with Normalization
+
+In a very deep binary tree, the indices of nodes can become extremely large, leading to potential integer overflow. To handle this, we use **index normalization**. Here’s how:
+
+- For each level, we calculate a **minimum index (`mini`)** that acts as a baseline for all other indices at that level.
+- We adjust every index in the current level by subtracting `mini` from it. This normalized index (`modi`) for each node at that level will be a smaller, manageable number starting from zero.
+
+### Explanation of Key Lines in the Code
+
+Let’s go over the key lines with this understanding in mind.
+
+1. **Initialize `mini`**:
+   ```cpp
+   mini = min(mini, val);
+   ```
+   `mini` stores the smallest index in the current level. We use this to normalize other indices to avoid overflow.
+
+2. **Normalize each node’s index**:
+   ```cpp
+   long long modi = val - mini;
+   ```
+   Subtracting `mini` from `val` gives a smaller, normalized index `modi`, which we can safely use in calculations.
+
+3. **Track `minl` and `maxl`**:
+   ```cpp
+   minl = min(minl, modi);
+   maxl = max(maxl, modi);
+   ```
+   - `minl` and `maxl` store the smallest and largest normalized indices at the current level.
+   - Using these, we can calculate the width for the current level as `maxl - minl + 1`.
+
+4. **Calculate width and update `ans`**:
+   ```cpp
+   ans = max(ans, maxl - minl + 1);
+   ```
+   For each level, the width is `maxl - minl + 1`. The final answer (`ans`) stores the maximum width seen across all levels.
+
+---
+
+### Putting It All Together
+
+In summary:
+- The formula `2*i + 1` and `2*i + 2` for left and right children helps map a binary tree into an "array-like" structure.
+- To avoid overflow, we use normalization by subtracting the minimum index (`mini`) at each level.
+- We calculate width as `maxl - minl + 1` using the normalized indices for each level. This gives us the effective width for each level, and `ans` holds the maximum width across all levels.
+
+This approach efficiently calculates the width without running into overflow issues, even for large trees.
