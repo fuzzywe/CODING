@@ -242,25 +242,12 @@ Since (1,0) has a value of 0, we don't need to update its value or enqueue it. S
 The matrix, at this point, looks like:
 
 ⎣
-⎡
+⎡0 0 9
 ​
-  
-0
-0
-9
+0 9 9
 ​
-  
-0
-9
-9
+0 0 9
 ​
-  
-0
-0
-9
-​
-  
-⎦
 ⎤
 ​
  
@@ -278,12 +265,10 @@ After processing all the elements in the queue, the matrix is transformed to:
 
 ⎣
 ⎡
-​
 0
 0
 1
-​
-  
+​ 
 0
 1
 2
@@ -562,3 +547,256 @@ Let’s continue with our example.
 \]
 
 Each cell now contains the minimum distance to the nearest zero in the matrix.
+
+To understand how the matrix transforms through each pass, let’s go through each cell one-by-one, updating the values based on the top and left neighbors in the **first pass**. 
+
+### Matrix Example (First Pass: Top-Left to Bottom-Right)
+
+The initial matrix is:
+
+\[
+\begin{bmatrix}
+0 & 1 & 1 \\
+1 & 1 & 1 \\
+1 & 0 & 1 \\
+\end{bmatrix}
+\]
+
+We’ll consider only the **top** and **left** neighbors for each cell, setting each cell to be the minimum distance to a `0` (adding `1` step each time we move further away).
+
+### Step-by-Step Transformation (First Pass)
+
+1. **Row 0**
+   - **(0, 0)**: Already `0`. No change needed.
+   - **(0, 1)**: 
+     - **Top**: Out of bounds (consider as `INF`)
+     - **Left**: `0`
+     - **Min distance**: `min(INF, 0) + 1 = 1`
+   - **(0, 2)**:
+     - **Top**: Out of bounds
+     - **Left**: `1`
+     - **Min distance**: `min(INF, 1) + 1 = 2`
+
+   **Updated Row 0**:
+   \[
+   \begin{bmatrix}
+   0 & 1 & 2 \\
+   \end{bmatrix}
+   \]
+
+2. **Row 1**
+   - **(1, 0)**: 
+     - **Top**: `0`
+     - **Left**: Out of bounds
+     - **Min distance**: `min(0, INF) + 1 = 1`
+   - **(1, 1)**: 
+     - **Top**: `1`
+     - **Left**: `1`
+     - **Min distance**: `min(1, 1) + 1 = 2`
+   - **(1, 2)**:
+     - **Top**: `2`
+     - **Left**: `2`
+     - **Min distance**: `min(2, 2) + 1 = 3`
+
+   **Updated Row 1**:
+   \[
+   \begin{bmatrix}
+   1 & 2 & 3 \\
+   \end{bmatrix}
+   \]
+
+3. **Row 2**
+   - **(2, 0)**:
+     - **Top**: `1`
+     - **Left**: Out of bounds
+     - **Min distance**: `min(1, INF) + 1 = 2`
+   - **(2, 1)**:
+     - Already `0`. No change needed.
+   - **(2, 2)**:
+     - **Top**: `3`
+     - **Left**: `0`
+     - **Min distance**: `min(3, 0) + 1 = 1`
+
+   **Updated Row 2**:
+   \[
+   \begin{bmatrix}
+   2 & 0 & 1 \\
+   \end{bmatrix}
+   \]
+
+After the **first pass**, the matrix looks like this:
+
+\[
+\begin{bmatrix}
+0 & 1 & 2 \\
+1 & 2 & 3 \\
+2 & 0 & 1 \\
+\end{bmatrix}
+\]
+
+### Matrix Example (Second Pass: Bottom-Right to Top-Left)
+
+Now we take a **second pass**, moving from **bottom-right to top-left** to refine the distances by checking the **bottom** and **right** neighbors.
+
+1. **Row 2**
+   - **(2, 2)**: Already `1` from the first pass; no further refinement needed.
+   - **(2, 1)**: Already `0`. No change.
+   - **(2, 0)**: Already `2`, and no further refinement from the right neighbor.
+
+2. **Row 1**
+   - **(1, 2)**: 
+     - **Bottom**: `1`
+     - **Right**: Out of bounds
+     - **Min distance**: `min(3, 1) + 1 = 2`
+   - **(1, 1)**:
+     - **Bottom**: `0`
+     - **Right**: `2`
+     - **Min distance**: `min(2, 0) + 1 = 1`
+   - **(1, 0)**:
+     - **Bottom**: `2`
+     - **Right**: `1`
+     - **Min distance**: `min(1, 2) + 1 = 2`
+
+   **Updated Row 1**:
+   \[
+   \begin{bmatrix}
+   1 & 1 & 2 \\
+   \end{bmatrix}
+   \]
+
+3. **Row 0**
+   - **(0, 2)**: 
+     - **Bottom**: `2`
+     - **Right**: Out of bounds
+     - **Min distance**: `min(2, INF) + 1 = 2`
+   - **(0, 1)**:
+     - **Bottom**: `1`
+     - **Right**: `2`
+     - **Min distance**: `min(1, 2) + 1 = 1`
+   - **(0, 0)**:
+     - **Bottom**: `1`
+     - **Right**: `1`
+     - **Min distance**: `min(0, 1) + 1 = 0` (Already `0`)
+
+   **Updated Row 0**:
+   \[
+   \begin{bmatrix}
+   0 & 1 & 2 \\
+   \end{bmatrix}
+   \]
+
+After the **second pass**, the refined matrix is:
+
+\[
+\begin{bmatrix}
+0 & 1 & 2 \\
+1 & 1 & 2 \\
+2 & 0 & 1 \\
+\end{bmatrix}
+\]
+
+### Final Explanation
+
+The two passes ensure each cell has the **minimum distance to the nearest `0`**. This approach, moving in two directions, guarantees that no matter the position of a cell, the shortest path is accurately calculated.
+
+Let's go through each part step-by-step and explain it more intuitively with a simple example.
+
+### Goal of the Code
+The code is trying to find the minimum distance from each cell in a matrix to the nearest cell containing `0`. The goal is to set each cell in the matrix to reflect this minimum distance.
+
+Imagine each cell in the matrix as a "step" away from any `0` cell. The idea is to move from any `1` cells to the nearest `0` cells, finding the shortest path for each `1` cell to reach a `0`.
+
+### Steps in the Code
+
+1. **Initialize Important Variables**  
+   The `INF` value is set to be larger than the maximum possible distance in the matrix. We use it as an initial distance for cells that haven’t yet calculated their actual distance to `0`.
+
+   ```cpp
+   int m = mat.size(), n = mat[0].size(), INF = m + n;
+   ```
+
+2. **First Pass: Top-Left to Bottom-Right**
+
+   In this pass, each cell `(r, c)` checks only its **top** and **left** neighbors to calculate an initial distance to the nearest `0`. This will help each cell start with a close approximation for the distance to `0` from two directions.
+
+   ```cpp
+   for (int r = 0; r < m; r++) {
+       for (int c = 0; c < n; c++) {
+           if (mat[r][c] == 0) continue;  // Skip cells with 0; distance is already 0
+           int top = INF, left = INF;
+           if (r - 1 >= 0) top = mat[r - 1][c];      // Distance from the cell above
+           if (c - 1 >= 0) left = mat[r][c - 1];     // Distance from the cell to the left
+           mat[r][c] = min(top, left) + 1;           // Set to minimum distance + 1 step
+       }
+   }
+   ```
+
+   - **Example**: Imagine this matrix:
+
+     \[
+     \begin{bmatrix}
+     0 & 1 & 1 \\
+     1 & 1 & 1 \\
+     1 & 0 & 1 \\
+     \end{bmatrix}
+     \]
+
+   - After this pass (considering only the top and left neighbors), the matrix would look like this:
+
+     \[
+     \begin{bmatrix}
+     0 & 1 & 2 \\
+     1 & 2 & 3 \\
+     2 & 0 & 1 \\
+     \end{bmatrix}
+     \]
+
+   Here, each cell has an initial approximation of the distance to the nearest `0`, but it’s still not fully accurate.
+
+3. **Second Pass: Bottom-Right to Top-Left**
+
+   In this pass, we refine the distance by also considering the **bottom** and **right** neighbors for each cell. This ensures that if there’s a shorter path to a `0` cell from below or to the right, it will be included in the final distance calculation.
+
+   ```cpp
+   for (int r = m - 1; r >= 0; r--) {
+       for (int c = n - 1; c >= 0; c--) {
+           if (mat[r][c] == 0) continue;  // Skip cells with 0; distance is already 0
+           int bottom = INF, right = INF;
+           if (r + 1 < m) bottom = mat[r + 1][c];     // Distance from the cell below
+           if (c + 1 < n) right = mat[r][c + 1];      // Distance from the cell to the right
+           mat[r][c] = min(mat[r][c], min(bottom, right) + 1); // Set to the smaller distance
+       }
+   }
+   ```
+
+   - **Example**: Using our updated matrix from above:
+
+     \[
+     \begin{bmatrix}
+     0 & 1 & 2 \\
+     1 & 2 & 3 \\
+     2 & 0 & 1 \\
+     \end{bmatrix}
+     \]
+
+   - After the second pass, the matrix becomes:
+
+     \[
+     \begin{bmatrix}
+     0 & 1 & 2 \\
+     1 & 1 & 2 \\
+     1 & 0 & 1 \\
+     \end{bmatrix}
+     \]
+
+   This final matrix now has the minimum distance to the nearest `0` for each cell.
+
+### Explanation of the Formula in Simple Terms
+
+In each pass:
+- For every cell with a `1`, we look at neighboring cells (either top-left in the first pass or bottom-right in the second).
+- We take the **minimum distance** from the neighboring cells to a `0` and add `1` (because moving to this cell is an additional step).
+
+So, in each cell `(r, c)`, the distance to the nearest `0` is updated by taking the **smallest possible distance** from any neighboring cell and adding one to that distance to represent the additional step taken. 
+
+This two-pass approach ensures that every cell finds the shortest possible path to any `0` cell, regardless of direction.
