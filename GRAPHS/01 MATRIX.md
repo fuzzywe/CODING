@@ -374,3 +374,191 @@ Complexity
 
 Time: O(M * N), where M is number of rows, N is number of columns in the matrix.
 Space: O(1)
+
+
+To provide a thorough dry run and visual explanation of each line in this `updateMatrix` function, let’s walk through every line with an example matrix and explain how each part of the code works. The algorithm uses dynamic programming to calculate the minimum distance of each cell from the nearest zero in a two-pass approach.
+
+Here's an example 3x3 matrix we'll use for the dry run:
+
+\[
+\text{mat} = 
+\begin{bmatrix}
+0 & 1 & 1 \\
+1 & 1 & 1 \\
+1 & 0 & 1 \\
+\end{bmatrix}
+\]
+
+This matrix has cells with values `1` and `0`. We need to find the minimum distance from each cell containing `1` to the nearest cell containing `0`.
+
+### Explanation of Code Line by Line
+
+#### Step 1: Initialize Variables
+
+```cpp
+int m = mat.size(), n = mat[0].size(), INF = m + n;
+```
+
+- **`m`**: The number of rows in the matrix (in this example, \( m = 3 \)).
+- **`n`**: The number of columns in the matrix (in this example, \( n = 3 \)).
+- **`INF`**: Set to a large value \( m + n \) (in this example, \( INF = 6 \)) to represent cells that haven't been updated yet. This is large enough to exceed any possible distance in the matrix.
+
+#### Step 2: First Pass (Top-Left to Bottom-Right)
+
+The purpose of the first pass is to calculate minimum distances from the top and left neighbors for each cell, moving from the top-left corner to the bottom-right.
+
+```cpp
+for (int r = 0; r < m; r++) {
+    for (int c = 0; c < n; c++) {
+        if (mat[r][c] == 0) continue;
+        int top = INF, left = INF;
+        if (r - 1 >= 0) top = mat[r - 1][c];
+        if (c - 1 >= 0) left = mat[r][c - 1];
+        mat[r][c] = min(top, left) + 1;
+    }
+}
+```
+
+- **Outer Loop (rows)**: Iterates through each row from top to bottom.
+- **Inner Loop (columns)**: Iterates through each column from left to right.
+
+For each cell, if the cell contains `0`, we skip it (since its distance is already zero). For cells containing `1`, we update the distance based on its top and left neighbors.
+
+Let’s go through this process cell-by-cell for our example matrix.
+
+##### First Pass Visual Representation
+
+1. **Cell (0,0)**: Contains `0`, so we skip it.
+
+2. **Cell (0,1)**: 
+   - `mat[0][1] = 1`
+   - `top = INF` (no row above)
+   - `left = mat[0][0] = 0`
+   - Update: `mat[0][1] = min(INF, 0) + 1 = 1`
+
+3. **Cell (0,2)**: 
+   - `mat[0][2] = 1`
+   - `top = INF` (no row above)
+   - `left = mat[0][1] = 1`
+   - Update: `mat[0][2] = min(INF, 1) + 1 = 2`
+
+4. **Cell (1,0)**: 
+   - `mat[1][0] = 1`
+   - `top = mat[0][0] = 0`
+   - `left = INF` (no column to the left)
+   - Update: `mat[1][0] = min(0, INF) + 1 = 1`
+
+5. **Cell (1,1)**: 
+   - `mat[1][1] = 1`
+   - `top = mat[0][1] = 1`
+   - `left = mat[1][0] = 1`
+   - Update: `mat[1][1] = min(1, 1) + 1 = 2`
+
+6. **Cell (1,2)**: 
+   - `mat[1][2] = 1`
+   - `top = mat[0][2] = 2`
+   - `left = mat[1][1] = 2`
+   - Update: `mat[1][2] = min(2, 2) + 1 = 3`
+
+7. **Cell (2,0)**: 
+   - `mat[2][0] = 1`
+   - `top = mat[1][0] = 1`
+   - `left = INF` (no column to the left)
+   - Update: `mat[2][0] = min(1, INF) + 1 = 2`
+
+8. **Cell (2,1)**: Contains `0`, so we skip it.
+
+9. **Cell (2,2)**: 
+   - `mat[2][2] = 1`
+   - `top = mat[1][2] = 3`
+   - `left = mat[2][1] = 0`
+   - Update: `mat[2][2] = min(3, 0) + 1 = 1`
+
+**Matrix after First Pass:**
+
+\[
+\begin{bmatrix}
+0 & 1 & 2 \\
+1 & 2 & 3 \\
+2 & 0 & 1 \\
+\end{bmatrix}
+\]
+
+#### Step 3: Second Pass (Bottom-Right to Top-Left)
+
+The second pass refines the distances by checking the bottom and right neighbors for each cell, moving from the bottom-right corner to the top-left.
+
+```cpp
+for (int r = m - 1; r >= 0; r--) {
+    for (int c = n - 1; c >= 0; c--) {
+        if (mat[r][c] == 0) continue;
+        int bottom = INF, right = INF;
+        if (r + 1 < m) bottom = mat[r + 1][c];
+        if (c + 1 < n) right = mat[r][c + 1];
+        mat[r][c] = min(mat[r][c], min(bottom, right) + 1);
+    }
+}
+```
+
+Let’s continue with our example.
+
+##### Second Pass Visual Representation
+
+1. **Cell (2,2)**: Contains `1`
+   - `bottom = INF` (no row below)
+   - `right = INF` (no column to the right)
+   - Update: `mat[2][2]` remains `1` as `min(1, INF + 1) = 1`
+
+2. **Cell (2,1)**: Contains `0`, so we skip it.
+
+3. **Cell (2,0)**: 
+   - `mat[2][0] = 2`
+   - `bottom = INF` (no row below)
+   - `right = mat[2][1] = 0`
+   - Update: `mat[2][0] = min(2, 0 + 1) = 1`
+
+4. **Cell (1,2)**: 
+   - `mat[1][2] = 3`
+   - `bottom = mat[2][2] = 1`
+   - `right = INF` (no column to the right)
+   - Update: `mat[1][2] = min(3, 1 + 1) = 2`
+
+5. **Cell (1,1)**: 
+   - `mat[1][1] = 2`
+   - `bottom = mat[2][1] = 0`
+   - `right = mat[1][2] = 2`
+   - Update: `mat[1][1] = min(2, 0 + 1) = 1`
+
+6. **Cell (1,0)**: 
+   - `mat[1][0] = 1`
+   - `bottom = mat[2][0] = 1`
+   - `right = mat[1][1] = 1`
+   - Update: `mat[1][0]` remains `1` as `min(1, 1 + 1) = 1`
+
+7. **Cell (0,2)**: 
+   - `mat[0][2] = 2`
+   - `bottom = mat[1][2] = 2`
+   - `right = INF` (no column to the right)
+   - Update: `mat[0][2]` remains `2` as `min(2, 2 + 1) = 2`
+
+8. **Cell (0,1)**: 
+   - `mat[0][1] = 1`
+   - `bottom = mat[1][1] = 1`
+   - `right = mat[0][2] = 2`
+   - Update: `mat[0][1]` remains `1` as `min(1, 1 + 1) = 1`
+
+9. **Cell (0,0)**: Contains `0`, so we skip it.
+
+**Final Matrix after Second Pass:**
+
+\[
+\begin{bmatrix}
+0 & 1 & 2 \\
+1 & 1 & 2 \\
+1 & 0 & 1 \\
+\end
+
+{bmatrix}
+\]
+
+Each cell now contains the minimum distance to the nearest zero in the matrix.
