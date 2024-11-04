@@ -566,6 +566,8 @@ We’ll consider only the **top** and **left** neighbors for each cell, setting 
 
 ### Step-by-Step Transformation (First Pass)
 
+![04 11 2024_09 55 55_REC](https://github.com/user-attachments/assets/81726487-9b80-45d4-b2d6-13c34bb90a38)
+
 1. **Row 0**
    - **(0, 0)**: Already `0`. No change needed.
    - **(0, 1)**: 
