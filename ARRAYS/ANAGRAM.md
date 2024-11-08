@@ -38,7 +38,9 @@ public:
 };
 
 ```
+Time Complexity: O(n) where n is the length of string
 
+Space Complexity: O(1) 
 
 ---
 
@@ -61,3 +63,6 @@ public:
 };
 
 ```
+Time Complexity: O(nlogn) since sorting function requires nlogn iterations.
+
+Space Complexity: O(1)
