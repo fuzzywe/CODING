@@ -1,5 +1,7 @@
 https://leetcode.com/problems/convert-to-base-2/description/
 
+https://www.geeksforgeeks.org/problems/decimal-to-binary-1587115620/1
+
 Integer to binary
 
 brute force
@@ -139,9 +141,22 @@ Let's say we are converting `n = 7` to base -2.
 
 The final result will be constructed from these remainders in reverse order, providing the correct base -2 binary representation.
 --- 
-optimal
-
+**GFGs**
 ```cpp
 
+void toBinary(int N)
+{if(N==0) cout<<0;
+    // your code here
+    string res="";
+        
+        
+        while(N!=0)
+        {
+             int remainder = N% 2;
+             res = to_string(remainder) + res;
+            N /= 2;
+            
+        }cout<<res;
+}
 
 ```
