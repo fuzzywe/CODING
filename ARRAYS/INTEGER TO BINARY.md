@@ -69,11 +69,7 @@ In the base -2 system:
 - Each digit represents a power of -2, not 2. 
 - The place values (moving from right to left) are `1, -2, 4, -8, 16`, etc., following powers of `-2` instead of `+2`.
 
-For example:
-- In base 10, the number 5 is represented as \(101_{-2}\) in base -2.
-  
-The reasoning:
-- \(1 \times (-2)^2 + 0 \times (-2)^1 + 1 \times (-2)^0 = 4 + 0 + 1 = 5\)
+![08 11 2024_17 51 31_REC](https://github.com/user-attachments/assets/8958ee2b-4c71-4ef8-8af7-adf2b434f6d9)
 
 ### Why Use Base -2?
 Using base -2 is useful for certain applications, especially in algorithms where signed values (both positive and negative) need to be represented without additional sign indicators. In base -2:
@@ -85,11 +81,8 @@ When converting a number to base -2:
 1. Each time we calculate `n % -2` (the remainder), we need to account for both positive and negative remainders, which is why we adjust if the remainder is negative.
 2. We then adjust `n` by dividing by `-2`, but if the remainder was negative, we also add `1` to `n` to "carry" in base -2 terms.
 
-Here's a step-by-step example of converting the decimal number `5` to base -2:
+![08 11 2024_17 51 16_REC](https://github.com/user-attachments/assets/a2e89dc4-6b5a-4cc7-8272-0cf92ff0b9df)
 
-- **Step 1**: \(5 \div -2 = -2\) remainder `1` → \(5 = (-2) \times -2 + 1\)
-- **Step 2**: \(-2 \div -2 = 1\) remainder `0` → \(-2 = 1 \times -2 + 0\)
-- **Step 3**: \(1 \div -2 = 0\) remainder `1` → \(1 = 0 \times -2 + 1\)
 
 Resulting binary string (from bottom up): `101`
 
