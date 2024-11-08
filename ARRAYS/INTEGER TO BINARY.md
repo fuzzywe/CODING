@@ -1,3 +1,5 @@
+https://leetcode.com/problems/convert-to-base-2/description/
+
 Integer to binary
 
 brute force
@@ -35,21 +37,32 @@ public:
 
 
 ```
-or 
+optimized
 ```cpp
-class Solution:    
-    def baseNeg2(self, n: int) -> str:        
-        result = ""
+class Solution {
+public:
+    string baseNeg2(int n) {
+        if (n == 0) return "0";  // Handle the edge case when n is 0
 
-        while n != 0:
-            rem = n % -2
-            n //= -2
-            if rem < 0:
-                rem += 2
-                n += 1
-            result = str(rem) + result
+        string result;
+        while (n != 0) {
+            int remainder = n % -2;
+            n /= -2;
 
-        return max(result, str("0"))
+            // If the remainder is negative, adjust it
+            if (remainder < 0) {
+                remainder += 2;
+                n += 1;
+            }
+
+            // Append the remainder as a character to the result string
+            result = to_string(remainder) + result;
+        }
+
+        return result;
+    }
+};
+
 ```
 This code snippet is adjusting the remainder and quotient for the base -2 conversion when the remainder is negative. Let’s break down why these adjustments are necessary.
 
