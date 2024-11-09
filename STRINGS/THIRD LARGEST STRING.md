@@ -2,6 +2,8 @@ Certainly! Let’s break down the code line-by-line, explaining each line along 
 
 Here’s the code for finding the third largest unique string in a given array:
 
+https://www.w3resource.com/cpp-exercises/array/cpp-array-exercise-30.php#h_one
+
 ```cpp
 #include <iostream>
 #include <vector>
