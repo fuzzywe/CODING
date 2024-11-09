@@ -152,7 +152,51 @@ Given `arr = {"apple", "banana", "cherry", "date", "apple", "banana"}`:
 This solution is efficient for cases where \(n\) is reasonably large and is optimized by using a `set` to automatically handle uniqueness and ordering.
 
 ---
+```cpp
 
+#include <iostream>
+#include <vector>
+#include <string>
+#include <queue>
+
+using namespace std;
+
+string thirdLargestString(const vector<string>& arr) {
+    // Create a min-heap of size 3
+    priority_queue<string, vector<string>, greater<string>> minHeap;
+
+    // Iterate through the array
+    for (const string& word : arr) {
+        minHeap.push(word);
+
+        // If heap size exceeds 3, remove the smallest element
+        if (minHeap.size() > 3) {
+            minHeap.pop();
+        }
+    }
+
+    // If we have less than 3 unique strings in the heap, return an error message
+    if (minHeap.size() < 3) {
+        return "Not enough unique strings to find the third largest";
+    }
+
+    // Return the third largest string (the smallest element in the heap)
+    return minHeap.top();
+}
+
+int main() {
+    vector<string> arr = {"apple", "banana", "cherry", "date", "apple", "banana"};
+
+    string result = thirdLargestString(arr);
+
+    cout << "The third largest unique string is: " << result << endl;
+
+    return 0;
+}
+
+
+
+```
 Let's perform a **line-by-line dry run** of the optimized C++ code to find the third largest unique string in an array. I'll explain each line, the dry run with sample input, and provide the mathematical formulas or logic behind each step.
 
 ### Full Code with Dry Run
