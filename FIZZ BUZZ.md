@@ -21,4 +21,53 @@ Example 3:
 Input: n = 15
 Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
 
+optimal 
+
+```cpp
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> ans;
+        for (int i = 1; i <= n; i++)
+            ans.push_back(i % 3 == 0 && i % 5 == 0 ? "FizzBuzz" : i % 3 == 0 ? "Fizz" : i % 5 == 0 ? "Buzz" : to_string(i));
+        return ans;
+    }
+};
+
+```
+
+---
+
+
+```cpp
+
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+
+        vector<string> ans;
+        int cnt = 1;
+
+        while(cnt <= n) {
+            string temp = "";
+            if(cnt%15 == 0) 
+                temp = "FizzBuzz";
+            else if(cnt%5 == 0) 
+                temp = "Buzz";
+            else if(cnt%3 == 0) 
+                temp = "Fizz";
+            else 
+                temp = to_string(cnt);
+            ans.push_back(temp);
+            cnt++;
+        }
+
+        return ans;
+        
+    }
+};
+
+```
+
 
