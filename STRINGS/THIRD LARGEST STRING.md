@@ -197,7 +197,160 @@ int main() {
 
 
 ```
+
+Let's break down the dry run step by step to understand why `"banana"` is returned as the third largest unique string in the array `{"apple", "banana", "cherry", "date", "apple", "banana"}`.
+
+### **Understanding the Problem:**
+
+The goal is to find the **third largest unique string** in the given array. The process involves:
+1. **Identifying unique strings.**
+2. **Sorting those unique strings in descending lexicographical order** to find the third largest one.
+
+### **Dry Run Step by Step:**
+
+Given input:
+
+```cpp
+vector<string> arr = {"apple", "banana", "cherry", "date", "apple", "banana"};
+```
+
+#### **Step 1: Initialize the Min-Heap**
+
+We start by initializing a **min-heap** (`minHeap`) that will hold up to 3 largest unique strings. The heap is ordered in **ascending lexicographical order** (so the smallest element is at the top).
+
+```cpp
+priority_queue<string, vector<string>, greater<string>> minHeap;
+```
+
+At this point, the heap is empty.
+
+#### **Step 2: Loop Through Each Word in the Array**
+
+We begin the loop that iterates through each string in the array:
+
+1. **First Iteration**: `word = "apple"`
+   - Push `"apple"` into the heap. Now, the heap contains: `{"apple"}`.
+
+2. **Second Iteration**: `word = "banana"`
+   - Push `"banana"` into the heap. Now, the heap contains: `{"apple", "banana"}`.
+
+3. **Third Iteration**: `word = "cherry"`
+   - Push `"cherry"` into the heap. Now, the heap contains: `{"apple", "banana", "cherry"}`.
+
+4. **Fourth Iteration**: `word = "date"`
+   - Push `"date"` into the heap. Now, the heap contains: `{"apple", "banana", "cherry", "date"}`.
+   - **Heap size exceeds 3**, so we remove the smallest element `"apple"` (the root of the heap). After popping, the heap contains: `{"banana", "cherry", "date"}`.
+
+5. **Fifth Iteration**: `word = "apple"`
+   - `"apple"` is already in the heap, so we skip adding it.
+
+6. **Sixth Iteration**: `word = "banana"`
+   - `"banana"` is already in the heap, so we skip adding it.
+
+#### **Step 3: Check if the Heap Has Less Than 3 Unique Strings**
+
+After the loop, the heap contains: `{"banana", "cherry", "date"}`.
+
+- Since the heap has exactly 3 unique elements, we **don't return the error message**.
+
+#### **Step 4: Return the Third Largest String**
+
+Now, the heap contains the 3 largest unique strings in **ascending lexicographical order**:
+- The top of the heap is `"banana"`, which is the **third largest unique string**.
+- We return `"banana"` as the answer.
+
+### **Final Answer**: `"banana"`
+
+### **Why `"banana"`?**
+- The heap has maintained the 3 largest strings, and since it is a **min-heap**, the **smallest** of those 3 strings is at the root of the heap.
+- The heap after processing all elements contains `{"banana", "cherry", "date"}`.
+- Since the heap was built with the strings ordered in lexicographical order, `"banana"` is the third largest (smallest) among the top 3 strings.
+
+### **Visualizing the Heap Content**:
+
+- After the loop, the heap will contain: `{"banana", "cherry", "date"}`.
+- The heap is ordered in **ascending order** lexicographically.
+- The top element (smallest of the top 3) is `"banana"`, which is the third largest unique string.
+
+### **Summary**:
+- After processing all the strings in the input array, the heap stores the **top 3 largest unique strings** in lexicographical order.
+- The third largest string is `"banana"`, which is the top of the heap at the end of the process.
 Let's perform a **line-by-line dry run** of the optimized C++ code to find the third largest unique string in an array. I'll explain each line, the dry run with sample input, and provide the mathematical formulas or logic behind each step.
+
+We use a **priority queue** (or **heap**) in this problem for the following key reasons:
+
+### **1. Efficient Storage and Retrieval of Top Elements**
+A **priority queue** allows us to efficiently maintain the largest (or smallest) elements based on a specific ordering. In this problem, we are looking for the **third largest unique string**. The heap helps us do this efficiently by:
+
+- Keeping the **top 3 largest unique strings** at any given point.
+- Ensuring that we can retrieve the smallest of the largest elements (i.e., the third largest) in constant time.
+
+### **2. Automatic Ordering**
+A priority queue keeps the elements **automatically ordered** based on the comparison function we provide. In the case of the problem:
+
+- We are using a **min-heap** (implemented with `priority_queue<string, vector<string>, greater<string>>` in C++).
+- The smallest element is always at the top of the heap.
+- When we have more than 3 elements in the heap, the smallest element (root) is removed and replaced by the next larger element. This ensures that the heap always holds the **top 3 largest unique elements** in sorted order.
+
+### **3. Efficient Operations**
+- **Insertion into a priority queue** takes **O(log k)** time, where `k` is the size of the heap (in this case, `k = 3`).
+- **Removing the smallest element** (the root in a min-heap) also takes **O(log k)** time.
+- This is more efficient than sorting the entire array, which would take **O(n log n)** time, where `n` is the size of the array.
+
+### **4. Memory Efficiency**
+Using a heap (of fixed size 3) allows us to store only the **top 3 largest unique elements** at any point. This helps optimize both memory usage and processing time. The alternative would be to store all the unique strings and sort them, which could be less efficient in terms of memory and computation.
+
+### **5. Simplicity of Code**
+The priority queue simplifies the logic of the problem. Without a heap, we would need to:
+- Track the largest 3 elements manually.
+- Re-sort or re-check the elements frequently.
+
+With the heap, we can **focus on inserting elements** and let the priority queue handle the ordering and removal of the smallest element automatically.
+
+### **Key Operations in a Min-Heap:**
+1. **Push**: Adds an element while maintaining the heap property.
+2. **Pop**: Removes the smallest element (in a min-heap) and reorders the heap.
+3. **Top**: Retrieves the smallest element without removing it.
+
+### **Mathematical Formula Behind Each Step:**
+The heap operations are based on the **heap property**, which states that:
+- In a **min-heap**, for any node `i`, the value of `i` is smaller than or equal to the values of its children. This ensures that the root (top of the heap) contains the smallest value.
+- The mathematical complexity of these heap operations is **O(log k)**, where `k` is the number of elements stored in the heap (in this case, 3).
+
+### **Dry Run of Heap Operations**:
+Let's recall the main operations with an example input:
+
+```cpp
+priority_queue<string, vector<string>, greater<string>> minHeap;
+vector<string> arr = {"apple", "banana", "cherry", "date", "apple", "banana"};
+```
+
+1. **Insert "apple"**: 
+   - The heap becomes: `{"apple"}`.
+   
+2. **Insert "banana"**:
+   - The heap becomes: `{"apple", "banana"}`.
+   
+3. **Insert "cherry"**:
+   - The heap becomes: `{"apple", "banana", "cherry"}`.
+   
+4. **Insert "date"** (heap exceeds size 3):
+   - The heap becomes: `{"apple", "banana", "cherry", "date"}`.
+   - We remove the smallest element (`"apple"`), and the heap becomes: `{"banana", "cherry", "date"}`.
+   
+5. **Insert "apple"** (already exists, skip).
+   
+6. **Insert "banana"** (already exists, skip).
+
+At the end, the heap holds: `{"banana", "cherry", "date"}`, and the smallest element (`"banana"`) is the third largest string.
+
+### **Conclusion**:
+A **priority queue** (min-heap in this case) is ideal for problems like this, where we need to efficiently track and retrieve the largest or smallest elements. It provides:
+- **Efficient insertion and removal** of elements.
+- **Automatic ordering** of elements.
+- A **simple and efficient way** to maintain the top N elements (in this case, 3 largest unique strings).
+
+By using a priority queue, we ensure that we can find the third largest unique string in **O(n log 3)** time, which is significantly more efficient than sorting the entire array.
 
 ### Full Code with Dry Run
 
