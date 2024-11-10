@@ -57,6 +57,182 @@ public:
 OPITMAL 
 
 ```cpp
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> result;
+        
+        // Iterate through the array
+        for (int i = 0; i < nums.size(); i++) {
+            // Get the absolute value of the current element
+            int index = abs(nums[i]) - 1; 
+            
+            // If the value at the corresponding index is negative, it's a duplicate
+            if (nums[index] < 0) {
+                result.push_back(abs(nums[i]));
+            } else {
+                // Mark the value at the index as visited by negating it
+                nums[index] = -nums[index];
+            }
+        }
+        
+        return result;
+    }
+};
+
+```
+Let’s go through a dry run of the code with an example input step-by-step.
+
+Suppose the input array is:
+```cpp
+nums = [4, 3, 2, 7, 8, 2, 3, 1]
+```
+
+### Initial Setup
+1. We initialize an empty `result` vector to store the duplicates.
+2. We will iterate through each element in `nums`, and for each element, we calculate an index based on its absolute value (adjusted by subtracting 1 since array indices are 0-based).
+
+### Step-by-Step Dry Run
+Let’s go through each iteration and understand what happens.
+
+#### Iteration 1:
+- **`i = 0`**: `nums[0] = 4`
+  - `index = abs(nums[0]) - 1 = 4 - 1 = 3`
+  - `nums[3] = 7` (value at index 3 is positive)
+  - Mark `nums[3]` as visited by negating it: `nums[3] = -7`
+  - **Updated `nums`**: `[4, 3, 2, -7, 8, 2, 3, 1]`
+
+#### Iteration 2:
+- **`i = 1`**: `nums[1] = 3`
+  - `index = abs(nums[1]) - 1 = 3 - 1 = 2`
+  - `nums[2] = 2` (value at index 2 is positive)
+  - Mark `nums[2]` as visited by negating it: `nums[2] = -2`
+  - **Updated `nums`**: `[4, 3, -2, -7, 8, 2, 3, 1]`
+
+#### Iteration 3:
+- **`i = 2`**: `nums[2] = -2` (already negative due to previous step)
+  - `index = abs(nums[2]) - 1 = 2 - 1 = 1`
+  - `nums[1] = 3` (value at index 1 is positive)
+  - Mark `nums[1]` as visited by negating it: `nums[1] = -3`
+  - **Updated `nums`**: `[4, -3, -2, -7, 8, 2, 3, 1]`
+
+#### Iteration 4:
+- **`i = 3`**: `nums[3] = -7` (already negative due to previous step)
+  - `index = abs(nums[3]) - 1 = 7 - 1 = 6`
+  - `nums[6] = 3` (value at index 6 is positive)
+  - Mark `nums[6]` as visited by negating it: `nums[6] = -3`
+  - **Updated `nums`**: `[4, -3, -2, -7, 8, 2, -3, 1]`
+
+#### Iteration 5:
+- **`i = 4`**: `nums[4] = 8`
+  - `index = abs(nums[4]) - 1 = 8 - 1 = 7`
+  - `nums[7] = 1` (value at index 7 is positive)
+  - Mark `nums[7]` as visited by negating it: `nums[7] = -1`
+  - **Updated `nums`**: `[4, -3, -2, -7, 8, 2, -3, -1]`
+
+#### Iteration 6:
+- **`i = 5`**: `nums[5] = 2`
+  - `index = abs(nums[5]) - 1 = 2 - 1 = 1`
+  - `nums[1] = -3` (value at index 1 is negative, indicating a duplicate)
+  - Add `abs(nums[5]) = 2` to `result`
+  - **Updated `result`**: `[2]`
+
+#### Iteration 7:
+- **`i = 6`**: `nums[6] = -3` (already negative)
+  - `index = abs(nums[6]) - 1 = 3 - 1 = 2`
+  - `nums[2] = -2` (value at index 2 is negative, indicating a duplicate)
+  - Add `abs(nums[6]) = 3` to `result`
+  - **Updated `result`**: `[2, 3]`
+
+#### Iteration 8:
+- **`i = 7`**: `nums[7] = -1` (already negative)
+  - `index = abs(nums[7]) - 1 = 1 - 1 = 0`
+  - `nums[0] = 4` (value at index 0 is positive)
+  - Mark `nums[0]` as visited by negating it: `nums[0] = -4`
+  - **Updated `nums`**: `[-4, -3, -2, -7, 8, 2, -3, -1]`
+
+### Final Result
+After all iterations, `result` contains the duplicates found in the array:
+```cpp
+result = [2, 3]
+```
+
+### Summary
+This algorithm effectively identifies duplicates by using the input array itself to mark visited indices. By making elements at certain indices negative, it tracks if an index has been visited more than once, which signals a duplicate.
+
+---
+
+ There are two issues in the code:
+
+1. **Out-of-Bounds Error in the Loop**:  
+   The loop currently iterates with `i < nums.size() + 2`. This will cause an out-of-bounds access error because you’re trying to access elements beyond the end of the `nums` array. The loop should only iterate up to `nums.size()` to avoid going beyond the bounds of the array.
+
+2. **Index Calculation**:  
+   In this line:
+   ```cpp
+   int index = abs(nums[i]);
+   ```
+   `index` is intended to be a 0-based index. However, `nums[i]` can be any integer in the range `[1, n]`, so `index` should be calculated as `abs(nums[i]) - 1`. Without subtracting 1, you’re accessing an out-of-bounds index if `index == nums.size()`.
+
+### Corrected Code:
+Here’s the corrected code with these changes:
+
+```cpp
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> result;
+        
+        // Iterate through the array
+        for (int i = 0; i < nums.size(); i++) {
+            // Get the correct index by subtracting 1
+            int index = abs(nums[i]) - 1; 
+            
+            // If the value at the corresponding index is negative, it's a duplicate
+            if (nums[index] < 0) {
+                result.push_back(abs(nums[i]));
+            } else {
+                // Mark the value at the index as visited by negating it
+                nums[index] = -nums[index];
+            }
+        }
+        
+        return result;
+    }
+};
+```
+
+### Explanation of Changes
+1. **Loop Bound**: Changed `nums.size() + 2` to `nums.size()` to prevent accessing elements outside of the array.
+2. **Index Calculation**: Changed `int index = abs(nums[i]);` to `int index = abs(nums[i]) - 1;` to ensure we’re using a 0-based index correctly.
+   
+
+This corrected version should now work as expected without errors.
+
+ ---
+ 
+** GFGs**
+
+
+ 
+
+You are given an integer n and an integer array arr of size n+2. All elements of the array are in the range from 1 to n. Also, all elements occur once except two numbers which occur twice. Find the two repeating numbers.
+Note: Return the numbers in their order of appearing twice. So, if x and y are repeating numbers, and x's second appearance comes before the second appearance of y, then the order should be (x, y).
+
+Examples:
+
+Input: n = 4, arr[] = [1, 2, 1, 3, 4, 3]
+Output: 1 3
+Explanation: In the given array, 1 and 3 are repeated two times, and as 1's second appearance occurs before 2's second appearance, so the output should be 1 3.
+Input: n = 2, arr[] = [1, 2, 2, 1]
+Output: 2 1
+Explanation: In the given array, 1 and 2 are repeated two times and second occurence of 2 comes before 1. So the output is 2 1.
+Expected Time Complexity: O(n).
+Expected Auxiliary Space: O(1). 
+
+```cpp
+
 class Solution {
   public:
     // Function to find two repeated elements.
@@ -72,6 +248,7 @@ class Solution {
         }return ans;
     }
 };
+
 
 ```
 
@@ -127,23 +304,3 @@ Final Output
 ans = {1, 3}
 Explanation of the Result
 The duplicates 1 and 3 were detected in the order they appear for the second time, resulting in the output 1 3.
-
----
-
-
-You are given an integer n and an integer array arr of size n+2. All elements of the array are in the range from 1 to n. Also, all elements occur once except two numbers which occur twice. Find the two repeating numbers.
-Note: Return the numbers in their order of appearing twice. So, if x and y are repeating numbers, and x's second appearance comes before the second appearance of y, then the order should be (x, y).
-
-Examples:
-
-Input: n = 4, arr[] = [1, 2, 1, 3, 4, 3]
-Output: 1 3
-Explanation: In the given array, 1 and 3 are repeated two times, and as 1's second appearance occurs before 2's second appearance, so the output should be 1 3.
-Input: n = 2, arr[] = [1, 2, 2, 1]
-Output: 2 1
-Explanation: In the given array, 1 and 2 are repeated two times and second occurence of 2 comes before 1. So the output is 2 1.
-Expected Time Complexity: O(n).
-Expected Auxiliary Space: O(1). 
-
-
-
