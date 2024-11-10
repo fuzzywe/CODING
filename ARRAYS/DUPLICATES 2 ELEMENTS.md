@@ -348,12 +348,86 @@ Consider the input array:
 nums = [5, 2, 3, 4, 5]
 ```
 
+
 - XOR all elements:
   - \( 5 \oplus 2 \oplus 3 \oplus 4 \oplus 5 \)
   - Result: `5` (since the unique elements cancel out, leaving only the duplicate)
 
 ### Explanation of Complexity:
+
+![10 11 2024_13 32 43_REC](https://github.com/user-attachments/assets/ee858f07-7cf7-47f4-8649-72c31faa994c)
+
+
 - **Time Complexity**: \( O(n) \), as we are iterating through the array once.
 - **Space Complexity**: \( O(1) \), as we use only a single variable `xorResult` to store the XOR result.
 
 This approach meets the requirements of \( O(n) \) time and \( O(1) \) space complexity.
+
+
+---
+
+The second question he asked was this – In an array, all elements are repeated twice except one element which comes thrice, find that element. I gave him the simple XOR solution, where we XOR all the elements and the final result is the answer.
+
+
+The XOR solution won't work here because XOR is effective only when elements appear exactly twice (or an odd number of times). In this case, where all elements appear **twice** except for **one element that appears three times**, we need a different approach to find the element appearing three times in \(O(n)\) time and \(O(1)\) space.
+
+### Solution: Bit Manipulation (Sum of Bits)
+
+Here's an efficient approach using bit manipulation based on summing the bits of each position across all numbers:
+
+1. **Count the occurrence of each bit across all numbers**: 
+   For each bit position (from 0 to 31 for a 32-bit integer), count the number of `1`s across all numbers in the array.
+
+2. **Modulo 3 for Each Bit**:
+   If a bit appears three times in total across all numbers, it means this bit contributes fully to elements that appear twice. The bit of the unique element that appears only once will have a remainder of `1` in that bit position when counted modulo 3. 
+
+3. **Reconstruct the Unique Number**:
+   By taking the modulo of the bit count with 3 for each bit position, we can reconstruct the unique element.
+
+### Code:
+
+Here's the code to implement this solution:
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findUniqueElement(vector<int>& nums) {
+        int result = 0;
+
+        // Iterate through each bit position
+        for (int i = 0; i < 32; ++i) {
+            int bitCount = 0;
+
+            // Count how many numbers have a 1 at the i-th bit position
+            for (int num : nums) {
+                if (num & (1 << i)) {
+                    bitCount++;
+                }
+            }
+
+            // If bitCount % 3 is 1, this bit belongs to the unique element
+            if (bitCount % 3 != 0) {
+                result |= (1 << i);
+            }
+        }
+
+        return result;
+    }
+};
+```
+
+### Explanation:
+
+- **Counting Bits**: For each bit position `i` (from 0 to 31), we count the number of numbers that have a `1` at that bit position.
+- **Modulo Operation**: If `bitCount % 3 != 0`, it means this bit position contributes to the unique number (the one that appears three times).
+- **Setting the Result**: Set the corresponding bit in the `result` using bitwise OR.
+
+### Complexity Analysis:
+
+- **Time Complexity**: \( O(n) \), since we loop through each element and then each bit position (a constant 32-bit loop).
+- **Space Complexity**: \( O(1) \), as we only use a fixed amount of extra space for counting bits.
+
+This approach effectively finds the element that appears three times without needing extra space beyond the counters and operates in linear time.
