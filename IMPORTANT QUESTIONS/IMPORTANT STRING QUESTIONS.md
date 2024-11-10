@@ -56,3 +56,6 @@ https://leetcode.com/problems/valid-parentheses/
 String Compression:
 Implement a method to perform basic string compression using the counts of repeated characters. For example, the string "aabcccccaaa" would become "a2b1c5a3".
 https://leetcode.com/problems/string-compression/
+
+Question 1: Solved finding the intersection of two linked lists.
+Question 2: Shifted zeros to the right in an array.
