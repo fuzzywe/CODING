@@ -304,3 +304,56 @@ Final Output
 ans = {1, 3}
 Explanation of the Result
 The duplicates 1 and 3 were detected in the order they appear for the second time, resulting in the output 1 3.
+
+---
+
+
+Given a list of array elements with all unique elements, except one element which comes two times, find that duplicate number. It was similar to this Repeating element except the array elements were not from 1 to n. I gave him the hashing solution but he wanted it in O(1) space complexity and O(n) time complexity.
+
+If the array elements are unique except for one duplicate, and the elements are not constrained to be from 1 to n, you can solve this problem in \( O(n) \) time and \( O(1) \) space by using the **XOR method**.
+
+### Explanation of the XOR Method:
+1. XOR has a unique property where:
+   - \( a \oplus a = 0 \) (any number XORed with itself is 0)
+   - \( a \oplus 0 = a \) (any number XORed with 0 is the number itself)
+2. When you XOR all numbers in the array, the duplicate number will remain, as every other unique number cancels out itself due to the XOR property.
+
+### Solution:
+To implement this, simply XOR all elements in the array. The result will be the duplicate element.
+
+Here's how it works in code:
+
+```cpp
+#include <vector>
+using namespace std;
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+        int xorResult = 0;
+
+        // XOR all elements in the array
+        for (int num : nums) {
+            xorResult ^= num;
+        }
+
+        return xorResult;
+    }
+};
+```
+
+### Example:
+Consider the input array:
+```cpp
+nums = [5, 2, 3, 4, 5]
+```
+
+- XOR all elements:
+  - \( 5 \oplus 2 \oplus 3 \oplus 4 \oplus 5 \)
+  - Result: `5` (since the unique elements cancel out, leaving only the duplicate)
+
+### Explanation of Complexity:
+- **Time Complexity**: \( O(n) \), as we are iterating through the array once.
+- **Space Complexity**: \( O(1) \), as we use only a single variable `xorResult` to store the XOR result.
+
+This approach meets the requirements of \( O(n) \) time and \( O(1) \) space complexity.
