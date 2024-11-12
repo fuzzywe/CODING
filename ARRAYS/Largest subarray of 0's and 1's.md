@@ -40,6 +40,97 @@ int maxLen(int arr[], int N)
 }
 ```
 
+
+To find the **largest subarray with equal numbers of 0's and 1's**, the approach is based on finding subarrays where the **difference between the count of 1's and 0's is zero**. Here's the breakdown of how you can do that using a formula-like method:
+
+### Concept:
+1. **Transform the array**:
+   - Replace `0` with `-1` and leave `1` as `1`. This simplifies the problem to finding a subarray whose sum is `0`.
+
+2. **Track the cumulative sum**:
+   - As you traverse the array, calculate a **running sum** (`diff`), which represents the difference between the count of 1's and 0's encountered so far.
+   
+   - `diff[i] = diff[i-1] + (arr[i] == 1 ? 1 : -1)`
+
+3. **Use a hash map**:
+   - Store the first occurrence of each `diff` in a hash map. The key is the `diff`, and the value is the index where this `diff` first appeared.
+   - If the same `diff` value is encountered again, it means that there is a subarray between the two indices (from the first occurrence to the current index) where the number of `1`s and `0`s are balanced.
+
+4.Calculate the subarray length:
+
+The length of the subarray where the sum is 0 can be calculated as:
+length
+=
+current index
+−
+first occurrence index of the same diff
+**length=current index−first occurrence index of the same diffv**
+
+
+5. **Find the largest subarray**:
+   - Keep track of the largest length of such subarrays.
+
+### Formula:
+For an array `arr[]` of size `N`, the steps for finding the largest subarray are:
+
+1. Replace every `0` with `-1` in `arr[]`.
+
+2. Initialize:
+   - `diff = 0`
+   - `ans = 0` (for the largest subarray length)
+   - `mp = {0: -1}` (to store the first occurrence of each `diff` value)
+
+3. Traverse the array:
+   - Update the `diff` based on the current value (`arr[i]`):
+     - If `arr[i] == 1`, then `diff += 1`
+     - If `arr[i] == 0`, then `diff -= 1`
+
+![12 11 2024_21 31 32_REC](https://github.com/user-attachments/assets/e0c0e97d-3817-44b9-abd9-89d5986a2337)
+
+
+
+### Example:
+
+For the array `arr = [1, 0, 0, 1, 0, 1, 1]`:
+
+1. **Transform the array**:  
+   `arr = [1, -1, -1, 1, -1, 1, 1]` (replace `0` with `-1`).
+
+2. **Initialize**:
+   - `diff = 0`, `ans = 0`, `mp = {0: -1}`.
+
+3. **Loop through the array**:
+   
+   - **i = 0**: `arr[0] = 1`, `diff = 1`.  
+     `mp[1] = 0`.
+
+   - **i = 1**: `arr[1] = -1`, `diff = 0`.  
+     `ans = max(ans, 1 - (-1)) = 2`.  
+     `mp = {0: -1, 1: 0}`.
+
+   - **i = 2**: `arr[2] = -1`, `diff = -1`.  
+     `mp[-1] = 2`.
+
+   - **i = 3**: `arr[3] = 1`, `diff = 0`.  
+     `ans = max(ans, 3 - (-1)) = 4`.  
+     `mp = {0: -1, 1: 0, -1: 2}`.
+
+   - **i = 4**: `arr[4] = -1`, `diff = -1`.  
+     `ans = max(ans, 4 - 2) = 4`.  
+     `mp = {0: -1, 1: 0, -1: 2}`.
+
+   - **i = 5**: `arr[5] = 1`, `diff = 0`.  
+     `ans = max(ans, 5 - (-1)) = 6`.  
+     `mp = {0: -1, 1: 0, -1: 2}`.
+
+   - **i = 6**: `arr[6] = 1`, `diff = 1`.  
+     `ans = max(ans, 6 - 0) = 6`.  
+     `mp = {0: -1, 1: 0, -1: 2}`.
+
+4. **Result**: The maximum subarray length with an equal number of 1's and 0's is `6`.
+
+### Final Answer:
+The length of the largest subarray with an equal number of 0's and 1's is **6**.
 ### Explanation and Dry Run
 
 We’ll go through each line of code, explaining its role and performing the dry run after each line for clarity.
