@@ -1,5 +1,6 @@
 https://www.geeksforgeeks.org/problems/largest-subarray-of-0s-and-1s/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
 
+https://www.naukri.com/code360/problems/largest-subarray-with-equal-number-of-0s-and-1s_839812?leftPanelTabValue=PROBLEM
 
 Given an array arr of 0s and 1s. Find and return the length of the longest subarray with equal number of 0s and 1s.
 
@@ -275,3 +276,42 @@ We'll go through each iteration of the loop with the array:
 
 ### Final Result:
 The maximum length of a subarray with equal `0`s and `1`s in `[1, 0, 0, 1, 0, 1, 1]` is **6**, covering the subarray from index `0` to `5`.
+
+
+---
+
+```cpp
+#include <bits/stdc++.h> 
+int findSubarray(vector<int> arr)
+{
+    // Write your code here.
+    int ans =0;
+    int diff =0;
+    unordered_map<int,int>mp;
+ 
+
+    for(int i = 0 ; i < arr.size() ; i++){
+
+        arr[i] =  (arr[i] ==0)?-1 : 1 ;
+
+    }
+    for(int i =0; i<arr.size();i++)
+    {
+        diff += arr[i];
+        if(diff==0)
+        {
+            ans=i+1;
+        }
+
+        if(mp.find(diff) !=mp.end())
+        {
+            if(ans<i-mp[diff])
+            {
+                ans = i-mp[diff];
+            }
+        }
+        else mp[diff] = i;
+    }return ans;
+}
+
+```
