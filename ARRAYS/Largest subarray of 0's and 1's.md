@@ -87,7 +87,20 @@ For an array `arr[]` of size `N`, the steps for finding the largest subarray are
 
 ![12 11 2024_21 31 32_REC](https://github.com/user-attachments/assets/e0c0e97d-3817-44b9-abd9-89d5986a2337)
 
+**In the context of finding the largest subarray with an equal number of 1's and 0's, diff is the cumulative difference between the number of ****1's and 0's you have encountered up to the current index in the array.**
 
+The line mp[0] = -1; is crucial for ensuring that the length of a valid subarray is correctly calculated when the subarray starts from the beginning of the array.
+
+Why do we need this?
+Initial diff Value:
+At the beginning of the loop, diff starts at 0. We need to account for the possibility that the first subarray (from index 0 to some later index i) might already have an equal number of 1's and 0's. For this case, the subarray's length should be calculated from the start of the array.
+
+Handling the Case of diff == 0:
+If the diff value reaches 0 at any index (other than the first one), it indicates that the number of 1s and 0s up to that index are balanced. Without the initial mp[0] = -1, when we encounter diff == 0 at some index i, we'd incorrectly calculate the subarray length as i - mp[0] because there would be no entry for 0 in the mp map, and the map lookup would fail.
+
+By explicitly setting mp[0] = -1, we ensure that:
+
+If diff is 0 at index i, then the subarray from index 0 to index i is a valid candidate for having an equal number of 1's and 0's. The length of this subarray would be calculated as i - (-1), which is i + 1.
 
 ### Example:
 
