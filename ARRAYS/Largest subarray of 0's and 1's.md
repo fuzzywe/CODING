@@ -292,7 +292,7 @@ int findSubarray(vector<int> arr)
 
     for(int i = 0 ; i < arr.size() ; i++){
 
-        arr[i] =  (arr[i] ==0)?-1 : 1 ;
+      arr[i] =  arr[i]?1 : -1 ;
 
     }
     for(int i =0; i<arr.size();i++)
