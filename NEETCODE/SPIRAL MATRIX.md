@@ -8,6 +8,9 @@ Given an m x n matrix, return all elements of the matrix in spiral order.
  
 
 Example 1:
+
+https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/
+
 https://leetcode.com/problems/spiral-matrix/description/?envType=problem-list-v2&envId=plakya4j&difficulty=MEDIUM&status=TO_DO
 
 Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
