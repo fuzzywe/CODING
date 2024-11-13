@@ -1,3 +1,8 @@
+https://www.geeksforgeeks.org/problems/maximum-product-subarray3604/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+https://leetcode.com/problems/maximum-product-subarray/description/
+
+
 152. Maximum Product Subarray
 Medium
 Topics
