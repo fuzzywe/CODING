@@ -80,3 +80,25 @@ Reply
 
 
 Wow really cool solution. I think the reason getting prefix product, suffix product and getting max works is because there are only 2 things you have to look out for(zero and the greatest negative number in a odd negative number array). Thus your algorithm completes the 2 cases by finding the max product to the greatest negative number from both sides and reseting product when it reaches 0.
+
+
+---
+```cpp
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int prod1 = nums[0],prod2 = nums[0],result = nums[0];
+    
+    for(int i=1;i<nums.size();i++) {
+        int temp = max({nums[i],prod1*nums[i],prod2*nums[i]});
+        prod2 = min({nums[i],prod1*nums[i],prod2*nums[i]});
+        prod1 = temp;
+        
+        result = max(result,prod1);
+    }
+    
+    return result;
+    }
+};
+
+```
