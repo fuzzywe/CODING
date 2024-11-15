@@ -79,7 +79,63 @@ Output
 Time Complexity: O(n)
 Auxiliary Space: O(n)
 
+Below is the Python equivalent of the given C++ program to print numbers from 1 to \( N \) without using loops. It uses recursion to achieve this.
 
+### Python Implementation
+
+```python
+def print_numbers(n):
+    if n > 0:
+        # Recursive call to print numbers up to n-1
+        print_numbers(n - 1)
+        # Print the current number
+        print(n, end=" ")
+
+# Example usage
+N = 10  # Change this to any positive integer
+print_numbers(N)
+```
+
+### How it Works
+1. **Base Case**:
+   - The function stops calling itself once \( n \) becomes 0, preventing infinite recursion.
+   
+2. **Recursive Step**:
+   - The function first calls itself with \( n - 1 \), progressing towards the base case.
+   - After returning from the recursive call, it prints the current value of \( n \).
+
+### Example Walkthrough
+
+**Input**:
+```python
+N = 5
+```
+
+**Execution**:
+1. `print_numbers(5)` calls `print_numbers(4)`.
+2. `print_numbers(4)` calls `print_numbers(3)`.
+3. `print_numbers(3)` calls `print_numbers(2)`.
+4. `print_numbers(2)` calls `print_numbers(1)`.
+5. `print_numbers(1)` calls `print_numbers(0)` (base case reached, returns without doing anything).
+6. After `print_numbers(0)` returns:
+   - `print(1)` is executed.
+   - `print(2)` is executed.
+   - `print(3)` is executed.
+   - `print(4)` is executed.
+   - `print(5)` is executed.
+
+**Output**:
+```plaintext
+1 2 3 4 5
+```
+
+### Complexity
+- **Time Complexity**: \( O(n) \)
+   - Each number from 1 to \( n \) is processed exactly once.
+- **Auxiliary Space**: \( O(n) \)
+   - Due to the recursive function calls, the call stack grows to a depth of \( n \).
+
+This approach is simple and effectively replaces loops with recursion.
 **Print 1 To N**
 ```cpp
 void oneton(int n){
