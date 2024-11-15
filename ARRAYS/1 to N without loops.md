@@ -25,6 +25,60 @@ Reverse stack Using recursion.
 
 here is the code of
 ---
+You are given an integer N. Print numbers from 1 to N without the help of loops.
+
+Examples:
+
+
+Input: N = 5
+Output: 1 2 3 4 5
+Explanation: We have to print numbers from 1 to 5.
+
+
+Input: N = 10
+Output: 1 2 3 4 5 6 7 8 9 10
+Explanation: We have to print numbers from 1 to 10.
+
+
+Approach: If we take a look at this problem carefully, we can see that the idea of “loop” is to track some counter value, e.g., “i = 0” till “i <= 100”. So, if we aren’t allowed to use loops, how can we track something?
+
+Well, one possibility is the use of ‘recursion‘, provided we use the terminating condition carefully. Here is a solution that prints numbers using recursion. 
+ 
+
+// C++ program to How will you print
+//  numbers from 1 to n without using a loop?
+#include <iostream>
+using namespace std;
+```cpp
+class gfg {
+
+    // It prints numbers from 1 to n.
+public:
+    void printNos(unsigned int n)
+    {
+        if (n > 0) {
+            printNos(n - 1);
+            cout << n << " ";
+        }
+        return;
+    }
+};
+
+// Driver code
+int main()
+{
+    int n = 10;
+    gfg g;
+    g.printNos(n);
+    return 0;
+}
+
+```
+Output
+1 2 3 4 5 6 7 8 9 10 
+Time Complexity: O(n)
+Auxiliary Space: O(n)
+
 
 **Print 1 To N**
 ```cpp
