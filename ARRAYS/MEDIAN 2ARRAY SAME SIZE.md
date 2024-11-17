@@ -8,7 +8,7 @@ Explanation : The merged sorted array is {10, 21}. The middle two elements are 1
 
 // C++ Code to find Median of two Sorted Arrays of 
 // Same Size using Sorting
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -40,9 +40,11 @@ int main() {
 Time Complexity: O((2n) * log(2n)), where n is the size of array arr1[] and arr2[].
 Auxiliary Space: O(2n), because we are creating a new merged array of size 2n.
 
+```
+
 // C++ Code to find Median of two Sorted Arrays of 
 // Same Size using Merge of Merge Sort
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -92,11 +94,14 @@ int main() {
 Time Complexity: O(n), where n is the size of array arr1[] and arr2[].
 Auxiliary Space: O(1)
 
+```
+
 [Expected Approach] Using Binary Search – O(log n) Time and O(1) Space
 
 // C++ Program to find the median of merged sorted
 // array using Binary Search
 
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -146,178 +151,14 @@ int main() {
 
     return 0;
 }
-Let’s work through the concept visually and with formulas to clarify how the partitioning and comparisons work. The goal is to find the **median** of two sorted arrays.
 
----
 
-### **Problem Recap**
 
-We divide the two arrays into "left" and "right" parts. 
-
-1. Let `mid1` be the partition in `arr1` and `mid2` in `arr2`. 
-   - The size of the left part is \((mid1 + mid2)\), and the size of the right part is the remaining elements.
-
-2. The partition is valid when:
-   - All elements in the **left parts** are ≤ all elements in the **right parts**:
-     \[
-     l1 \leq r2 \quad \text{and} \quad l2 \leq r1
-     \]
-
-3. The median depends on the combined length:
-   - If \((n1 + n2)\) is **odd**, the median is the maximum of the left parts:
-     \[
-     \text{Median} = \max(l1, l2)
-     \]
-   - If \((n1 + n2)\) is **even**, the median is the average of the largest left and smallest right:
-     \[
-     \text{Median} = \frac{\max(l1, l2) + \min(r1, r2)}{2}
-     \]
-
----
-
-### **Key Variables**
-
-- `l1`: Largest element in the left part of `arr1`:
-  \[
-  l1 = \text{mid1 == 0 ? INT\_MIN : arr1[mid1 - 1]}
-  \]
-  If `mid1 = 0`, it means there is no left part in `arr1`, so use \(-\infty\) (`INT_MIN`).
-
-- `r1`: Smallest element in the right part of `arr1`:
-  \[
-  r1 = \text{mid1 == n1 ? INT\_MAX : arr1[mid1]}
-  \]
-  If `mid1 = n1`, it means there is no right part in `arr1`, so use \(+\infty\) (`INT_MAX`).
-
-Similarly, for `arr2`:
-- `l2`: Largest element in the left part of `arr2`.
-- `r2`: Smallest element in the right part of `arr2`.
-
----
-
-### **Visual Example**
-
-#### Input Arrays:
 ```
-arr1 = [1, 3, 8]
-arr2 = [7, 9, 10, 11]
-```
+![17 11 2024_11 11 37_REC](https://github.com/user-attachments/assets/6f600608-31bb-4b48-8f5f-eb1b4f0022a8)
 
-#### Total Length:
-- \( n1 = 3 \), \( n2 = 4 \), \( n = 7 \).
+![17 11 2024_11 12 09_REC](https://github.com/user-attachments/assets/d1c39dd5-7b14-498f-bc99-ee7d3870355e)
 
-#### Binary Search Steps
 
-1. **Initial Setup**:
-   - Binary search on the smaller array (`arr1`), so we divide it at `mid1`.
 
----
-
-#### **Step 1: Partitioning**
-
-Let’s start with a hypothetical partition:
-
-- `mid1 = 1` → `arr1` is divided as:
-  - Left: [1]
-  - Right: [3, 8]
-- `mid2 = 3` → `arr2` is divided as:
-  - Left: [7, 9, 10]
-  - Right: [11]
-
-**Visual Partitioning**:
-```
-arr1: [1] | [3, 8]
-arr2: [7, 9, 10] | [11]
-```
-
-Now find boundary values:
-- \( l1 = 1 \), \( r1 = 3 \)
-- \( l2 = 10 \), \( r2 = 11 \)
-
-**Check Valid Partition**:
-- \( l1 \leq r2 (1 \leq 11) \) → True.
-- \( l2 \leq r1 (10 \leq 3) \) → False.
-
-This is not a valid partition. Adjust `mid1` to search further.
-
----
-
-#### **Step 2: Adjust Partition**
-
-Move `mid1` right. Now:
-- `mid1 = 2` → `arr1` is divided as:
-  - Left: [1, 3]
-  - Right: [8]
-- `mid2 = 2` → `arr2` is divided as:
-  - Left: [7, 9]
-  - Right: [10, 11]
-
-**Visual Partitioning**:
-```
-arr1: [1, 3] | [8]
-arr2: [7, 9] | [10, 11]
-```
-
-Boundary values:
-- \( l1 = 3 \), \( r1 = 8 \)
-- \( l2 = 9 \), \( r2 = 10 \)
-
-**Check Valid Partition**:
-- \( l1 \leq r2 (3 \leq 10) \) → True.
-- \( l2 \leq r1 (9 \leq 8) \) → False.
-
-Adjust again.
-
----
-
-#### **Step 3: Correct Partition**
-
-Move `mid1` right. Now:
-- `mid1 = 3` → `arr1` is divided as:
-  - Left: [1, 3, 8]
-  - Right: []
-- `mid2 = 1` → `arr2` is divided as:
-  - Left: [7]
-  - Right: [9, 10, 11]
-
-**Visual Partitioning**:
-```
-arr1: [1, 3, 8] | []
-arr2: [7] | [9, 10, 11]
-```
-
-Boundary values:
-- \( l1 = 8 \), \( r1 = \text{INT\_MAX} \) (no right part in `arr1`).
-- \( l2 = 7 \), \( r2 = 9 \)
-
-**Check Valid Partition**:
-- \( l1 \leq r2 (8 \leq 9) \) → True.
-- \( l2 \leq r1 (7 \leq \text{INT\_MAX}) \) → True.
-
-This is a valid partition.
-
----
-
-#### **Calculate the Median**
-
-- Total length \( n = 7 \) (odd):
-  - Median = \( \max(l1, l2) = \max(8, 7) = 8 \).
-
----
-
-### **Key Math Formulas Recap**
-
-1. Left size = \((mid1 + mid2)\), Right size = \((n - (mid1 + mid2))\).
-2. Valid partition condition:
-   \[
-   l1 \leq r2 \quad \text{and} \quad l2 \leq r1
-   \]
-3. Median:
-   - Odd case:
-     \[
-     \text{Median} = \max(l1, l2)
-     \]
-   - Even case:
-     \[
-     \text{Median} = \frac{\max(l1, l2) + \min(r1, r2)}{2}
-     \]
+![17 11 2024_11 12 25_REC](https://github.com/user-attachments/assets/74f26bcc-090a-4058-8f45-6f72b5a902f2)
