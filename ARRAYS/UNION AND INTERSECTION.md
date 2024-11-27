@@ -1,26 +1,40 @@
 
 
 https://leetcode.com/problems/intersection-of-two-arrays/description/
+
 Examples
 
 Input: arr1[] = [1, 2, 3, 4, 5], arr2[] = [1, 2, 3]
+
+
 Output: 5
+
 Explanation: 1, 2, 3, 4 and 5 are the elements which comes in the union setof both arrays. So count is 5.
-Input: arr1[] = [85, 25, 1, 32, 54, 6], arr2[] = [85, 2] 
+
+Input: arr1[] = [85, 25, 1, 32, 54, 6], arr2[] = [85, 2]
+
 Output: 7
+
 Explanation: 85, 25, 1, 32, 54, 6, and 2 are the elements which comes in the union set of both arrays. So count is 7.
+
 Input: arr1[] = [1, 2, 1, 1, 2], arr2[] = [2, 2, 1, 2, 1] 
+
 Output: 2
 Explanation: We need to consider only distinct. So count is 2.
  
 
 Expected Time Complexity: O(n+m)
+
 Expected Auxilliary Space: O(n+m)
 
+
 find the frequency using single map :
+
 why not unordered map?
+
   in unordered map the keys are stored in random order 
 in map hte keys are stored in order(ascending order).
+```cpp
 
   //{ Driver Code Starts
 // Initial template for C++
@@ -87,9 +101,15 @@ int main() {
 }
 // } Driver Code Ends
 
+```
+
 using set:
+
 //{ Driver Code Starts
+
 // Initial template for C++
+
+```cpp
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -153,6 +173,7 @@ int main() {
 }
 // } Driver Code Ends
 
+```
 
 RETURNING THE ARRAY OF UNION NUMBERS:
 
@@ -228,13 +249,19 @@ code-studio
 Disclaimer: Don’t jump directly to the solution, try it out yourself first.
 
 Solution 1:
+
 Algorithm / Intuition
+
 Solution 1: Using Map
-Our aim is to find the common elements in arr1 and arr2, and the distinct elements of arr1,arr2. Use a Single map to find the frequencies of elements in arr1 and arr2.
+
+Our aim is to find the common elements in arr1 and arr2, and the distinct elements of arr1,arr2. 
+
+Use a Single map to find the frequencies of elements in arr1 and arr2.
 
 As we are using only a single map the common element in arr1 and arr2 are treated as a single element for finding frequency, so there would be no duplicates.
 
 Why not unordered_map?
+
 In unordered_map the keys are stored in random order, while in the map the keys are stored in sorted order (ascending order by default). As we require elements of the union to be in ascending order, using a map is preferable.
 
 We can also use unordered_map, but after finding the union of arr1 and arr2, we need to sort the union vector to get the elements of the union in sorted order.
@@ -246,6 +273,7 @@ Python
 JavaScript
 Copy
 
+```cpp
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -273,6 +301,7 @@ int main() {
   return 0;
 }
 
+```
 
 Output:
 
@@ -312,12 +341,7 @@ In unordered_set the elements are stored in random order, while in a set the key
 
 We can also use unordered_set, but after finding the union of arr1 and arr2, we need to sort the union vector to get the elements of the union in sorted order.
 
-Code
-C++
-Java
-Python
-JavaScript
-Copy
+```cpp
 
 #include <bits/stdc++.h>
 
@@ -347,6 +371,8 @@ int main()
     cout << val << " ";
   return 0;
 }
+```
+
 
 Output:
 
@@ -386,12 +412,8 @@ arr1[ i ]  < arr2[ j ]
 arr1[ i ] < arr2[ j ] so we need to insert arr1[ i ] in union.IF last element in  union vector is not equal to arr1[ i ],then insert in union else don’t insert. After checking Increment i.
 arr1[ i ] > arr2[ j ]
 arr1[ i ] > arr2[ j ] so we need to insert arr2[ j ] in union. IF the last element in the union vector is not equal to arr2[ j ], then insert in the union, else don’t insert. After checking Increment j. After traversing if any elements are left in arr1 or arr2 check for condition and insert in the union.
-Code
-C++
-Java
-Python
-JavaScript
-Copy
+
+```cpp
 
 
 
@@ -443,6 +465,7 @@ int main()
   return 0;
 }
 
+```
 Output:
 
 Union of arr1 and arr2 is 
