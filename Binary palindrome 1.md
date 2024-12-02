@@ -231,3 +231,97 @@ If `reverse_bin` starts as `0`, and you perform the operation `(reverse_bin << 1
 ```
 Is binary representation of 10 a palindrome? No
 ```
+
+Great question! Let's dive into why you **first shift `reverse_bin` to the left** (`reverse_bin << 1`) and then **use `temp & 1`** to extract the least significant bit (LSB).
+
+### The Overall Goal:
+You want to reverse the bits of a number. To do this, you need to build the reversed number bit by bit, starting from the least significant bit (LSB) of the original number.
+
+### Why Shift Left (`reverse_bin << 1`)?
+
+1. **Shifting `reverse_bin` Left**:
+   - Every time we process a bit from `temp`, we want to **append** this bit to the right side of `reverse_bin`. 
+   - To do that, we need to shift `reverse_bin` left to make space for the new bit on the right.
+   - Initially, `reverse_bin` starts as `0`, and each time a new bit is added, we shift the current value of `reverse_bin` to the left (essentially multiplying it by 2) to make space for the new bit.
+
+   **Example:**
+   - Start: `reverse_bin = 0`
+   - First, you want to add the bit from `temp`. You do this by shifting `reverse_bin` left to make space for the new bit.
+
+   After the shift, you get:
+   - `reverse_bin = 0 << 1 = 0` (nothing has changed yet).
+
+   Now we can **add the bit from `temp`**.
+
+### Why `temp & 1`?
+
+2. **Extracting the LSB with `temp & 1`**:
+   - `temp & 1` isolates the least significant bit (LSB) of `temp`. The expression `temp & 1` works because the binary representation of `1` is `0001`, and when we perform a bitwise AND (`&`), it will return only the LSB of `temp`. All other bits in `temp` will be "masked" (i.e., set to 0).
+   
+   This gives us the bit we want to append to `reverse_bin`.
+
+   **Example:**
+   - If `temp = 13` (binary `1101`), the LSB is `1`. 
+     - `temp & 1 = 13 & 1 = 1`
+   - If `temp = 6` (binary `0110`), the LSB is `0`.
+     - `temp & 1 = 6 & 1 = 0`
+
+### Putting It Together:
+
+Now we have the following process:
+
+1. **Shift `reverse_bin` left** to create space for the next bit.
+2. **Extract the LSB from `temp`** using `temp & 1`.
+3. **Add the LSB to `reverse_bin`** using bitwise OR (`|`), which sets the rightmost bit of `reverse_bin` to the LSB.
+4. **Shift `temp` right** (`temp >>= 1`) to remove the LSB and continue processing the next bit.
+
+### Step-by-Step Example:
+
+Let’s take a small example where `temp = 13` (binary `1101`).
+
+#### First iteration:
+- `reverse_bin = 0`
+- `temp = 13` (binary `1101`)
+
+1. **Shift `reverse_bin` left**: `reverse_bin = 0 << 1 = 0` (no change, just makes space)
+2. **Extract LSB of `temp`**: `temp & 1 = 13 & 1 = 1` (the LSB of 13 is 1)
+3. **Update `reverse_bin`**: `reverse_bin = 0 | 1 = 1`
+4. **Shift `temp` right**: `temp >>= 1` → `temp = 6` (binary `0110`)
+
+#### Second iteration:
+- `reverse_bin = 1` (binary `1`)
+- `temp = 6` (binary `0110`)
+
+1. **Shift `reverse_bin` left**: `reverse_bin = 1 << 1 = 2` (binary `10`, makes space for the next bit)
+2. **Extract LSB of `temp`**: `temp & 1 = 6 & 1 = 0` (the LSB of 6 is 0)
+3. **Update `reverse_bin`**: `reverse_bin = 2 | 0 = 2` (no change since the bit was 0)
+4. **Shift `temp` right**: `temp >>= 1` → `temp = 3` (binary `0011`)
+
+#### Third iteration:
+- `reverse_bin = 2` (binary `10`)
+- `temp = 3` (binary `0011`)
+
+1. **Shift `reverse_bin` left**: `reverse_bin = 2 << 1 = 4` (binary `100`, makes space)
+2. **Extract LSB of `temp`**: `temp & 1 = 3 & 1 = 1` (the LSB of 3 is 1)
+3. **Update `reverse_bin`**: `reverse_bin = 4 | 1 = 5` (binary `101`)
+4. **Shift `temp` right**: `temp >>= 1` → `temp = 1` (binary `0001`)
+
+#### Fourth iteration:
+- `reverse_bin = 5` (binary `101`)
+- `temp = 1` (binary `0001`)
+
+1. **Shift `reverse_bin` left**: `reverse_bin = 5 << 1 = 10` (binary `1010`, makes space)
+2. **Extract LSB of `temp`**: `temp & 1 = 1 & 1 = 1` (the LSB of 1 is 1)
+3. **Update `reverse_bin`**: `reverse_bin = 10 | 1 = 11` (binary `1011`)
+4. **Shift `temp` right**: `temp >>= 1` → `temp = 0` (no bits left)
+
+#### Final result:
+- `reverse_bin = 11` (binary `1011`)
+- This is the reversed version of `13` (binary `1101`).
+
+### Summary:
+- **Shifting `reverse_bin` left** creates space for the new bit.
+- **Using `temp & 1`** extracts the LSB of `temp` so it can be added to the right side of `reverse_bin`.
+- **Shifting `temp` right** removes the processed bit, so the next bit can be processed in the next iteration.
+
+This bit-reversal process ensures that the bits of `temp` are placed into `reverse_bin` in the opposite order, effectively reversing the bits of `temp`.
