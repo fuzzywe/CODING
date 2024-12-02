@@ -1,4 +1,6 @@
 brute force
+
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -29,6 +31,9 @@ int main() {
 
     return 0;
 }
+
+
+```
 
 Time Complexity:bin() function: Each time we shift the number to the right, the number is reduced in half, so the function runs in O(log₂(n)) time where n is the input number.checkPalindrome() function:Converting the number to binary takes O(log₂(n)) time.Reversing the string and comparing it takes O(log₂(n)) time.Overall, the time complexity is O(log₂(n)).
 
@@ -91,12 +96,12 @@ So, the total time complexity is **O(log₂(n))**.
 - **Auxiliary Space**: The space required for the binary string is proportional to the number of bits in the binary representation of `n`, which is **O(log₂(n))**. Thus, the auxiliary space complexity is **O(log₂(n))** for storing the binary string.
 
 
-
+---
 
 
 optimized code
 
-
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -120,6 +125,8 @@ int main() {
     return 0;
 }
 
+
+```
 Time complexity: O(log₂(n))
 
 Space complexity: O(1)
