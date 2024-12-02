@@ -1,4 +1,8 @@
 https://leetcode.com/problems/unique-paths/solutions/1581998/c-python-5-simple-solutions-w-explanation-optimization-from-brute-force-to-dp-to-math/?envType=problem-list-v2&envId=plakya4j&difficulty=MEDIUM&status=TO_DO
+
+https://www.naukri.com/code360/problems/total-unique-paths_1081470?leftPanelTabValue=PROBLEM
+
+
 Solution - III (Dynamic Programming - Tabulation)
 
 We can also convert the above appraoch to an iterative version. Here, we will solve it in bottom-up manner by iteratively calculating the number of unique paths to reach cell (i, j) starting from (0, 0) where 0 <= i <= m-1 and 0 <= j <= n-1. We will again use dynamic programming here using a dp matrix where dp[i][j] will denote the number of unique paths from cell (0, 0) the cell (i, j). (Note this differs from memoization appraoch where dp[i][j] denoted number of unique paths from cell (i, j) to the cell (m-1,n-1))
