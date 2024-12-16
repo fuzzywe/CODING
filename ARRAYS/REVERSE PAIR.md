@@ -1,4 +1,22 @@
-Example 1:
+
+
+
+Example 1:![Reverse Pairs _ Hard Interview Question 2-52 screenshot](https://github.com/user-attachments/assets/40157d2c-8eb2-45bd-8c54-118c98d4418e)
+
+![Reverse Pairs _ Hard Interview Question 10-12 screenshot](https://github.com/user-attachments/assets/f68219c7-6c4c-4680-bc27-4709c0202912)
+
+![Reverse Pairs _ Hard Interview Question 15-13 screenshot](https://github.com/user-attachments/assets/6da62e9d-22b3-40df-aad6-e417137447e9)
+
+![Reverse Pairs _ Hard Interview Question 19-58 screenshot](https://github.com/user-attachments/assets/03cdd0c7-bfc9-4c2b-80a2-767a10e555b1)
+
+![Reverse Pairs _ Hard Interview Question 22-45 screenshot](https://github.com/user-attachments/assets/71b0179b-4cb7-4abc-9d14-a45e2ccf2c00)
+
+
+![Reverse Pairs _ Hard Interview Question 24-39 screenshot](https://github.com/user-attachments/assets/1f0329e9-19ac-43b9-8048-bf78265f8ca8)
+
+cnt = cnt + (right - (mid+1))
+
+
 Input:
  N = 5, array[] = {1,3,2,3,1)
 
