@@ -10,6 +10,11 @@ Input: N=7,arr[]={3,2,8,5,1,4,23}
 Output: 1,2,3,4,5,8,23
 
 
+![Merge Sort _ Algorithm _ Pseudocode _ Dry Run _ Code _ Strivers A2Z DSA Course 20-17 screenshot](https://github.com/user-attachments/assets/75ba522a-501c-4e85-9262-91028f20ec85)
+
+![Merge Sort _ Algorithm _ Pseudocode _ Dry Run _ Code _ Strivers A2Z DSA Course 20-24 screenshot](https://github.com/user-attachments/assets/f45d4809-b1cc-4af1-bc37-e22654ed1d24)
+
+```cpp
   #include <bits/stdc++.h>
 using namespace std;
 
@@ -76,6 +81,8 @@ int main() {
     cout << endl;
     return 0 ;
 }
+
+```
 Output:
 
 Before Sorting Array:
