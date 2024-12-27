@@ -1,5 +1,6 @@
 Here are some important **Dynamic Programming (DP)** problems where a similar approach (often just slight modifications) can solve different problem variations. This list highlights problems that share concepts like 1D/2D DP array usage, counting, or tracking specific values in grids or sequences.
 
+
 ### 1. **1D/2D Array Counting Problems**
 These problems often require counting subarrays, subsequences, or submatrices with specific properties, and slight variations in counting logic or result tracking can adapt the solution to multiple problems.
 
