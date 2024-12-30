@@ -40,12 +40,7 @@ int main() {
 }
 ```
 
-### **Explanation**:
-- The function `findLocalMinima` implements binary search to find the local minima in the array.
-- **Base Case**: The element is considered a local minima if it is smaller than both its neighbors.
-- **Recursive Steps**:
-  - If the left neighbor is smaller, the local minima lies in the left half.
-  - If the right neighbor is smaller, the local minima lies in the right half.
+
 
 ### **Time Complexity**:
 - **Binary Search**: At each step, the size of the problem is reduced by half.
@@ -55,16 +50,71 @@ int main() {
 - **Recursive Stack**: Since binary search is used recursively, the depth of the recursive call stack is **log n**.
 - Hence, the **space complexity** is **O(log n)** due to the recursive function call stack.
 
-### **Example Output**:
-For the input array `{9, 6, 3, 14, 5, 7, 4}`, the output could be:
+Let me break down the formula for you:
+
+### Context:
+The formula is used in the context of finding a **local minima** in an array. A local minima is an element that is smaller than both of its neighbors. For the array element at index `mid`, the conditions and logic aim to determine:
+1. If the element at `mid` is a local minima.
+2. If not, whether to search for the local minima in the left or right half of the array.
+
+---
+
+### **Condition 1: Checking if `mid` is a local minima**
+```cpp
+if ((mid == 0 || arr[mid - 1] > arr[mid]) && 
+    (mid == n - 1 || arr[mid + 1] > arr[mid])) {
+    return mid;
+}
 ```
-Local minima found at index: 2, value: 3
+
+- `(mid == 0 || arr[mid - 1] > arr[mid])`:  
+  - If `mid == 0`: This means `mid` is the first element of the array, so it has no left neighbor. In this case, the condition is true.
+  - Otherwise (`mid != 0`), the condition `arr[mid - 1] > arr[mid]` checks if the left neighbor is greater than the element at `mid`.
+
+- `(mid == n - 1 || arr[mid + 1] > arr[mid])`:  
+  - If `mid == n - 1`: This means `mid` is the last element of the array, so it has no right neighbor. In this case, the condition is true.
+  - Otherwise (`mid != n - 1`), the condition `arr[mid + 1] > arr[mid]` checks if the right neighbor is greater than the element at `mid`.
+
+If both conditions are true, then the element at `mid` is smaller than both of its neighbors (or it has no neighbors). In this case, `mid` is returned as the index of the local minima.
+
+---
+
+### **Condition 2: If the left neighbor is smaller**
+```cpp
+else if (mid > 0 && arr[mid - 1] < arr[mid]) {
+    return findLocalMinima(arr, low, mid - 1, n);
+}
 ```
 
-In this example, **3** is smaller than its neighbors **6** and **14**, making it a local minima.
+- `mid > 0`: Ensures that `mid` is not the first element, so the left neighbor exists.
+- `arr[mid - 1] < arr[mid]`: This checks if the left neighbor is smaller than the element at `mid`.  
+If this condition is true, the local minima must lie in the **left half** of the array (from `low` to `mid - 1`), because:
+  - The array has at least one local minima (proven mathematically), and a smaller element on the left implies the potential presence of a local minima in that direction.
 
+The function then recursively searches in the left half.
 
-To find the **local minima** in an array, we can use an **optimized solution** by applying the **binary search** approach. This reduces the time complexity to **O(log n)**, making it more efficient than a linear search approach, which would take **O(n)** time.
+---
+
+### **Condition 3: Otherwise, search the right half**
+If neither of the above conditions is true, it implies:
+- The element at `mid` is not a local minima.
+- The right neighbor (`arr[mid + 1]`) is smaller than `mid`.  
+
+This means the local minima must be in the **right half** of the array, and the function will recurse there:
+```cpp
+else {
+    return findLocalMinima(arr, mid + 1, high, n);
+}
+```
+
+---
+
+### Recap:
+1. **Condition 1**: If `mid` satisfies the local minima conditions, return `mid`.
+2. **Condition 2**: If the left neighbor is smaller, search in the left half.
+3. **Condition 3**: Otherwise, search in the right half.
+
+This approach uses **binary search** to find a local minima efficiently in \(O(\log n)\) time.
 
 ### **Optimized Solution: Binary Search for Local Minima**
 
@@ -140,3 +190,5 @@ Local minima found at index: 2, value: 3
 #### **Example for Understanding:**
 Consider an array like `{10, 8, 6, 7, 9}`.
 - The array has a local minima at index 2 (`6`), as it is smaller than both its neighbors `8` and `7`.
+
+- 
