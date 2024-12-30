@@ -254,3 +254,152 @@ return ans;
 ```
 
 - 
+Your code aims to find both local minima and maxima in an array, and it does a good job. Let me provide a step-by-step explanation of what it does and verify its correctness.
+
+---
+
+### **Logic Breakdown**
+
+1. **Initialization**:
+   ```cpp
+   vector<int> maxi, mini;
+   ```
+   - `maxi`: To store the indices of local maxima.
+   - `mini`: To store the indices of local minima.
+
+2. **Check the first element**:
+   ```cpp
+   if (arr[0] > arr[1])
+       maxi.push_back(0);
+   if (arr[0] < arr[1])
+       mini.push_back(0);
+   ```
+   - Since the first element only has one neighbor (`arr[1]`), check whether it's greater (local maxima) or smaller (local minima) than its neighbor.
+
+3. **Iterate through the middle elements**:
+   ```cpp
+   for (int i = 1; i < n - 1; i++) {
+       if (arr[i] < arr[i - 1] && arr[i] < arr[i + 1])
+           mini.push_back(i);
+       if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1])
+           maxi.push_back(i);
+   }
+   ```
+   - For each element from index `1` to `n - 2`:
+     - If the current element is smaller than both its neighbors, it's a local minima.
+     - If it's larger than both its neighbors, it's a local maxima.
+   - Add the index of the element to the respective vector.
+
+4. **Check the last element**:
+   ```cpp
+   if (arr[n - 1] > arr[n - 2])
+       maxi.push_back(n - 1);
+   if (arr[n - 1] < arr[n - 2])
+       mini.push_back(n - 1);
+   ```
+   - Like the first element, the last element only has one neighbor (`arr[n - 2]`). Check if it's greater (local maxima) or smaller (local minima).
+
+5. **Handle edge cases where no local minima or maxima are found**:
+   ```cpp
+   if (maxi.size() == 0)
+       maxi.push_back(-1);
+   if (mini.size() == 0)
+       mini.push_back(-1);
+   ```
+   - If no local minima or maxima are found, store `-1` as a placeholder.
+
+6. **Combine the results**:
+   ```cpp
+   vector<vector<int>> ans = {mini, maxi};
+   return ans;
+   ```
+   - Return the results as a 2D vector where the first row contains the indices of local minima and the second row contains the indices of local maxima.
+
+---
+
+### **Edge Cases to Consider**
+1. **Single element array (`n == 1`)**:
+   - Both minima and maxima are undefined.
+   - You might need to handle this case explicitly, as accessing `arr[1]` or `arr[-1]` would cause an out-of-bounds error.
+
+2. **Strictly increasing or decreasing arrays**:
+   - In a strictly increasing array, only the last element is a maxima, and the first element is a minima.
+   - In a strictly decreasing array, only the first element is a maxima, and the last element is a minima.
+
+3. **Flat array (all elements are equal)**:
+   - No local minima or maxima exist, so both should return `-1`.
+
+---
+
+### **Improvements**
+1. **Edge Case for Single Element**:
+   Add a special case at the start:
+   ```cpp
+   if (n == 1) {
+       return {{-1}, {-1}};
+   }
+   ```
+
+2. **Avoid Redundant Comparisons**:
+   When checking `arr[0]` or `arr[n-1]`, you can combine the conditions into one block to avoid redundancy.
+
+3. **Code Formatting for Readability**:
+   Using comments and better formatting improves clarity.
+
+---
+
+### **Optimized Code**
+Here’s the optimized and clean version of your function:
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<vector<int>> findLocalMinimaAndMaxima(int *arr, int n) {
+    vector<int> maxi, mini;
+
+    // Handle single element case
+    if (n == 1) {
+        return {{-1}, {-1}};
+    }
+
+    // Check first element
+    if (arr[0] > arr[1]) maxi.push_back(0);
+    if (arr[0] < arr[1]) mini.push_back(0);
+
+    // Check middle elements
+    for (int i = 1; i < n - 1; i++) {
+        if (arr[i] < arr[i - 1] && arr[i] < arr[i + 1]) {
+            mini.push_back(i);
+        }
+        if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1]) {
+            maxi.push_back(i);
+        }
+    }
+
+    // Check last element
+    if (arr[n - 1] > arr[n - 2]) maxi.push_back(n - 1);
+    if (arr[n - 1] < arr[n - 2]) mini.push_back(n - 1);
+
+    // Handle no minima or maxima case
+    if (maxi.empty()) maxi.push_back(-1);
+    if (mini.empty()) mini.push_back(-1);
+
+    return {mini, maxi};
+}
+```
+
+---
+
+### **Example**
+#### Input:
+```cpp
+int arr[] = {1, 3, 2, 4, 1, 5};
+int n = 6;
+vector<vector<int>> result = findLocalMinimaAndMaxima(arr, n);
+```
+
+#### Output:
+```cpp
+Minima indices: [0, 2, 4]
+Maxima indices: [1, 3, 5]
+```
