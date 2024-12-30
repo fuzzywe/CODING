@@ -1,5 +1,8 @@
 https://www.naukri.com/code360/problems/indices-of-all-local-minima-and-local-maxima_873365?leftPanelTabValue=PROBLEM
 
+https://www.hackerearth.com/practice/algorithms/dynamic-programming/state-space-reduction/practice-problems/algorithm/tutorial-state-space-reduction/?purpose=login&source=problem-page&update=google
+
+
 
 Finding a **local minima** in an array means finding an element such that it is smaller than both its neighbors. Here's a **C++ solution** to find a local minima in an array, followed by the **time complexity** and **space complexity**.
 
