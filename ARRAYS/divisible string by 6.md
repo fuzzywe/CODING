@@ -1,4 +1,6 @@
+Given a number represented in binary as a string( length <=100). Return 1 if divisible by 6 else return 0.
 
+For question 1, if the last bit is 0, the number is divisible by 2, if the number of non-zero bits in even positions – number of bits in odd positions is a multiple of 3, the number is a multiple of 3.
 
 
 ```cpp
