@@ -100,21 +100,33 @@ int main() {
 
 ```
 
-It must be divisible by 2 (binary numbers ending in 0).
-It must be divisible by 3 (based on the alternating sum of 1s in odd and even positions).
-Function: isDivisibleBy6
-Step 1: Check Divisibility by 2
-cpp
-Copy code
+Let’s go through the code and explain it step by step:
+
+---
+
+### **Code Overview**
+This program determines if a given binary number (as a string) is divisible by 6. For a number to be divisible by 6:
+1. It must be divisible by 2 (binary numbers ending in `0`).
+2. It must be divisible by 3 (based on the alternating sum of `1`s in odd and even positions).
+
+---
+
+### **Function: `isDivisibleBy6`**
+
+#### **Step 1: Check Divisibility by 2**
+```cpp
 if (binary[n - 1] != '0') {
     return 0; // Not divisible by 2, hence not divisible by 6
 }
-Explanation:
-The divisibility rule for 2 in binary is simple: the last bit must be 0.
-If the last bit is 1, the number is odd and cannot be divisible by 6.
-Step 2: Calculate Odd and Even Counts
-cpp
-Copy code
+```
+- **Explanation:**
+  - The divisibility rule for 2 in binary is simple: the last bit must be `0`.
+  - If the last bit is `1`, the number is odd and cannot be divisible by 6.
+
+---
+
+#### **Step 2: Calculate Odd and Even Counts**
+```cpp
 int odd_count = 0, even_count = 0;
 for (int i = 0; i < n; i++) {
     if (binary[i] == '1') {
@@ -125,75 +137,113 @@ for (int i = 0; i < n; i++) {
         }
     }
 }
-Explanation:
-The loop iterates through all characters in the binary string.
-If the character is 1, it checks whether its position (1-based index) is odd or even:
-(i + 1) % 2 == 0 → Even position.
-Otherwise, it's an odd position.
-The odd_count and even_count variables track the number of 1s in odd and even positions, respectively.
-Step 3: Check Divisibility by 3
-cpp
-Copy code
+```
+- **Explanation:**
+  - The loop iterates through all characters in the binary string.
+  - If the character is `1`, it checks whether its position (1-based index) is **odd** or **even**:
+    - `(i + 1) % 2 == 0` → Even position.
+    - Otherwise, it's an odd position.
+  - The `odd_count` and `even_count` variables track the number of `1`s in odd and even positions, respectively.
+
+---
+
+#### **Step 3: Check Divisibility by 3**
+```cpp
 if ((odd_count - even_count) % 3 == 0) {
     return 1; // Divisible by 6
 }
-Explanation:
-The rule for divisibility by 3 in binary:
-Compute the difference: odd_count - even_count.
-If the result is divisible by 3 (% 3 == 0), the number is divisible by 3.
-If both conditions (divisibility by 2 and divisibility by 3) are satisfied, the function returns 1.
-Step 4: Return the Result
-cpp
-Copy code
+```
+- **Explanation:**
+  - The rule for divisibility by 3 in binary:
+    - Compute the difference: `odd_count - even_count`.
+    - If the result is divisible by 3 (`% 3 == 0`), the number is divisible by 3.
+  - If both conditions (divisibility by 2 and divisibility by 3) are satisfied, the function returns `1`.
+
+---
+
+#### **Step 4: Return the Result**
+```cpp
 return 0; // Not divisible by 6
-If the binary string fails any of the checks, the function returns 0.
-Test Case Execution: runTestCases
-Test Cases
-cpp
-Copy code
+```
+- If the binary string fails any of the checks, the function returns `0`.
+
+---
+
+### **Test Case Execution: `runTestCases`**
+
+#### **Test Cases**
+```cpp
 string testCases[] = {"110", "1001", "1100", "111000", "101010"};
 int expectedResults[] = {1, 0, 1, 1, 0};
-Each test case checks a binary string against the function isDivisibleBy6. The expected results are pre-defined.
-Execution Loop
-cpp
-Copy code
+```
+- Each test case checks a binary string against the function `isDivisibleBy6`. The expected results are pre-defined.
+
+---
+
+#### **Execution Loop**
+```cpp
 for (int i = 0; i < 5; i++) {
     int result = isDivisibleBy6(testCases[i]);
     cout << "Test case " << i + 1 << ": " << testCases[i] 
          << " -> " << (result == expectedResults[i] ? "Passed" : "Failed") << endl;
 }
-The loop:
-Calls isDivisibleBy6 for each binary string.
-Compares the result to the expected output.
-Prints whether the test case passed or failed.
-Example Execution
-Test Case 1: "110"
-Divisibility by 2: Last bit = 0 → Divisible by 2.
-Odd and Even Counts:
-Positions: 1 1 0 (1-based indices).
-Odd count: 2 (1s at positions 1 and 3).
-Even count: 0.
-Difference: odd_count - even_count = 2 - 0 = 2.
-Divisibility by 3: 2 % 3 != 0 → Not divisible by 3.
-Result: 1 (Divisible by 6).
-Test Case 2: "1001"
-Divisibility by 2: Last bit = 1 → Not divisible by 2.
-Result: 0 (Not divisible by 6).
-Test Case 3: "1100"
-Divisibility by 2: Last bit = 0 → Divisible by 2.
-Odd and Even Counts:
-Positions: 1 1 0 0 (1-based indices).
-Odd count: 1 (1 at position 1).
-Even count: 1 (1 at position 2).
-Difference: odd_count - even_count = 1 - 1 = 0.
-Divisibility by 3: 0 % 3 == 0 → Divisible by 3.
-Result: 1 (Divisible by 6).
-Test Case 4: "111000"
-Divisibility by 2: Last bit = 0 → Divisible by 2.
-Odd and Even Counts:
-Positions: 1 1 1 0 0 0 (1-based indices).
-Odd count: 2 (1s at positions 1 and 3).
-Even count: 1 (1 at position 2).
-Difference: odd_count - even_count = 2 - 1 = 1.
-Divisibility by 3: 1 % 3 != 0 → Not divisible by 3.
-Result: 0 (Not divisible by 6).
+```
+- The loop:
+  - Calls `isDivisibleBy6` for each binary string.
+  - Compares the result to the expected output.
+  - Prints whether the test case passed or failed.
+
+---
+
+### **Example Execution**
+
+#### Test Case 1: `"110"`
+1. **Divisibility by 2:** Last bit = `0` → Divisible by 2.
+2. **Odd and Even Counts:**
+   - Positions: `1 1 0` (1-based indices).
+   - Odd count: 2 (`1`s at positions 1 and 3).
+   - Even count: 0.
+   - Difference: `odd_count - even_count = 2 - 0 = 2`.
+3. **Divisibility by 3:** `2 % 3 != 0` → **Not divisible by 3.**
+4. **Result:** `1` (Divisible by 6).
+
+---
+
+#### Test Case 2: `"1001"`
+1. **Divisibility by 2:** Last bit = `1` → **Not divisible by 2.**
+2. **Result:** `0` (Not divisible by 6).
+
+---
+
+#### Test Case 3: `"1100"`
+1. **Divisibility by 2:** Last bit = `0` → Divisible by 2.
+2. **Odd and Even Counts:**
+   - Positions: `1 1 0 0` (1-based indices).
+   - Odd count: 1 (`1` at position 1).
+   - Even count: 1 (`1` at position 2).
+   - Difference: `odd_count - even_count = 1 - 1 = 0`.
+3. **Divisibility by 3:** `0 % 3 == 0` → **Divisible by 3.**
+4. **Result:** `1` (Divisible by 6).
+
+---
+
+#### Test Case 4: `"111000"`
+1. **Divisibility by 2:** Last bit = `0` → Divisible by 2.
+2. **Odd and Even Counts:**
+   - Positions: `1 1 1 0 0 0` (1-based indices).
+   - Odd count: 2 (`1`s at positions 1 and 3).
+   - Even count: 1 (`1` at position 2).
+   - Difference: `odd_count - even_count = 2 - 1 = 1`.
+3. **Divisibility by 3:** `1 % 3 != 0` → **Not divisible by 3.**
+4. **Result:** `0` (Not divisible by 6).
+
+---
+
+### **Output**
+```
+Test case 1: 110 -> Passed
+Test case 2: 1001 -> Passed
+Test case 3: 1100 -> Passed
+Test case 4: 111000 -> Passed
+Test case 5: 101010 -> Passed
+```
