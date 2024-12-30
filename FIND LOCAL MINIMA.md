@@ -1,3 +1,6 @@
+https://www.naukri.com/code360/problems/indices-of-all-local-minima-and-local-maxima_873365?leftPanelTabValue=PROBLEM
+
+
 Finding a **local minima** in an array means finding an element such that it is smaller than both its neighbors. Here's a **C++ solution** to find a local minima in an array, followed by the **time complexity** and **space complexity**.
 
 ### **Approach**:
