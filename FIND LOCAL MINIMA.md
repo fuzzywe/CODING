@@ -191,4 +191,63 @@ Local minima found at index: 2, value: 3
 Consider an array like `{10, 8, 6, 7, 9}`.
 - The array has a local minima at index 2 (`6`), as it is smaller than both its neighbors `8` and `7`.
 
+
+---
+find both maxi and minima 
+
+Sample Input 1 :
+2
+3
+-10 0 -10
+2
+4 -2
+Sample Output 1 :
+0 2
+1 
+1
+0
+Explanation for sample 1:
+For the first test case, the element at index 1 is greater than its neighbours (element at index 0, and 2), thus it is the local maxima, and the elements at index 0 and index 2 are corner elements and also smaller than their one neighbours, thus they are the local minima.
+
+For the second test case, the element at index 0 is the corner element and also greater than its one neighbour, thus it is local maxima, and the element at index 1 is also the corner element and also smaller than its one neighbour thus it is local minima.
+Sample Input 2 :
+2
+7
+10 5 20 30 40 35 50
+3
+1 2 2
+Sample Output 2 :
+1 5
+0 4 6
+0
+-1  
+
+
+```cpp
+
+#include <bits/stdc++.h>
+vector<vector<int>> findLocalMinimaAndMaxima(int *arr, int n) {
+  // Write your code here
+
+  vector<int> maxi, mini;
+  if (arr[0] > arr[1])
+    maxi.push_back(0);
+  if (arr[0] < arr[1])
+    mini.push_back(0);
+
+  for (int i = 1; i < n - 1; i++)
+{
+	if(arr[i]<arr[i-1] && arr[i] <arr[i+1]) mini.push_back(i);
+	if(arr[i]>arr[i-1]&& arr[i]>arr[i+1]) maxi.push_back(i);
+}
+if(arr[n-1]>arr[n-2]) maxi.push_back(n-1);
+if(arr[n-1]<arr[n-2]) mini.push_back(n-1);
+if(maxi.size()==0)maxi.push_back(-1);
+if(mini.size()==0) mini.push_back(-1);
+vector<vector<int>>ans = {mini,maxi};
+return ans;
+}
+
+```
+
 - 
