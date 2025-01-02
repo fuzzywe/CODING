@@ -24,12 +24,8 @@ Result: False
 
 Explanation: : In this example, the linked list does not have a loop hence returns false.
 
-Practice:
-Solve Problem
-code-studio
-Disclaimer: Don’t jump directly to the solution, try it out yourself first.
 
-Brute Force Approach
+**Brute Force Approach**
 Algorithm / Intuition
 A loop in a linked list occurs when there's a node that, when followed, brings you back to it, indicating a closed loop in the list.
 
@@ -49,12 +45,7 @@ Step 3: If a previously visited node is encountered again, that proves that ther
 
 Step 4: If the traversal is completed, and we reach the last point of the LL which is null, it means there was noloop, hence we return false.
 
-Code
-C++
-Java
-Python
-JavaScript
-Copy
+```cpp
 
 #include <iostream>
 #include <bits/stdc++.h>
@@ -155,7 +146,7 @@ int main() {
     return 0;
 }
 
-
+```
 Output: Loop detected in the linked list.
 
 Complexity Analysis
@@ -203,12 +194,7 @@ The relative speed between them causes the gap to decrease by one node in each i
 
 Hence, the proof lies in this iterative process where the faster rate of the fast pointer leads to a continual decrease in the gap distance, ultimately resulting in their collision within the looped linked list.
 
-Code
-C++
-Java
-Python
-JavaScript
-Copy
+```cpp
 
 #include <iostream>
 #include <bits/stdc++.h>
@@ -302,7 +288,7 @@ int main() {
 
     return 0;
 }
-
+```
 Output: Loop detected in the linked list.
 
 Complexity Analysis
@@ -316,7 +302,7 @@ Space Complexity : O(1) The code uses only a constantamount of additionalspace, 
 
 
   THE MISTAKE I DID ON CODE PLATFORM:
-
+```cpp
 ListNode* temp = head;
 
         unordered_map<int,int>mp;
@@ -336,10 +322,10 @@ Line 16: Char 19: error: no matching member function for call to 'find'
   870 |       find(const key_type& __x)
       |       ^    ~~~~~~~~~~~~~~~~~~~
 /usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/unordered_map.h:886:7: note: candidate function not viable: no known conversion from 'ListNode *' to 'const key_type' (aka 'const int') for 1st argument
-
+```
 
 CORRECT ANSWER:
-
+```cpp
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
@@ -372,6 +358,7 @@ bool detectLoop(Node* head) {
     
     return false;  // If the loop finishes without finding a loop, return false
 }
+```
 Linked List Structure:
 We are given a linked list with the following structure:
 
