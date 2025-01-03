@@ -123,6 +123,46 @@ Space Complexity: O(1) as we are not using any extra space.
 Time Complexity: O(N), where N = size of the array.
 Reason: The loop runs N times in the worst case and searching in a hashmap takes O(1) generally. So the time complexity is O(N).
 
+---
+
+```cpp
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int, int>> numWithIndex;
+
+        // Store the elements with their original indices
+        for (int i = 0; i < nums.size(); i++) {
+            numWithIndex.push_back({nums[i], i});
+        }
+
+        // Sort based on the values
+        sort(numWithIndex.begin(), numWithIndex.end());
+
+        int left = 0;
+        int right = nums.size() - 1;
+
+        while (left < right) {
+            int sum = numWithIndex[left].first + numWithIndex[right].first;
+
+            if (sum == target) {
+                // Return original indices
+                return {numWithIndex[left].second, numWithIndex[right].second};
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return {-1, -1}; // If no solution exists
+    }
+};
+
+
+```
+
 Note: In the worst case(which rarely happens), the unordered_map takes O(N) to find an element. In that case, the time complexity will be O(N2). If we use map instead of unordered_map, the time complexity will be O(N* logN) as the map data structure takes logN time to find an element.
 
 Space Complexity: O(N) as we use the map data structure.
