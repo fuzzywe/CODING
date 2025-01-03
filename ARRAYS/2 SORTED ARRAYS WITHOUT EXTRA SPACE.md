@@ -38,7 +38,7 @@ Explanation:
 
 After merging the two non-decreasing arrays, we get, 0 1 2 3 5 6 7 8 9.
 
-
+```cpp
   
 #include <bits/stdc++.h>
 using namespace std;
@@ -103,6 +103,7 @@ int main()
     cout << endl;
     return 0;
 }
+```
 
 Output: The merged arrays are: arr1[] = 1 2 3 4 arr2[] = 8 9 10 
 
@@ -135,12 +136,7 @@ The dry run will further clarify the concepts:
 
 Note: For a better understanding of intuition, please watch the video at the bottom of the page.
 
-Code
-C++
-Java
-Python
-JavaScript
-Copy
+```cpp
 
 
 
@@ -189,6 +185,8 @@ int main()
     return 0;
 }
 
+```
+
 Output: The merged arrays are: arr1[] = 1 2 3 4 arr2[] = 8 9 10 
 
 Complexity Analysis
@@ -196,3 +194,56 @@ Time Complexity: O(min(n, m)) + O(n*logn) + O(m*logm), where n and m are the siz
 Reason: O(min(n, m)) is for swapping the array elements. And O(n*logn) and O(m*logm) are for sorting the two arrays.
 
 Space Complexity: O(1) as we are not using any extra space.
+
+
+---
+
+**in ninjas platform**
+
+There are a few issues in your code snippet:
+
+1. **Use of `sort(a, a+n)`**: This line is incorrect because `a` is a `std::vector`, not a raw array. The `sort` function from `<algorithm>` requires iterators, which for a `std::vector` would be `a.begin()` and `a.end()`.
+
+2. **Use of `sort(b, b+m)`**: Similarly, `b` is a `std::vector`, and you should use iterators `b.begin()` and `b.end()` for sorting.
+
+3. **Missing Header Files**: If you're using `swap`, `sort`, and `vector`, ensure the required headers like `<algorithm>` and `<vector>` are included.
+
+4. **Logic for Sorted Arrays**: The merging logic is correct but could use some explanation for clarity. The while loop swaps elements from the end of `a` and the start of `b` until `a` and `b` are correctly ordered. Afterward, you sort both arrays, ensuring the final result is fully sorted.
+
+### Fixed Code:
+Here’s the corrected version:
+
+```cpp
+#include <vector>
+#include <algorithm> // For sort and swap
+
+void mergeTwoSortedArraysWithoutExtraSpace(std::vector<long long>& a, std::vector<long long>& b) {
+    int m = b.size();
+    int n = a.size();
+    int left = n - 1;
+    int right = 0;
+
+    // Swap elements to ensure overall sorted order
+    while (left >= 0 && right < m) {
+        if (a[left] > b[right]) {
+            std::swap(a[left], b[right]);
+            left--;
+            right++;
+        } else {
+            break;
+        }
+    }
+
+    // Sort the vectors
+    std::sort(a.begin(), a.end());
+    std::sort(b.begin(), b.end());
+}
+```
+
+### Explanation of Changes:
+1. Used `a.begin()`, `a.end()`, `b.begin()`, and `b.end()` for `std::sort`.
+2. Ensured proper headers are included for all used functions.
+3. No changes to the logic as it seems correct, but comments are added for better understanding.
+
+Now the function should work as intended for merging two sorted arrays without using extra space.
+
