@@ -1,6 +1,7 @@
 
 
 
+
 Example 1:![Reverse Pairs _ Hard Interview Question 2-52 screenshot](https://github.com/user-attachments/assets/40157d2c-8eb2-45bd-8c54-118c98d4418e)
 
 ![Reverse Pairs _ Hard Interview Question 10-12 screenshot](https://github.com/user-attachments/assets/f68219c7-6c4c-4680-bc27-4709c0202912)
