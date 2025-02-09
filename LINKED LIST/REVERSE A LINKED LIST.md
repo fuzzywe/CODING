@@ -35,6 +35,47 @@ Explanation: In this example, the linked list contains only one node hence rever
 
 brute force 
 
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode* temp = head;  
+    
+    
+    stack<int> st;     
+
+    
+    while (temp != nullptr) {
+       
+        st.push(temp->val); 
+        
+        
+        temp = temp->next;    
+    }
+    
+ 
+    temp = head; 
+    
+    
+    while (temp != nullptr) {
+        
+        temp->val = st.top();  
+        
+     
+        st.pop();              
+        
+        // Move to the next node
+        // in the linked list
+        temp = temp->next;     
+    }
+    
+    
+    return head;  
+} explain each step to explain in the interview
+
+
+```
+
 Your approach to **reversing a linked list** using a **stack** is a valid one, though it's not the most optimal in terms of space complexity. Let’s break it down step by step so you can explain it impressively in an interview.
 
 ---
@@ -183,6 +224,20 @@ Instead of using iteration, **recursion** is used to reverse the list. The key i
 6. **Returning the New Head**: The new head (`temp`) is returned up the recursion stack.
 
 ---
+```cpp
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        if(head== NULL || head->next == NULL) return head;
+        ListNode* temp= reverseList(head->next);
+        ListNode* front = head->next;
+        front->next = head;
+        head->next = NULL;
+        return temp;
+    }
+};
+
+```
 
 ## 🔹 **Step-by-Step Explanation**
 Consider the **input linked list**:
