@@ -1,4 +1,120 @@
+https://www.naukri.com/code360/problems/queue-using-array-or-singly-linked-list_2099908?interviewBundleRedirection=true
+
+https://www.geeksforgeeks.org/problems/implement-queue-using-linked-list/1
+
+---
+
+
 Implement Queue using Linked List
+
+```cpp
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+// Queue class using linked list
+class Queue {
+private:
+    Node* front;
+    Node* rear;
+
+public:
+    // Constructor
+    Queue() {
+        front = rear = nullptr;
+    }
+
+    // Enqueue operation
+    void enqueue(int val) {
+        Node* newNode = new Node(val);
+        if (rear == nullptr) {  // If queue is empty
+            front = rear = newNode;
+        } else {
+            rear->next = newNode;
+            rear = newNode;
+        }
+        cout << val << " enqueued to queue.\n";
+    }
+
+    // Dequeue operation
+    void dequeue() {
+        if (front == nullptr) {
+            cout << "Queue is empty. Cannot dequeue.\n";
+            return;
+        }
+        Node* temp = front;
+        front = front->next;
+
+        // If front becomes NULL, rear should also be NULL
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+
+        cout << temp->data << " dequeued from queue.\n";
+        delete temp;
+    }
+
+    // Display queue elements
+    void display() {
+        if (front == nullptr) {
+            cout << "Queue is empty.\n";
+            return;
+        }
+        Node* temp = front;
+        cout << "Queue elements: ";
+        while (temp) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+
+    // Function to calculate the sum of all elements in the queue
+    int sum() {
+        int total = 0;
+        Node* temp = front;
+        while (temp) {
+            total += temp->data;
+            temp = temp->next;
+        }
+        return total;
+    }
+};
+
+// Main function to test queue
+int main() {
+    Queue q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    q.enqueue(40);
+
+    q.display();  // Display queue elements
+
+    cout << "Sum of all elements in queue: " << q.sum() << endl;  // Calculate sum
+
+    q.dequeue();
+    q.display();
+
+    cout << "Sum after dequeue: " << q.sum() << endl; // Calculate sum after dequeue
+
+    return 0;
+}
+```
+
+---
+
+
 Difficulty: BasicAccuracy: 45.6%Submissions: 123K+Points: 1
 Implement a Queue using Linked List. 
 A Query Q is of 2 Types
