@@ -1,3 +1,11 @@
+https://www.naukri.com/code360/problems/three-sum_6922132?interviewBundleRedirection=true&leftPanelTabValue=PROBLEM
+
+https://leetcode.com/problems/3sum/
+
+ https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
+ 
+
+
 First, we will declare a set data structure as we want unique triplets.
 Then we will use the first loop(say i) that will run from 0 to n-1.
 BRUTE FORCE
