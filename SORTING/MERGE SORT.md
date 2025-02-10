@@ -156,3 +156,61 @@ When merging {4} and {2}, we use a temporary array of size 2.
 When merging {2, 4} and {1}, we use a temporary array of size 3.
 When merging {6} and {7}, we use a temporary array of size 2.
 When merging {1, 2, 4} and {6, 7}, we use a temporary array of size 5.
+
+
+---
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int> &arr, int low, int mid, int high) {
+    vector<int> temp; // Temporary array
+    int left = low;      // Starting index of left half of arr
+    int right = mid + 1; // Starting index of right half of arr
+
+    // Storing elements in the temporary array in sorted manner
+    while (left <= mid && right <= high) {
+        if (arr[left] <= arr[right]) {
+            temp.push_back(arr[left]);
+            left++;
+        } else {
+            temp.push_back(arr[right]);
+            right++;
+        }
+    }
+
+    // If elements on the left half are still left
+    while (left <= mid) {
+        temp.push_back(arr[left]);
+        left++;
+    }
+
+    // If elements on the right half are still left
+    while (right <= high) {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    // Transferring all elements from temporary to original array
+    for (int i = low; i <= high; i++) {
+        arr[i] = temp[i - low];
+    }
+}
+
+// Helper function to handle recursion properly
+void mergeSortHelper(vector<int> &arr, int low, int high) {
+    if (low >= high) return; // Base case
+
+    int mid = (low + high) / 2;
+    mergeSortHelper(arr, low, mid);     // Left half
+    mergeSortHelper(arr, mid + 1, high); // Right half
+    merge(arr, low, mid, high);   // Merging sorted halves
+}
+
+// Main mergeSort function (with only `arr` and `n` as parameters)
+void mergeSort(vector<int> &arr, int n) {
+    mergeSortHelper(arr, 0, n - 1);
+}
+
+
+```
