@@ -16,7 +16,7 @@ Finally, we will return the list of triplets stored in the set data structure.
 Note: For a better understanding of intuition, please watch the video at the bottom of the page.
 
 
-
+```cpp
 
 
 #include <bits/stdc++.h>
@@ -60,13 +60,16 @@ int main()
     return 0;
 }
 
+```
 Output: [-1 -1 2 ] [-1 0 1 ]
 Time Complexity: O(N3 * log(no. of unique triplets)), where N = size of the array.
 Reason: Here, we are mainly using 3 nested loops. And inserting triplets into the set takes O(log(no. of unique triplets)) time complexity. But we are not considering the time complexity of sorting as we are just sorting 3 elements every time.
 
 Space Complexity: O(2 * no. of the unique triplets) as we are using a set data structure and a list to store the triplets.
 
+---
 
+ ```cpp
 
 
 
@@ -121,7 +124,7 @@ int main()
     cout << "\n";
     return 0;
 }
-
+```
 Complexity Analysis
 Time Complexity: O(NlogN)+O(N2), where N = size of the array.
 Reason: The pointer i, is running for approximately N times. And both the pointers j and k combined can run for approximately N times including the operation of skipping duplicates. So the total time complexity will be O(N2). 
