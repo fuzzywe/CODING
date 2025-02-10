@@ -1,7 +1,12 @@
 https://leetcode.com/problems/rotate-array/
 
+https://prepfortech.io/leetcode-solutions/rotate-array
+
+
+
 https://www.naukri.com/code360/problems/rotate-array_1230543?interviewBundleRedirection=true&leftPanelTabValue=PROBLEM
 
+https://www.geeksforgeeks.org/problems/rotate-array-by-n-elements-1587115621/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
 Approach
 Reverse the entire array to bring the last k elements to the front (but in reverse order).
 Reverse the first k elements to restore their correct order.
