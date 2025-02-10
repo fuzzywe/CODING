@@ -2,6 +2,9 @@ https://www.naukri.com/code360/problems/three-sum_6922132?interviewBundleRedirec
 
 https://leetcode.com/problems/3sum/
 
+https://www.geeksforgeeks.org/problems/triplet-sum-in-array-1587115621/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+
  https://www.geeksforgeeks.org/find-a-triplet-that-sum-to-a-given-value/
  
 
