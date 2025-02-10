@@ -1,3 +1,11 @@
+
+https://www.naukri.com/code360/problems/merge-sort_920442?interviewBundleRedirection=true
+
+https://www.w3schools.com/dsa/dsa_algo_mergesort.php
+
+https://www.geeksforgeeks.org/problems/merge-sort/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card&selectedLang=cpp
+
+
 Examples:
 
 Example 1:
