@@ -2,7 +2,9 @@ Here’s an optimized **O(M) space complexity** version of the **Wildcard Patter
 
 https://leetcode.com/problems/wildcard-matching/description/
 
+https://www.geeksforgeeks.org/problems/wildcard-pattern-matching/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
 
+https://www.naukri.com/code360/problems/wildcard-pattern-matching_701650?interviewBundleRedirection=true
 ---
 
 ### **Optimized Approach (1D DP)**
