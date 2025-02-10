@@ -126,3 +126,121 @@ If asked in an interview, you can explain like this:
 🔥 **This explanation is short, clear, and impressive!**  
 
 Would you like a **dry run for different cases?** 🚀
+
+The issue in your code is the **order of reversal steps** when performing a **left rotation** instead of a **right rotation**.  
+
+---
+
+### **Difference Between Left and Right Rotation**
+For **right rotation**, we use:  
+1. **Reverse the whole array**  
+2. **Reverse the first `k` elements**  
+3. **Reverse the remaining `n-k` elements**  
+
+For **left rotation**, we use:  
+1. **Reverse the first `k` elements**  
+2. **Reverse the remaining `n-k` elements**  
+3. **Reverse the entire array**  
+
+---
+
+### **Corrected Code for Left Rotation**
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> rotateLeft(vector<int>& arr, int k) {
+    int n = arr.size();
+    k = k % n; // Handle cases where k >= n
+
+    // Step 1: Reverse first k elements
+    reverse(arr.begin(), arr.begin() + k);
+
+    // Step 2: Reverse remaining n-k elements
+    reverse(arr.begin() + k, arr.end());
+
+    // Step 3: Reverse the entire array
+    reverse(arr.begin(), arr.end());
+
+    return arr;
+}
+
+int main() {
+    int n, k;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    cin >> k;
+
+    vector<int> rotatedArray = rotateLeft(arr, k);
+
+    for (int num : rotatedArray) {
+        cout << num << " ";
+    }
+    return 0;
+}
+```
+
+---
+
+### **Step-by-Step Explanation for Left Rotation**
+Let’s take **Sample Input 1** as an example:  
+```
+n = 8
+arr = [7, 5, 2, 11, 2, 43, 1, 1]
+k = 2
+```
+
+#### **Step 1: Reverse the first `k = 2` elements**
+```cpp
+reverse(arr.begin(), arr.begin() + k);
+```
+🔹 **Before:** `[7, 5, 2, 11, 2, 43, 1, 1]`  
+🔹 **After reversing first 2 elements:** `[5, 7, 2, 11, 2, 43, 1, 1]`  
+
+---
+
+#### **Step 2: Reverse the remaining `n-k = 6` elements**
+```cpp
+reverse(arr.begin() + k, arr.end());
+```
+🔹 **Before:** `[5, 7, 2, 11, 2, 43, 1, 1]`  
+🔹 **After reversing from index 2 to end:** `[5, 7, 1, 1, 43, 2, 11, 2]`  
+
+---
+
+#### **Step 3: Reverse the entire array**
+```cpp
+reverse(arr.begin(), arr.end());
+```
+🔹 **Before:** `[5, 7, 1, 1, 43, 2, 11, 2]`  
+🔹 **After final reversal:** `[2, 11, 2, 43, 1, 1, 7, 5]` ✅  
+
+This matches the **expected output!** 🎯  
+
+---
+
+### **Key Concept: Why Order of Reversal Matters?**
+If we had used the **right rotation approach**:
+1. **Reverse the entire array first**  
+2. **Reverse first `k` elements**  
+3. **Reverse remaining `n-k` elements**  
+
+It would **not work for left rotation** because the elements would end up in the wrong positions.
+
+---
+
+### **Final Thoughts**
+✅ **Right Rotation:**
+1. Reverse entire array  
+2. Reverse first `k` elements  
+3. Reverse remaining `n-k` elements  
+
+✅ **Left Rotation:**
+1. Reverse first `k` elements  
+2. Reverse remaining `n-k` elements  
+3. Reverse entire array  
+
+🔥 **This is an optimized `O(n)` approach!** 🚀
