@@ -6,7 +6,7 @@ https://www.geeksforgeeks.org/problems/implement-queue-using-linked-list/1
 
 
 Implement Queue using Linked List
-
+```cpp
 #include <bits/stdc++.h>
 using namespace std;
 
