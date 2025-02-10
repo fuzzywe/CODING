@@ -7,6 +7,72 @@ https://www.geeksforgeeks.org/problems/implement-queue-using-linked-list/1
 
 Implement Queue using Linked List
 
+#include <bits/stdc++.h>
+using namespace std;
+
+class Queue {
+    int size;
+    int rear;
+    int qfront;
+    int* arr;
+
+public:
+    Queue() {
+        size = 100001;
+        arr = new int[size];
+        qfront = 0;
+        rear = 0;
+    }
+
+    ~Queue() { // Destructor to free memory
+        delete[] arr;
+    }
+
+    bool isEmpty() {
+        return qfront == rear;
+    }
+
+    void enqueue(int data) {
+        if (rear == size - 1) { // Fixed boundary check
+            cout << "Queue is full\n";
+        } else {
+            arr[rear] = data;
+            rear++;
+        }
+    }
+
+    int dequeue() {
+        if (isEmpty()) return -1;
+
+        int ans = arr[qfront];
+        qfront++;
+
+        if (qfront == rear) qfront = rear = 0; // Reset queue if empty
+
+        return ans;
+    }
+
+    int getFront() { // Renamed function to avoid conflict
+        return isEmpty() ? -1 : arr[qfront];
+    }
+};
+
+// Driver Code
+int main() {
+    Queue q;
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+
+    cout << "Front element: " << q.getFront() << endl;
+    cout << q.dequeue() << " dequeued.\n";
+    cout << "Front element after dequeue: " << q.getFront() << endl;
+    cout << "Is queue empty? " << (q.isEmpty() ? "Yes" : "No") << endl;
+
+    return 0;
+}
+
+
 ```cpp
 #include <iostream>
 using namespace std;
