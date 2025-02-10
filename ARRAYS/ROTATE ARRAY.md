@@ -243,5 +243,134 @@ It would **not work for left rotation** because the elements would end up in the
 1. Reverse first `k` elements  
 2. Reverse remaining `n-k` elements  
 3. Reverse entire array  
+```cpp
+//time: O(N), space: O(N)
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        
+        vector<int> ans(n);
+        
+        for(int i = 0; i < n; ++i){
+            ans[(i+k)%n] = nums[i];
+        }
+        
+        for(int i = 0; i < n; ++i){
+            nums[i] = ans[i];
+        }
+    }
+};
 
-🔥 **This is an optimized `O(n)` approach!** 🚀
+```
+
+---
+
+### **Step-by-Step Explanation of the Code**  
+This solution **rotates an array to the right by `k` steps** using an **extra array (`ans`)**.
+
+---
+
+### **Understanding the Problem**  
+Given an array `nums` and an integer `k`, rotate the array to the **right** by `k` positions.  
+
+#### **Example:**
+**Input:**  
+```cpp
+nums = [1, 2, 3, 4, 5, 6, 7], k = 3
+```
+**Output:**  
+```cpp
+[5, 6, 7, 1, 2, 3, 4]
+```
+Each element is **shifted right** by `k` places.
+
+---
+
+### **Step-by-Step Execution**
+#### **Step 1: Create a new array `ans` of size `n`**
+```cpp
+vector<int> ans(n);
+```
+- We create a new array `ans` of the same size as `nums`.  
+- This helps store the rotated elements **without modifying the original array** immediately.  
+- **Space Complexity = O(N)** because we use an extra array.
+
+---
+
+#### **Step 2: Place Elements at New Positions**
+```cpp
+for(int i = 0; i < n; ++i){
+    ans[(i + k) % n] = nums[i];
+}
+```
+🔹 **Understanding `(i + k) % n` Formula:**  
+- `(i + k) % n` calculates the **new index** for `nums[i]` after rotation.  
+- This ensures that when `i + k` exceeds `n`, it wraps around using modulo `% n`.  
+
+**Example:**  
+For `nums = [1, 2, 3, 4, 5, 6, 7]` and `k = 3`:
+
+| `i` | `nums[i]` | New Index `(i + k) % n` |
+|---|---|---|
+| 0 | 1 | `(0 + 3) % 7 = 3` |
+| 1 | 2 | `(1 + 3) % 7 = 4` |
+| 2 | 3 | `(2 + 3) % 7 = 5` |
+| 3 | 4 | `(3 + 3) % 7 = 6` |
+| 4 | 5 | `(4 + 3) % 7 = 0` |
+| 5 | 6 | `(5 + 3) % 7 = 1` |
+| 6 | 7 | `(6 + 3) % 7 = 2` |
+
+After this step, `ans` becomes:
+```
+[5, 6, 7, 1, 2, 3, 4]
+```
+
+---
+
+#### **Step 3: Copy `ans` Back to `nums`**
+```cpp
+for(int i = 0; i < n; ++i){
+    nums[i] = ans[i];
+}
+```
+- Now, we copy elements from `ans` back to `nums`.  
+- The `nums` array is modified **in-place** with the rotated values.
+
+---
+
+### **Time and Space Complexity**
+| Complexity | Explanation |
+|---|---|
+| **Time Complexity: O(N)** | We iterate through the array **twice** (`O(N) + O(N) = O(N)`). |
+| **Space Complexity: O(N)** | We use an extra array `ans` of size `N`. |
+
+---
+
+### **Alternative Approach (Optimized In-Place)**
+If we want to **avoid extra space (O(1) space complexity)**, we can use the **reverse approach**:
+
+```cpp
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int n = nums.size();
+        k = k % n; // Handle cases where k >= n
+
+        reverse(nums.begin(), nums.end());     // Reverse entire array
+        reverse(nums.begin(), nums.begin() + k); // Reverse first k elements
+        reverse(nums.begin() + k, nums.end());   // Reverse remaining elements
+    }
+};
+```
+
+✅ **Time Complexity: O(N)**  
+✅ **Space Complexity: O(1) (No extra array used)**  
+
+---
+
+### **Final Thoughts**
+- **Your Code (Extra Array)** → **Time: O(N), Space: O(N)**
+- **Optimized Approach (Reverse Method)** → **Time: O(N), Space: O(1)**
+  
+🔥 The **optimized approach** is preferred in interviews because it saves extra space. 🚀
