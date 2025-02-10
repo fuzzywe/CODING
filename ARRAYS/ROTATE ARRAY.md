@@ -1,5 +1,6 @@
 https://leetcode.com/problems/rotate-array/
 
+https://www.naukri.com/code360/problems/rotate-array_1230543?interviewBundleRedirection=true&leftPanelTabValue=PROBLEM
 
 Approach
 Reverse the entire array to bring the last k elements to the front (but in reverse order).
