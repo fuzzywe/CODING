@@ -1,4 +1,4 @@
-[Here’s a simple **Stack implementation using a Linked List** in C++.](https://www.naukri.com/code360/problems/implement-stack-with-linked-list_630475?interviewBundleRedirection=true&leftPanelTabValue=PROBLEM)
+[Link](https://www.naukri.com/code360/problems/implement-stack-with-linked-list_630475?interviewBundleRedirection=true&leftPanelTabValue=PROBLEM)
 
 
 
