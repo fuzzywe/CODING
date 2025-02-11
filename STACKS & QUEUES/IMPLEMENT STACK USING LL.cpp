@@ -1,149 +1,144 @@
- private:
-    StackNode *top;
+Here’s a simple **Stack implementation using a Linked List** in C++.
 
-  public:
-    void push(int x) {
-      StackNode* newNode= new  StackNode(x);
-      newNode->next= top;
-     top= newNode;
-      
+---
+
+### **📌 Explanation**
+1. **Each node** will contain:
+   - `data`: The value stored in the node.
+   - `next`: Pointer to the next node in the stack.
+2. **Stack Operations**:
+   - **Push**: Insert a new element at the top.
+   - **Pop**: Remove and return the top element.
+   - **Top**: Return the top element without removing it.
+   - **isEmpty**: Check if the stack is empty.
+   - **Print**: Display stack elements.
+
+---
+
+### **📝 C++ Code**
+```cpp
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+    
+    // Constructor to initialize node
+    Node(int value) {
+        data = value;
+        next = nullptr;
     }
-
-    int pop() {
-       if(top==nullptr){
-           return -1;
-       }
-       else{
-           int data= top->data;
-           StackNode* temp= top;
-           top= top->next;
-           delete(temp);
-           return data;
-       }
-    }
-
-    MyStack() { top = NULL; }
 };
 
-DRY RUN 
+// Stack class using linked list
+class Stack {
+private:
+    Node* top; // Pointer to the top of the stack
 
-Let's perform a detailed dry run of the given code.
+public:
+    // Constructor
+    Stack() {
+        top = nullptr;
+    }
 
-The code defines a stack using a linked list and simulates a scenario where several queries are performed on the stack. The two main operations implemented in the class MyStack are push() (to insert elements into the stack) and pop() (to remove elements from the stack).
+    // Push operation
+    void push(int value) {
+        Node* newNode = new Node(value);
+        newNode->next = top;
+        top = newNode;
+        cout << value << " pushed to stack\n";
+    }
 
-Example Input: "1 5 1 10 1 15 2 2" (which means push 5, push 10, push 15, pop, pop).
-The input is processed and split into individual numbers, stored in a vector nums.
-Processing Commands:
-cpp
-Copy code
-int n = nums.size();
-int i = 0;
-while (i < n) {
-Now we loop over the numbers in the nums vector.
-Command: Push 5
-cpp
-Copy code
-int QueryType = nums[i++];
-if (QueryType == 1) {
-    int a = nums[i++];
-    sq->push(a);
+    // Pop operation
+    int pop() {
+        if (isEmpty()) {
+            cout << "Stack Underflow! Cannot pop from empty stack.\n";
+            return -1;
+        }
+        int poppedValue = top->data;
+        Node* temp = top;
+        top = top->next;
+        delete temp; // Free memory
+        return poppedValue;
+    }
+
+    // Top operation
+    int peek() {
+        if (isEmpty()) {
+            cout << "Stack is empty!\n";
+            return -1;
+        }
+        return top->data;
+    }
+
+    // Check if stack is empty
+    bool isEmpty() {
+        return top == nullptr;
+    }
+
+    // Print stack elements
+    void printStack() {
+        if (isEmpty()) {
+            cout << "Stack is empty!\n";
+            return;
+        }
+        Node* temp = top;
+        cout << "Stack elements: ";
+        while (temp) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << "\n";
+    }
+};
+
+// Driver Code
+int main() {
+    Stack s;
+
+    s.push(10);
+    s.push(20);
+    s.push(30);
+    s.printStack(); // Output: 30 20 10
+
+    cout << "Top element: " << s.peek() << endl; // Output: 30
+
+    cout << "Popped: " << s.pop() << endl; // Output: 30
+    s.printStack(); // Output: 20 10
+
+    cout << "Popped: " << s.pop() << endl; // Output: 20
+    cout << "Popped: " << s.pop() << endl; // Output: 10
+    cout << "Popped: " << s.pop() << endl; // Output: Stack Underflow!
+
+    return 0;
 }
-The first QueryType is 1 (which means push), so we read the next number 5 and call sq->push(5).
+```
 
-Inside the push function:
+---
 
-cpp
-Copy code
-StackNode *newNode = new StackNode(x); // Creates a new node with data=5
-newNode->next = top;                   // newNode->next = NULL (stack is empty, top is NULL)
-top = newNode;                         // Now top points to the new node (5)
-Stack after this operation:
-css
-Copy code
-[ 5 ] (top)
-Command: Push 10
-The next QueryType is 1 again (which means push), so we read the next number 10 and call sq->push(10).
+### **🔍 How It Works?**
+| Operation | Description | Stack After Operation |
+|-----------|------------|----------------------|
+| `push(10)` | Insert 10 | **10** |
+| `push(20)` | Insert 20 | **20 → 10** |
+| `push(30)` | Insert 30 | **30 → 20 → 10** |
+| `peek()` | View top | Returns `30` |
+| `pop()` | Remove top | **20 → 10** |
+| `pop()` | Remove top | **10** |
+| `pop()` | Remove top | **Empty** |
+| `pop()` | Underflow | Shows warning |
 
-Inside the push function:
+---
 
-cpp
-Copy code
-StackNode *newNode = new StackNode(x); // Creates a new node with data=10
-newNode->next = top;                   // newNode->next = 5 (previous top node)
-top = newNode;                         // Now top points to the new node (10)
-Stack after this operation:
-css
-Copy code
-[ 10 ] (top)
-[ 5  ]
-Command: Push 15
-The next QueryType is 1 (push again), so we read the next number 15 and call sq->push(15).
+### **📌 Key Points**
+✅ Uses **linked list** (dynamic memory, no size limit).  
+✅ `push()` → O(1) (insert at head).  
+✅ `pop()` → O(1) (delete head).  
+✅ `isEmpty()` → O(1) (just check `top`).  
+✅ **Avoids stack overflow** unlike array-based stacks.
 
-Inside the push function:
+---
 
-cpp
-Copy code
-StackNode *newNode = new StackNode(x); // Creates a new node with data=15
-newNode->next = top;                   // newNode->next = 10 (previous top node)
-top = newNode;                         // Now top points to the new node (15)
-Stack after this operation:
-css
-Copy code
-[ 15 ] (top)
-[ 10 ]
-[ 5  ]
-Command: Pop (First Pop)
-The next QueryType is 2 (which means pop), so we call sq->pop().
-
-Inside the pop function:
-
-cpp
-Copy code
-if (top == nullptr) return -1;         // Stack is not empty, so continue.
-int data = top->data;                  // data = 15 (top node's data)
-StackNode* temp = top;                 // temp points to the current top node (15)
-top = top->next;                       // Move top to the next node (10)
-delete(temp);                          // Delete the old top node (15)
-return data;                           // Return 15
-Output: 15
-Stack after this operation:
-css
-Copy code
-[ 10 ] (top)
-[ 5  ]
-Command: Pop (Second Pop)
-The next QueryType is 2 (pop again), so we call sq->pop().
-
-Inside the pop function:
-
-cpp
-Copy code
-if (top == nullptr) return -1;         // Stack is not empty, so continue.
-int data = top->data;                  // data = 10 (top node's data)
-StackNode* temp = top;                 // temp points to the current top node (10)
-top = top->next;                       // Move top to the next node (5)
-delete(temp);                          // Delete the old top node (10)
-return data;                           // Return 10
-Output: 10
-Stack after this operation:
-css
-Copy code
-[ 5 ] (top)
-Final State:
-After processing all the commands, the stack contains just one element:
-
-css
-Copy code
-[ 5 ] (top)
-The output of the two pop operations is 15 10.
-
-Summary of Commands Executed:
-push(5) → Stack: [ 5 ]
-push(10) → Stack: [ 10, 5 ]
-push(15) → Stack: [ 15, 10, 5 ]
-pop() → Output: 15 → Stack: [ 10, 5 ]
-pop() → Output: 10 → Stack: [ 5 ]
-Output:
-Copy code
-15 10
-  
+### **Hope this helps! 😊 Let me know if you have doubts. 🚀**
