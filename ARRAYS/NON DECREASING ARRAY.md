@@ -72,7 +72,123 @@ bool isPossible(int *arr, int n)
     return true;
 }
 ```
+---
 
+  
+
+---
+
+### **What Does This Condition Mean?**
+```cpp
+if (i > 1 && i < N.size() - 1 && N[i-2] > N[i] && N[i+1] < N[i-1])
+```
+It **checks if the array is impossible to fix** by modifying just one number.  
+Let’s break it **one tiny piece at a time**.  
+
+---
+
+### **First, What Does `N[i]` Mean?**  
+🟢 Suppose we have this array:  
+```cpp
+N = {3, 4, 2, 3};
+```
+Each element has an **index** like this:
+```
+Index:  0   1   2   3
+Value:  3   4   2   3
+```
+Now, let's understand each part of the condition:
+
+---
+
+### **1️⃣ `i > 1`**
+- We only check this condition when `i` is **at least 2**.
+- This **prevents accessing `N[i-2]`** when `i = 1` (to avoid an error).
+
+#### ✅ Example where `i > 1` is true:
+If `i = 2`, then:
+- `N[i-2]` means `N[0]` → **3**
+- `N[i]` means `N[2]` → **2**
+
+So `N[i-2] > N[i]` checks:
+```
+Is N[0] > N[2] ? → Is 3 > 2 ? ✅ Yes
+```
+
+---
+
+### **2️⃣ `i < N.size() - 1`**
+- We only check this when `i` is **before the last element**.
+- This **prevents accessing `N[i+1]`** if `i` is at the last index.
+
+For example:
+- `N.size() = 4`, so `N.size() - 1 = 3`
+- If `i = 2`, then:
+  - `N[i+1]` is `N[3]` → **3**
+  - `N[i-1]` is `N[1]` → **4**
+
+---
+
+### **3️⃣ `N[i-2] > N[i]`**
+👉 Checks if the element **two steps before** is **bigger** than the current one.
+
+From our example:
+```
+N = {3, 4, 2, 3};
+```
+For `i = 2`:
+- `N[i-2] = N[0] = 3`
+- `N[i] = N[2] = 2`
+
+So, it checks:
+```
+Is N[0] > N[2] ? → Is 3 > 2 ? ✅ Yes
+```
+
+---
+
+### **4️⃣ `N[i+1] < N[i-1]`**
+👉 Checks if the **next element** is **smaller** than the one before.
+
+For `i = 2`:
+- `N[i+1] = N[3] = 3`
+- `N[i-1] = N[1] = 4`
+
+So, it checks:
+```
+Is N[3] < N[1] ? → Is 3 < 4 ? ✅ Yes
+```
+
+---
+
+### **Final Meaning of the Condition**
+```cpp
+if (i > 1 && i < N.size() - 1 && N[i-2] > N[i] && N[i+1] < N[i-1])
+```
+🔹 If **both** `N[i-2] > N[i]` and `N[i+1] < N[i-1]` are **true**, then **one change cannot fix the array** → Return `false`.  
+
+---
+
+### **Final Example**
+```cpp
+N = {3, 4, 2, 3};
+```
+For `i = 2`:
+- `N[0] > N[2]` (3 > 2) ✅
+- `N[3] < N[1]` (3 < 4) ✅
+- **Since both are true, we return `false`.**
+
+---
+
+### **TL;DR (Too Long; Didn't Read)**
+💡 **This condition checks if one fix is NOT enough.**
+- It checks whether `N[i]` is too small compared to `N[i-2]`.  
+- It also checks whether `N[i+1]` is too small compared to `N[i-1]`.  
+- If both are **true**, **one modification won’t be enough**, so we return `false`.  
+
+
+
+---
 ---
 
 ### **Fixes and Explanation**
