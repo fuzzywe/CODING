@@ -2,6 +2,10 @@ Fractional Knapsack Problem : Greedy Approach
 
 https://www.naukri.com/code360/problems/0-1-knapsack_1072980?interviewBundleRedirection=true&leftPanelTabValue=DISCUSS
 
+https://www.geeksforgeeks.org/problems/0-1-knapsack-problem0945/1?itm_source=geeksforgeeks&itm_medium=article&itm_campaign=practice_card
+
+
+
 ---
 
 Example:
@@ -196,4 +200,48 @@ n = 3, w = 50
 
 ## **📌 Space Optimization (1D Array)**
 Since we only use the **previous row**, we can optimize to **O(w) space**.
-Would you like the optimized code? 😊
+
+
+---
+
+geeks for geeks
+
+---
+
+```cpp
+
+class Solution {
+public:
+    // Function to return max value that can be put in knapsack of given capacity.
+    int knapSack(int capacity, vector<int> &val, vector<int> &weights) {
+        int n = val.size(); // Number of items
+        
+        // Create DP table
+        vector<vector<int>> dp(n, vector<int>(capacity + 1, 0));
+
+        // Base case: If we have only the first item, we can take it if it fits
+        for (int i = weights[0]; i <= capacity; i++) {
+            dp[0][i] = val[0];
+        }
+
+        // Fill DP table
+        for (int i = 1; i < n; i++) {
+            for (int wt = 0; wt <= capacity; wt++) {
+                int not_take = dp[i - 1][wt];  // Not taking current item
+                int take = 0;
+
+                if (weights[i] <= wt) {
+                    take = val[i] + dp[i - 1][wt - weights[i]]; // Taking item i
+                }
+
+                dp[i][wt] = max(not_take, take);
+            }
+        }
+
+        // The last cell contains the answer
+        return dp[n - 1][capacity];
+    }
+};
+
+```
+
