@@ -1,4 +1,10 @@
+https://www.geeksforgeeks.org/problems/last-index-of-15847/1
 
+https://www.geeksforgeeks.org/must-do-coding-questions-for-companies-like-amazon-microsoft-adobe/
+
+
+
+---
 
 
 
