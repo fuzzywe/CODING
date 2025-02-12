@@ -1,17 +1,15 @@
-54. Spiral Matrix
-Medium
-Topics
-Companies
-Hint
-Given an m x n matrix, return all elements of the matrix in spiral order.
 
- 
-
-Example 1:
 
 https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/
 
 https://leetcode.com/problems/spiral-matrix/description/?envType=problem-list-v2&envId=plakya4j&difficulty=MEDIUM&status=TO_DO
+
+
+codingninjas.com/codestudio/problems/spiral-matrix_839063/
+
+
+interviewbit.com/problems/spiral-order-matrix-i/
+
 
 Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
 Output: [1,2,3,6,9,8,7,4,5]
