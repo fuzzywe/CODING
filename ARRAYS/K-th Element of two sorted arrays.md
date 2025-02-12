@@ -3,6 +3,14 @@ K-th Element of two sorted arrays
 
 https://www.geeksforgeeks.org/problems/k-th-element-of-two-sorted-array1317/1?utm_source=youtube&utm_medium=collab_striver_ytdescription&utm_campaign=k-th-element-of-two-sorted-array
 
+https://www.naukri.com/code360/problems/k-th-element-of-2-sorted-array_1164159
+
+https://www.geeksforgeeks.org/must-do-coding-questions-for-companies-like-amazon-microsoft-adobe/
+
+
+https://workat.tech/problem-solving/practice/kth-two-sorted
+
+
 ---
 
 
