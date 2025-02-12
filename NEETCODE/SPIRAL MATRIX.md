@@ -5,10 +5,14 @@ https://www.geeksforgeeks.org/print-a-given-matrix-in-spiral-form/
 https://leetcode.com/problems/spiral-matrix/description/?envType=problem-list-v2&envId=plakya4j&difficulty=MEDIUM&status=TO_DO
 
 
-codingninjas.com/codestudio/problems/spiral-matrix_839063/
+https://www.naukri.com/code360/problems/spiral-matrix_840698
 
 
-interviewbit.com/problems/spiral-order-matrix-i/
+https://www.interviewbit.com/problems/spiral-order-matrix-i/
+
+
+
+----
 
 
 Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
