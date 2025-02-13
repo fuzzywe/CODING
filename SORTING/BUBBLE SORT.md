@@ -1,6 +1,11 @@
 
 ![Sorting - Part 1 _ Selection Sort, Bubble Sort, Insertion Sort _ Strivers A2Z DSA Course 23-33 screenshot](https://github.com/user-attachments/assets/8e8e4de1-5f84-4580-ace4-f617f86cdef8)
 
+![Sorting - Part 1 _ Selection Sort, Bubble Sort, Insertion Sort _ Strivers A2Z DSA Course 23-54 screenshot](https://github.com/user-attachments/assets/e827c6a9-58c9-4cf9-86bd-88dd86018dc2)
+
+![Sorting - Part 1 _ Selection Sort, Bubble Sort, Insertion Sort _ Strivers A2Z DSA Course 24-14 screenshot](https://github.com/user-attachments/assets/93ff4a53-e1ce-48c8-931b-2fc0cf80d83e)
+
+
 
 Input: N = 5, array[] = {5,4,3,2,1}
 Output: 1,2,3,4,5
