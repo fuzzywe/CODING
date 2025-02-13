@@ -53,6 +53,26 @@ Expected Time Complexity: O(NlogN)
 Expected Auxiliary Space: O(N).
 
 
+---
+
+
+
+
+
+---
+
+## **🔥 Comparison**
+| Feature            | **Top View**                          | **Right View**                        |
+|-------------------|-----------------------------------|------------------------------------|
+| **Definition**    | Nodes visible from the **top**    | Nodes visible from the **right**  |
+| **Traversal Type**| **BFS (Level Order)**             | **BFS (Level Order)**              |
+| **Data Structure**| **Queue + Map** (to track HD)     | **Queue** (to track last node)    |
+| **Time Complexity**| `O(N log N)` (due to map)       | `O(N)` (simple level order)      |
+
+---
+
+These are **optimized and impressive** answers that would have made a strong impact in your interview! 🚀 Let me know if you need more explanations. 😊
+
 ```cpp
 class Solution
 {
