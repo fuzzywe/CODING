@@ -651,19 +651,31 @@ void patternK() {
 **Solution:**
 
 ```cpp
-void patternL() {
-    for (int row = 1; row <= n; row++) {
-        int colTimes = n - row + 1;
-        // Print leading spaces
-        for (int space = 1; space <= n - colTimes; space++)
+#include <iostream>
+using namespace std;
+
+void patternV(int n) {
+    for (int row = 0; row < n; row++) {
+        // Printing spaces
+        for (int space = 0; space < row; space++) {
             cout << " ";
-        // Print stars
-        for (int col = 1; col <= colTimes; col++) {
+        }
+        // Printing stars
+        for (int star = 0; star < n - row; star++) {
             cout << "*";
         }
         cout << "\n";
     }
 }
+
+int main() {
+    int n;
+    cout << "Enter the number of rows: ";
+    cin >> n;
+    patternV(n);
+    return 0;
+}
+
 ```
 
 ---
