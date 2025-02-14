@@ -189,3 +189,81 @@ Let’s break down the input and output you provided step by step to understand 
   ```plaintext
   [null, null, "bar", "bar", null, "bar2", "bar2"]
   ```
+
+  ### **Understanding `mp[key][timestamp] = value;`**
+
+This line is part of the `set` function:
+
+```cpp
+void set(string key, string value, int timestamp) {
+    mp[key][timestamp] = value;
+}
+```
+
+Let's break it down step by step:
+
+---
+
+### **1. What is `mp`?**
+- `mp` is an **unordered_map** of type:
+  ```cpp
+  unordered_map<string, map<int, string>> mp;
+  ```
+- This means `mp` is a **hashmap (`unordered_map`)** where:
+  - The **key** (`string`) represents a unique identifier (e.g., `"foo"`).
+  - The **value** is another **sorted map (`map<int, string>`)**, where:
+    - The **key** (`int`) is a **timestamp**.
+    - The **value** (`string`) is the **stored value** at that timestamp.
+
+---
+
+### **2. What does `mp[key][timestamp] = value;` do?**
+- `mp[key]` accesses the **inner `map<int, string>`** corresponding to `key`.
+- `mp[key][timestamp]` accesses the **value** at `timestamp` inside this inner `map<int, string>`.
+- The `=` operator assigns `value` to `timestamp` inside this inner map.
+
+#### **Example 1: First Insertion**
+```cpp
+mp["foo"][1] = "bar";
+```
+- If `"foo"` does not exist in `mp`, a new **empty map** (`map<int, string>`) is created.
+- Then, in this new inner `map`, `1` is added as a key with `"bar"` as its value.
+
+**Effect on `mp`:**
+```cpp
+mp = {
+    "foo": { 1 -> "bar" }
+}
+```
+
+---
+
+#### **Example 2: Another Insertion**
+```cpp
+mp["foo"][4] = "bar2";
+```
+- `"foo"` already exists in `mp`, so we update its inner map.
+- We add timestamp `4` with value `"bar2"`.
+
+**Updated `mp`:**
+```cpp
+mp = {
+    "foo": { 1 -> "bar", 4 -> "bar2" }
+}
+```
+
+---
+
+### **3. Why Use `map<int, string>`?**
+- **Maps are sorted:** The timestamps are stored in **ascending order**, making **binary search (`upper_bound`) possible** for efficient retrieval.
+- **Efficient retrieval:** We can quickly find the closest timestamp ≤ `timestamp` using `upper_bound()` in `O(log N)` time.
+- **Automatic memory allocation:** If `key` does not exist, `mp[key]` creates a new `map<int, string>` automatically.
+
+---
+
+### **4. Summary**
+- `mp[key]` ensures a **sorted map (`map<int, string>`)** exists for `key`.
+- `mp[key][timestamp] = value;` inserts the value at the specified timestamp.
+- This allows us to efficiently **store** and **retrieve** values for a key at different timestamps.
+
+🚀 **This approach makes `set()` efficient (O(1)) and `get()` fast using binary search (O(logN))!**
