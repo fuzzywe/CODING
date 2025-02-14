@@ -267,3 +267,103 @@ mp = {
 - This allows us to efficiently **store** and **retrieve** values for a key at different timestamps.
 
 🚀 **This approach makes `set()` efficient (O(1)) and `get()` fast using binary search (O(logN))!**
+
+### **Understanding `auto it = mp[key].upper_bound(timestamp);`**
+
+This line is part of the `get` function:
+
+```cpp
+string get(string key, int timestamp) {
+    auto it = mp[key].upper_bound(timestamp);
+```
+
+Let's break it down step by step:
+
+---
+
+### **1. What is `mp[key]`?**
+- `mp` is defined as:
+  ```cpp
+  unordered_map<string, map<int, string>> mp;
+  ```
+- So, `mp[key]` returns a **sorted `map<int, string>`**, where:
+  - The **key** (`int`) represents timestamps.
+  - The **value** (`string`) represents the stored data at that timestamp.
+
+#### **Example Map (`mp`)**
+```cpp
+mp = {
+    "foo": { 1 -> "bar", 4 -> "bar2" }
+}
+```
+
+For `mp["foo"]`, the sorted `map<int, string>` is:
+```cpp
+{ 1 -> "bar", 4 -> "bar2" }
+```
+
+---
+
+### **2. What is `.upper_bound(timestamp)`?**
+- `upper_bound(x)` is a function in `map` that:
+  - Finds the **first element whose key is greater than `x`**.
+  - If **no such element exists**, it returns `end()`.
+
+#### **Example Cases**
+```cpp
+auto it = mp["foo"].upper_bound(3);
+```
+- `mp["foo"] = { 1 -> "bar", 4 -> "bar2" }`
+- `upper_bound(3)` will return **the first timestamp greater than `3`**, which is `4`.
+
+```cpp
+auto it = mp["foo"].upper_bound(4);
+```
+- The first timestamp **greater than `4`** is **not present**, so it returns `end()`.
+
+---
+
+### **3. Why Do We Do `it--`?**
+```cpp
+if (it == mp[key].begin()) return ""; // No valid timestamp
+it--; // Move to the largest timestamp ≤ given timestamp
+```
+- `upper_bound(timestamp)` finds the first timestamp **greater than** `timestamp`.
+- But we need the **largest timestamp ≤ timestamp**.
+- So, we **move one step back (`it--`)** to find the required value.
+
+---
+
+### **4. Dry Run of `get("foo", timestamp)`**
+
+#### **Case 1: `get("foo", 3)`**
+- `mp["foo"] = { 1 -> "bar", 4 -> "bar2" }`
+- `upper_bound(3)` returns **timestamp `4`**.
+- Move back (`it--`), so `it` now points to **timestamp `1`**.
+- **Output:** `"bar"`
+
+#### **Case 2: `get("foo", 4)`**
+- `upper_bound(4)` returns **timestamp `4`**.
+- Move back (`it--`), so `it` still points to **timestamp `4`**.
+- **Output:** `"bar2"`
+
+#### **Case 3: `get("foo", 5)`**
+- `upper_bound(5)` returns `end()` (no timestamp > 5).
+- Move back (`it--`), so `it` now points to **timestamp `4`**.
+- **Output:** `"bar2"`
+
+#### **Case 4: `get("foo", 0)`**
+- `upper_bound(0)` returns **timestamp `1`**.
+- `it == mp[key].begin()`, so return `""`.
+- **Output:** `""` (no valid timestamp).
+
+---
+
+### **5. Summary**
+- `upper_bound(timestamp)` finds the **smallest timestamp greater than `timestamp`**.
+- We use `it--` to move back and get the **largest timestamp ≤ `timestamp`**.
+- If no valid timestamp exists, return `""`.
+
+🚀 **This makes `get()` efficient with `O(logN)` complexity using binary search!**
+
+
