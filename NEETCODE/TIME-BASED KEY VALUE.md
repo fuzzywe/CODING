@@ -366,4 +366,129 @@ it--; // Move to the largest timestamp ≤ given timestamp
 
 🚀 **This makes `get()` efficient with `O(logN)` complexity using binary search!**
 
+No worries! Let’s go step by step with a **real example** so that everything makes sense.  
 
+---
+
+### **🔹 What does the `get()` function do?**  
+The goal of `get(key, timestamp)` is to find **the latest value before or at** the given `timestamp`.
+
+---
+
+## **🔹 Example Execution with Step-by-Step Dry Run**
+### **Step 1: Set Values**
+We start by inserting values into our `mp` map using the `set()` function.  
+
+```cpp
+TimeMap tm;
+tm.set("foo", "bar", 1);
+tm.set("foo", "bar2", 4);
+```
+
+Now, the internal map (`mp`) looks like this:  
+
+```cpp
+mp["foo"] = { 1 -> "bar", 4 -> "bar2" };
+```
+This means:
+- At **timestamp 1**, the value is `"bar"`.
+- At **timestamp 4**, the value is `"bar2"`.
+
+---
+
+### **Step 2: Call `get("foo", 3)`**
+We want to find the latest value **before or at `timestamp = 3`**.
+
+#### **Inside `get()` Function**
+```cpp
+auto it = mp["foo"].upper_bound(3);
+```
+💡 **What does `upper_bound(3)` do?**
+- It finds the **first timestamp that is greater than `3`**.
+- In `mp["foo"] = { 1 -> "bar", 4 -> "bar2" }`, the first timestamp greater than `3` is `4`.
+
+So now, `it` points to `{ 4 -> "bar2" }`.
+
+---
+
+#### **Step 3: Check if `it == mp[key].begin()`**
+```cpp
+if (it == mp["foo"].begin()) {
+    return "";
+}
+```
+- `it` is **not** at the beginning (`1` is the smallest timestamp).
+- So we skip this condition.
+
+---
+
+#### **Step 4: Move `it` One Step Back (`it--`)**
+```cpp
+it--;
+```
+- Now, `it` moves back to `{ 1 -> "bar" }`.
+
+---
+
+#### **Step 5: Return the Found Value**
+```cpp
+return mp["foo"][it->first];
+```
+- `it->first = 1`, so we return `"bar"`.
+
+✅ **Final Output for `get("foo", 3)` = `"bar"`**.
+
+---
+
+## **🔹 Another Example: Call `get("foo", 0)`**
+We now try to get a value for `timestamp = 0`.
+
+#### **Inside `get()` Function**
+```cpp
+auto it = mp["foo"].upper_bound(0);
+```
+💡 **What does `upper_bound(0)` do?**
+- It finds the **first timestamp that is greater than `0`**.
+- The first timestamp in `mp["foo"]` is `1`, so `it` points to `{ 1 -> "bar" }`.
+
+---
+
+#### **Step 3: Check if `it == mp[key].begin()`**
+```cpp
+if (it == mp["foo"].begin()) {
+    return "";
+}
+```
+- Here, `it` **is at** `begin()`, meaning there is **no smaller timestamp**.
+- We return an **empty string** (`""`).
+
+✅ **Final Output for `get("foo", 0)` = `""` (empty string).**
+
+---
+
+## **🔹 Final Summary**
+✔ **What does `upper_bound(timestamp)` do?**  
+   → Finds the first timestamp **greater than** `timestamp`.
+
+✔ **Why check `if (it == mp[key].begin())`?**  
+   → If there’s no earlier timestamp, we return `""`.
+
+✔ **Why do `it--`?**  
+   → To get the **largest timestamp ≤ timestamp**.
+
+---
+
+## **Final Expected Outputs**
+| Function Call          | Explanation                                | Output   |
+|------------------------|--------------------------------------------|----------|
+| `set("foo", "bar", 1)`  | Store "bar" at timestamp `1` | `null`   |
+| `set("foo", "bar2", 4)` | Store "bar2" at timestamp `4` | `null`   |
+| `get("foo", 1)`        | Exact match at `1` → return `"bar"` | `"bar"`  |
+| `get("foo", 3)`        | Nearest timestamp ≤ `3` is `1` → `"bar"` | `"bar"`  |
+| `get("foo", 4)`        | Exact match at `4` → return `"bar2"` | `"bar2"` |
+| `get("foo", 5)`        | Nearest timestamp ≤ `5` is `4` → `"bar2"` | `"bar2"` |
+| `get("foo", 0)`        | No earlier timestamp → return `""` | `""` |
+
+---
+
+I hope this makes it **clear** now! 😊 Let me know if anything is still confusing. 🚀
