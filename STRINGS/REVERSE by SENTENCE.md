@@ -238,77 +238,16 @@ The code efficiently reverses the words using a stack. By iterating through the 
 
 The final output for the input string "TUF is great for interview preparation" will be:
 
-arduino
-Copy code
-"preparation interview for great is TUF"
 
 
 
 
 
-You said:
-i didn't understand
-ChatGPT said:
-ChatGPT
-Let’s go through the code and explain it step by step with a simple analogy and example to make it clearer.
 
-The Code Overview:
-This program takes a sentence and reverses the order of the words in the sentence. It uses a stack to achieve this.
 
-Let’s simplify this with an example:
 
-Example Input:
-arduino
-Copy code
-"TUF is great"
-The goal is to reverse the order of the words, so the output should be:
 
-arduino
-Copy code
-"great is TUF"
-How It Works:
-Stack Analogy: Think of a stack as a vertical pile of plates. You can only put plates on top and take them from the top. This "Last In, First Out" (LIFO) structure is perfect for reversing things.
-
-Key Idea:
-
-We will split the sentence into words and put each word on the stack.
-Then we take each word from the stack one by one. Since the stack works in reverse order (LIFO), the words will come out in reverse order.
-Step-by-Step Breakdown:
-Input Sentence:
-
-Let's say the input is "TUF is great".
-Adding a Space to the End:
-
-In the code, a space is added to the string so the last word will be pushed to the stack properly.
-After this, the string becomes:
-arduino
-Copy code
-"TUF is great "
-Using a Stack to Store Words:
-
-As the program iterates through the string, it builds words one character at a time.
-When it encounters a space, it pushes the word onto the stack.
-Here’s what happens in each iteration:
-
-First, "TUF" is created and pushed onto the stack.
-Then "is" is created and pushed onto the stack.
-Finally, "great" is created and pushed onto the stack.
-After this process, the stack will look like this:
-
-mathematica
-Copy code
-Stack: ["TUF", "is", "great"]
-Popping Words from the Stack:
-
-Now, we start taking the words out of the stack.
-The first word we pop is "great", because it was the last word pushed.
-Then, we pop "is", and finally "TUF".
-Since the stack is a LIFO (Last In, First Out) structure, the words come out in reverse order.
-The output string becomes:
-
-arduino
-Copy code
-"great is TUF"
+```cpp
 
 
 
@@ -359,6 +298,7 @@ public:
     }
 };
 
+```
 Output:
 Let's dry run the code with the input string:  
 `"  hello   world  "`  
