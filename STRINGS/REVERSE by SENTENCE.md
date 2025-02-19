@@ -1,3 +1,5 @@
+```cpp
+
 #include<bits/stdc++.h>
 using namespace std;
 int main()
@@ -28,6 +30,10 @@ int main()
     cout<<ans;
     return 0;
 }
+
+```
+
+---
 Output:
 
 Before reversing words:
