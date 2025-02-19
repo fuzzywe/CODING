@@ -1,15 +1,33 @@
+Method 1: Mathematical approach
 
+Method 2: Recursive Mathematical approach
+
+Other methods for C++
+
+Method 3: String approach using for loop
+
+Method 4: String approach using updated for loop
+
+Method 5: String approach using Binary search style while loop
 				
 
 									
 Method 1 Algorithm:-
+
 For a user input num, create variables reverse = 0, rem, temp
+
 Assign reverse = num
+
 Extract last digit of temp as ‘rem’
+
 Construct reverse as reverse = reverse * 10 + rem
+
 Reduce length of temp as temp = temp / 10
+
 Keep doing until temp becomes 0
+
 If num == reverse
+
 Print palindrome else print its not
 								
 
