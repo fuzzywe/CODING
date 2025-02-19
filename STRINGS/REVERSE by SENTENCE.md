@@ -35,8 +35,7 @@ public:
 Okay, let's break down this C++ code for reversing words in a string step by step. I'll add comments to the code to explain each section, and then provide a more detailed explanation afterwards.
 
 
-
-text
+```cpp
 class Solution {
 public:
     string reverseWords(string s) {
@@ -81,7 +80,9 @@ public:
         return s;
     }
 };
+```
 
+---
 
 
 Explanation
