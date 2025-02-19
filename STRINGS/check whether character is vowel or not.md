@@ -50,6 +50,7 @@ e is a vowel
 
 ---
 
+```cpp
 // C++ Program to check whether alphabet is vowel or consonant
 #include<iostream>
 using namespace std;
