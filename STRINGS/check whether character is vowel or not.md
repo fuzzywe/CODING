@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/problems/vowel-or-not0831/1?itm_source=geeksforgeeks
+
 ```cpp
 
 #include<iostream>
