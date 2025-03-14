@@ -1,4 +1,5 @@
 not efficient:
+```cpp
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
@@ -22,6 +23,9 @@ public:
 //Time complexity: O(m∗nlogn)
 //Space complexity: O(mn)
 
+```
+
+---
 
 **Example**
 vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
@@ -230,7 +234,7 @@ The & is used to pass a reference to each string in the loop, ensuring that no u
 
 
 **Efficient**
-
+```cpp
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
@@ -260,6 +264,10 @@ public:
         return result;        
     }
 };//o(m*n),O(mn)
+
+```
+
+---
 
 **Example**
 
