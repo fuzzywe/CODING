@@ -30,7 +30,7 @@ t - 2
 Time Complexity: O(n log(n)), since accessing HashMap takes log(n) time and we access the map for each character in the string (total of n characters).
 
 Space Complexity: O(1), since the string has only characters from ‘a’ to ‘z’, the size of the HashMap doesn’t exceed 26, irrespective of how big the input string is.
-
+```
 ---
 
 
