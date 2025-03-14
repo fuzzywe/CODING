@@ -10,31 +10,31 @@ Explanation: Duplicate Characters are removed
 
 ```cpp
 #include<bits/stdc++.h>
- 
 using namespace std;
- 
+
 string removeDuplicateLetters(string s) {
   string ans = "";
-  for (int i = 0; i < s.length(); i++) 
+  for (int i = 0; i < s.length(); i++) {
+    bool isDuplicate = false; // Flag to check if duplicate is found
     for (int j = 0; j < i; j++) {
-      if (s[i] == s[j]) //same character found
-      {
+      if (s[i] == s[j]) { // Same character found
+        isDuplicate = true;
         break;
       }
     }
-    if (i == j) {
+    if (!isDuplicate) { // If no duplicate is found
       ans += s[i];
     }
   }
   return ans;
 }
+
 int main() {
   string str = "cbacdcbc";
-  cout<<"Original String: "<<str<<endl;
-  cout <<"After removing duplicates: " <<removeDuplicateLetters(str) << endl;
+  cout << "Original String: " << str << endl;
+  cout << "After removing duplicates: " << removeDuplicateLetters(str) << endl;
   return 0;
 }
-
 Time Complexity: O(N^2)
 
 Space Complexity: O(1)
