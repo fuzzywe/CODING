@@ -27,196 +27,170 @@ public:
 
 ---
 
-**Example**
-vector<string> strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-Step-by-step Explanation:
-Initial Setup:
+The problem is to group anagrams together from a given list of strings. An **anagram** is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once. For example, "listen" and "silent" are anagrams.
 
-We create an unordered_map<string, vector<string>> ans to store the grouped anagrams.
-For each string in strs, the solution will sort the string’s characters to create a "key" for the anagrams.
-Processing the first string, "eat":
+### Logic of the Code:
+1. **Use a Hash Map (Dictionary) to Group Anagrams**:
+   - The key idea is to use a hash map (`unordered_map`) where the **key** is a sorted version of the string, and the **value** is a list of strings that are anagrams of each other.
+   - By sorting the characters of a string, all anagrams will produce the same sorted string. For example:
+     - "listen" → "eilnst"
+     - "silent" → "eilnst"
+   - This sorted string acts as a unique identifier for all anagrams.
 
-Initialize the key as the original string "eat":
+2. **Iterate Through the Input List**:
+   - For each string in the input list `strs`:
+     - Sort the string to create the key.
+     - Add the original string to the corresponding list in the hash map using this key.
 
-string key = "eat";
-Sort the characters of "eat":
+3. **Collect the Results**:
+   - After processing all strings, the hash map will contain groups of anagrams.
+   - Iterate through the hash map and collect the values (lists of anagrams) into the final result.
 
-sort(key.begin(), key.end()); // key becomes "aet"
-This sorted string "aet" is the key that represents all anagrams of "eat".
-Add "eat" to the ans map using the sorted key:
+### Code Breakdown:
+```cpp
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    // Hash map to store groups of anagrams
+    unordered_map<string, vector<string>> ans;
 
-ans["aet"].push_back("eat");
-Processing the second string, "tea":
+    // Iterate through each string in the input list
+    for (string& s : strs) {
+        // Create a sorted version of the string to use as the key
+        string key = s;
+        sort(key.begin(), key.end());
 
-Initialize the key as the original string "tea":
+        // Add the original string to the corresponding group in the hash map
+        ans[key].push_back(s);
+    }
 
-string key = "tea";
-Sort the characters of "tea":
+    // Prepare the result by collecting all groups from the hash map
+    vector<vector<string>> result;
+    for (auto& entry : ans) {
+        result.push_back(entry.second);
+    }
 
-sort(key.begin(), key.end()); // key becomes "aet"
-Since the sorted key is again "aet", this means "tea" is an anagram of "eat".
-Add "tea" to the ans map under the same key:
-
-ans["aet"].push_back("tea");
-Processing the third string, "tan":
-
-Initialize the key as the original string "tan":
-
-string key = "tan";
-Sort the characters of "tan":
-
-sort(key.begin(), key.end()); // key becomes "ant"
-This sorted string "ant" is a different key, meaning "tan" is not an anagram of "eat" or "tea".
-Add "tan" to the ans map under this new key:
-
-ans["ant"].push_back("tan");
-Processing the fourth string, "ate":
-
-Initialize the key as the original string "ate":
-
-string key = "ate";
-Sort the characters of "ate":
-
-sort(key.begin(), key.end()); // key becomes "aet"
-The sorted key is "aet", the same key as "eat" and "tea", so "ate" is an anagram of those words.
-Add "ate" to the ans map under the key "aet":
-
-ans["aet"].push_back("ate");
-Processing the fifth string, "nat":
-
-Initialize the key as the original string "nat":
-
-string key = "nat";
-Sort the characters of "nat":
-
-sort(key.begin(), key.end()); // key becomes "ant"
-The sorted key "ant" is the same as "tan", so "nat" is an anagram of "tan".
-Add "nat" to the ans map under the key "ant":
-
-ans["ant"].push_back("nat");
-Processing the last string, "bat":
-
-Initialize the key as the original string "bat":
-
-string key = "bat";
-Sort the characters of "bat":
-
-sort(key.begin(), key.end()); // key becomes "abt"
-This sorted string "abt" is a new key, meaning "bat" is not an anagram of any previous word.
-Add "bat" to the ans map under this new key:
-
-ans["abt"].push_back("bat");
-Constructing the result:
-
-Now, the ans map looks like this:
-
-{
-  "aet": ["eat", "tea", "ate"],
-  "ant": ["tan", "nat"],
-  "abt": ["bat"]
+    return result;
 }
-The function iterates over the map and adds each group of anagrams to the result vector:
+```
 
-result = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]];
-Returning the result:
+### Example:
+Input:
+```
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+```
 
-The final result contains the grouped anagrams, which will be returned:
+Step-by-Step Execution:
+1. For "eat":
+   - Sorted key: "aet"
+   - Hash map: `{"aet": ["eat"]}`
+2. For "tea":
+   - Sorted key: "aet"
+   - Hash map: `{"aet": ["eat", "tea"]}`
+3. For "tan":
+   - Sorted key: "ant"
+   - Hash map: `{"aet": ["eat", "tea"], "ant": ["tan"]}`
+4. For "ate":
+   - Sorted key: "aet"
+   - Hash map: `{"aet": ["eat", "tea", "ate"], "ant": ["tan"]}`
+5. For "nat":
+   - Sorted key: "ant"
+   - Hash map: `{"aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"]}`
+6. For "bat":
+   - Sorted key: "abt"
+   - Hash map: `{"aet": ["eat", "tea", "ate"], "ant": ["tan", "nat"], "abt": ["bat"]}`
 
-return result;
-Final Output:
-cpp
-Copy code
-[["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+Final Result:
+```
+[
+  ["eat", "tea", "ate"],
+  ["tan", "nat"],
+  ["bat"]
+]
+```
 
+### Complexity Analysis:
+1. **Time Complexity**:
+   - Sorting each string takes \(O(n \log n)\), where \(n\) is the length of the string.
+   - Since there are \(m\) strings, the total time complexity is \(O(m \cdot n \log n)\).
 
+2. **Space Complexity**:
+   - The hash map stores all the strings, so the space complexity is \(O(m \cdot n)\), where \(m\) is the number of strings and \(n\) is the average length of the strings.
 
+This approach is efficient and works well for the problem constraints.
 **Concept of entry and auto:**
 entry: This refers to each individual element in the unordered_map during the loop. Since the unordered_map stores key-value pairs, each entry is a pair consisting of:
+
 entry.first: The key of the map (in this case, a sorted string representing the group of anagrams).
+
 entry.second: The value of the map (in this case, a vector<string> containing the actual anagrams).
-auto: This is a keyword in C++ that automatically deduces the type of a variable. Instead of explicitly specifying the type of entry (which would be pair<const string, vector<string>>), we use auto to let the compiler figure out the type for us.
+
+auto: This is a keyword in C++ that automatically deduces the type of a variable. Instead of explicitly specifying the type of entry (which would be pair<const string, 
+
+vector<string>>), we use auto to let the compiler figure out the type for us.
+
 auto& entry Explanation:
-auto&: This tells the compiler to:
+a
+uto&: This tells the compiler to:
+
 Use auto to deduce the type of entry, which in this case is a reference to a key-value pair (pair<const string, vector<string>>).
-The & means we are using a reference to each element in the unordered_map. Using a reference avoids copying the pair (which can be more efficient), and we are able to modify the original elements if needed.
+
+The & means we are using a reference to each element in the unordered_map. Using a reference avoids copying the pair (which can be more efficient), and we are able to 
+
+modify the original elements if needed.
+
 So, in this line:
 
 cpp
 Copy code
-for (auto& entry : ans)
+**for (auto& entry : ans)**
 The loop is iterating over the map ans. In each iteration:
 
-entry refers to a key-value pair from the map.
-entry.first is the key (the sorted string that acts as the anagram group identifier).
-entry.second is the value (a vector<string> containing the actual anagrams).
-Breakdown with Example:
-Let’s take an example unordered_map:
-
-cpp
-Copy code
-unordered_map<string, vector<string>> ans = {
-    {"aet", {"eat", "tea", "ate"}},
-    {"ant", {"tan", "nat"}},
-    {"abt", {"bat"}}
-};
-In the first iteration of the loop:
-
-entry refers to the pair {"aet", {"eat", "tea", "ate"}}.
-entry.first is "aet".
-entry.second is {"eat", "tea", "ate"} (which is a vector of strings).
-In the second iteration:
-
 entry refers to the pair {"ant", {"tan", "nat"}}.
+
 entry.first is "ant".
+
 entry.second is {"tan", "nat"}.
-In the third iteration:
-
-entry refers to the pair {"abt", {"bat"}}.
-entry.first is "abt".
-entry.second is {"bat"}.
-push_back(entry.second) Explanation:
-The entry.second refers to the value in the unordered_map (which is a vector<string>). In each iteration of the loop, this vector<string> is added to the result vector using push_back.
-
-For example:
-
-In the first iteration, {"eat", "tea", "ate"} is added to result.
-In the second iteration, {"tan", "nat"} is added to result.
-In the third iteration, {"bat"} is added to result.
-In Summary:
-auto& entry: Iterates through the key-value pairs in the map.
-entry.first is the key (a sorted string representing the anagram group).
-entry.second is the value (a vector of anagram strings).
-push_back(entry.second): Adds the vector of anagrams (the value) to the result.
 
 
 
 
 
-for (string& s : strs)
-the & is used to define a reference to the string s from the strs vector, rather than creating a copy of each string.
+**for (string& s : strs)**
+
+**the & is used to define a reference to the string s from the strs vector, rather than creating a copy of each string.**
 
 Here's why using the & (reference) is important:
 
 Efficiency:
-When you pass a reference (&s), you are avoiding making a copy of the string in the loop. Without the &, the loop would create a copy of each string every time it iterates. This copying process can be costly, especially if the strings are large, because it involves allocating new memory and duplicating the contents of the original string.
+When you pass a reference (&s),**you are avoiding making a copy of the string in the loop**.
 
-By using a reference, the loop directly operates on the original strings in the strs vector. This saves memory and improves performance.
+**Without the &, the loop would create a copy of each string every time it iterates**
+
+This copying process can be costly, especially if the strings are large, because it involves allocating new memory and duplicating the contents of the original string.
+
+**By using a reference, the loop directly operates on the original strings in the strs vector. This saves memory and improves performance.**
 
 Avoid Unnecessary Memory Overhead:
 Strings in C++ can vary in size and are typically stored in dynamically allocated memory. Copying them without using references involves not only copying the content but also allocating new memory, which is unnecessary when you just need to read or modify the original strings.
 
 Without & (Copying):
-cpp
-Copy code
+```cpp
+
 for (string s : strs)
+
+
 This creates a copy of each string, increasing memory usage.
+```
+
 For example, if strs contains large strings, the system will need to allocate additional memory for each copy and duplicate their content.
+
+```cpp
 With & (Referencing):
-cpp
-Copy code
+
 for (string& s : strs)
 This only references the original strings, avoiding memory duplication.
 No extra memory is used for string copying, which results in faster execution and lower memory consumption.
+
+```
 Example Impact:
 If strs contains large strings like:
 
