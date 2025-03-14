@@ -7,6 +7,8 @@ Example 2:
 Input: s = "cbacdcbc"
 Output: "cbad" 
 Explanation: Duplicate Characters are removed
+
+```cpp
 #include<bits/stdc++.h>
  
 using namespace std;
@@ -37,7 +39,11 @@ Time Complexity: O(N^2)
 
 Space Complexity: O(1)
   
+```
 
+---
+
+```cpp
 #include<bits/stdc++.h>
  
 using namespace std;
@@ -59,6 +65,12 @@ int main() {
   <<removeDuplicateLetters(str) << endl;
   return 0;
 }
+
+```
+
+---
+
+
 Output:
 
 Original String: cbacdcbc
