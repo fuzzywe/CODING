@@ -274,4 +274,32 @@ int main()
 }
 Output: This is the answer for variant 1: YES
 
-Note: For variant 2, we can store the elements of the array along with its index in a new array. Then the rest of the code will be similar. And while returning, we need to return the stored indices instead of returning “YES”. But for this variant, the recommended approach is approach 2 i.e. hashing approach.
+Note: For variant 2, we can store the elements of the array along with its index in a new array. Then the rest of the code will be similar. And while returning, 
+	
+	we need to return the stored indices instead of returning “YES”. But for this variant, the recommended approach is approach 2 i.e. hashing approach.
+
+
+
+
+brute force appraoch
+
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        
+        for(int i =0;i<nums.size();i++)
+        {for (int j=i+1;j<nums.size();j++)
+        {
+            if(nums[i] + nums[j]== target)
+            {
+                return {i,j};
+            }
+        }}return {};
+    }
+};
+
+
+
+
+	
